@@ -1,0 +1,424 @@
+openapi: 3.1.0
+info:
+  title: Typesense Conversational Search API
+  description: >-
+    The Typesense Conversational Search API provides built-in Retrieval
+    Augmented Generation (RAG) capabilities that allow developers to send
+    natural language questions and receive fully formed sentence responses. It
+    combines Typesense search with large language models to generate contextual
+    answers grounded in the indexed data. This API enables building
+    conversational interfaces on top of existing search collections without
+    requiring a separate RAG pipeline.
+  version: '30.1'
+  contact:
+    name: Typesense Support
+    url: https://typesense.org/support
+  license:
+    name: GPL-3.0
+    url: https://www.gnu.org/licenses/gpl-3.0.html
+  termsOfService: https://typesense.org/terms
+externalDocs:
+  description: Typesense Conversational Search Guide
+  url: https://typesense.org/docs/guide/building-a-search-application.html
+servers:
+  - url: '{protocol}://{hostname}:{port}'
+    description: Typesense Server
+    variables:
+      protocol:
+        default: http
+        enum:
+          - http
+          - https
+      hostname:
+        default: localhost
+      port:
+        default: '8108'
+tags:
+  - name: Conversation Models
+    description: >-
+      Create and manage conversation models that define which LLM provider and
+      configuration to use for generating conversational answers from search
+      results.
+  - name: Conversational Search
+    description: >-
+      Perform conversational search queries that return both traditional search
+      results and AI-generated natural language answers.
+security:
+  - api_key_header: []
+paths:
+  /conversations/models:
+    get:
+      operationId: listConversationModels
+      summary: List all conversation models
+      description: >-
+        Retrieves all conversation models configured in the Typesense instance.
+        Conversation models define the LLM provider and parameters used for
+        generating answers in conversational search.
+      tags:
+        - Conversation Models
+      responses:
+        '200':
+          description: List of conversation models
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ConversationModel'
+        '401':
+          description: Unauthorized
+    post:
+      operationId: createConversationModel
+      summary: Create a conversation model
+      description: >-
+        Creates a new conversation model that specifies the LLM provider, model
+        name, API key, and system prompt for generating conversational answers
+        from search results.
+      tags:
+        - Conversation Models
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConversationModelCreateSchema'
+      responses:
+        '201':
+          description: Conversation model created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConversationModel'
+        '400':
+          description: Bad request - invalid model configuration
+        '401':
+          description: Unauthorized
+  /conversations/models/{modelId}:
+    parameters:
+      - $ref: '#/components/parameters/modelId'
+    get:
+      operationId: getConversationModel
+      summary: Retrieve a conversation model
+      description: >-
+        Retrieves a specific conversation model by ID.
+      tags:
+        - Conversation Models
+      responses:
+        '200':
+          description: Conversation model retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConversationModel'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Conversation model not found
+    put:
+      operationId: updateConversationModel
+      summary: Update a conversation model
+      description: >-
+        Updates an existing conversation model configuration including the LLM
+        provider, model name, and system prompt.
+      tags:
+        - Conversation Models
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConversationModelUpdateSchema'
+      responses:
+        '200':
+          description: Conversation model updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConversationModel'
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Conversation model not found
+    delete:
+      operationId: deleteConversationModel
+      summary: Delete a conversation model
+      description: >-
+        Deletes a conversation model by ID.
+      tags:
+        - Conversation Models
+      responses:
+        '200':
+          description: Conversation model deleted
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    description: >-
+                      ID of the deleted conversation model.
+        '401':
+          description: Unauthorized
+        '404':
+          description: Conversation model not found
+  /collections/{collectionName}/documents/search:
+    parameters:
+      - $ref: '#/components/parameters/collectionName'
+    get:
+      operationId: conversationalSearch
+      summary: Perform a conversational search
+      description: >-
+        Performs a search query with conversational RAG enabled. Typesense
+        retrieves relevant documents and passes them as context to the
+        configured LLM, which generates a natural language answer. Supports
+        multi-turn conversations by passing a conversation_id to maintain
+        context across queries.
+      tags:
+        - Conversational Search
+      parameters:
+        - name: q
+          in: query
+          required: true
+          description: >-
+            Natural language question or search query.
+          schema:
+            type: string
+        - name: query_by
+          in: query
+          required: true
+          description: >-
+            Comma-separated list of fields to search against.
+          schema:
+            type: string
+        - name: conversation
+          in: query
+          required: true
+          description: >-
+            Set to true to enable conversational search with RAG.
+          schema:
+            type: boolean
+        - name: conversation_model_id
+          in: query
+          required: true
+          description: >-
+            ID of the conversation model to use for generating answers.
+          schema:
+            type: string
+        - name: conversation_id
+          in: query
+          description: >-
+            ID of an existing conversation to continue a multi-turn dialog.
+            If not provided, a new conversation is started.
+          schema:
+            type: string
+        - name: filter_by
+          in: query
+          description: >-
+            Filter conditions to narrow the search scope.
+          schema:
+            type: string
+        - name: sort_by
+          in: query
+          description: >-
+            Sort conditions for the underlying search.
+          schema:
+            type: string
+        - name: per_page
+          in: query
+          description: >-
+            Number of documents to pass as context to the LLM.
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Conversational search results with generated answer
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConversationalSearchResult'
+        '400':
+          description: Bad request - invalid conversation parameters
+        '401':
+          description: Unauthorized
+        '404':
+          description: Collection or conversation model not found
+components:
+  securitySchemes:
+    api_key_header:
+      type: apiKey
+      in: header
+      name: X-TYPESENSE-API-KEY
+      description: >-
+        API key for authenticating requests to the Typesense server.
+  parameters:
+    modelId:
+      name: modelId
+      in: path
+      required: true
+      description: >-
+        ID of the conversation model.
+      schema:
+        type: string
+    collectionName:
+      name: collectionName
+      in: path
+      required: true
+      description: >-
+        Name of the collection to search.
+      schema:
+        type: string
+  schemas:
+    ConversationModelCreateSchema:
+      type: object
+      required:
+        - model_name
+        - api_key
+        - system_prompt
+      properties:
+        model_name:
+          type: string
+          description: >-
+            Name of the LLM model to use, such as gpt-4o, claude-3-opus,
+            or a model hosted on a compatible endpoint.
+        api_key:
+          type: string
+          description: >-
+            API key for authenticating with the LLM provider.
+        account_id:
+          type: string
+          description: >-
+            Account ID for the LLM provider if required.
+        system_prompt:
+          type: string
+          description: >-
+            System prompt that instructs the LLM how to generate answers from
+            the search results context. This prompt is prepended to every
+            conversation.
+        max_bytes:
+          type: integer
+          description: >-
+            Maximum number of bytes of search context to send to the LLM.
+        history_collection:
+          type: string
+          description: >-
+            Name of the collection to store conversation history.
+        ttl:
+          type: integer
+          description: >-
+            Time-to-live in seconds for conversation history entries.
+    ConversationModelUpdateSchema:
+      type: object
+      properties:
+        model_name:
+          type: string
+          description: >-
+            Updated LLM model name.
+        api_key:
+          type: string
+          description: >-
+            Updated API key for the LLM provider.
+        system_prompt:
+          type: string
+          description: >-
+            Updated system prompt.
+        max_bytes:
+          type: integer
+          description: >-
+            Updated maximum context bytes.
+    ConversationModel:
+      type: object
+      properties:
+        id:
+          type: string
+          description: >-
+            Unique identifier of the conversation model.
+        model_name:
+          type: string
+          description: >-
+            Name of the LLM model.
+        system_prompt:
+          type: string
+          description: >-
+            System prompt for the model.
+        max_bytes:
+          type: integer
+          description: >-
+            Maximum context bytes.
+        history_collection:
+          type: string
+          description: >-
+            Collection storing conversation history.
+        ttl:
+          type: integer
+          description: >-
+            TTL for conversation history.
+    ConversationalSearchResult:
+      type: object
+      properties:
+        facet_counts:
+          type: array
+          description: >-
+            Facet counts from the underlying search.
+          items:
+            type: object
+        found:
+          type: integer
+          description: >-
+            Total number of matching documents.
+        search_time_ms:
+          type: integer
+          description: >-
+            Time taken for the search in milliseconds.
+        hits:
+          type: array
+          description: >-
+            Search result hits used as context for the answer.
+          items:
+            type: object
+            properties:
+              document:
+                type: object
+                description: >-
+                  The matched document.
+              highlights:
+                type: array
+                items:
+                  type: object
+              text_match:
+                type: integer
+                format: int64
+        conversation:
+          type: object
+          description: >-
+            Conversational response from the LLM.
+          required:
+            - answer
+            - conversation_id
+          properties:
+            answer:
+              type: string
+              description: >-
+                Natural language answer generated by the LLM based on the
+                search results context.
+            conversation_history:
+              type: array
+              description: >-
+                History of messages in the conversation.
+              items:
+                type: object
+                properties:
+                  role:
+                    type: string
+                    description: >-
+                      Role of the message sender (user, assistant, system).
+                  content:
+                    type: string
+                    description: >-
+                      Content of the message.
+            conversation_id:
+              type: string
+              description: >-
+                Unique ID for the conversation, used for follow-up queries.

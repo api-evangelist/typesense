@@ -1,0 +1,132 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://typesense.org/schemas/typesense/analytics-event.json",
+  "title": "Typesense Analytics Event",
+  "description": "Schema for analytics events logged to Typesense for tracking search behavior, clicks, conversions, and visits.",
+  "type": "object",
+  "required": ["type", "name", "data"],
+  "properties": {
+    "type": {
+      "type": "string",
+      "description": "Type of analytics event being logged.",
+      "enum": ["click", "conversion", "visit", "custom"]
+    },
+    "name": {
+      "type": "string",
+      "description": "Name of the event, which must match a name defined in an analytics rule.",
+      "minLength": 1
+    },
+    "data": {
+      "type": "object",
+      "description": "Event data payload containing the search query, document interaction, and user details.",
+      "properties": {
+        "q": {
+          "type": "string",
+          "description": "The search query associated with this event."
+        },
+        "doc_id": {
+          "type": "string",
+          "description": "ID of the document the user interacted with."
+        },
+        "user_id": {
+          "type": "string",
+          "description": "Identifier of the user who triggered the event."
+        },
+        "position": {
+          "type": "integer",
+          "description": "Position of the document in the search results when the event was triggered.",
+          "minimum": 1
+        },
+        "tags": {
+          "type": "object",
+          "description": "Arbitrary key-value metadata tags for categorizing and filtering events.",
+          "additionalProperties": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "AnalyticsRule": {
+      "type": "object",
+      "description": "An analytics rule that controls how search queries and events are aggregated.",
+      "required": ["name", "type", "params"],
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Unique name for the analytics rule.",
+          "minLength": 1
+        },
+        "type": {
+          "type": "string",
+          "description": "Type of analytics rule determining how data is aggregated.",
+          "enum": ["popular_queries", "nohits_queries", "counter", "log"]
+        },
+        "params": {
+          "type": "object",
+          "description": "Rule parameters defining source, destination, and aggregation settings.",
+          "properties": {
+            "source": {
+              "type": "object",
+              "description": "Source configuration specifying which collections and events to track.",
+              "properties": {
+                "collections": {
+                  "type": "array",
+                  "description": "Collections to monitor for search queries.",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "events": {
+                  "type": "array",
+                  "description": "Event configurations to track.",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "type": {
+                        "type": "string",
+                        "description": "Event type to track."
+                      },
+                      "weight": {
+                        "type": "number",
+                        "description": "Weight assigned to this event type for scoring."
+                      },
+                      "name": {
+                        "type": "string",
+                        "description": "Name of the event."
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "destination": {
+              "type": "object",
+              "description": "Destination for aggregated analytics data.",
+              "properties": {
+                "collection": {
+                  "type": "string",
+                  "description": "Collection to store the aggregated results."
+                },
+                "counter_field": {
+                  "type": "string",
+                  "description": "Field to use as a counter for counter-type rules."
+                }
+              }
+            },
+            "limit": {
+              "type": "integer",
+              "description": "Maximum number of entries to generate.",
+              "minimum": 1
+            },
+            "expand_query": {
+              "type": "boolean",
+              "description": "Whether to expand queries for suggestion generation."
+            }
+          }
+        }
+      }
+    }
+  }
+}

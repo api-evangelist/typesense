@@ -1,0 +1,463 @@
+openapi: 3.1.0
+info:
+  title: Typesense Analytics API
+  description: >-
+    The Typesense Analytics API allows developers to track and analyze search
+    behavior by recording click, conversion, and visit events. It provides
+    endpoints for creating analytics rules, logging events with metadata tags,
+    and retrieving popular queries and queries with no results. This data can
+    be used to improve search relevance through query suggestions, curations,
+    and understanding user search patterns.
+  version: '30.1'
+  contact:
+    name: Typesense Support
+    url: https://typesense.org/support
+  license:
+    name: GPL-3.0
+    url: https://www.gnu.org/licenses/gpl-3.0.html
+  termsOfService: https://typesense.org/terms
+externalDocs:
+  description: Typesense Analytics Documentation
+  url: https://typesense.org/docs/30.1/api/analytics-query-suggestions.html
+servers:
+  - url: '{protocol}://{hostname}:{port}'
+    description: Typesense Server
+    variables:
+      protocol:
+        default: http
+        enum:
+          - http
+          - https
+      hostname:
+        default: localhost
+      port:
+        default: '8108'
+tags:
+  - name: Analytics Rules
+    description: >-
+      Create and manage analytics rules that control how search queries and
+      user events are aggregated for query suggestions and relevance tuning.
+  - name: Analytics Events
+    description: >-
+      Log and retrieve user interaction events such as clicks, conversions,
+      and visits for tracking search behavior and personalization.
+  - name: Analytics Operations
+    description: >-
+      Operational endpoints for managing the analytics subsystem.
+security:
+  - api_key_header: []
+paths:
+  /analytics/rules:
+    get:
+      operationId: listAnalyticsRules
+      summary: List all analytics rules
+      description: >-
+        Retrieves all analytics rules configured in the Typesense instance.
+        Rules control how search queries and events are aggregated.
+      tags:
+        - Analytics Rules
+      responses:
+        '200':
+          description: List of analytics rules
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  rules:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/AnalyticsRule'
+        '401':
+          description: Unauthorized
+    post:
+      operationId: createAnalyticsRule
+      summary: Create an analytics rule
+      description: >-
+        Creates one or more analytics rules for aggregating search queries or
+        tracking events. Rule types include popular_queries for frequently
+        occurring queries, nohits_queries for queries that produced zero
+        results, and log for raw event logging.
+      tags:
+        - Analytics Rules
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AnalyticsRuleCreateSchema'
+      responses:
+        '201':
+          description: Analytics rule created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AnalyticsRule'
+        '400':
+          description: Bad request - invalid rule definition
+        '401':
+          description: Unauthorized
+  /analytics/rules/{ruleName}:
+    parameters:
+      - $ref: '#/components/parameters/ruleName'
+    get:
+      operationId: getAnalyticsRule
+      summary: Retrieve an analytics rule
+      description: >-
+        Retrieves a specific analytics rule by name.
+      tags:
+        - Analytics Rules
+      responses:
+        '200':
+          description: Analytics rule retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AnalyticsRule'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Analytics rule not found
+    put:
+      operationId: upsertAnalyticsRule
+      summary: Create or update an analytics rule
+      description: >-
+        Creates a new analytics rule or updates an existing one by name.
+      tags:
+        - Analytics Rules
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AnalyticsRuleCreateSchema'
+      responses:
+        '200':
+          description: Analytics rule upserted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AnalyticsRule'
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+    delete:
+      operationId: deleteAnalyticsRule
+      summary: Delete an analytics rule
+      description: >-
+        Deletes an analytics rule by name.
+      tags:
+        - Analytics Rules
+      responses:
+        '200':
+          description: Analytics rule deleted
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  name:
+                    type: string
+                    description: >-
+                      Name of the deleted rule.
+        '401':
+          description: Unauthorized
+        '404':
+          description: Analytics rule not found
+  /analytics/events:
+    post:
+      operationId: createAnalyticsEvent
+      summary: Log an analytics event
+      description: >-
+        Logs a user interaction event such as a click, conversion, or visit.
+        Events are associated with search queries and documents to track user
+        behavior and improve relevance.
+      tags:
+        - Analytics Events
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AnalyticsEventCreateSchema'
+      responses:
+        '201':
+          description: Event logged successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AnalyticsEventCreateResponse'
+        '400':
+          description: Bad request - invalid event data
+        '401':
+          description: Unauthorized
+    get:
+      operationId: listAnalyticsEvents
+      summary: Retrieve analytics events
+      description: >-
+        Retrieves logged analytics events. Supports filtering by event type
+        and other criteria.
+      tags:
+        - Analytics Events
+      parameters:
+        - name: type
+          in: query
+          description: >-
+            Filter events by type (click, conversion, visit).
+          schema:
+            type: string
+            enum:
+              - click
+              - conversion
+              - visit
+      responses:
+        '200':
+          description: List of analytics events
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  events:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/AnalyticsEvent'
+        '401':
+          description: Unauthorized
+  /analytics/flush:
+    post:
+      operationId: flushAnalytics
+      summary: Flush analytics data to disk
+      description: >-
+        Flushes in-memory analytics data to disk. Useful for ensuring analytics
+        data is persisted before a server restart.
+      tags:
+        - Analytics Operations
+      responses:
+        '200':
+          description: Analytics data flushed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    description: >-
+                      Whether the flush operation succeeded.
+        '401':
+          description: Unauthorized
+  /analytics/status:
+    get:
+      operationId: getAnalyticsStatus
+      summary: Get analytics subsystem status
+      description: >-
+        Returns the current status of the analytics subsystem including
+        whether it is operational and any pending operations.
+      tags:
+        - Analytics Operations
+      responses:
+        '200':
+          description: Analytics status
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AnalyticsStatus'
+        '401':
+          description: Unauthorized
+components:
+  securitySchemes:
+    api_key_header:
+      type: apiKey
+      in: header
+      name: X-TYPESENSE-API-KEY
+      description: >-
+        API key for authenticating requests to the Typesense server.
+  parameters:
+    ruleName:
+      name: ruleName
+      in: path
+      required: true
+      description: >-
+        Name of the analytics rule.
+      schema:
+        type: string
+  schemas:
+    AnalyticsRuleCreateSchema:
+      type: object
+      required:
+        - name
+        - type
+        - params
+      properties:
+        name:
+          type: string
+          description: >-
+            Unique name for the analytics rule.
+        type:
+          type: string
+          description: >-
+            Type of analytics rule. popular_queries aggregates frequently
+            occurring queries, nohits_queries tracks queries with zero results,
+            and log logs raw events for downstream processing.
+          enum:
+            - popular_queries
+            - nohits_queries
+            - counter
+            - log
+        params:
+          type: object
+          description: >-
+            Parameters for the analytics rule.
+          properties:
+            source:
+              type: object
+              description: >-
+                Source configuration for the rule.
+              properties:
+                collections:
+                  type: array
+                  description: >-
+                    Collections to track queries for.
+                  items:
+                    type: string
+                events:
+                  type: array
+                  description: >-
+                    Event types to track.
+                  items:
+                    type: object
+                    properties:
+                      type:
+                        type: string
+                        description: >-
+                          Event type (click, conversion, visit).
+                      weight:
+                        type: number
+                        description: >-
+                          Weight assigned to this event type.
+                      name:
+                        type: string
+                        description: >-
+                          Name of the event.
+            destination:
+              type: object
+              description: >-
+                Destination configuration for aggregated data.
+              properties:
+                collection:
+                  type: string
+                  description: >-
+                    Collection to store aggregated results in.
+                counter_field:
+                  type: string
+                  description: >-
+                    Field to use as a counter for counter-type rules.
+            limit:
+              type: integer
+              description: >-
+                Maximum number of suggestions to generate.
+            expand_query:
+              type: boolean
+              description: >-
+                Whether to expand the query for suggestions.
+    AnalyticsRule:
+      type: object
+      properties:
+        name:
+          type: string
+          description: >-
+            Name of the analytics rule.
+        type:
+          type: string
+          description: >-
+            Type of the analytics rule.
+        params:
+          type: object
+          description: >-
+            Rule parameters.
+        created_at:
+          type: integer
+          format: int64
+          description: >-
+            Unix timestamp when the rule was created.
+    AnalyticsEventCreateSchema:
+      type: object
+      required:
+        - type
+        - name
+        - data
+      properties:
+        type:
+          type: string
+          description: >-
+            Type of event being logged.
+          enum:
+            - click
+            - conversion
+            - visit
+            - custom
+        name:
+          type: string
+          description: >-
+            Name of the event, matching an analytics rule event name.
+        data:
+          type: object
+          description: >-
+            Event data payload.
+          properties:
+            q:
+              type: string
+              description: >-
+                The search query associated with this event.
+            doc_id:
+              type: string
+              description: >-
+                ID of the document the user interacted with.
+            user_id:
+              type: string
+              description: >-
+                ID of the user who triggered the event.
+            position:
+              type: integer
+              description: >-
+                Position of the document in search results.
+    AnalyticsEventCreateResponse:
+      type: object
+      properties:
+        ok:
+          type: boolean
+          description: >-
+            Whether the event was logged successfully.
+    AnalyticsEvent:
+      type: object
+      properties:
+        type:
+          type: string
+          description: >-
+            Event type.
+        name:
+          type: string
+          description: >-
+            Event name.
+        data:
+          type: object
+          description: >-
+            Event data payload.
+        timestamp:
+          type: integer
+          format: int64
+          description: >-
+            Unix timestamp of the event.
+    AnalyticsStatus:
+      type: object
+      properties:
+        state:
+          type: string
+          description: >-
+            Current state of the analytics subsystem.
+        pending_operations:
+          type: integer
+          description: >-
+            Number of pending analytics operations.

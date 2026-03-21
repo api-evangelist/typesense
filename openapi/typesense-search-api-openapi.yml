@@ -1,0 +1,2643 @@
+openapi: 3.1.0
+info:
+  title: Typesense Search API
+  description: >-
+    The Typesense Search API provides endpoints for creating and managing
+    collections, indexing documents, and performing search queries. It supports
+    typo-tolerant full-text search, faceted navigation, filtering, sorting,
+    geo-based search, and federated multi-search across collections. The API
+    also covers synonym sets, curation sets, collection aliases, stopwords,
+    presets, stemming dictionaries, API key management, and cluster operations.
+  version: '30.1'
+  contact:
+    name: Typesense Support
+    url: https://typesense.org/support
+  license:
+    name: GPL-3.0
+    url: https://www.gnu.org/licenses/gpl-3.0.html
+  termsOfService: https://typesense.org/terms
+externalDocs:
+  description: Typesense API Documentation
+  url: https://typesense.org/docs/30.1/api/
+servers:
+  - url: '{protocol}://{hostname}:{port}'
+    description: Typesense Server
+    variables:
+      protocol:
+        default: http
+        enum:
+          - http
+          - https
+      hostname:
+        default: localhost
+      port:
+        default: '8108'
+tags:
+  - name: Collections
+    description: >-
+      Create, retrieve, update, and delete collections. A collection is a group
+      of related documents with a defined schema.
+  - name: Documents
+    description: >-
+      Index, retrieve, update, delete, import, and export documents within a
+      collection.
+  - name: Search
+    description: >-
+      Search for documents in a collection with typo tolerance, faceting,
+      filtering, sorting, geo search, and grouping.
+  - name: Multi-Search
+    description: >-
+      Send multiple search requests across one or more collections in a single
+      HTTP request.
+  - name: Synonym Sets
+    description: >-
+      Manage top-level synonym sets that can be shared across multiple
+      collections.
+  - name: Curation Sets
+    description: >-
+      Manage top-level curation sets for pinning, hiding, and boosting search
+      results across collections.
+  - name: API Keys
+    description: >-
+      Create and manage API keys with fine-grained access control on a
+      per-collection, per-action, or per-record level.
+  - name: Collection Aliases
+    description: >-
+      Create and manage aliases that point to collections, enabling zero-downtime
+      reindexing.
+  - name: Stopwords
+    description: >-
+      Manage stopword sets that define keywords to be removed from search
+      queries.
+  - name: Presets
+    description: >-
+      Store and reference named sets of search parameters for reuse across
+      queries.
+  - name: Stemming
+    description: >-
+      Manage stemming dictionaries for custom word stemming rules.
+  - name: Operations
+    description: >-
+      Cluster operations including snapshots, cache management, compaction, and
+      voting.
+  - name: Monitoring
+    description: >-
+      Health checks, debug information, metrics, and API statistics.
+  - name: Configuration
+    description: >-
+      Server configuration management including slow request logging.
+security:
+  - api_key_header: []
+paths:
+  /collections:
+    get:
+      operationId: listCollections
+      summary: List all collections
+      description: >-
+        Returns a summary of all collections, including the name, number of
+        documents, and schema for each collection.
+      tags:
+        - Collections
+      responses:
+        '200':
+          description: Successfully retrieved list of collections
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CollectionResponse'
+        '401':
+          description: Unauthorized - invalid or missing API key
+    post:
+      operationId: createCollection
+      summary: Create a new collection
+      description: >-
+        Creates a new collection with the specified schema. A collection defines
+        the fields that will be indexed from documents. Before adding documents
+        to Typesense, you must first create a collection.
+      tags:
+        - Collections
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CollectionSchema'
+      responses:
+        '201':
+          description: Collection created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CollectionResponse'
+        '400':
+          description: Bad request - invalid schema
+        '401':
+          description: Unauthorized - invalid or missing API key
+        '409':
+          description: Conflict - collection already exists
+  /collections/{collectionName}:
+    parameters:
+      - $ref: '#/components/parameters/collectionName'
+    get:
+      operationId: getCollection
+      summary: Retrieve a collection
+      description: >-
+        Retrieves the schema and metadata of a specific collection by name.
+      tags:
+        - Collections
+      responses:
+        '200':
+          description: Successfully retrieved collection
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CollectionResponse'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Collection not found
+    patch:
+      operationId: updateCollection
+      summary: Update a collection
+      description: >-
+        Updates the schema of an existing collection. You can add new fields,
+        drop existing fields, or modify field attributes.
+      tags:
+        - Collections
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CollectionUpdateSchema'
+      responses:
+        '200':
+          description: Collection updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CollectionResponse'
+        '400':
+          description: Bad request - invalid update
+        '401':
+          description: Unauthorized
+        '404':
+          description: Collection not found
+    delete:
+      operationId: deleteCollection
+      summary: Delete a collection
+      description: >-
+        Permanently deletes a collection and all documents within it. This
+        action cannot be undone.
+      tags:
+        - Collections
+      responses:
+        '200':
+          description: Collection deleted successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CollectionResponse'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Collection not found
+  /collections/{collectionName}/documents:
+    parameters:
+      - $ref: '#/components/parameters/collectionName'
+    post:
+      operationId: indexDocument
+      summary: Index a document
+      description: >-
+        Indexes a single document into the specified collection. If the document
+        contains an id field of type string, Typesense will use that as the
+        identifier. Otherwise, an auto-generated identifier is assigned.
+      tags:
+        - Documents
+      parameters:
+        - name: action
+          in: query
+          description: >-
+            Additional action to perform. Use create, upsert, update, or
+            emplace.
+          schema:
+            $ref: '#/components/schemas/IndexAction'
+        - name: dirty_values
+          in: query
+          description: >-
+            How to handle field values that do not match the schema type.
+          schema:
+            $ref: '#/components/schemas/DirtyValues'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              description: >-
+                A JSON document matching the collection schema.
+      responses:
+        '201':
+          description: Document indexed successfully
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request - document does not match schema
+        '401':
+          description: Unauthorized
+        '404':
+          description: Collection not found
+    patch:
+      operationId: updateDocuments
+      summary: Update documents with conditional query
+      description: >-
+        Updates multiple documents that match a given filter condition. Only the
+        fields specified in the request body are updated.
+      tags:
+        - Documents
+      parameters:
+        - name: filter_by
+          in: query
+          required: true
+          description: >-
+            A filter expression to identify documents to update.
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              description: >-
+                Partial document with fields to update.
+      responses:
+        '200':
+          description: Documents updated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  num_updated:
+                    type: integer
+                    description: >-
+                      Number of documents updated.
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Collection not found
+    delete:
+      operationId: deleteDocuments
+      summary: Delete documents by query
+      description: >-
+        Deletes documents that match a given filter condition from the
+        collection.
+      tags:
+        - Documents
+      parameters:
+        - name: filter_by
+          in: query
+          required: true
+          description: >-
+            A filter expression to identify documents to delete.
+          schema:
+            type: string
+        - name: batch_size
+          in: query
+          description: >-
+            Number of documents to delete per batch.
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Documents deleted successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  num_deleted:
+                    type: integer
+                    description: >-
+                      Number of documents deleted.
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Collection not found
+  /collections/{collectionName}/documents/search:
+    parameters:
+      - $ref: '#/components/parameters/collectionName'
+    get:
+      operationId: searchCollection
+      summary: Search for documents
+      description: >-
+        Searches for documents in a collection using full-text search with typo
+        tolerance, faceting, filtering, sorting, grouping, geo search, and
+        vector search capabilities.
+      tags:
+        - Search
+      parameters:
+        - name: q
+          in: query
+          required: true
+          description: >-
+            The search query string. Use * for wildcard queries.
+          schema:
+            type: string
+        - name: query_by
+          in: query
+          required: true
+          description: >-
+            Comma-separated list of fields to search against.
+          schema:
+            type: string
+        - name: query_by_weights
+          in: query
+          description: >-
+            Comma-separated weights for each query_by field.
+          schema:
+            type: string
+        - name: text_match_type
+          in: query
+          description: >-
+            How text matching is calculated. Options are max_score or max_weight.
+          schema:
+            type: string
+        - name: prefix
+          in: query
+          description: >-
+            Whether prefix search is enabled for query_by fields.
+          schema:
+            type: string
+        - name: infix
+          in: query
+          description: >-
+            Enable infix search for specified fields.
+          schema:
+            type: string
+        - name: filter_by
+          in: query
+          description: >-
+            Filter conditions for narrowing search results.
+          schema:
+            type: string
+        - name: sort_by
+          in: query
+          description: >-
+            Comma-separated list of fields and sort directions.
+          schema:
+            type: string
+        - name: facet_by
+          in: query
+          description: >-
+            Comma-separated list of fields to facet on.
+          schema:
+            type: string
+        - name: max_facet_values
+          in: query
+          description: >-
+            Maximum number of facet values to return.
+          schema:
+            type: integer
+        - name: facet_query
+          in: query
+          description: >-
+            Facet query for filtering facet values.
+          schema:
+            type: string
+        - name: page
+          in: query
+          description: >-
+            Page number for pagination.
+          schema:
+            type: integer
+            minimum: 1
+        - name: per_page
+          in: query
+          description: >-
+            Number of results per page.
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 250
+        - name: group_by
+          in: query
+          description: >-
+            Field to group results by.
+          schema:
+            type: string
+        - name: group_limit
+          in: query
+          description: >-
+            Maximum number of hits per group.
+          schema:
+            type: integer
+        - name: include_fields
+          in: query
+          description: >-
+            Comma-separated list of fields to include in results.
+          schema:
+            type: string
+        - name: exclude_fields
+          in: query
+          description: >-
+            Comma-separated list of fields to exclude from results.
+          schema:
+            type: string
+        - name: highlight_fields
+          in: query
+          description: >-
+            Comma-separated list of fields to highlight.
+          schema:
+            type: string
+        - name: highlight_full_fields
+          in: query
+          description: >-
+            Fields for which full highlights are returned.
+          schema:
+            type: string
+        - name: num_typos
+          in: query
+          description: >-
+            Number of typographical errors to tolerate per token.
+          schema:
+            type: string
+        - name: typo_tokens_threshold
+          in: query
+          description: >-
+            Minimum token count to enable typo tolerance.
+          schema:
+            type: integer
+        - name: drop_tokens_threshold
+          in: query
+          description: >-
+            Token threshold below which tokens are dropped from query.
+          schema:
+            type: integer
+        - name: pinned_hits
+          in: query
+          description: >-
+            Comma-separated list of document IDs to pin at specific positions.
+          schema:
+            type: string
+        - name: hidden_hits
+          in: query
+          description: >-
+            Comma-separated list of document IDs to hide from results.
+          schema:
+            type: string
+        - name: enable_overrides
+          in: query
+          description: >-
+            Whether to apply curations and overrides.
+          schema:
+            type: boolean
+        - name: preset
+          in: query
+          description: >-
+            Name of a preset to use for search parameters.
+          schema:
+            type: string
+        - name: vector_query
+          in: query
+          description: >-
+            Vector query for nearest-neighbor search.
+          schema:
+            type: string
+        - name: conversation
+          in: query
+          description: >-
+            Whether to enable conversational search (RAG).
+          schema:
+            type: boolean
+        - name: conversation_model_id
+          in: query
+          description: >-
+            ID of the conversation model to use.
+          schema:
+            type: string
+        - name: conversation_id
+          in: query
+          description: >-
+            ID of an existing conversation to continue.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Search results returned successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SearchResult'
+        '400':
+          description: Bad request - invalid search parameters
+        '401':
+          description: Unauthorized
+        '404':
+          description: Collection not found
+  /collections/{collectionName}/documents/export:
+    parameters:
+      - $ref: '#/components/parameters/collectionName'
+    get:
+      operationId: exportDocuments
+      summary: Export documents from a collection
+      description: >-
+        Exports all documents from a collection as a stream of JSONL-formatted
+        lines. Supports filtering to export a subset of documents.
+      tags:
+        - Documents
+      parameters:
+        - name: filter_by
+          in: query
+          description: >-
+            Filter condition to export a subset of documents.
+          schema:
+            type: string
+        - name: include_fields
+          in: query
+          description: >-
+            Comma-separated list of fields to include.
+          schema:
+            type: string
+        - name: exclude_fields
+          in: query
+          description: >-
+            Comma-separated list of fields to exclude.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Documents exported as JSONL stream
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+        '401':
+          description: Unauthorized
+        '404':
+          description: Collection not found
+  /collections/{collectionName}/documents/import:
+    parameters:
+      - $ref: '#/components/parameters/collectionName'
+    post:
+      operationId: importDocuments
+      summary: Import documents into a collection
+      description: >-
+        Imports multiple documents into a collection via a JSONL-formatted
+        request body. Supports create, upsert, update, and emplace actions.
+      tags:
+        - Documents
+      parameters:
+        - name: action
+          in: query
+          description: >-
+            The import action to perform. Use create, upsert, update, or
+            emplace.
+          schema:
+            $ref: '#/components/schemas/IndexAction'
+        - name: batch_size
+          in: query
+          description: >-
+            Number of documents to process per batch.
+          schema:
+            type: integer
+        - name: dirty_values
+          in: query
+          description: >-
+            How to handle values that do not match the schema type.
+          schema:
+            $ref: '#/components/schemas/DirtyValues'
+        - name: return_id
+          in: query
+          description: >-
+            Whether to return the document ID in the response.
+          schema:
+            type: boolean
+      requestBody:
+        required: true
+        content:
+          text/plain:
+            schema:
+              type: string
+              description: >-
+                JSONL-formatted documents, one JSON object per line.
+      responses:
+        '200':
+          description: Import results as JSONL stream
+          content:
+            text/plain:
+              schema:
+                type: string
+        '400':
+          description: Bad request - malformed import data
+        '401':
+          description: Unauthorized
+        '404':
+          description: Collection not found
+  /collections/{collectionName}/documents/{documentId}:
+    parameters:
+      - $ref: '#/components/parameters/collectionName'
+      - $ref: '#/components/parameters/documentId'
+    get:
+      operationId: getDocument
+      summary: Retrieve a document
+      description: >-
+        Retrieves a single document from a collection by its ID.
+      tags:
+        - Documents
+      responses:
+        '200':
+          description: Document retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+        '401':
+          description: Unauthorized
+        '404':
+          description: Document or collection not found
+    patch:
+      operationId: updateDocument
+      summary: Update a document
+      description: >-
+        Partially updates a document in the collection. Only the fields
+        specified in the request body are updated.
+      tags:
+        - Documents
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              description: >-
+                Partial document with fields to update.
+      responses:
+        '200':
+          description: Document updated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Document or collection not found
+    delete:
+      operationId: deleteDocument
+      summary: Delete a document
+      description: >-
+        Deletes a single document from a collection by its ID.
+      tags:
+        - Documents
+      responses:
+        '200':
+          description: Document deleted successfully
+          content:
+            application/json:
+              schema:
+                type: object
+        '401':
+          description: Unauthorized
+        '404':
+          description: Document or collection not found
+  /multi_search:
+    post:
+      operationId: multiSearch
+      summary: Multi-search across collections
+      description: >-
+        Sends multiple search requests in a single HTTP request. Each search
+        can target a different collection with different parameters. Useful for
+        federated search and reducing network round trips.
+      tags:
+        - Multi-Search
+      parameters:
+        - name: limit_multi_searches
+          in: query
+          description: >-
+            Maximum number of search requests allowed in a single multi-search.
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - searches
+              properties:
+                searches:
+                  type: array
+                  description: >-
+                    Array of search request objects.
+                  items:
+                    $ref: '#/components/schemas/MultiSearchParameters'
+      responses:
+        '200':
+          description: Multi-search results returned successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MultiSearchResult'
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+  /synonym_sets:
+    get:
+      operationId: listSynonymSets
+      summary: List all synonym sets
+      description: >-
+        Retrieves all synonym sets defined in the Typesense instance. Synonym
+        sets are top-level resources that can be shared across collections.
+      tags:
+        - Synonym Sets
+      responses:
+        '200':
+          description: List of synonym sets
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  synonym_sets:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/SynonymSet'
+        '401':
+          description: Unauthorized
+  /synonym_sets/{synonymSetName}:
+    parameters:
+      - $ref: '#/components/parameters/synonymSetName'
+    get:
+      operationId: getSynonymSet
+      summary: Retrieve a synonym set
+      description: >-
+        Retrieves a specific synonym set by name.
+      tags:
+        - Synonym Sets
+      responses:
+        '200':
+          description: Synonym set retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SynonymSet'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Synonym set not found
+    put:
+      operationId: upsertSynonymSet
+      summary: Create or update a synonym set
+      description: >-
+        Creates a new synonym set or updates an existing one by name.
+      tags:
+        - Synonym Sets
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SynonymSetSchema'
+      responses:
+        '200':
+          description: Synonym set upserted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SynonymSet'
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+    delete:
+      operationId: deleteSynonymSet
+      summary: Delete a synonym set
+      description: >-
+        Deletes a synonym set by name.
+      tags:
+        - Synonym Sets
+      responses:
+        '200':
+          description: Synonym set deleted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessStatus'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Synonym set not found
+  /synonym_sets/{synonymSetName}/items:
+    parameters:
+      - $ref: '#/components/parameters/synonymSetName'
+    get:
+      operationId: listSynonymSetItems
+      summary: List items in a synonym set
+      description: >-
+        Retrieves all synonym items within a specific synonym set.
+      tags:
+        - Synonym Sets
+      responses:
+        '200':
+          description: List of synonym items
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  synonyms:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/SynonymItem'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Synonym set not found
+  /synonym_sets/{synonymSetName}/items/{itemId}:
+    parameters:
+      - $ref: '#/components/parameters/synonymSetName'
+      - $ref: '#/components/parameters/itemId'
+    get:
+      operationId: getSynonymSetItem
+      summary: Retrieve a synonym set item
+      description: >-
+        Retrieves a specific synonym item by ID from a synonym set.
+      tags:
+        - Synonym Sets
+      responses:
+        '200':
+          description: Synonym item retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SynonymItem'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Synonym item or set not found
+    put:
+      operationId: upsertSynonymSetItem
+      summary: Create or update a synonym set item
+      description: >-
+        Creates or updates a synonym item within a synonym set.
+      tags:
+        - Synonym Sets
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SynonymItemSchema'
+      responses:
+        '200':
+          description: Synonym item upserted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SynonymItem'
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+    delete:
+      operationId: deleteSynonymSetItem
+      summary: Delete a synonym set item
+      description: >-
+        Deletes a specific synonym item from a synonym set.
+      tags:
+        - Synonym Sets
+      responses:
+        '200':
+          description: Synonym item deleted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessStatus'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Synonym item or set not found
+  /curation_sets:
+    get:
+      operationId: listCurationSets
+      summary: List all curation sets
+      description: >-
+        Retrieves all curation sets. Curation sets are top-level resources for
+        pinning, hiding, and boosting search results across collections.
+      tags:
+        - Curation Sets
+      responses:
+        '200':
+          description: List of curation sets
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  curation_sets:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/CurationSet'
+        '401':
+          description: Unauthorized
+  /curation_sets/{curationSetName}:
+    parameters:
+      - $ref: '#/components/parameters/curationSetName'
+    get:
+      operationId: getCurationSet
+      summary: Retrieve a curation set
+      description: >-
+        Retrieves a specific curation set by name.
+      tags:
+        - Curation Sets
+      responses:
+        '200':
+          description: Curation set retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CurationSet'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Curation set not found
+    put:
+      operationId: upsertCurationSet
+      summary: Create or update a curation set
+      description: >-
+        Creates a new curation set or updates an existing one.
+      tags:
+        - Curation Sets
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CurationSetSchema'
+      responses:
+        '200':
+          description: Curation set upserted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CurationSet'
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+    delete:
+      operationId: deleteCurationSet
+      summary: Delete a curation set
+      description: >-
+        Deletes a curation set by name.
+      tags:
+        - Curation Sets
+      responses:
+        '200':
+          description: Curation set deleted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessStatus'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Curation set not found
+  /curation_sets/{curationSetName}/items:
+    parameters:
+      - $ref: '#/components/parameters/curationSetName'
+    get:
+      operationId: listCurationSetItems
+      summary: List items in a curation set
+      description: >-
+        Retrieves all curation items within a specific curation set.
+      tags:
+        - Curation Sets
+      responses:
+        '200':
+          description: List of curation items
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  curations:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/CurationItem'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Curation set not found
+  /curation_sets/{curationSetName}/items/{itemId}:
+    parameters:
+      - $ref: '#/components/parameters/curationSetName'
+      - $ref: '#/components/parameters/itemId'
+    get:
+      operationId: getCurationSetItem
+      summary: Retrieve a curation set item
+      description: >-
+        Retrieves a specific curation item by ID.
+      tags:
+        - Curation Sets
+      responses:
+        '200':
+          description: Curation item retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CurationItem'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Curation item or set not found
+    put:
+      operationId: upsertCurationSetItem
+      summary: Create or update a curation set item
+      description: >-
+        Creates or updates a curation item within a curation set.
+      tags:
+        - Curation Sets
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CurationItemSchema'
+      responses:
+        '200':
+          description: Curation item upserted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CurationItem'
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+    delete:
+      operationId: deleteCurationSetItem
+      summary: Delete a curation set item
+      description: >-
+        Deletes a specific curation item from a curation set.
+      tags:
+        - Curation Sets
+      responses:
+        '200':
+          description: Curation item deleted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessStatus'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Curation item or set not found
+  /keys:
+    get:
+      operationId: listApiKeys
+      summary: Retrieve metadata for all API keys
+      description: >-
+        Returns metadata about all API keys. The actual key values are not
+        returned for security; only the value_prefix is included.
+      tags:
+        - API Keys
+      responses:
+        '200':
+          description: List of API keys
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiKeysResponse'
+        '401':
+          description: Unauthorized
+    post:
+      operationId: createApiKey
+      summary: Create an API key
+      description: >-
+        Creates a new API key with fine-grained access control. You can restrict
+        access on a per-collection, per-action, per-record, or per-field level.
+      tags:
+        - API Keys
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ApiKeySchema'
+      responses:
+        '201':
+          description: API key created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiKey'
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+  /keys/{keyId}:
+    parameters:
+      - $ref: '#/components/parameters/keyId'
+    get:
+      operationId: getApiKey
+      summary: Retrieve an API key
+      description: >-
+        Retrieves metadata about a specific API key by ID. The full key value
+        is not returned.
+      tags:
+        - API Keys
+      responses:
+        '200':
+          description: API key metadata retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiKey'
+        '401':
+          description: Unauthorized
+        '404':
+          description: API key not found
+    delete:
+      operationId: deleteApiKey
+      summary: Delete an API key
+      description: >-
+        Deletes an API key by its numeric ID.
+      tags:
+        - API Keys
+      responses:
+        '200':
+          description: API key deleted successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    format: int64
+                    description: >-
+                      ID of the deleted key.
+        '401':
+          description: Unauthorized
+        '404':
+          description: API key not found
+  /aliases:
+    get:
+      operationId: listAliases
+      summary: List all collection aliases
+      description: >-
+        Retrieves all collection aliases and the collections they point to.
+      tags:
+        - Collection Aliases
+      responses:
+        '200':
+          description: List of aliases
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CollectionAliasesResponse'
+        '401':
+          description: Unauthorized
+  /aliases/{aliasName}:
+    parameters:
+      - $ref: '#/components/parameters/aliasName'
+    get:
+      operationId: getAlias
+      summary: Retrieve a collection alias
+      description: >-
+        Retrieves a specific alias and the collection it points to.
+      tags:
+        - Collection Aliases
+      responses:
+        '200':
+          description: Alias retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CollectionAlias'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Alias not found
+    put:
+      operationId: upsertAlias
+      summary: Create or update a collection alias
+      description: >-
+        Creates a new alias or updates an existing one to point to a different
+        collection. Aliases enable zero-downtime reindexing.
+      tags:
+        - Collection Aliases
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CollectionAliasSchema'
+      responses:
+        '200':
+          description: Alias upserted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CollectionAlias'
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+    delete:
+      operationId: deleteAlias
+      summary: Delete a collection alias
+      description: >-
+        Deletes a collection alias by name.
+      tags:
+        - Collection Aliases
+      responses:
+        '200':
+          description: Alias deleted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CollectionAlias'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Alias not found
+  /stopwords:
+    get:
+      operationId: listStopwordsSets
+      summary: List all stopwords sets
+      description: >-
+        Retrieves all stopwords sets. Stopwords are keywords removed from search
+        queries during search (not during indexing).
+      tags:
+        - Stopwords
+      responses:
+        '200':
+          description: List of stopwords sets
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  stopwords:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/StopwordsSet'
+        '401':
+          description: Unauthorized
+  /stopwords/{setId}:
+    parameters:
+      - $ref: '#/components/parameters/stopwordsSetId'
+    get:
+      operationId: getStopwordsSet
+      summary: Retrieve a stopwords set
+      description: >-
+        Retrieves a specific stopwords set by ID.
+      tags:
+        - Stopwords
+      responses:
+        '200':
+          description: Stopwords set retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StopwordsSet'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Stopwords set not found
+    put:
+      operationId: upsertStopwordsSet
+      summary: Create or update a stopwords set
+      description: >-
+        Creates a new stopwords set or updates an existing one.
+      tags:
+        - Stopwords
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StopwordsSetUpsertSchema'
+      responses:
+        '200':
+          description: Stopwords set upserted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StopwordsSet'
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+    delete:
+      operationId: deleteStopwordsSet
+      summary: Delete a stopwords set
+      description: >-
+        Deletes a stopwords set by ID.
+      tags:
+        - Stopwords
+      responses:
+        '200':
+          description: Stopwords set deleted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessStatus'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Stopwords set not found
+  /presets:
+    get:
+      operationId: listPresets
+      summary: List all presets
+      description: >-
+        Retrieves all stored presets. Presets allow you to save named sets of
+        search parameters for reuse across queries.
+      tags:
+        - Presets
+      responses:
+        '200':
+          description: List of presets
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  presets:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Preset'
+        '401':
+          description: Unauthorized
+  /presets/{presetId}:
+    parameters:
+      - $ref: '#/components/parameters/presetId'
+    get:
+      operationId: getPreset
+      summary: Retrieve a preset
+      description: >-
+        Retrieves a specific preset by ID.
+      tags:
+        - Presets
+      responses:
+        '200':
+          description: Preset retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Preset'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Preset not found
+    put:
+      operationId: upsertPreset
+      summary: Create or update a preset
+      description: >-
+        Creates a new preset or updates an existing one with saved search
+        parameters.
+      tags:
+        - Presets
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PresetUpsertSchema'
+      responses:
+        '200':
+          description: Preset upserted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Preset'
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+    delete:
+      operationId: deletePreset
+      summary: Delete a preset
+      description: >-
+        Deletes a preset by ID.
+      tags:
+        - Presets
+      responses:
+        '200':
+          description: Preset deleted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessStatus'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Preset not found
+  /stemming/dictionaries:
+    get:
+      operationId: listStemmingDictionaries
+      summary: List stemming dictionaries
+      description: >-
+        Retrieves all custom stemming dictionaries.
+      tags:
+        - Stemming
+      responses:
+        '200':
+          description: List of stemming dictionaries
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/StemmingDictionary'
+        '401':
+          description: Unauthorized
+  /stemming/dictionaries/{dictionaryId}:
+    parameters:
+      - $ref: '#/components/parameters/dictionaryId'
+    get:
+      operationId: getStemmingDictionary
+      summary: Retrieve a stemming dictionary
+      description: >-
+        Retrieves a specific stemming dictionary by ID.
+      tags:
+        - Stemming
+      responses:
+        '200':
+          description: Stemming dictionary retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StemmingDictionary'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Stemming dictionary not found
+  /stemming/dictionaries/import:
+    post:
+      operationId: importStemmingDictionary
+      summary: Import a stemming dictionary
+      description: >-
+        Imports a custom stemming dictionary with word-to-stem mappings.
+      tags:
+        - Stemming
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              description: >-
+                Stemming dictionary data with word-to-stem mappings.
+      responses:
+        '200':
+          description: Stemming dictionary imported
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StemmingDictionary'
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+  /operations/snapshot:
+    post:
+      operationId: takeSnapshot
+      summary: Create a point-in-time snapshot
+      description: >-
+        Creates a point-in-time snapshot of the Typesense data directory for
+        backup purposes.
+      tags:
+        - Operations
+      parameters:
+        - name: snapshot_path
+          in: query
+          required: true
+          description: >-
+            Absolute filesystem path where the snapshot will be stored.
+          schema:
+            type: string
+      responses:
+        '201':
+          description: Snapshot created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessStatus'
+        '401':
+          description: Unauthorized
+  /operations/vote:
+    post:
+      operationId: vote
+      summary: Trigger raft voting
+      description: >-
+        Triggers a raft voting process in a multi-node Typesense cluster.
+      tags:
+        - Operations
+      responses:
+        '200':
+          description: Voting triggered
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessStatus'
+        '401':
+          description: Unauthorized
+  /operations/cache/clear:
+    post:
+      operationId: clearCache
+      summary: Clear the LRU cache
+      description: >-
+        Clears the in-memory LRU cache used by Typesense for frequently
+        accessed data.
+      tags:
+        - Operations
+      responses:
+        '200':
+          description: Cache cleared
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessStatus'
+        '401':
+          description: Unauthorized
+  /operations/db/compact:
+    post:
+      operationId: compactDatabase
+      summary: Compact the on-disk database
+      description: >-
+        Triggers compaction of the on-disk RocksDB database to reclaim space
+        and improve performance.
+      tags:
+        - Operations
+      responses:
+        '200':
+          description: Database compacted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessStatus'
+        '401':
+          description: Unauthorized
+  /operations/schema_changes:
+    get:
+      operationId: getSchemaChanges
+      summary: Get schema change status
+      description: >-
+        Retrieves the status of in-progress schema change operations.
+      tags:
+        - Operations
+      responses:
+        '200':
+          description: Schema change status
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SchemaChangeStatus'
+        '401':
+          description: Unauthorized
+  /config:
+    post:
+      operationId: updateConfig
+      summary: Update server configuration
+      description: >-
+        Updates server configuration settings such as toggling slow request
+        logging.
+      tags:
+        - Configuration
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                log-slow-requests-time-ms:
+                  type: integer
+                  description: >-
+                    Threshold in milliseconds for logging slow requests.
+                    Set to -1 to disable.
+      responses:
+        '200':
+          description: Configuration updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessStatus'
+        '401':
+          description: Unauthorized
+  /debug:
+    get:
+      operationId: getDebugInfo
+      summary: Get debug information
+      description: >-
+        Returns debugging information about the Typesense server including
+        version and state details.
+      tags:
+        - Monitoring
+      responses:
+        '200':
+          description: Debug information
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  state:
+                    type: integer
+                    description: >-
+                      Current node state.
+                  version:
+                    type: string
+                    description: >-
+                      Typesense server version.
+        '401':
+          description: Unauthorized
+  /health:
+    get:
+      operationId: checkHealth
+      summary: Check server health
+      description: >-
+        Returns the health status of the Typesense server. Useful for load
+        balancer health checks.
+      tags:
+        - Monitoring
+      responses:
+        '200':
+          description: Server is healthy
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthStatus'
+  /metrics.json:
+    get:
+      operationId: getMetrics
+      summary: Get server metrics
+      description: >-
+        Returns RAM, CPU, disk, and network metrics for the Typesense server
+        in Prometheus-compatible format.
+      tags:
+        - Monitoring
+      responses:
+        '200':
+          description: Server metrics
+          content:
+            application/json:
+              schema:
+                type: object
+        '401':
+          description: Unauthorized
+  /stats.json:
+    get:
+      operationId: getApiStats
+      summary: Get API endpoint statistics
+      description: >-
+        Returns request count and latency statistics for each API endpoint.
+      tags:
+        - Monitoring
+      responses:
+        '200':
+          description: API statistics
+          content:
+            application/json:
+              schema:
+                type: object
+        '401':
+          description: Unauthorized
+components:
+  securitySchemes:
+    api_key_header:
+      type: apiKey
+      in: header
+      name: X-TYPESENSE-API-KEY
+      description: >-
+        API key for authenticating requests to the Typesense server.
+  parameters:
+    collectionName:
+      name: collectionName
+      in: path
+      required: true
+      description: >-
+        Name of the collection.
+      schema:
+        type: string
+    documentId:
+      name: documentId
+      in: path
+      required: true
+      description: >-
+        ID of the document.
+      schema:
+        type: string
+    synonymSetName:
+      name: synonymSetName
+      in: path
+      required: true
+      description: >-
+        Name of the synonym set.
+      schema:
+        type: string
+    curationSetName:
+      name: curationSetName
+      in: path
+      required: true
+      description: >-
+        Name of the curation set.
+      schema:
+        type: string
+    itemId:
+      name: itemId
+      in: path
+      required: true
+      description: >-
+        ID of the item within a set.
+      schema:
+        type: string
+    keyId:
+      name: keyId
+      in: path
+      required: true
+      description: >-
+        Numeric ID of the API key.
+      schema:
+        type: integer
+        format: int64
+    aliasName:
+      name: aliasName
+      in: path
+      required: true
+      description: >-
+        Name of the collection alias.
+      schema:
+        type: string
+    stopwordsSetId:
+      name: setId
+      in: path
+      required: true
+      description: >-
+        ID of the stopwords set.
+      schema:
+        type: string
+    presetId:
+      name: presetId
+      in: path
+      required: true
+      description: >-
+        ID of the preset.
+      schema:
+        type: string
+    dictionaryId:
+      name: dictionaryId
+      in: path
+      required: true
+      description: >-
+        ID of the stemming dictionary.
+      schema:
+        type: string
+  schemas:
+    CollectionSchema:
+      type: object
+      required:
+        - name
+        - fields
+      properties:
+        name:
+          type: string
+          description: >-
+            Name of the collection.
+        fields:
+          type: array
+          description: >-
+            Array of field definitions for the collection schema.
+          items:
+            $ref: '#/components/schemas/Field'
+        default_sorting_field:
+          type: string
+          description: >-
+            Name of the field to sort by when no sort_by parameter is specified.
+        token_separators:
+          type: array
+          description: >-
+            Characters to use as token separators in addition to whitespace.
+          items:
+            type: string
+        symbols_to_index:
+          type: array
+          description: >-
+            Characters that should be indexed as part of tokens.
+          items:
+            type: string
+        enable_nested_fields:
+          type: boolean
+          description: >-
+            Whether to enable indexing of nested object fields.
+        synonym_sets:
+          type: array
+          description: >-
+            List of synonym set names to attach to this collection.
+          items:
+            type: string
+        voice_query_model:
+          $ref: '#/components/schemas/VoiceQueryModelConfig'
+        metadata:
+          type: object
+          description: >-
+            Arbitrary metadata to store with the collection.
+    CollectionUpdateSchema:
+      type: object
+      properties:
+        fields:
+          type: array
+          description: >-
+            Array of field definitions to add, modify, or drop.
+          items:
+            $ref: '#/components/schemas/Field'
+        synonym_sets:
+          type: array
+          description: >-
+            Updated list of synonym set names for this collection.
+          items:
+            type: string
+        metadata:
+          type: object
+          description: >-
+            Updated metadata for the collection.
+    CollectionResponse:
+      type: object
+      properties:
+        name:
+          type: string
+          description: >-
+            Name of the collection.
+        fields:
+          type: array
+          items:
+            $ref: '#/components/schemas/Field'
+        default_sorting_field:
+          type: string
+          description: >-
+            Default sorting field for this collection.
+        num_documents:
+          type: integer
+          format: int64
+          description: >-
+            Number of documents in the collection.
+        created_at:
+          type: integer
+          format: int64
+          description: >-
+            Unix timestamp when the collection was created.
+        token_separators:
+          type: array
+          items:
+            type: string
+        symbols_to_index:
+          type: array
+          items:
+            type: string
+        enable_nested_fields:
+          type: boolean
+          description: >-
+            Whether nested field indexing is enabled.
+    Field:
+      type: object
+      required:
+        - name
+        - type
+      properties:
+        name:
+          type: string
+          description: >-
+            Name of the field.
+        type:
+          type: string
+          description: >-
+            Data type of the field. Supported types include string, int32,
+            int64, float, bool, string[], int32[], int64[], float[], bool[],
+            auto, object, object[], geopoint, geopoint[], image.
+          enum:
+            - string
+            - int32
+            - int64
+            - float
+            - bool
+            - string[]
+            - int32[]
+            - int64[]
+            - float[]
+            - bool[]
+            - auto
+            - object
+            - object[]
+            - geopoint
+            - geopoint[]
+            - image
+        optional:
+          type: boolean
+          description: >-
+            Whether this field is optional in documents.
+        facet:
+          type: boolean
+          description: >-
+            Whether this field can be used for faceting.
+        index:
+          type: boolean
+          description: >-
+            Whether this field should be indexed for search.
+        sort:
+          type: boolean
+          description: >-
+            Whether this field can be used for sorting.
+        infix:
+          type: boolean
+          description: >-
+            Whether infix search is enabled for this field.
+        locale:
+          type: string
+          description: >-
+            Locale for language-specific tokenization.
+        reference:
+          type: string
+          description: >-
+            Reference to a field in another collection for JOINs.
+        num_dim:
+          type: integer
+          description: >-
+            Number of dimensions for vector fields.
+        store:
+          type: boolean
+          description: >-
+            Whether to store the field value for retrieval.
+        range_index:
+          type: boolean
+          description: >-
+            Whether to build a range index for this field.
+        stem:
+          type: boolean
+          description: >-
+            Whether stemming is enabled for this field.
+        stem_dictionary:
+          type: string
+          description: >-
+            Name of the custom stemming dictionary to use.
+        drop:
+          type: boolean
+          description: >-
+            Whether to drop this field during a schema update.
+        vec_dist:
+          type: string
+          description: >-
+            Distance metric for vector fields.
+          enum:
+            - cosine
+            - ip
+        embed:
+          type: object
+          description: >-
+            Embedding configuration for auto-generating vector embeddings.
+          properties:
+            from:
+              type: array
+              description: >-
+                Field names to generate embeddings from.
+              items:
+                type: string
+            model_config:
+              type: object
+              description: >-
+                Model configuration for embedding generation.
+              properties:
+                model_name:
+                  type: string
+                  description: >-
+                    Name of the embedding model.
+                api_key:
+                  type: string
+                  description: >-
+                    API key for external embedding services.
+                url:
+                  type: string
+                  description: >-
+                    URL of the embedding service.
+    VoiceQueryModelConfig:
+      type: object
+      properties:
+        model_name:
+          type: string
+          description: >-
+            Name of the voice query model.
+    SearchResult:
+      type: object
+      properties:
+        facet_counts:
+          type: array
+          description: >-
+            Facet value counts for the search results.
+          items:
+            $ref: '#/components/schemas/FacetCounts'
+        found:
+          type: integer
+          description: >-
+            Total number of documents matching the query.
+        found_docs:
+          type: integer
+          description: >-
+            Total number of documents found before grouping.
+        search_time_ms:
+          type: integer
+          description: >-
+            Time taken for the search in milliseconds.
+        out_of:
+          type: integer
+          description: >-
+            Total number of documents in the collection.
+        search_cutoff:
+          type: boolean
+          description: >-
+            Whether the search was cut off due to time limits.
+        page:
+          type: integer
+          description: >-
+            Current page number.
+        hits:
+          type: array
+          description: >-
+            Array of search result hits.
+          items:
+            $ref: '#/components/schemas/SearchResultHit'
+        grouped_hits:
+          type: array
+          description: >-
+            Array of grouped search result hits when group_by is used.
+          items:
+            $ref: '#/components/schemas/SearchGroupedHit'
+        request_params:
+          type: object
+          description: >-
+            Parameters used for the search request.
+        conversation:
+          type: object
+          description: >-
+            Conversational search response when conversation mode is enabled.
+          properties:
+            answer:
+              type: string
+              description: >-
+                Generated answer from the conversation model.
+            conversation_history:
+              type: array
+              description: >-
+                History of the conversation.
+              items:
+                type: object
+            conversation_id:
+              type: string
+              description: >-
+                ID of the conversation for follow-up queries.
+    SearchResultHit:
+      type: object
+      properties:
+        document:
+          type: object
+          description: >-
+            The matched document.
+        highlights:
+          type: array
+          description: >-
+            Array of field highlights with matched tokens.
+          items:
+            $ref: '#/components/schemas/SearchHighlight'
+        highlight:
+          type: object
+          description: >-
+            Structured highlight object with nested field support.
+        text_match:
+          type: integer
+          format: int64
+          description: >-
+            Text match score for the hit.
+        text_match_info:
+          type: object
+          description: >-
+            Detailed text match scoring breakdown.
+        geo_distance_meters:
+          type: object
+          description: >-
+            Distance in meters from the search geo point.
+        vector_distance:
+          type: number
+          format: float
+          description: >-
+            Distance from the query vector for vector searches.
+        hybrid_search_info:
+          type: object
+          description: >-
+            Information about hybrid keyword and vector search scoring.
+    SearchGroupedHit:
+      type: object
+      properties:
+        found:
+          type: integer
+          description: >-
+            Number of hits in this group.
+        group_key:
+          type: array
+          description: >-
+            Values of the group_by field.
+          items: {}
+        hits:
+          type: array
+          description: >-
+            Search hits within this group.
+          items:
+            $ref: '#/components/schemas/SearchResultHit'
+    SearchHighlight:
+      type: object
+      properties:
+        field:
+          type: string
+          description: >-
+            Name of the highlighted field.
+        snippet:
+          type: string
+          description: >-
+            Highlighted snippet of the field value.
+        snippets:
+          type: array
+          description: >-
+            Array of highlighted snippets for array fields.
+          items:
+            type: string
+        value:
+          type: string
+          description: >-
+            Full highlighted field value.
+        values:
+          type: array
+          description: >-
+            Full highlighted values for array fields.
+          items:
+            type: string
+        matched_tokens:
+          type: array
+          description: >-
+            Tokens in the field that matched the query.
+          items: {}
+        indices:
+          type: array
+          description: >-
+            Indices of matched values in array fields.
+          items:
+            type: integer
+    FacetCounts:
+      type: object
+      properties:
+        field_name:
+          type: string
+          description: >-
+            Name of the faceted field.
+        counts:
+          type: array
+          description: >-
+            Array of facet value counts.
+          items:
+            type: object
+            properties:
+              count:
+                type: integer
+                description: >-
+                  Number of documents with this facet value.
+              highlighted:
+                type: string
+                description: >-
+                  Highlighted facet value.
+              value:
+                type: string
+                description: >-
+                  Facet value.
+        stats:
+          type: object
+          description: >-
+            Statistics for numeric faceted fields.
+          properties:
+            min:
+              type: number
+            max:
+              type: number
+            sum:
+              type: number
+            avg:
+              type: number
+            total_values:
+              type: integer
+    MultiSearchParameters:
+      type: object
+      required:
+        - collection
+      properties:
+        collection:
+          type: string
+          description: >-
+            Name of the collection to search.
+        q:
+          type: string
+          description: >-
+            Search query string.
+        query_by:
+          type: string
+          description: >-
+            Comma-separated list of fields to search.
+        filter_by:
+          type: string
+          description: >-
+            Filter conditions.
+        sort_by:
+          type: string
+          description: >-
+            Sort conditions.
+        facet_by:
+          type: string
+          description: >-
+            Fields to facet on.
+        page:
+          type: integer
+          description: >-
+            Page number.
+        per_page:
+          type: integer
+          description: >-
+            Results per page.
+        preset:
+          type: string
+          description: >-
+            Name of a preset to apply.
+    MultiSearchResult:
+      type: object
+      properties:
+        results:
+          type: array
+          description: >-
+            Array of search results, one per search request.
+          items:
+            $ref: '#/components/schemas/SearchResult'
+        conversation:
+          type: object
+          description: >-
+            Conversation context when conversational multi-search is used.
+    SynonymSetSchema:
+      type: object
+      properties:
+        name:
+          type: string
+          description: >-
+            Name of the synonym set.
+    SynonymSet:
+      type: object
+      properties:
+        name:
+          type: string
+          description: >-
+            Name of the synonym set.
+    SynonymItemSchema:
+      type: object
+      properties:
+        synonyms:
+          type: array
+          description: >-
+            List of synonym terms that are interchangeable.
+          items:
+            type: string
+        root:
+          type: string
+          description: >-
+            Root term for one-way synonyms. When set, the synonyms list maps
+            to this root term.
+    SynonymItem:
+      type: object
+      properties:
+        id:
+          type: string
+          description: >-
+            ID of the synonym item.
+        synonyms:
+          type: array
+          items:
+            type: string
+        root:
+          type: string
+          description: >-
+            Root term for one-way synonyms.
+    CurationSetSchema:
+      type: object
+      properties:
+        name:
+          type: string
+          description: >-
+            Name of the curation set.
+    CurationSet:
+      type: object
+      properties:
+        name:
+          type: string
+          description: >-
+            Name of the curation set.
+    CurationItemSchema:
+      type: object
+      properties:
+        rule:
+          type: object
+          description: >-
+            Match rule for triggering this curation.
+          properties:
+            query:
+              type: string
+              description: >-
+                Query string to match.
+            match:
+              type: string
+              description: >-
+                Match type: exact or contains.
+              enum:
+                - exact
+                - contains
+        includes:
+          type: array
+          description: >-
+            Documents to pin at specific positions.
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+                description: >-
+                  Document ID to include.
+              position:
+                type: integer
+                description: >-
+                  Position to pin the document at.
+        excludes:
+          type: array
+          description: >-
+            Documents to hide from results.
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+                description: >-
+                  Document ID to exclude.
+    CurationItem:
+      type: object
+      properties:
+        id:
+          type: string
+          description: >-
+            ID of the curation item.
+        rule:
+          type: object
+          properties:
+            query:
+              type: string
+            match:
+              type: string
+        includes:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+              position:
+                type: integer
+        excludes:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+    ApiKeySchema:
+      type: object
+      required:
+        - description
+        - actions
+        - collections
+      properties:
+        value:
+          type: string
+          description: >-
+            Custom API key value. If not provided, one is auto-generated.
+        description:
+          type: string
+          description: >-
+            Human-readable description of the key.
+        actions:
+          type: array
+          description: >-
+            Allowed actions for this key, such as documents:search,
+            collections:create, or * for all.
+          items:
+            type: string
+        collections:
+          type: array
+          description: >-
+            Collections this key can access. Use * for all collections.
+          items:
+            type: string
+        expires_at:
+          type: integer
+          format: int64
+          description: >-
+            Unix timestamp when this key expires. Set to 0 for no expiration.
+    ApiKey:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          description: >-
+            Numeric ID of the API key.
+        value:
+          type: string
+          description: >-
+            Full API key value. Only returned on creation.
+        value_prefix:
+          type: string
+          description: >-
+            First few characters of the key for identification.
+        description:
+          type: string
+          description: >-
+            Human-readable description.
+        actions:
+          type: array
+          items:
+            type: string
+        collections:
+          type: array
+          items:
+            type: string
+        expires_at:
+          type: integer
+          format: int64
+    ApiKeysResponse:
+      type: object
+      properties:
+        keys:
+          type: array
+          description: >-
+            Array of API key metadata.
+          items:
+            $ref: '#/components/schemas/ApiKey'
+    CollectionAliasSchema:
+      type: object
+      required:
+        - collection_name
+      properties:
+        collection_name:
+          type: string
+          description: >-
+            Name of the collection this alias points to.
+    CollectionAlias:
+      type: object
+      properties:
+        name:
+          type: string
+          description: >-
+            Alias name.
+        collection_name:
+          type: string
+          description: >-
+            Name of the target collection.
+    CollectionAliasesResponse:
+      type: object
+      properties:
+        aliases:
+          type: array
+          items:
+            $ref: '#/components/schemas/CollectionAlias'
+    StopwordsSetUpsertSchema:
+      type: object
+      required:
+        - stopwords
+      properties:
+        stopwords:
+          type: array
+          description: >-
+            List of stopword strings.
+          items:
+            type: string
+        locale:
+          type: string
+          description: >-
+            Locale for the stopwords set.
+    StopwordsSet:
+      type: object
+      properties:
+        id:
+          type: string
+          description: >-
+            ID of the stopwords set.
+        stopwords:
+          type: array
+          items:
+            type: string
+        locale:
+          type: string
+    PresetUpsertSchema:
+      type: object
+      properties:
+        value:
+          type: object
+          description: >-
+            Search parameters to store in the preset.
+    Preset:
+      type: object
+      properties:
+        name:
+          type: string
+          description: >-
+            Preset name.
+        value:
+          type: object
+          description: >-
+            Stored search parameters.
+    StemmingDictionary:
+      type: object
+      properties:
+        id:
+          type: string
+          description: >-
+            Stemming dictionary ID.
+        words:
+          type: object
+          description: >-
+            Map of words to their stems.
+          additionalProperties:
+            type: string
+    IndexAction:
+      type: string
+      description: >-
+        Action to perform during document indexing.
+      enum:
+        - create
+        - upsert
+        - update
+        - emplace
+    DirtyValues:
+      type: string
+      description: >-
+        Strategy for handling field values that do not match the schema type.
+      enum:
+        - coerce_or_reject
+        - coerce_or_drop
+        - drop
+        - reject
+    HealthStatus:
+      type: object
+      properties:
+        ok:
+          type: boolean
+          description: >-
+            Whether the server is healthy and ready to accept requests.
+    SuccessStatus:
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: >-
+            Whether the operation was successful.
+    SchemaChangeStatus:
+      type: object
+      properties:
+        collection:
+          type: string
+          description: >-
+            Name of the collection being modified.
+        validated_docs:
+          type: integer
+          description: >-
+            Number of documents validated so far.
+        altered_docs:
+          type: integer
+          description: >-
+            Number of documents altered so far.

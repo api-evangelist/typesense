@@ -1,0 +1,187 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "typesense": "https://typesense.org/ns/",
+    "schema": "https://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "dcterms": "http://purl.org/dc/terms/",
+
+    "Collection": {
+      "@id": "typesense:Collection",
+      "@context": {
+        "name": "schema:name",
+        "description": "schema:description",
+        "fields": "typesense:fields",
+        "default_sorting_field": "typesense:defaultSortingField",
+        "token_separators": "typesense:tokenSeparators",
+        "symbols_to_index": "typesense:symbolsToIndex",
+        "enable_nested_fields": "typesense:enableNestedFields",
+        "num_documents": "typesense:numDocuments",
+        "created_at": {
+          "@id": "dcterms:created",
+          "@type": "xsd:dateTime"
+        },
+        "synonym_sets": {
+          "@id": "typesense:synonymSets",
+          "@container": "@set"
+        }
+      }
+    },
+
+    "Field": {
+      "@id": "typesense:Field",
+      "@context": {
+        "name": "schema:name",
+        "type": "typesense:fieldType",
+        "optional": "typesense:optional",
+        "facet": "typesense:facet",
+        "index": "typesense:index",
+        "sort": "typesense:sortable",
+        "locale": "typesense:locale",
+        "num_dim": "typesense:numDimensions",
+        "vec_dist": "typesense:vectorDistance",
+        "reference": "typesense:reference",
+        "embed": "typesense:embedConfig"
+      }
+    },
+
+    "Document": {
+      "@id": "typesense:Document",
+      "@context": {
+        "id": "schema:identifier",
+        "collection": "typesense:collection"
+      }
+    },
+
+    "SearchResult": {
+      "@id": "typesense:SearchResult",
+      "@context": {
+        "found": "typesense:found",
+        "search_time_ms": "typesense:searchTimeMs",
+        "out_of": "typesense:outOf",
+        "page": "typesense:page",
+        "hits": {
+          "@id": "typesense:hits",
+          "@container": "@list"
+        },
+        "facet_counts": {
+          "@id": "typesense:facetCounts",
+          "@container": "@set"
+        }
+      }
+    },
+
+    "SearchHit": {
+      "@id": "typesense:SearchHit",
+      "@context": {
+        "document": "typesense:document",
+        "text_match": "typesense:textMatch",
+        "vector_distance": "typesense:vectorDistance",
+        "highlights": {
+          "@id": "typesense:highlights",
+          "@container": "@set"
+        }
+      }
+    },
+
+    "SynonymSet": {
+      "@id": "typesense:SynonymSet",
+      "@context": {
+        "name": "schema:name",
+        "synonyms": {
+          "@id": "typesense:synonymItems",
+          "@container": "@set"
+        }
+      }
+    },
+
+    "CurationSet": {
+      "@id": "typesense:CurationSet",
+      "@context": {
+        "name": "schema:name",
+        "rule": "typesense:curationRule",
+        "includes": {
+          "@id": "typesense:pinnedDocuments",
+          "@container": "@list"
+        },
+        "excludes": {
+          "@id": "typesense:hiddenDocuments",
+          "@container": "@set"
+        }
+      }
+    },
+
+    "ApiKey": {
+      "@id": "typesense:ApiKey",
+      "@context": {
+        "id": "schema:identifier",
+        "description": "schema:description",
+        "actions": {
+          "@id": "typesense:allowedActions",
+          "@container": "@set"
+        },
+        "collections": {
+          "@id": "typesense:allowedCollections",
+          "@container": "@set"
+        },
+        "expires_at": {
+          "@id": "typesense:expiresAt",
+          "@type": "xsd:dateTime"
+        }
+      }
+    },
+
+    "CollectionAlias": {
+      "@id": "typesense:CollectionAlias",
+      "@context": {
+        "name": "schema:name",
+        "collection_name": "typesense:targetCollection"
+      }
+    },
+
+    "AnalyticsEvent": {
+      "@id": "typesense:AnalyticsEvent",
+      "@context": {
+        "type": "typesense:eventType",
+        "name": "schema:name",
+        "data": "typesense:eventData",
+        "timestamp": {
+          "@id": "dcterms:date",
+          "@type": "xsd:dateTime"
+        }
+      }
+    },
+
+    "ConversationModel": {
+      "@id": "typesense:ConversationModel",
+      "@context": {
+        "id": "schema:identifier",
+        "model_name": "typesense:modelName",
+        "system_prompt": "typesense:systemPrompt",
+        "max_bytes": "typesense:maxBytes",
+        "history_collection": "typesense:historyCollection"
+      }
+    },
+
+    "Cluster": {
+      "@id": "typesense:CloudCluster",
+      "@context": {
+        "id": "schema:identifier",
+        "cluster_name": "schema:name",
+        "status": "typesense:clusterStatus",
+        "memory": "typesense:memory",
+        "vcpu": "typesense:vcpu",
+        "typesense_server_version": "schema:softwareVersion",
+        "regions": {
+          "@id": "typesense:regions",
+          "@container": "@set"
+        },
+        "created_at": {
+          "@id": "dcterms:created",
+          "@type": "xsd:dateTime"
+        },
+        "hostnames": "typesense:hostnames"
+      }
+    }
+  }
+}

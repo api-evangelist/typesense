@@ -1,0 +1,223 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://typesense.org/schemas/typesense/collection.json",
+  "title": "Typesense Collection",
+  "description": "Schema for a Typesense collection definition including field schemas, embedding configuration, and indexing options.",
+  "type": "object",
+  "required": ["name", "fields"],
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Unique name identifying the collection.",
+      "minLength": 1,
+      "maxLength": 255,
+      "pattern": "^[a-zA-Z0-9_-]+$"
+    },
+    "fields": {
+      "type": "array",
+      "description": "Array of field definitions that describe the schema of documents in this collection.",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/Field"
+      }
+    },
+    "default_sorting_field": {
+      "type": "string",
+      "description": "Name of the field to sort results by when no sort_by parameter is specified in a search query."
+    },
+    "token_separators": {
+      "type": "array",
+      "description": "Characters to use as token separators in addition to whitespace during indexing and search.",
+      "items": {
+        "type": "string",
+        "maxLength": 1
+      }
+    },
+    "symbols_to_index": {
+      "type": "array",
+      "description": "Characters that should be indexed as part of tokens rather than being stripped.",
+      "items": {
+        "type": "string",
+        "maxLength": 1
+      }
+    },
+    "enable_nested_fields": {
+      "type": "boolean",
+      "description": "Whether to enable indexing of nested object fields within documents."
+    },
+    "synonym_sets": {
+      "type": "array",
+      "description": "Names of synonym sets to attach to this collection for expanding search queries with synonyms.",
+      "items": {
+        "type": "string"
+      }
+    },
+    "voice_query_model": {
+      "type": "object",
+      "description": "Configuration for voice query processing model.",
+      "properties": {
+        "model_name": {
+          "type": "string",
+          "description": "Name of the voice query model."
+        }
+      }
+    },
+    "metadata": {
+      "type": "object",
+      "description": "Arbitrary metadata to store alongside the collection definition."
+    },
+    "num_documents": {
+      "type": "integer",
+      "description": "Number of documents currently indexed in the collection. Read-only.",
+      "minimum": 0
+    },
+    "created_at": {
+      "type": "integer",
+      "description": "Unix timestamp when the collection was created. Read-only."
+    }
+  },
+  "$defs": {
+    "Field": {
+      "type": "object",
+      "description": "Definition of a field within a collection schema.",
+      "required": ["name", "type"],
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Name of the field. Use .* suffix for dynamic fields matching a pattern."
+        },
+        "type": {
+          "type": "string",
+          "description": "Data type of the field.",
+          "enum": [
+            "string",
+            "int32",
+            "int64",
+            "float",
+            "bool",
+            "string[]",
+            "int32[]",
+            "int64[]",
+            "float[]",
+            "bool[]",
+            "auto",
+            "object",
+            "object[]",
+            "geopoint",
+            "geopoint[]",
+            "image"
+          ]
+        },
+        "optional": {
+          "type": "boolean",
+          "description": "Whether this field is optional in documents. Defaults to false."
+        },
+        "facet": {
+          "type": "boolean",
+          "description": "Whether this field can be used for faceted search. Defaults to false."
+        },
+        "index": {
+          "type": "boolean",
+          "description": "Whether this field should be indexed for searching. Defaults to true."
+        },
+        "sort": {
+          "type": "boolean",
+          "description": "Whether this field can be used for sorting results."
+        },
+        "infix": {
+          "type": "boolean",
+          "description": "Whether infix (substring) search is enabled for this field."
+        },
+        "locale": {
+          "type": "string",
+          "description": "Locale code for language-specific tokenization, e.g., ja for Japanese."
+        },
+        "reference": {
+          "type": "string",
+          "description": "Reference to a field in another collection for JOINs, in the format collection_name.field_name."
+        },
+        "num_dim": {
+          "type": "integer",
+          "description": "Number of dimensions for vector embedding fields. Required when type is float[] and the field is used for vector search.",
+          "minimum": 1
+        },
+        "store": {
+          "type": "boolean",
+          "description": "Whether to store the field value for retrieval. Set to false to index-only."
+        },
+        "range_index": {
+          "type": "boolean",
+          "description": "Whether to build a range index for efficient numeric range filtering."
+        },
+        "stem": {
+          "type": "boolean",
+          "description": "Whether stemming is enabled for this field."
+        },
+        "stem_dictionary": {
+          "type": "string",
+          "description": "Name of a custom stemming dictionary to use for this field."
+        },
+        "drop": {
+          "type": "boolean",
+          "description": "Set to true during a collection update to drop this field from the schema."
+        },
+        "vec_dist": {
+          "type": "string",
+          "description": "Distance metric for vector nearest-neighbor search.",
+          "enum": ["cosine", "ip"]
+        },
+        "embed": {
+          "$ref": "#/$defs/EmbedConfig"
+        }
+      }
+    },
+    "EmbedConfig": {
+      "type": "object",
+      "description": "Configuration for automatically generating vector embeddings from one or more source fields.",
+      "properties": {
+        "from": {
+          "type": "array",
+          "description": "Field names whose values are concatenated and passed to the embedding model.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "model_config": {
+          "type": "object",
+          "description": "Configuration for the embedding model.",
+          "properties": {
+            "model_name": {
+              "type": "string",
+              "description": "Name of the embedding model. Built-in models include ts/all-MiniLM-L12-v2. External models from OpenAI, Google, and others are also supported."
+            },
+            "api_key": {
+              "type": "string",
+              "description": "API key for external embedding service authentication."
+            },
+            "url": {
+              "type": "string",
+              "format": "uri",
+              "description": "URL of the external embedding service endpoint."
+            },
+            "access_token": {
+              "type": "string",
+              "description": "Access token for OAuth-based embedding services."
+            },
+            "client_id": {
+              "type": "string",
+              "description": "Client ID for OAuth-based embedding services."
+            },
+            "client_secret": {
+              "type": "string",
+              "description": "Client secret for OAuth-based embedding services."
+            },
+            "project_id": {
+              "type": "string",
+              "description": "Project ID for cloud-based embedding services."
+            }
+          }
+        }
+      }
+    }
+  }
+}

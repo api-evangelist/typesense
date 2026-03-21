@@ -1,0 +1,301 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://typesense.org/schemas/typesense/search-result.json",
+  "title": "Typesense Search Result",
+  "description": "Schema for a Typesense search response including hits, facets, grouped results, and conversational search answers.",
+  "type": "object",
+  "properties": {
+    "facet_counts": {
+      "type": "array",
+      "description": "Facet value counts for each faceted field in the search request.",
+      "items": {
+        "$ref": "#/$defs/FacetCounts"
+      }
+    },
+    "found": {
+      "type": "integer",
+      "description": "Total number of documents matching the search query.",
+      "minimum": 0
+    },
+    "found_docs": {
+      "type": "integer",
+      "description": "Total number of matching documents before grouping is applied.",
+      "minimum": 0
+    },
+    "search_time_ms": {
+      "type": "integer",
+      "description": "Time taken to execute the search in milliseconds.",
+      "minimum": 0
+    },
+    "out_of": {
+      "type": "integer",
+      "description": "Total number of documents in the collection.",
+      "minimum": 0
+    },
+    "search_cutoff": {
+      "type": "boolean",
+      "description": "Whether the search was terminated early due to time limits."
+    },
+    "page": {
+      "type": "integer",
+      "description": "Current page number in the result set.",
+      "minimum": 1
+    },
+    "hits": {
+      "type": "array",
+      "description": "Array of search result hits, each containing a matched document with highlights and scoring information.",
+      "items": {
+        "$ref": "#/$defs/SearchHit"
+      }
+    },
+    "grouped_hits": {
+      "type": "array",
+      "description": "Array of grouped search results when group_by is used in the search request.",
+      "items": {
+        "$ref": "#/$defs/GroupedHit"
+      }
+    },
+    "request_params": {
+      "type": "object",
+      "description": "Echo of the parameters used for the search request."
+    },
+    "conversation": {
+      "$ref": "#/$defs/ConversationResponse"
+    }
+  },
+  "$defs": {
+    "SearchHit": {
+      "type": "object",
+      "description": "A single search result hit containing the matched document and scoring metadata.",
+      "properties": {
+        "document": {
+          "type": "object",
+          "description": "The matched document with all requested fields."
+        },
+        "highlights": {
+          "type": "array",
+          "description": "Array of field-level highlights showing matched tokens in context.",
+          "items": {
+            "$ref": "#/$defs/Highlight"
+          }
+        },
+        "highlight": {
+          "type": "object",
+          "description": "Structured highlight object with support for nested fields."
+        },
+        "text_match": {
+          "type": "integer",
+          "description": "Composite text match score for ranking. Higher values indicate better keyword matches."
+        },
+        "text_match_info": {
+          "type": "object",
+          "description": "Breakdown of the text match scoring components.",
+          "properties": {
+            "best_field_score": {
+              "type": "string",
+              "description": "Score from the best matching field."
+            },
+            "best_field_weight": {
+              "type": "integer",
+              "description": "Weight of the best matching field."
+            },
+            "fields_matched": {
+              "type": "integer",
+              "description": "Number of fields that matched the query."
+            },
+            "tokens_matched": {
+              "type": "integer",
+              "description": "Number of query tokens that matched."
+            }
+          }
+        },
+        "geo_distance_meters": {
+          "type": "object",
+          "description": "Distance in meters from the search geo point for each geopoint field.",
+          "additionalProperties": {
+            "type": "number"
+          }
+        },
+        "vector_distance": {
+          "type": "number",
+          "description": "Distance between the query vector and document vector. Lower values indicate greater similarity."
+        },
+        "hybrid_search_info": {
+          "type": "object",
+          "description": "Scoring breakdown when hybrid keyword and vector search is used.",
+          "properties": {
+            "text_match_score": {
+              "type": "number",
+              "description": "Normalized text match score component."
+            },
+            "vector_distance_score": {
+              "type": "number",
+              "description": "Normalized vector distance score component."
+            },
+            "rank_fusion_score": {
+              "type": "number",
+              "description": "Combined rank fusion score."
+            }
+          }
+        }
+      }
+    },
+    "GroupedHit": {
+      "type": "object",
+      "description": "A group of search hits sharing the same group_by field value.",
+      "properties": {
+        "found": {
+          "type": "integer",
+          "description": "Number of documents in this group.",
+          "minimum": 0
+        },
+        "group_key": {
+          "type": "array",
+          "description": "Values of the group_by field for this group.",
+          "items": {}
+        },
+        "hits": {
+          "type": "array",
+          "description": "Search hits within this group.",
+          "items": {
+            "$ref": "#/$defs/SearchHit"
+          }
+        }
+      }
+    },
+    "Highlight": {
+      "type": "object",
+      "description": "Highlight information for a matched field.",
+      "properties": {
+        "field": {
+          "type": "string",
+          "description": "Name of the highlighted field."
+        },
+        "snippet": {
+          "type": "string",
+          "description": "Highlighted snippet of the field value with matched tokens wrapped in mark tags."
+        },
+        "snippets": {
+          "type": "array",
+          "description": "Array of highlighted snippets for array-type fields.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "value": {
+          "type": "string",
+          "description": "Full highlighted field value."
+        },
+        "values": {
+          "type": "array",
+          "description": "Full highlighted values for array-type fields.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "matched_tokens": {
+          "type": "array",
+          "description": "Tokens in the field that matched the query.",
+          "items": {}
+        },
+        "indices": {
+          "type": "array",
+          "description": "Indices of matched values in array-type fields.",
+          "items": {
+            "type": "integer"
+          }
+        }
+      }
+    },
+    "FacetCounts": {
+      "type": "object",
+      "description": "Facet value counts for a specific field.",
+      "properties": {
+        "field_name": {
+          "type": "string",
+          "description": "Name of the faceted field."
+        },
+        "counts": {
+          "type": "array",
+          "description": "Array of facet value counts.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "count": {
+                "type": "integer",
+                "description": "Number of documents with this facet value.",
+                "minimum": 0
+              },
+              "highlighted": {
+                "type": "string",
+                "description": "Highlighted facet value with matched tokens."
+              },
+              "value": {
+                "type": "string",
+                "description": "The facet value."
+              }
+            }
+          }
+        },
+        "stats": {
+          "type": "object",
+          "description": "Statistical summary for numeric faceted fields.",
+          "properties": {
+            "min": {
+              "type": "number",
+              "description": "Minimum value across matching documents."
+            },
+            "max": {
+              "type": "number",
+              "description": "Maximum value across matching documents."
+            },
+            "sum": {
+              "type": "number",
+              "description": "Sum of values across matching documents."
+            },
+            "avg": {
+              "type": "number",
+              "description": "Average value across matching documents."
+            },
+            "total_values": {
+              "type": "integer",
+              "description": "Total number of values across matching documents."
+            }
+          }
+        }
+      }
+    },
+    "ConversationResponse": {
+      "type": "object",
+      "description": "Response from the conversational search (RAG) feature including the generated answer.",
+      "properties": {
+        "answer": {
+          "type": "string",
+          "description": "Natural language answer generated by the LLM from the search results context."
+        },
+        "conversation_history": {
+          "type": "array",
+          "description": "History of messages in the conversation for multi-turn context.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "role": {
+                "type": "string",
+                "description": "Role of the message sender.",
+                "enum": ["user", "assistant", "system"]
+              },
+              "content": {
+                "type": "string",
+                "description": "Content of the message."
+              }
+            }
+          }
+        },
+        "conversation_id": {
+          "type": "string",
+          "description": "Unique identifier for the conversation, used for follow-up queries."
+        }
+      }
+    }
+  }
+}

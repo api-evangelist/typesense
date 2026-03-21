@@ -1,0 +1,629 @@
+openapi: 3.1.0
+info:
+  title: Typesense Cloud Management API
+  description: >-
+    The Typesense Cloud Management API provides endpoints for provisioning and
+    managing Typesense Cloud clusters programmatically. It supports creating,
+    updating, and deleting clusters, managing cluster configuration parameters,
+    generating API keys, and applying configuration changes. This API enables
+    infrastructure automation for teams running Typesense on the managed cloud
+    platform, with authentication handled through cloud management API keys.
+  version: '1'
+  contact:
+    name: Typesense Support
+    url: https://typesense.org/support
+  termsOfService: https://typesense.org/terms
+externalDocs:
+  description: Typesense Cloud Management API Documentation
+  url: https://typesense.org/docs/cloud-management-api/v1/cluster-management.html
+servers:
+  - url: https://cloud.typesense.org/api/v1
+    description: Typesense Cloud API
+tags:
+  - name: Cluster Management
+    description: >-
+      Create, retrieve, update, and terminate Typesense Cloud clusters. Manage
+      cluster lifecycle and generate Typesense Server API keys.
+  - name: Configuration Changes
+    description: >-
+      Schedule, retrieve, list, and cancel configuration changes to running
+      clusters such as memory upgrades, version changes, and HA toggles.
+  - name: Server Configuration Parameters
+    description: >-
+      Manage Typesense Server configuration parameters for cloud clusters.
+security:
+  - cloudApiKey: []
+paths:
+  /clusters:
+    post:
+      operationId: createCluster
+      summary: Create a new cluster
+      description: >-
+        Provisions a new Typesense Cloud cluster. Cluster creation is
+        asynchronous and typically takes 4-5 minutes. Poll the single cluster
+        endpoint to check when the status changes from provisioning to
+        in_service.
+      tags:
+        - Cluster Management
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ClusterCreateSchema'
+      responses:
+        '201':
+          description: Cluster provisioning initiated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Cluster'
+        '400':
+          description: Bad request - invalid cluster configuration
+        '401':
+          description: Unauthorized - invalid or missing management API key
+    get:
+      operationId: listClusters
+      summary: List all clusters
+      description: >-
+        Retrieves all clusters under your Typesense Cloud account.
+      tags:
+        - Cluster Management
+      responses:
+        '200':
+          description: List of clusters
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Cluster'
+        '401':
+          description: Unauthorized
+  /clusters/{clusterId}:
+    parameters:
+      - $ref: '#/components/parameters/clusterId'
+    get:
+      operationId: getCluster
+      summary: Retrieve a cluster
+      description: >-
+        Retrieves detailed information about a specific cluster including its
+        current status, configuration, hostnames, and region details.
+      tags:
+        - Cluster Management
+      responses:
+        '200':
+          description: Cluster details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Cluster'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Cluster not found
+    patch:
+      operationId: updateCluster
+      summary: Update a cluster
+      description: >-
+        Updates cluster settings such as the cluster name and auto-upgrade
+        configuration.
+      tags:
+        - Cluster Management
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ClusterUpdateSchema'
+      responses:
+        '200':
+          description: Cluster updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Cluster'
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Cluster not found
+    delete:
+      operationId: terminateCluster
+      summary: Terminate a cluster
+      description: >-
+        Terminates a running cluster permanently. This action cannot be undone.
+        Once terminated, all data in the cluster is destroyed permanently as a
+        security and privacy measure.
+      tags:
+        - Cluster Management
+      responses:
+        '200':
+          description: Cluster terminated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    description: >-
+                      Whether the termination was initiated.
+        '401':
+          description: Unauthorized
+        '404':
+          description: Cluster not found
+  /clusters/{clusterId}/generate-api-key:
+    parameters:
+      - $ref: '#/components/parameters/clusterId'
+    post:
+      operationId: generateApiKey
+      summary: Generate Typesense Server API keys
+      description: >-
+        Generates Typesense Server API keys for the cluster. This endpoint is
+        only available once the cluster status changes to in_service. Returns
+        the admin and search-only API keys needed to interact with the
+        Typesense Server running on the cluster.
+      tags:
+        - Cluster Management
+      responses:
+        '200':
+          description: API keys generated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClusterApiKeys'
+        '400':
+          description: Cluster is not yet in service
+        '401':
+          description: Unauthorized
+        '404':
+          description: Cluster not found
+  /clusters/{clusterId}/configuration-changes:
+    parameters:
+      - $ref: '#/components/parameters/clusterId'
+    post:
+      operationId: createConfigurationChange
+      summary: Schedule a configuration change
+      description: >-
+        Schedules a configuration change for a cluster such as upgrading
+        memory, changing vCPU allocation, upgrading Typesense server version,
+        or enabling/disabling high availability. Changes are applied at the
+        specified time.
+      tags:
+        - Configuration Changes
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConfigurationChangeCreateSchema'
+      responses:
+        '201':
+          description: Configuration change scheduled
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConfigurationChange'
+        '400':
+          description: Bad request - invalid configuration
+        '401':
+          description: Unauthorized
+        '404':
+          description: Cluster not found
+    get:
+      operationId: listConfigurationChanges
+      summary: List configuration changes
+      description: >-
+        Retrieves all configuration changes for a cluster, including pending,
+        applied, and canceled changes.
+      tags:
+        - Configuration Changes
+      parameters:
+        - name: per_page
+          in: query
+          description: >-
+            Number of results per page.
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: List of configuration changes
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ConfigurationChange'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Cluster not found
+  /clusters/{clusterId}/configuration-changes/{changeId}:
+    parameters:
+      - $ref: '#/components/parameters/clusterId'
+      - $ref: '#/components/parameters/changeId'
+    get:
+      operationId: getConfigurationChange
+      summary: Retrieve a configuration change
+      description: >-
+        Retrieves details of a specific configuration change by ID.
+      tags:
+        - Configuration Changes
+      responses:
+        '200':
+          description: Configuration change details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConfigurationChange'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Configuration change or cluster not found
+    patch:
+      operationId: updateConfigurationChange
+      summary: Cancel a configuration change
+      description: >-
+        Updates a configuration change, typically to cancel a pending change
+        by setting its status to canceled.
+      tags:
+        - Configuration Changes
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: string
+                  description: >-
+                    Set to canceled to cancel the pending change.
+                  enum:
+                    - canceled
+      responses:
+        '200':
+          description: Configuration change updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConfigurationChange'
+        '400':
+          description: Bad request - change cannot be canceled
+        '401':
+          description: Unauthorized
+        '404':
+          description: Configuration change or cluster not found
+  /clusters/{clusterId}/typesense-server-configuration-parameters:
+    parameters:
+      - $ref: '#/components/parameters/clusterId'
+    get:
+      operationId: getServerConfigurationParameters
+      summary: Get server configuration parameters
+      description: >-
+        Retrieves the current Typesense Server configuration parameters for a
+        cloud cluster. Changes to parameters take effect when the server is
+        restarted.
+      tags:
+        - Server Configuration Parameters
+      responses:
+        '200':
+          description: Server configuration parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServerConfigurationParameters'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Cluster not found
+    patch:
+      operationId: updateServerConfigurationParameters
+      summary: Update server configuration parameters
+      description: >-
+        Updates Typesense Server configuration parameters for a cloud cluster.
+        The server must be restarted for changes to take effect. Use the
+        configuration changes endpoint to schedule a restart.
+      tags:
+        - Server Configuration Parameters
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ServerConfigurationParameters'
+      responses:
+        '200':
+          description: Parameters updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServerConfigurationParameters'
+        '400':
+          description: Bad request - invalid parameter values
+        '401':
+          description: Unauthorized
+        '404':
+          description: Cluster not found
+components:
+  securitySchemes:
+    cloudApiKey:
+      type: apiKey
+      in: header
+      name: X-TYPESENSE-CLOUD-MANAGEMENT-API-KEY
+      description: >-
+        Cloud management API key for authenticating requests to the Typesense
+        Cloud Management API.
+  parameters:
+    clusterId:
+      name: clusterId
+      in: path
+      required: true
+      description: >-
+        Unique identifier of the cluster.
+      schema:
+        type: string
+    changeId:
+      name: changeId
+      in: path
+      required: true
+      description: >-
+        Unique identifier of the configuration change.
+      schema:
+        type: string
+  schemas:
+    ClusterCreateSchema:
+      type: object
+      required:
+        - memory
+        - typesense_server_version
+        - regions
+      properties:
+        memory:
+          type: string
+          description: >-
+            Memory allocation for the cluster, such as 0.5_gb, 1_gb, 2_gb,
+            4_gb, 8_gb, 16_gb, 32_gb, 64_gb, 96_gb, 128_gb, 192_gb, 256_gb,
+            or 384_gb.
+        vcpu:
+          type: string
+          description: >-
+            vCPU configuration for the cluster, such as 2_vcpus_2_hr_burst_per_day
+            or dedicated vCPU options.
+        gpu:
+          type: boolean
+          description: >-
+            Whether to provision a GPU-enabled cluster for embedding generation.
+        high_performance_disk:
+          type: string
+          description: >-
+            High-performance disk configuration.
+        typesense_server_version:
+          type: string
+          description: >-
+            Typesense Server version to deploy on the cluster.
+        high_availability:
+          type: string
+          description: >-
+            Whether to enable high availability with 3-node replication.
+          enum:
+            - 'yes'
+            - 'no'
+        search_delivery_network:
+          type: string
+          description: >-
+            Whether to enable search delivery network for global distribution.
+          enum:
+            - 'yes'
+            - 'no'
+        load_balancing:
+          type: string
+          description: >-
+            Whether to enable load balancing.
+          enum:
+            - 'yes'
+            - 'no'
+        regions:
+          type: array
+          description: >-
+            Cloud regions to deploy the cluster in.
+          items:
+            type: string
+        cluster_name:
+          type: string
+          description: >-
+            Optional friendly name for the cluster.
+        auto_upgrade_capacity:
+          type: boolean
+          description: >-
+            Whether to automatically upgrade cluster capacity when needed.
+    ClusterUpdateSchema:
+      type: object
+      properties:
+        cluster_name:
+          type: string
+          description: >-
+            Updated friendly name for the cluster.
+        auto_upgrade_capacity:
+          type: boolean
+          description: >-
+            Updated auto-upgrade setting.
+    Cluster:
+      type: object
+      properties:
+        id:
+          type: string
+          description: >-
+            Unique identifier of the cluster.
+        cluster_name:
+          type: string
+          description: >-
+            Friendly name of the cluster.
+        memory:
+          type: string
+          description: >-
+            Memory allocation.
+        vcpu:
+          type: string
+          description: >-
+            vCPU configuration.
+        gpu:
+          type: boolean
+          description: >-
+            Whether the cluster is GPU-enabled.
+        high_performance_disk:
+          type: string
+          description: >-
+            High-performance disk configuration.
+        typesense_server_version:
+          type: string
+          description: >-
+            Typesense Server version running on the cluster.
+        high_availability:
+          type: string
+          description: >-
+            Whether high availability is enabled.
+        search_delivery_network:
+          type: string
+          description: >-
+            Whether search delivery network is enabled.
+        load_balancing:
+          type: string
+          description: >-
+            Whether load balancing is enabled.
+        regions:
+          type: array
+          description: >-
+            Regions the cluster is deployed in.
+          items:
+            type: string
+        status:
+          type: string
+          description: >-
+            Current status of the cluster.
+          enum:
+            - provisioning
+            - in_service
+            - terminating
+            - terminated
+        hostnames:
+          type: object
+          description: >-
+            Hostnames for connecting to the cluster nodes.
+        auto_upgrade_capacity:
+          type: boolean
+          description: >-
+            Whether auto-upgrade is enabled.
+        created_at:
+          type: string
+          format: date-time
+          description: >-
+            When the cluster was created.
+    ClusterApiKeys:
+      type: object
+      properties:
+        admin_key:
+          type: string
+          description: >-
+            Admin API key with full access to the Typesense Server.
+        search_only_key:
+          type: string
+          description: >-
+            Search-only API key for client-side use.
+    ConfigurationChangeCreateSchema:
+      type: object
+      properties:
+        new_memory:
+          type: string
+          description: >-
+            New memory allocation, such as 1_gb, 2_gb, etc.
+        new_vcpu:
+          type: string
+          description: >-
+            New vCPU configuration.
+        new_gpu:
+          type: boolean
+          description: >-
+            Whether to enable or disable GPU.
+        new_high_performance_disk:
+          type: string
+          description: >-
+            New high-performance disk configuration.
+        new_typesense_server_version:
+          type: string
+          description: >-
+            Typesense Server version to upgrade to.
+        new_high_availability:
+          type: string
+          description: >-
+            Enable or disable high availability.
+          enum:
+            - 'yes'
+            - 'no'
+        perform_change_at:
+          type: integer
+          format: int64
+          description: >-
+            Unix timestamp for when the change should be applied.
+        notification_email_addresses:
+          type: array
+          description: >-
+            Email addresses to notify about the configuration change.
+          items:
+            type: string
+    ConfigurationChange:
+      type: object
+      properties:
+        id:
+          type: string
+          description: >-
+            Unique identifier of the configuration change.
+        status:
+          type: string
+          description: >-
+            Current status of the change.
+          enum:
+            - pending
+            - in_progress
+            - completed
+            - canceled
+            - failed
+        new_memory:
+          type: string
+        new_vcpu:
+          type: string
+        new_typesense_server_version:
+          type: string
+        new_high_availability:
+          type: string
+        perform_change_at:
+          type: integer
+          format: int64
+          description: >-
+            Scheduled time for the change.
+        created_at:
+          type: string
+          format: date-time
+          description: >-
+            When the change was created.
+    ServerConfigurationParameters:
+      type: object
+      description: >-
+        Typesense Server runtime configuration parameters. Changes take effect
+        after a server restart.
+      additionalProperties: true
+      properties:
+        cache-num-entries:
+          type: integer
+          description: >-
+            Number of entries in the LRU cache.
+        thread-pool-size:
+          type: integer
+          description: >-
+            Size of the thread pool for handling requests.
+        log-slow-requests-time-ms:
+          type: integer
+          description: >-
+            Threshold in milliseconds for logging slow requests.
