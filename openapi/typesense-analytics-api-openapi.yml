@@ -33,10 +33,6 @@ servers:
       port:
         default: '8108'
 tags:
-  - name: Analytics Rules
-    description: >-
-      Create and manage analytics rules that control how search queries and
-      user events are aggregated for query suggestions and relevance tuning.
   - name: Analytics Events
     description: >-
       Log and retrieve user interaction events such as clicks, conversions,
@@ -44,6 +40,10 @@ tags:
   - name: Analytics Operations
     description: >-
       Operational endpoints for managing the analytics subsystem.
+  - name: Analytics Rules
+    description: >-
+      Create and manage analytics rules that control how search queries and
+      user events are aggregated for query suggestions and relevance tuning.
 security:
   - api_key_header: []
 paths:

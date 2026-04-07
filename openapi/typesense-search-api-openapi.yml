@@ -33,30 +33,6 @@ servers:
       port:
         default: '8108'
 tags:
-  - name: Collections
-    description: >-
-      Create, retrieve, update, and delete collections. A collection is a group
-      of related documents with a defined schema.
-  - name: Documents
-    description: >-
-      Index, retrieve, update, delete, import, and export documents within a
-      collection.
-  - name: Search
-    description: >-
-      Search for documents in a collection with typo tolerance, faceting,
-      filtering, sorting, geo search, and grouping.
-  - name: Multi-Search
-    description: >-
-      Send multiple search requests across one or more collections in a single
-      HTTP request.
-  - name: Synonym Sets
-    description: >-
-      Manage top-level synonym sets that can be shared across multiple
-      collections.
-  - name: Curation Sets
-    description: >-
-      Manage top-level curation sets for pinning, hiding, and boosting search
-      results across collections.
   - name: API Keys
     description: >-
       Create and manage API keys with fine-grained access control on a
@@ -65,27 +41,51 @@ tags:
     description: >-
       Create and manage aliases that point to collections, enabling zero-downtime
       reindexing.
-  - name: Stopwords
+  - name: Collections
     description: >-
-      Manage stopword sets that define keywords to be removed from search
-      queries.
-  - name: Presets
+      Create, retrieve, update, and delete collections. A collection is a group
+      of related documents with a defined schema.
+  - name: Configuration
     description: >-
-      Store and reference named sets of search parameters for reuse across
-      queries.
-  - name: Stemming
+      Server configuration management including slow request logging.
+  - name: Curation Sets
     description: >-
-      Manage stemming dictionaries for custom word stemming rules.
+      Manage top-level curation sets for pinning, hiding, and boosting search
+      results across collections.
+  - name: Documents
+    description: >-
+      Index, retrieve, update, delete, import, and export documents within a
+      collection.
+  - name: Monitoring
+    description: >-
+      Health checks, debug information, metrics, and API statistics.
+  - name: Multi-Search
+    description: >-
+      Send multiple search requests across one or more collections in a single
+      HTTP request.
   - name: Operations
     description: >-
       Cluster operations including snapshots, cache management, compaction, and
       voting.
-  - name: Monitoring
+  - name: Presets
     description: >-
-      Health checks, debug information, metrics, and API statistics.
-  - name: Configuration
+      Store and reference named sets of search parameters for reuse across
+      queries.
+  - name: Search
     description: >-
-      Server configuration management including slow request logging.
+      Search for documents in a collection with typo tolerance, faceting,
+      filtering, sorting, geo search, and grouping.
+  - name: Stemming
+    description: >-
+      Manage stemming dictionaries for custom word stemming rules.
+  - name: Stopwords
+    description: >-
+      Manage stopword sets that define keywords to be removed from search
+      queries.
+  - name: Synonym Sets
+    description: >-
+      Manage top-level synonym sets that can be shared across multiple
+      collections.
 security:
   - api_key_header: []
 paths:

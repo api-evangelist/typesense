@@ -34,6 +34,10 @@ servers:
       port:
         default: '8108'
 tags:
+  - name: NL Search Models
+    description: >-
+      Manage natural language search models used for query understanding and
+      semantic matching.
   - name: Vector Collections
     description: >-
       Create and manage collections with vector fields for semantic search and
@@ -42,10 +46,6 @@ tags:
     description: >-
       Perform nearest-neighbor vector search, hybrid keyword-vector search,
       and semantic search queries.
-  - name: NL Search Models
-    description: >-
-      Manage natural language search models used for query understanding and
-      semantic matching.
 security:
   - api_key_header: []
 paths:
