@@ -1,0 +1,63 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Typesense Collection Structure",
+  "description": "Structural definition of a Typesense collection",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Unique collection name"
+    },
+    "num_documents": {
+      "type": "integer",
+      "description": "Number of documents currently in the collection"
+    },
+    "fields": {
+      "type": "array",
+      "description": "Schema field definitions",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {"type": "string", "description": "Field name"},
+          "type": {
+            "type": "string",
+            "enum": ["string", "string[]", "int32", "int32[]", "int64", "int64[]", "float", "float[]", "bool", "bool[]", "geopoint", "geopoint[]", "object", "object[]", "auto", "string*"],
+            "description": "Field type"
+          },
+          "facet": {"type": "boolean", "description": "Enable faceting on this field"},
+          "optional": {"type": "boolean", "description": "Allow documents without this field"},
+          "index": {"type": "boolean", "description": "Index this field for search"},
+          "sort": {"type": "boolean", "description": "Enable sorting on this field"},
+          "infix": {"type": "boolean", "description": "Enable infix search on this field"},
+          "locale": {"type": "string", "description": "Locale for field tokenization"},
+          "embed": {
+            "type": "object",
+            "description": "Embedding configuration for vector fields",
+            "properties": {
+              "from": {"type": "array", "items": {"type": "string"}},
+              "model_config": {"type": "object"}
+            }
+          }
+        }
+      }
+    },
+    "default_sorting_field": {
+      "type": "string",
+      "description": "Default field used for sorting results when no sort_by is specified"
+    },
+    "token_separators": {
+      "type": "array",
+      "items": {"type": "string"},
+      "description": "Characters to use as token separators"
+    },
+    "symbols_to_index": {
+      "type": "array",
+      "items": {"type": "string"},
+      "description": "Special symbols to include in the search index"
+    },
+    "enable_nested_fields": {
+      "type": "boolean",
+      "description": "Enable nested object indexing"
+    }
+  }
+}

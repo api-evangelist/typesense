@@ -1,0 +1,78 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Typesense Search Result Structure",
+  "description": "Structural definition of a Typesense search response",
+  "type": "object",
+  "properties": {
+    "found": {
+      "type": "integer",
+      "description": "Total number of matching documents"
+    },
+    "found_docs": {
+      "type": "integer",
+      "description": "Total number of unique documents in the result"
+    },
+    "out_of": {
+      "type": "integer",
+      "description": "Total number of documents in the collection"
+    },
+    "page": {
+      "type": "integer",
+      "description": "Current page number"
+    },
+    "search_time_ms": {
+      "type": "integer",
+      "description": "Time taken to execute the search in milliseconds"
+    },
+    "hits": {
+      "type": "array",
+      "description": "List of matching document results",
+      "items": {
+        "type": "object",
+        "properties": {
+          "document": {
+            "type": "object",
+            "description": "The matched document"
+          },
+          "highlight": {
+            "type": "object",
+            "description": "Highlighted snippets for matching fields"
+          },
+          "text_match": {
+            "type": "integer",
+            "description": "Numeric text match score"
+          }
+        }
+      }
+    },
+    "facet_counts": {
+      "type": "array",
+      "description": "Facet aggregation results",
+      "items": {
+        "type": "object",
+        "properties": {
+          "field_name": {"type": "string"},
+          "counts": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "value": {"type": "string"},
+                "count": {"type": "integer"},
+                "highlighted": {"type": "string"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "request_params": {
+      "type": "object",
+      "description": "Echo of the original request parameters"
+    },
+    "search_cutoff": {
+      "type": "boolean",
+      "description": "Whether results were cut off to meet latency requirements"
+    }
+  }
+}

@@ -52,7 +52,7 @@ paths:
   /collections:
     post:
       operationId: createVectorCollection
-      summary: Create a collection with vector fields
+      summary: Create A Collection With Vector Fields
       description: >-
         Creates a collection that includes vector embedding fields for semantic
         search. Vector fields are defined with a type of float[] and a num_dim
@@ -85,7 +85,7 @@ paths:
       - $ref: '#/components/parameters/collectionName'
     get:
       operationId: vectorSearch
-      summary: Perform vector or hybrid search
+      summary: Perform Vector Or Hybrid Search
       description: >-
         Searches for documents using vector similarity, keyword matching, or a
         hybrid combination of both. When vector_query is specified, Typesense
@@ -180,7 +180,7 @@ paths:
   /multi_search:
     post:
       operationId: multiVectorSearch
-      summary: Multi-search with vector queries
+      summary: Multi-search With Vector Queries
       description: >-
         Sends multiple search requests in a single HTTP request, where one or
         more requests can include vector queries for semantic or hybrid search
@@ -222,7 +222,7 @@ paths:
   /nl_search_models:
     get:
       operationId: listNLSearchModels
-      summary: List all NL search models
+      summary: List All NL Search Models
       description: >-
         Retrieves all natural language search models configured in the
         Typesense instance. NL search models are used for query understanding
@@ -242,7 +242,7 @@ paths:
           description: Unauthorized
     post:
       operationId: createNLSearchModel
-      summary: Create an NL search model
+      summary: Create An NL Search Model
       description: >-
         Creates a new natural language search model configuration for semantic
         query understanding.
@@ -270,7 +270,7 @@ paths:
       - $ref: '#/components/parameters/modelId'
     get:
       operationId: getNLSearchModel
-      summary: Retrieve an NL search model
+      summary: Retrieve An NL Search Model
       description: >-
         Retrieves a specific NL search model by ID.
       tags:
@@ -288,7 +288,7 @@ paths:
           description: Model not found
     put:
       operationId: updateNLSearchModel
-      summary: Update an NL search model
+      summary: Update An NL Search Model
       description: >-
         Updates an existing NL search model configuration.
       tags:
@@ -314,7 +314,7 @@ paths:
           description: Model not found
     delete:
       operationId: deleteNLSearchModel
-      summary: Delete an NL search model
+      summary: Delete An NL Search Model
       description: >-
         Deletes an NL search model by ID.
       tags:

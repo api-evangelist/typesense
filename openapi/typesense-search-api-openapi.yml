@@ -92,7 +92,7 @@ paths:
   /collections:
     get:
       operationId: listCollections
-      summary: List all collections
+      summary: List All Collections
       description: >-
         Returns a summary of all collections, including the name, number of
         documents, and schema for each collection.
@@ -111,7 +111,7 @@ paths:
           description: Unauthorized - invalid or missing API key
     post:
       operationId: createCollection
-      summary: Create a new collection
+      summary: Create A New Collection
       description: >-
         Creates a new collection with the specified schema. A collection defines
         the fields that will be indexed from documents. Before adding documents
@@ -142,7 +142,7 @@ paths:
       - $ref: '#/components/parameters/collectionName'
     get:
       operationId: getCollection
-      summary: Retrieve a collection
+      summary: Retrieve A Collection
       description: >-
         Retrieves the schema and metadata of a specific collection by name.
       tags:
@@ -160,7 +160,7 @@ paths:
           description: Collection not found
     patch:
       operationId: updateCollection
-      summary: Update a collection
+      summary: Update A Collection
       description: >-
         Updates the schema of an existing collection. You can add new fields,
         drop existing fields, or modify field attributes.
@@ -187,7 +187,7 @@ paths:
           description: Collection not found
     delete:
       operationId: deleteCollection
-      summary: Delete a collection
+      summary: Delete A Collection
       description: >-
         Permanently deletes a collection and all documents within it. This
         action cannot be undone.
@@ -209,7 +209,7 @@ paths:
       - $ref: '#/components/parameters/collectionName'
     post:
       operationId: indexDocument
-      summary: Index a document
+      summary: Index A Document
       description: >-
         Indexes a single document into the specified collection. If the document
         contains an id field of type string, Typesense will use that as the
@@ -253,7 +253,7 @@ paths:
           description: Collection not found
     patch:
       operationId: updateDocuments
-      summary: Update documents with conditional query
+      summary: Update Documents With Conditional Query
       description: >-
         Updates multiple documents that match a given filter condition. Only the
         fields specified in the request body are updated.
@@ -295,7 +295,7 @@ paths:
           description: Collection not found
     delete:
       operationId: deleteDocuments
-      summary: Delete documents by query
+      summary: Delete Documents By Query
       description: >-
         Deletes documents that match a given filter condition from the
         collection.
@@ -338,7 +338,7 @@ paths:
       - $ref: '#/components/parameters/collectionName'
     get:
       operationId: searchCollection
-      summary: Search for documents
+      summary: Search For Documents
       description: >-
         Searches for documents in a collection using full-text search with typo
         tolerance, faceting, filtering, sorting, grouping, geo search, and
@@ -549,7 +549,7 @@ paths:
       - $ref: '#/components/parameters/collectionName'
     get:
       operationId: exportDocuments
-      summary: Export documents from a collection
+      summary: Export Documents From A Collection
       description: >-
         Exports all documents from a collection as a stream of JSONL-formatted
         lines. Supports filtering to export a subset of documents.
@@ -590,7 +590,7 @@ paths:
       - $ref: '#/components/parameters/collectionName'
     post:
       operationId: importDocuments
-      summary: Import documents into a collection
+      summary: Import Documents Into A Collection
       description: >-
         Imports multiple documents into a collection via a JSONL-formatted
         request body. Supports create, upsert, update, and emplace actions.
@@ -649,7 +649,7 @@ paths:
       - $ref: '#/components/parameters/documentId'
     get:
       operationId: getDocument
-      summary: Retrieve a document
+      summary: Retrieve A Document
       description: >-
         Retrieves a single document from a collection by its ID.
       tags:
@@ -667,7 +667,7 @@ paths:
           description: Document or collection not found
     patch:
       operationId: updateDocument
-      summary: Update a document
+      summary: Update A Document
       description: >-
         Partially updates a document in the collection. Only the fields
         specified in the request body are updated.
@@ -696,7 +696,7 @@ paths:
           description: Document or collection not found
     delete:
       operationId: deleteDocument
-      summary: Delete a document
+      summary: Delete A Document
       description: >-
         Deletes a single document from a collection by its ID.
       tags:
@@ -715,7 +715,7 @@ paths:
   /multi_search:
     post:
       operationId: multiSearch
-      summary: Multi-search across collections
+      summary: Multi-search Across Collections
       description: >-
         Sends multiple search requests in a single HTTP request. Each search
         can target a different collection with different parameters. Useful for
@@ -758,7 +758,7 @@ paths:
   /synonym_sets:
     get:
       operationId: listSynonymSets
-      summary: List all synonym sets
+      summary: List All Synonym Sets
       description: >-
         Retrieves all synonym sets defined in the Typesense instance. Synonym
         sets are top-level resources that can be shared across collections.
@@ -783,7 +783,7 @@ paths:
       - $ref: '#/components/parameters/synonymSetName'
     get:
       operationId: getSynonymSet
-      summary: Retrieve a synonym set
+      summary: Retrieve A Synonym Set
       description: >-
         Retrieves a specific synonym set by name.
       tags:
@@ -801,7 +801,7 @@ paths:
           description: Synonym set not found
     put:
       operationId: upsertSynonymSet
-      summary: Create or update a synonym set
+      summary: Create Or Update A Synonym Set
       description: >-
         Creates a new synonym set or updates an existing one by name.
       tags:
@@ -825,7 +825,7 @@ paths:
           description: Unauthorized
     delete:
       operationId: deleteSynonymSet
-      summary: Delete a synonym set
+      summary: Delete A Synonym Set
       description: >-
         Deletes a synonym set by name.
       tags:
@@ -846,7 +846,7 @@ paths:
       - $ref: '#/components/parameters/synonymSetName'
     get:
       operationId: listSynonymSetItems
-      summary: List items in a synonym set
+      summary: List Items In A Synonym Set
       description: >-
         Retrieves all synonym items within a specific synonym set.
       tags:
@@ -873,7 +873,7 @@ paths:
       - $ref: '#/components/parameters/itemId'
     get:
       operationId: getSynonymSetItem
-      summary: Retrieve a synonym set item
+      summary: Retrieve A Synonym Set Item
       description: >-
         Retrieves a specific synonym item by ID from a synonym set.
       tags:
@@ -891,7 +891,7 @@ paths:
           description: Synonym item or set not found
     put:
       operationId: upsertSynonymSetItem
-      summary: Create or update a synonym set item
+      summary: Create Or Update A Synonym Set Item
       description: >-
         Creates or updates a synonym item within a synonym set.
       tags:
@@ -915,7 +915,7 @@ paths:
           description: Unauthorized
     delete:
       operationId: deleteSynonymSetItem
-      summary: Delete a synonym set item
+      summary: Delete A Synonym Set Item
       description: >-
         Deletes a specific synonym item from a synonym set.
       tags:
@@ -934,7 +934,7 @@ paths:
   /curation_sets:
     get:
       operationId: listCurationSets
-      summary: List all curation sets
+      summary: List All Curation Sets
       description: >-
         Retrieves all curation sets. Curation sets are top-level resources for
         pinning, hiding, and boosting search results across collections.
@@ -959,7 +959,7 @@ paths:
       - $ref: '#/components/parameters/curationSetName'
     get:
       operationId: getCurationSet
-      summary: Retrieve a curation set
+      summary: Retrieve A Curation Set
       description: >-
         Retrieves a specific curation set by name.
       tags:
@@ -977,7 +977,7 @@ paths:
           description: Curation set not found
     put:
       operationId: upsertCurationSet
-      summary: Create or update a curation set
+      summary: Create Or Update A Curation Set
       description: >-
         Creates a new curation set or updates an existing one.
       tags:
@@ -1001,7 +1001,7 @@ paths:
           description: Unauthorized
     delete:
       operationId: deleteCurationSet
-      summary: Delete a curation set
+      summary: Delete A Curation Set
       description: >-
         Deletes a curation set by name.
       tags:
@@ -1022,7 +1022,7 @@ paths:
       - $ref: '#/components/parameters/curationSetName'
     get:
       operationId: listCurationSetItems
-      summary: List items in a curation set
+      summary: List Items In A Curation Set
       description: >-
         Retrieves all curation items within a specific curation set.
       tags:
@@ -1049,7 +1049,7 @@ paths:
       - $ref: '#/components/parameters/itemId'
     get:
       operationId: getCurationSetItem
-      summary: Retrieve a curation set item
+      summary: Retrieve A Curation Set Item
       description: >-
         Retrieves a specific curation item by ID.
       tags:
@@ -1067,7 +1067,7 @@ paths:
           description: Curation item or set not found
     put:
       operationId: upsertCurationSetItem
-      summary: Create or update a curation set item
+      summary: Create Or Update A Curation Set Item
       description: >-
         Creates or updates a curation item within a curation set.
       tags:
@@ -1091,7 +1091,7 @@ paths:
           description: Unauthorized
     delete:
       operationId: deleteCurationSetItem
-      summary: Delete a curation set item
+      summary: Delete A Curation Set Item
       description: >-
         Deletes a specific curation item from a curation set.
       tags:
@@ -1110,7 +1110,7 @@ paths:
   /keys:
     get:
       operationId: listApiKeys
-      summary: Retrieve metadata for all API keys
+      summary: Retrieve Metadata For All API Keys
       description: >-
         Returns metadata about all API keys. The actual key values are not
         returned for security; only the value_prefix is included.
@@ -1127,7 +1127,7 @@ paths:
           description: Unauthorized
     post:
       operationId: createApiKey
-      summary: Create an API key
+      summary: Create An API Key
       description: >-
         Creates a new API key with fine-grained access control. You can restrict
         access on a per-collection, per-action, per-record, or per-field level.
@@ -1155,7 +1155,7 @@ paths:
       - $ref: '#/components/parameters/keyId'
     get:
       operationId: getApiKey
-      summary: Retrieve an API key
+      summary: Retrieve An API Key
       description: >-
         Retrieves metadata about a specific API key by ID. The full key value
         is not returned.
@@ -1174,7 +1174,7 @@ paths:
           description: API key not found
     delete:
       operationId: deleteApiKey
-      summary: Delete an API key
+      summary: Delete An API Key
       description: >-
         Deletes an API key by its numeric ID.
       tags:
@@ -1199,7 +1199,7 @@ paths:
   /aliases:
     get:
       operationId: listAliases
-      summary: List all collection aliases
+      summary: List All Collection Aliases
       description: >-
         Retrieves all collection aliases and the collections they point to.
       tags:
@@ -1218,7 +1218,7 @@ paths:
       - $ref: '#/components/parameters/aliasName'
     get:
       operationId: getAlias
-      summary: Retrieve a collection alias
+      summary: Retrieve A Collection Alias
       description: >-
         Retrieves a specific alias and the collection it points to.
       tags:
@@ -1236,7 +1236,7 @@ paths:
           description: Alias not found
     put:
       operationId: upsertAlias
-      summary: Create or update a collection alias
+      summary: Create Or Update A Collection Alias
       description: >-
         Creates a new alias or updates an existing one to point to a different
         collection. Aliases enable zero-downtime reindexing.
@@ -1261,7 +1261,7 @@ paths:
           description: Unauthorized
     delete:
       operationId: deleteAlias
-      summary: Delete a collection alias
+      summary: Delete A Collection Alias
       description: >-
         Deletes a collection alias by name.
       tags:
@@ -1280,7 +1280,7 @@ paths:
   /stopwords:
     get:
       operationId: listStopwordsSets
-      summary: List all stopwords sets
+      summary: List All Stopwords Sets
       description: >-
         Retrieves all stopwords sets. Stopwords are keywords removed from search
         queries during search (not during indexing).
@@ -1305,7 +1305,7 @@ paths:
       - $ref: '#/components/parameters/stopwordsSetId'
     get:
       operationId: getStopwordsSet
-      summary: Retrieve a stopwords set
+      summary: Retrieve A Stopwords Set
       description: >-
         Retrieves a specific stopwords set by ID.
       tags:
@@ -1323,7 +1323,7 @@ paths:
           description: Stopwords set not found
     put:
       operationId: upsertStopwordsSet
-      summary: Create or update a stopwords set
+      summary: Create Or Update A Stopwords Set
       description: >-
         Creates a new stopwords set or updates an existing one.
       tags:
@@ -1347,7 +1347,7 @@ paths:
           description: Unauthorized
     delete:
       operationId: deleteStopwordsSet
-      summary: Delete a stopwords set
+      summary: Delete A Stopwords Set
       description: >-
         Deletes a stopwords set by ID.
       tags:
@@ -1366,7 +1366,7 @@ paths:
   /presets:
     get:
       operationId: listPresets
-      summary: List all presets
+      summary: List All Presets
       description: >-
         Retrieves all stored presets. Presets allow you to save named sets of
         search parameters for reuse across queries.
@@ -1391,7 +1391,7 @@ paths:
       - $ref: '#/components/parameters/presetId'
     get:
       operationId: getPreset
-      summary: Retrieve a preset
+      summary: Retrieve A Preset
       description: >-
         Retrieves a specific preset by ID.
       tags:
@@ -1409,7 +1409,7 @@ paths:
           description: Preset not found
     put:
       operationId: upsertPreset
-      summary: Create or update a preset
+      summary: Create Or Update A Preset
       description: >-
         Creates a new preset or updates an existing one with saved search
         parameters.
@@ -1434,7 +1434,7 @@ paths:
           description: Unauthorized
     delete:
       operationId: deletePreset
-      summary: Delete a preset
+      summary: Delete A Preset
       description: >-
         Deletes a preset by ID.
       tags:
@@ -1453,7 +1453,7 @@ paths:
   /stemming/dictionaries:
     get:
       operationId: listStemmingDictionaries
-      summary: List stemming dictionaries
+      summary: List Stemming Dictionaries
       description: >-
         Retrieves all custom stemming dictionaries.
       tags:
@@ -1474,7 +1474,7 @@ paths:
       - $ref: '#/components/parameters/dictionaryId'
     get:
       operationId: getStemmingDictionary
-      summary: Retrieve a stemming dictionary
+      summary: Retrieve A Stemming Dictionary
       description: >-
         Retrieves a specific stemming dictionary by ID.
       tags:
@@ -1493,7 +1493,7 @@ paths:
   /stemming/dictionaries/import:
     post:
       operationId: importStemmingDictionary
-      summary: Import a stemming dictionary
+      summary: Import A Stemming Dictionary
       description: >-
         Imports a custom stemming dictionary with word-to-stem mappings.
       tags:
@@ -1520,7 +1520,7 @@ paths:
   /operations/snapshot:
     post:
       operationId: takeSnapshot
-      summary: Create a point-in-time snapshot
+      summary: Create A Point-in-time Snapshot
       description: >-
         Creates a point-in-time snapshot of the Typesense data directory for
         backup purposes.
@@ -1546,7 +1546,7 @@ paths:
   /operations/vote:
     post:
       operationId: vote
-      summary: Trigger raft voting
+      summary: Trigger Raft Voting
       description: >-
         Triggers a raft voting process in a multi-node Typesense cluster.
       tags:
@@ -1563,7 +1563,7 @@ paths:
   /operations/cache/clear:
     post:
       operationId: clearCache
-      summary: Clear the LRU cache
+      summary: Clear The LRU Cache
       description: >-
         Clears the in-memory LRU cache used by Typesense for frequently
         accessed data.
@@ -1581,7 +1581,7 @@ paths:
   /operations/db/compact:
     post:
       operationId: compactDatabase
-      summary: Compact the on-disk database
+      summary: Compact The On-disk Database
       description: >-
         Triggers compaction of the on-disk RocksDB database to reclaim space
         and improve performance.
@@ -1599,7 +1599,7 @@ paths:
   /operations/schema_changes:
     get:
       operationId: getSchemaChanges
-      summary: Get schema change status
+      summary: Get Schema Change Status
       description: >-
         Retrieves the status of in-progress schema change operations.
       tags:
@@ -1618,7 +1618,7 @@ paths:
   /config:
     post:
       operationId: updateConfig
-      summary: Update server configuration
+      summary: Update Server Configuration
       description: >-
         Updates server configuration settings such as toggling slow request
         logging.
@@ -1648,7 +1648,7 @@ paths:
   /debug:
     get:
       operationId: getDebugInfo
-      summary: Get debug information
+      summary: Get Debug Information
       description: >-
         Returns debugging information about the Typesense server including
         version and state details.
@@ -1675,7 +1675,7 @@ paths:
   /health:
     get:
       operationId: checkHealth
-      summary: Check server health
+      summary: Check Server Health
       description: >-
         Returns the health status of the Typesense server. Useful for load
         balancer health checks.
@@ -1691,7 +1691,7 @@ paths:
   /metrics.json:
     get:
       operationId: getMetrics
-      summary: Get server metrics
+      summary: Get Server Metrics
       description: >-
         Returns RAM, CPU, disk, and network metrics for the Typesense server
         in Prometheus-compatible format.
@@ -1709,7 +1709,7 @@ paths:
   /stats.json:
     get:
       operationId: getApiStats
-      summary: Get API endpoint statistics
+      summary: Get API Endpoint Statistics
       description: >-
         Returns request count and latency statistics for each API endpoint.
       tags:

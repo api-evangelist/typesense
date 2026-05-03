@@ -1,0 +1,37 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "http://localhost:8108/collections/products/documents",
+    "headers": {
+      "X-TYPESENSE-API-KEY": "{api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "id": "124",
+      "name": "Nike Air Max 90",
+      "description": "Classic running shoes with superior cushioning and air technology",
+      "brand": "Nike",
+      "category": "shoes",
+      "price": 120.00,
+      "rating": 4.8,
+      "in_stock": true,
+      "num_reviews": 2891,
+      "location": [40.7128, -74.0060]
+    }
+  },
+  "response": {
+    "status": 201,
+    "body": {
+      "id": "124",
+      "name": "Nike Air Max 90",
+      "description": "Classic running shoes with superior cushioning and air technology",
+      "brand": "Nike",
+      "category": "shoes",
+      "price": 120.0,
+      "rating": 4.8,
+      "in_stock": true,
+      "num_reviews": 2891,
+      "location": [40.7128, -74.006]
+    }
+  }
+}

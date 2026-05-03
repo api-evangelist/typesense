@@ -1,0 +1,91 @@
+extends: spectral:oas
+rules:
+
+  # All summaries must use Title Case
+  typesense-summary-title-case:
+    description: Operation summaries must use Title Case
+    message: "Summary '{{value}}' must use Title Case"
+    given: "$.paths[*][*].summary"
+    severity: warn
+    then:
+      function: pattern
+      functionOptions:
+        match: "^[A-Z]"
+
+  # API key authentication must be present on all operations
+  typesense-api-key-security:
+    description: All Typesense operations require X-TYPESENSE-API-KEY header authentication
+    message: "Operation must declare security using api_key_header"
+    given: "$.paths[*][get,post,put,patch,delete]"
+    severity: warn
+    then:
+      field: security
+      function: truthy
+
+  # Operation IDs must use camelCase
+  typesense-operation-id-camel-case:
+    description: Operation IDs must use camelCase
+    message: "OperationId '{{value}}' must use camelCase"
+    given: "$.paths[*][*].operationId"
+    severity: warn
+    then:
+      function: pattern
+      functionOptions:
+        match: "^[a-z][a-zA-Z0-9]+$"
+
+  # Collections path convention: /collections/{collectionName}
+  typesense-collection-path-convention:
+    description: Collection-level paths must follow /collections/{collectionName} convention
+    message: "Collection document paths should follow /collections/{collectionName}/documents pattern"
+    given: "$.paths"
+    severity: hint
+    then:
+      function: pattern
+      functionOptions:
+        match: "^(\/collections(\/\{[a-zA-Z]+\}(\/[a-z_]+(\/{[a-zA-Z]+})?)?)?|\/aliases.*|\/keys.*|\/operations.*|\/config.*|\/debug|\/health|\/metrics|\/stats|\/presets.*|\/stopwords.*|\/synonyms.*|\/analytics.*|\/conversations.*|\/multi_search|\/stemming.*|\/clusters.*)$"
+
+  # All responses should define 4xx errors
+  typesense-error-responses:
+    description: Operations should define 404 Not Found and 401 Unauthorized responses
+    message: "Operation should define error responses (401, 404)"
+    given: "$.paths[*][get,post,put,patch,delete].responses"
+    severity: warn
+    then:
+      function: schema
+      functionOptions:
+        schema:
+          type: object
+          anyOf:
+            - required: ["401"]
+            - required: ["404"]
+
+  # Tags must use Title Case
+  typesense-tags-title-case:
+    description: Tags must use Title Case
+    message: "Tag '{{value}}' must use Title Case"
+    given: "$.tags[*].name"
+    severity: warn
+    then:
+      function: pattern
+      functionOptions:
+        match: "^[A-Z][a-zA-Z ]+$"
+
+  # No empty descriptions
+  typesense-operation-description:
+    description: All operations should have a description
+    message: "Operation '{{path}}' is missing description"
+    given: "$.paths[*][get,post,put,patch,delete]"
+    severity: hint
+    then:
+      field: description
+      function: truthy
+
+  # Mutation operations should define request body
+  typesense-post-requires-request-body:
+    description: POST and PUT operations should define a requestBody
+    message: "POST/PUT operation should define a requestBody"
+    given: "$.paths[*][post,put]"
+    severity: warn
+    then:
+      field: requestBody
+      function: truthy

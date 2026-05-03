@@ -37,7 +37,7 @@ paths:
   /clusters:
     post:
       operationId: createCluster
-      summary: Create a new cluster
+      summary: Create A New Cluster
       description: >-
         Provisions a new Typesense Cloud cluster. Cluster creation is
         asynchronous and typically takes 4-5 minutes. Poll the single cluster
@@ -64,7 +64,7 @@ paths:
           description: Unauthorized - invalid or missing management API key
     get:
       operationId: listClusters
-      summary: List all clusters
+      summary: List All Clusters
       description: >-
         Retrieves all clusters under your Typesense Cloud account.
       tags:
@@ -85,7 +85,7 @@ paths:
       - $ref: '#/components/parameters/clusterId'
     get:
       operationId: getCluster
-      summary: Retrieve a cluster
+      summary: Retrieve A Cluster
       description: >-
         Retrieves detailed information about a specific cluster including its
         current status, configuration, hostnames, and region details.
@@ -104,7 +104,7 @@ paths:
           description: Cluster not found
     patch:
       operationId: updateCluster
-      summary: Update a cluster
+      summary: Update A Cluster
       description: >-
         Updates cluster settings such as the cluster name and auto-upgrade
         configuration.
@@ -131,7 +131,7 @@ paths:
           description: Cluster not found
     delete:
       operationId: terminateCluster
-      summary: Terminate a cluster
+      summary: Terminate A Cluster
       description: >-
         Terminates a running cluster permanently. This action cannot be undone.
         Once terminated, all data in the cluster is destroyed permanently as a
@@ -159,7 +159,7 @@ paths:
       - $ref: '#/components/parameters/clusterId'
     post:
       operationId: generateApiKey
-      summary: Generate Typesense Server API keys
+      summary: Generate Typesense Server API Keys
       description: >-
         Generates Typesense Server API keys for the cluster. This endpoint is
         only available once the cluster status changes to in_service. Returns
@@ -185,7 +185,7 @@ paths:
       - $ref: '#/components/parameters/clusterId'
     post:
       operationId: createConfigurationChange
-      summary: Schedule a configuration change
+      summary: Schedule A Configuration Change
       description: >-
         Schedules a configuration change for a cluster such as upgrading
         memory, changing vCPU allocation, upgrading Typesense server version,
@@ -214,7 +214,7 @@ paths:
           description: Cluster not found
     get:
       operationId: listConfigurationChanges
-      summary: List configuration changes
+      summary: List Configuration Changes
       description: >-
         Retrieves all configuration changes for a cluster, including pending,
         applied, and canceled changes.
@@ -246,7 +246,7 @@ paths:
       - $ref: '#/components/parameters/changeId'
     get:
       operationId: getConfigurationChange
-      summary: Retrieve a configuration change
+      summary: Retrieve A Configuration Change
       description: >-
         Retrieves details of a specific configuration change by ID.
       tags:
@@ -264,7 +264,7 @@ paths:
           description: Configuration change or cluster not found
     patch:
       operationId: updateConfigurationChange
-      summary: Cancel a configuration change
+      summary: Cancel A Configuration Change
       description: >-
         Updates a configuration change, typically to cancel a pending change
         by setting its status to canceled.
@@ -301,7 +301,7 @@ paths:
       - $ref: '#/components/parameters/clusterId'
     get:
       operationId: getServerConfigurationParameters
-      summary: Get server configuration parameters
+      summary: Get Server Configuration Parameters
       description: >-
         Retrieves the current Typesense Server configuration parameters for a
         cloud cluster. Changes to parameters take effect when the server is
@@ -321,7 +321,7 @@ paths:
           description: Cluster not found
     patch:
       operationId: updateServerConfigurationParameters
-      summary: Update server configuration parameters
+      summary: Update Server Configuration Parameters
       description: >-
         Updates Typesense Server configuration parameters for a cloud cluster.
         The server must be restarted for changes to take effect. Use the

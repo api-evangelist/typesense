@@ -50,7 +50,7 @@ paths:
   /analytics/rules:
     get:
       operationId: listAnalyticsRules
-      summary: List all analytics rules
+      summary: List All Analytics Rules
       description: >-
         Retrieves all analytics rules configured in the Typesense instance.
         Rules control how search queries and events are aggregated.
@@ -72,7 +72,7 @@ paths:
           description: Unauthorized
     post:
       operationId: createAnalyticsRule
-      summary: Create an analytics rule
+      summary: Create An Analytics Rule
       description: >-
         Creates one or more analytics rules for aggregating search queries or
         tracking events. Rule types include popular_queries for frequently
@@ -102,7 +102,7 @@ paths:
       - $ref: '#/components/parameters/ruleName'
     get:
       operationId: getAnalyticsRule
-      summary: Retrieve an analytics rule
+      summary: Retrieve An Analytics Rule
       description: >-
         Retrieves a specific analytics rule by name.
       tags:
@@ -120,7 +120,7 @@ paths:
           description: Analytics rule not found
     put:
       operationId: upsertAnalyticsRule
-      summary: Create or update an analytics rule
+      summary: Create Or Update An Analytics Rule
       description: >-
         Creates a new analytics rule or updates an existing one by name.
       tags:
@@ -144,7 +144,7 @@ paths:
           description: Unauthorized
     delete:
       operationId: deleteAnalyticsRule
-      summary: Delete an analytics rule
+      summary: Delete An Analytics Rule
       description: >-
         Deletes an analytics rule by name.
       tags:
@@ -168,7 +168,7 @@ paths:
   /analytics/events:
     post:
       operationId: createAnalyticsEvent
-      summary: Log an analytics event
+      summary: Log An Analytics Event
       description: >-
         Logs a user interaction event such as a click, conversion, or visit.
         Events are associated with search queries and documents to track user
@@ -194,7 +194,7 @@ paths:
           description: Unauthorized
     get:
       operationId: listAnalyticsEvents
-      summary: Retrieve analytics events
+      summary: Retrieve Analytics Events
       description: >-
         Retrieves logged analytics events. Supports filtering by event type
         and other criteria.
@@ -228,7 +228,7 @@ paths:
   /analytics/flush:
     post:
       operationId: flushAnalytics
-      summary: Flush analytics data to disk
+      summary: Flush Analytics Data To Disk
       description: >-
         Flushes in-memory analytics data to disk. Useful for ensuring analytics
         data is persisted before a server restart.
@@ -251,7 +251,7 @@ paths:
   /analytics/status:
     get:
       operationId: getAnalyticsStatus
-      summary: Get analytics subsystem status
+      summary: Get Analytics Subsystem Status
       description: >-
         Returns the current status of the analytics subsystem including
         whether it is operational and any pending operations.

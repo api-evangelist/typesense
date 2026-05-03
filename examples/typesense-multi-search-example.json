@@ -1,0 +1,61 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "http://localhost:8108/multi_search",
+    "headers": {
+      "X-TYPESENSE-API-KEY": "{api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "searches": [
+        {
+          "collection": "products",
+          "q": "running shoes",
+          "query_by": "name,description",
+          "filter_by": "category:=shoes",
+          "per_page": 5
+        },
+        {
+          "collection": "brands",
+          "q": "Nike",
+          "query_by": "name",
+          "per_page": 3
+        }
+      ]
+    }
+  },
+  "response": {
+    "status": 200,
+    "body": {
+      "results": [
+        {
+          "found": 253,
+          "hits": [
+            {
+              "document": {
+                "id": "124",
+                "name": "Nike Air Max 90",
+                "category": "shoes",
+                "price": 120
+              }
+            }
+          ],
+          "search_time_ms": 2
+        },
+        {
+          "found": 1,
+          "hits": [
+            {
+              "document": {
+                "id": "1",
+                "name": "Nike",
+                "country": "US"
+              }
+            }
+          ],
+          "search_time_ms": 1
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,71 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "http://localhost:8108/collections/products/documents/search",
+    "headers": {
+      "X-TYPESENSE-API-KEY": "{api_key}"
+    },
+    "parameters": {
+      "q": "running shoes",
+      "query_by": "name,description",
+      "filter_by": "category:=shoes && price:[10..200]",
+      "sort_by": "rating:desc",
+      "facet_by": "category,brand",
+      "per_page": 10,
+      "page": 1
+    }
+  },
+  "response": {
+    "status": 200,
+    "body": {
+      "facet_counts": [
+        {
+          "counts": [
+            {"count": 1463, "highlighted": "shoes", "value": "shoes"}
+          ],
+          "field_name": "category",
+          "stats": {"total_values": 1}
+        }
+      ],
+      "found": 1463,
+      "hits": [
+        {
+          "document": {
+            "id": "124",
+            "name": "Nike Air Max 90",
+            "description": "Classic running shoes with superior cushioning",
+            "category": "shoes",
+            "brand": "Nike",
+            "price": 120,
+            "rating": 4.8
+          },
+          "highlight": {
+            "name": {
+              "matched_tokens": ["running", "shoes"],
+              "snippet": "<mark>Running</mark> <mark>Shoes</mark> - Nike Air Max"
+            }
+          },
+          "text_match": 578730123,
+          "text_match_info": {
+            "best_field_score": "1108091",
+            "best_field_weight": 15,
+            "fields_matched": 2,
+            "num_tokens_dropped": 0,
+            "score": "578730123",
+            "tokens_matched": 2,
+            "typo_prefix_score": 6
+          }
+        }
+      ],
+      "out_of": 10000,
+      "page": 1,
+      "request_params": {
+        "collection_name": "products",
+        "per_page": 10,
+        "q": "running shoes"
+      },
+      "search_cutoff": false,
+      "search_time_ms": 1
+    }
+  }
+}

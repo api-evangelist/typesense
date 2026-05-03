@@ -1,0 +1,186 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  label: "Typesense Search and Discovery"
+  description: >-
+    Unified search and discovery workflow combining Typesense full-text search,
+    vector search, and conversational AI search. Used by application developers
+    to deliver instant, relevant, and AI-powered search experiences.
+  tags:
+    - Typesense
+    - Search
+    - Discovery
+    - Vector Search
+    - AI Search
+  created: "2026-05-03"
+  modified: "2026-05-03"
+
+binds:
+  - namespace: env
+    keys:
+      TYPESENSE_API_KEY: TYPESENSE_API_KEY
+      TYPESENSE_HOST: TYPESENSE_HOST
+
+capability:
+  consumes:
+    - import: typesense-search
+      location: ./shared/search-api.yaml
+    - import: typesense-vector
+      location: ./shared/vector-search-api.yaml
+
+  exposes:
+    - type: rest
+      port: 8080
+      namespace: typesense-search-discovery-api
+      description: "Unified REST API for Typesense search and discovery."
+      resources:
+        - path: /v1/search
+          name: search
+          description: "Full-text document search"
+          operations:
+            - method: GET
+              name: search-collection
+              description: "Search documents in a collection with faceting and filtering"
+              call: "typesense-search.search-collection"
+              with:
+                collectionName: "rest.collection"
+                q: "rest.q"
+                query_by: "rest.query_by"
+                filter_by: "rest.filter_by"
+                sort_by: "rest.sort_by"
+                facet_by: "rest.facet_by"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/multi-search
+          name: multi-search
+          description: "Multi-collection search"
+          operations:
+            - method: POST
+              name: multi-search
+              description: "Execute multiple searches across collections"
+              call: "typesense-search.multi-search"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/vector-search
+          name: vector-search
+          description: "Semantic vector search"
+          operations:
+            - method: GET
+              name: vector-search
+              description: "Perform vector similarity search"
+              call: "typesense-vector.vector-search"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/collections
+          name: collections
+          description: "Collection management"
+          operations:
+            - method: GET
+              name: list-collections
+              description: "List all search collections"
+              call: "typesense-search.list-collections"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: POST
+              name: create-collection
+              description: "Create a new search collection"
+              call: "typesense-search.create-collection"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+    - type: mcp
+      port: 9080
+      namespace: typesense-search-discovery-mcp
+      transport: http
+      description: "MCP server for AI-assisted search and content discovery with Typesense."
+      tools:
+        - name: search-collection
+          description: "Search documents in a Typesense collection with full-text, filters, and facets"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "typesense-search.search-collection"
+          with:
+            collectionName: "tools.collection"
+            q: "tools.q"
+            query_by: "tools.query_by"
+            filter_by: "tools.filter_by"
+            sort_by: "tools.sort_by"
+            facet_by: "tools.facet_by"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: multi-search
+          description: "Execute multiple Typesense searches across different collections in one request"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "typesense-search.multi-search"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: vector-search
+          description: "Perform semantic vector similarity search in Typesense"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "typesense-vector.vector-search"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: multi-vector-search
+          description: "Execute multiple vector searches simultaneously across Typesense collections"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "typesense-vector.multi-vector-search"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-collections
+          description: "List all Typesense search collections"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "typesense-search.list-collections"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-collection
+          description: "Get schema and statistics for a Typesense collection"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "typesense-search.get-collection"
+          with:
+            collectionName: "tools.collection"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: index-document
+          description: "Index a new document into a Typesense collection"
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: false
+          call: "typesense-search.index-document"
+          with:
+            collectionName: "tools.collection"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: create-collection
+          description: "Create a new Typesense collection with a defined schema"
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: false
+          call: "typesense-search.create-collection"
+          outputParameters:
+            - type: object
+              mapping: "$."

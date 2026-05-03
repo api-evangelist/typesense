@@ -1,0 +1,45 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "http://localhost:8108/collections",
+    "headers": {
+      "X-TYPESENSE-API-KEY": "{api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "name": "products",
+      "fields": [
+        {"name": "name", "type": "string"},
+        {"name": "description", "type": "string"},
+        {"name": "brand", "type": "string", "facet": true},
+        {"name": "category", "type": "string", "facet": true},
+        {"name": "price", "type": "float"},
+        {"name": "rating", "type": "float"},
+        {"name": "in_stock", "type": "bool"},
+        {"name": "num_reviews", "type": "int32"},
+        {"name": "location", "type": "geopoint"}
+      ],
+      "default_sorting_field": "num_reviews"
+    }
+  },
+  "response": {
+    "status": 201,
+    "body": {
+      "name": "products",
+      "num_documents": 0,
+      "fields": [
+        {"name": "name", "type": "string", "facet": false, "optional": false, "index": true},
+        {"name": "description", "type": "string", "facet": false, "optional": false, "index": true},
+        {"name": "brand", "type": "string", "facet": true, "optional": false, "index": true},
+        {"name": "category", "type": "string", "facet": true, "optional": false, "index": true},
+        {"name": "price", "type": "float", "facet": false, "optional": false, "index": true},
+        {"name": "rating", "type": "float", "facet": false, "optional": false, "index": true},
+        {"name": "in_stock", "type": "bool", "facet": false, "optional": false, "index": true},
+        {"name": "num_reviews", "type": "int32", "facet": false, "optional": false, "index": true},
+        {"name": "location", "type": "geopoint", "facet": false, "optional": false, "index": true}
+      ],
+      "default_sorting_field": "num_reviews",
+      "created_at": 1636223420
+    }
+  }
+}

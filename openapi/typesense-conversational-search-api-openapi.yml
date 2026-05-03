@@ -49,7 +49,7 @@ paths:
   /conversations/models:
     get:
       operationId: listConversationModels
-      summary: List all conversation models
+      summary: List All Conversation Models
       description: >-
         Retrieves all conversation models configured in the Typesense instance.
         Conversation models define the LLM provider and parameters used for
@@ -69,7 +69,7 @@ paths:
           description: Unauthorized
     post:
       operationId: createConversationModel
-      summary: Create a conversation model
+      summary: Create A Conversation Model
       description: >-
         Creates a new conversation model that specifies the LLM provider, model
         name, API key, and system prompt for generating conversational answers
@@ -98,7 +98,7 @@ paths:
       - $ref: '#/components/parameters/modelId'
     get:
       operationId: getConversationModel
-      summary: Retrieve a conversation model
+      summary: Retrieve A Conversation Model
       description: >-
         Retrieves a specific conversation model by ID.
       tags:
@@ -116,7 +116,7 @@ paths:
           description: Conversation model not found
     put:
       operationId: updateConversationModel
-      summary: Update a conversation model
+      summary: Update A Conversation Model
       description: >-
         Updates an existing conversation model configuration including the LLM
         provider, model name, and system prompt.
@@ -143,7 +143,7 @@ paths:
           description: Conversation model not found
     delete:
       operationId: deleteConversationModel
-      summary: Delete a conversation model
+      summary: Delete A Conversation Model
       description: >-
         Deletes a conversation model by ID.
       tags:
@@ -169,7 +169,7 @@ paths:
       - $ref: '#/components/parameters/collectionName'
     get:
       operationId: conversationalSearch
-      summary: Perform a conversational search
+      summary: Perform A Conversational Search
       description: >-
         Performs a search query with conversational RAG enabled. Typesense
         retrieves relevant documents and passes them as context to the

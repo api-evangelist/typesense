@@ -1,0 +1,329 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  label: "Typesense Search API"
+  description: >-
+    Core Typesense REST API for managing collections, indexing documents, and
+    performing full-text, faceted, filtered, and multi-search queries.
+  tags:
+    - Typesense
+    - Search
+    - Collections
+    - Documents
+  created: "2026-05-03"
+  modified: "2026-05-03"
+
+binds:
+  - namespace: env
+    keys:
+      TYPESENSE_API_KEY: TYPESENSE_API_KEY
+      TYPESENSE_HOST: TYPESENSE_HOST
+
+capability:
+  consumes:
+    - type: http
+      namespace: typesense-search
+      baseUri: "http://{{TYPESENSE_HOST}}:8108"
+      description: "Typesense search and collection management"
+      authentication:
+        type: apikey
+        key: X-TYPESENSE-API-KEY
+        value: "{{TYPESENSE_API_KEY}}"
+        placement: header
+      resources:
+        - name: collections
+          path: /collections
+          description: "Collection management"
+          operations:
+            - name: list-collections
+              method: GET
+              description: "List all collections"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: create-collection
+              method: POST
+              description: "Create a new collection"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+              body:
+                type: json
+                data:
+                  name: "{{tools.name}}"
+                  fields: "{{tools.fields}}"
+                  default_sorting_field: "{{tools.default_sorting_field}}"
+
+        - name: collection
+          path: /collections/{collectionName}
+          description: "Single collection operations"
+          operations:
+            - name: get-collection
+              method: GET
+              description: "Retrieve a collection by name"
+              inputParameters:
+                - name: collectionName
+                  in: path
+                  type: string
+                  required: true
+                  description: "Collection name"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: delete-collection
+              method: DELETE
+              description: "Delete a collection"
+              inputParameters:
+                - name: collectionName
+                  in: path
+                  type: string
+                  required: true
+                  description: "Collection name"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: documents
+          path: /collections/{collectionName}/documents
+          description: "Document indexing and management"
+          operations:
+            - name: index-document
+              method: POST
+              description: "Index a single document"
+              inputParameters:
+                - name: collectionName
+                  in: path
+                  type: string
+                  required: true
+                  description: "Collection name"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+              body:
+                type: json
+                data:
+                  document: "{{tools.document}}"
+
+        - name: search
+          path: /collections/{collectionName}/documents/search
+          description: "Search documents in a collection"
+          operations:
+            - name: search-collection
+              method: GET
+              description: "Search for documents in a collection"
+              inputParameters:
+                - name: collectionName
+                  in: path
+                  type: string
+                  required: true
+                  description: "Collection name"
+                - name: q
+                  in: query
+                  type: string
+                  required: true
+                  description: "Search query"
+                - name: query_by
+                  in: query
+                  type: string
+                  required: true
+                  description: "Comma-separated list of fields to search"
+                - name: filter_by
+                  in: query
+                  type: string
+                  required: false
+                  description: "Filter conditions"
+                - name: sort_by
+                  in: query
+                  type: string
+                  required: false
+                  description: "Sort field and direction"
+                - name: facet_by
+                  in: query
+                  type: string
+                  required: false
+                  description: "Comma-separated facet fields"
+                - name: per_page
+                  in: query
+                  type: integer
+                  required: false
+                  description: "Results per page"
+                - name: page
+                  in: query
+                  type: integer
+                  required: false
+                  description: "Page number"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: multi-search
+          path: /multi_search
+          description: "Search across multiple collections in one request"
+          operations:
+            - name: multi-search
+              method: POST
+              description: "Execute multiple searches in a single request"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+              body:
+                type: json
+                data:
+                  searches: "{{tools.searches}}"
+
+        - name: aliases
+          path: /aliases
+          description: "Collection alias management"
+          operations:
+            - name: list-aliases
+              method: GET
+              description: "List all collection aliases"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: keys
+          path: /keys
+          description: "API key management"
+          operations:
+            - name: list-api-keys
+              method: GET
+              description: "List all API keys"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: create-api-key
+              method: POST
+              description: "Create a new API key"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+              body:
+                type: json
+                data:
+                  description: "{{tools.description}}"
+                  actions: "{{tools.actions}}"
+                  collections: "{{tools.collections}}"
+
+  exposes:
+    - type: rest
+      port: 8100
+      namespace: typesense-search-api
+      resources:
+        - path: /v1/collections
+          name: collections
+          description: "Collection management"
+          operations:
+            - method: GET
+              name: list-collections
+              description: "List all search collections"
+              call: "typesense-search.list-collections"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/search
+          name: search
+          description: "Search documents"
+          operations:
+            - method: GET
+              name: search-collection
+              description: "Search documents in a collection"
+              call: "typesense-search.search-collection"
+              with:
+                collectionName: "rest.collection"
+                q: "rest.q"
+                query_by: "rest.query_by"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+    - type: mcp
+      port: 9100
+      namespace: typesense-search-mcp
+      transport: http
+      tools:
+        - name: search-collection
+          description: "Search for documents in a Typesense collection"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "typesense-search.search-collection"
+          with:
+            collectionName: "tools.collection"
+            q: "tools.q"
+            query_by: "tools.query_by"
+            filter_by: "tools.filter_by"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: multi-search
+          description: "Execute multiple searches across Typesense collections simultaneously"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "typesense-search.multi-search"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-collections
+          description: "List all Typesense search collections"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "typesense-search.list-collections"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-collection
+          description: "Get details about a specific Typesense collection"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "typesense-search.get-collection"
+          with:
+            collectionName: "tools.collection"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: create-collection
+          description: "Create a new Typesense search collection with schema"
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: false
+          call: "typesense-search.create-collection"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: index-document
+          description: "Index a document into a Typesense collection"
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: false
+          call: "typesense-search.index-document"
+          with:
+            collectionName: "tools.collection"
+          outputParameters:
+            - type: object
+              mapping: "$."
