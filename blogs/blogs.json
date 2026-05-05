@@ -1,0 +1,13 @@
+{
+  "repo": "typesense",
+  "feeds": [
+    {
+      "source": "https://typesense.org/blog/",
+      "feed_url": "https://typesense.org/blog/index.xml",
+      "saved": 6,
+      "title": "Typesense"
+    }
+  ],
+  "post_count": 6,
+  "fetched": "2026-05-03T23:37:47Z"
+}
