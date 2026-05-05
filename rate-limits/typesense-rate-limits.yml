@@ -1,0 +1,32 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
+provider: Typesense
+providerId: typesense
+created: '2026-05-04'
+modified: '2026-05-04'
+reconciled: true
+tags:
+  - Rate Limiting
+  - Search
+description: Typesense throughput depends on cluster size; no hard rate limit by default.
+sources:
+  - https://typesense.org/cloud/
+  - https://cloud.typesense.org/pricing
+  - https://typesense.org/docs/27.0/api/api-keys.html
+headers: {}
+responseCodes:
+  throttled: 429
+limits:
+  - name: Cluster throughput
+    scope: cluster
+    metric: queries_per_second
+    limit: scales with RAM/CPU
+  - name: API keys ratelimit (configurable)
+    scope: key
+    metric: requests_per_minute
+    limit: user-defined
+  - name: Concurrent index operations
+    scope: cluster
+    metric: concurrent
+    limit: varies

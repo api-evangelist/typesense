@@ -1,0 +1,111 @@
+specification: API Commons Plans
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
+provider: Typesense
+providerId: typesense
+created: '2026-05-04'
+modified: '2026-05-04'
+reconciled: true
+tags:
+  - Search
+description: Typesense Cloud per-cluster pricing by RAM/CPU, plus replica/HA multipliers.
+sources:
+  - https://typesense.org/cloud/
+  - https://cloud.typesense.org/pricing
+plans:
+  - id: typesense-oss
+    name: Open Source (Self-hosted)
+    type: freemium
+    description: Free; self-host on your infra.
+    entries:
+      - label: Per deployment
+        name: deploy
+        type: subscription
+        metric: month
+        limit: -1
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: '0.00'
+        userMultiplied: false
+    elements:
+      - name: GPL v3 open source
+      - name: Self-hostable
+      - name: Community support
+  - id: typesense-cloud-small
+    name: Cloud — Small (0.5 GB RAM)
+    type: usage-based
+    description: From ~$0.045/hour ($32/month). Single node.
+    entries:
+      - label: Per hour
+        name: hourly
+        type: metered
+        metric: hour
+        limit: -1
+        timeFrame: usage
+        geo: global
+        unit: 1
+        price: '0.045'
+        userMultiplied: false
+    elements:
+      - name: 0.5 GB RAM
+      - name: 0.5 vCPU
+      - name: Single node
+      - name: Best for prototypes
+  - id: typesense-cloud-medium
+    name: Cloud — Medium (2 GB RAM)
+    type: usage-based
+    description: From ~$0.18/hour. Single node.
+    entries:
+      - label: Per hour
+        name: hourly
+        type: metered
+        metric: hour
+        limit: -1
+        timeFrame: usage
+        geo: global
+        unit: 1
+        price: '0.18'
+        userMultiplied: false
+    elements:
+      - name: 2 GB RAM
+      - name: 2 vCPU
+      - name: Single node
+  - id: typesense-cloud-ha
+    name: Cloud — HA Multi-node
+    type: paid
+    description: 3-node high-availability multiplier (~3x single-node price).
+    entries:
+      - label: HA multiplier
+        name: ha
+        type: metered
+        metric: node-hour
+        limit: -1
+        timeFrame: usage
+        geo: global
+        unit: 1
+        price: 3x base
+        userMultiplied: false
+    elements:
+      - name: 3-node cluster
+      - name: Auto-failover
+      - name: 99.9% SLA
+  - id: typesense-enterprise
+    name: Enterprise
+    type: enterprise
+    description: Custom pricing with SLA and dedicated support.
+    entries:
+      - label: Annual (custom)
+        name: annual
+        type: subscription
+        metric: year
+        limit: -1
+        timeFrame: year
+        geo: global
+        unit: 1
+        price: custom
+        userMultiplied: false
+    elements:
+      - name: Dedicated support
+      - name: Custom SLA
+      - name: Self-hosted Enterprise license available
