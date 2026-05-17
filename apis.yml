@@ -33,9 +33,9 @@ apis:
         url: https://typesense.org/docs/
       - type: OpenAPI
         url: openapi/typesense-search-api-openapi.yml
-      - type: Getting Started
+      - type: GettingStarted
         url: https://typesense.org/docs/guide/
-      - type: API Reference
+      - type: APIReference
         url: https://typesense.org/docs/latest/api/
   - name: Typesense Vector Search API
     description: The Typesense Vector Search API extends the core search capabilities with vector and
@@ -113,7 +113,7 @@ common:
     url: https://typesense.org
   - type: Documentation
     url: https://typesense.org/docs/
-  - type: GitHub Organization
+  - type: GitHubOrganization
     url: https://github.com/typesense
   - type: Blog
     url: https://typesense.org/blog/
@@ -125,11 +125,11 @@ common:
     url: https://www.npmjs.com/package/typesense
   - type: Pricing
     url: https://typesense.org/pricing/
-  - type: Terms of Service
+  - type: TermsOfService
     url: https://typesense.org/terms/
-  - type: Privacy Policy
+  - type: PrivacyPolicy
     url: https://typesense.org/privacy/
-  - type: JSON-LD
+  - type: JSONLD
     url: json-ld/typesense-context.jsonld
   - type: JSONSchema
     url: json-schema/typesense-collection-schema.json
