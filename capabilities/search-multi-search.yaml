@@ -1,0 +1,88 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Typesense Search API — Multi-Search
+  description: 'Typesense Search API — Multi-Search. 1 operations. Lead operation: Multi-search Across Collections. Self-contained
+    Naftiko capability covering one Typesense business surface.'
+  tags:
+  - Typesense
+  - Multi-Search
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    TYPESENSE_API_KEY: TYPESENSE_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: search-multi-search
+    baseUri: ''
+    description: Typesense Search API — Multi-Search business capability. Self-contained, no shared references.
+    resources:
+    - name: multi_search
+      path: /multi_search
+      operations:
+      - name: multisearch
+        method: POST
+        description: Multi-search Across Collections
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: limit_multi_searches
+          in: query
+          type: integer
+          description: Maximum number of search requests allowed in a single multi-search.
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: apikey
+      key: X-TYPESENSE-API-KEY
+      value: '{{env.TYPESENSE_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: search-multi-search-rest
+    port: 8080
+    description: REST adapter for Typesense Search API — Multi-Search. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/multi-search
+      name: multi-search
+      description: REST surface for multi_search.
+      operations:
+      - method: POST
+        name: multisearch
+        description: Multi-search Across Collections
+        call: search-multi-search.multisearch
+        with:
+          limit_multi_searches: rest.limit_multi_searches
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: search-multi-search-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Typesense Search API — Multi-Search. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: multi-search-across-collections
+      description: Multi-search Across Collections
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: false
+      call: search-multi-search.multisearch
+      with:
+        limit_multi_searches: tools.limit_multi_searches
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

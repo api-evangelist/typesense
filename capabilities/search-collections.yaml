@@ -1,0 +1,199 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Typesense Search API — Collections
+  description: 'Typesense Search API — Collections. 5 operations. Lead operation: List All Collections. Self-contained Naftiko
+    capability covering one Typesense business surface.'
+  tags:
+  - Typesense
+  - Collections
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    TYPESENSE_API_KEY: TYPESENSE_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: search-collections
+    baseUri: ''
+    description: Typesense Search API — Collections business capability. Self-contained, no shared references.
+    resources:
+    - name: collections
+      path: /collections
+      operations:
+      - name: listcollections
+        method: GET
+        description: List All Collections
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: createcollection
+        method: POST
+        description: Create A New Collection
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: collections-collectionName
+      path: /collections/{collectionName}
+      operations:
+      - name: getcollection
+        method: GET
+        description: Retrieve A Collection
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: updatecollection
+        method: PATCH
+        description: Update A Collection
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: deletecollection
+        method: DELETE
+        description: Delete A Collection
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: apikey
+      key: X-TYPESENSE-API-KEY
+      value: '{{env.TYPESENSE_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: search-collections-rest
+    port: 8080
+    description: REST adapter for Typesense Search API — Collections. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/collections
+      name: collections
+      description: REST surface for collections.
+      operations:
+      - method: GET
+        name: listcollections
+        description: List All Collections
+        call: search-collections.listcollections
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createcollection
+        description: Create A New Collection
+        call: search-collections.createcollection
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/collections/{collectionname}
+      name: collections-collectionname
+      description: REST surface for collections-collectionName.
+      operations:
+      - method: GET
+        name: getcollection
+        description: Retrieve A Collection
+        call: search-collections.getcollection
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: updatecollection
+        description: Update A Collection
+        call: search-collections.updatecollection
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deletecollection
+        description: Delete A Collection
+        call: search-collections.deletecollection
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: search-collections-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Typesense Search API — Collections. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: list-all-collections
+      description: List All Collections
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: search-collections.listcollections
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-new-collection
+      description: Create A New Collection
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: search-collections.createcollection
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: retrieve-collection
+      description: Retrieve A Collection
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: search-collections.getcollection
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-collection
+      description: Update A Collection
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: search-collections.updatecollection
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-collection
+      description: Delete A Collection
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: search-collections.deletecollection
+      outputParameters:
+      - type: object
+        mapping: $.

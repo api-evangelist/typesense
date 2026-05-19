@@ -1,0 +1,388 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Typesense Search API — Documents
+  description: 'Typesense Search API — Documents. 8 operations. Lead operation: Index A Document. Self-contained Naftiko capability
+    covering one Typesense business surface.'
+  tags:
+  - Typesense
+  - Documents
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    TYPESENSE_API_KEY: TYPESENSE_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: search-documents
+    baseUri: ''
+    description: Typesense Search API — Documents business capability. Self-contained, no shared references.
+    resources:
+    - name: collections-collectionName-documents
+      path: /collections/{collectionName}/documents
+      operations:
+      - name: indexdocument
+        method: POST
+        description: Index A Document
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: action
+          in: query
+          type: string
+          description: Additional action to perform. Use create, upsert, update, or emplace.
+        - name: dirty_values
+          in: query
+          type: string
+          description: How to handle field values that do not match the schema type.
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: updatedocuments
+        method: PATCH
+        description: Update Documents With Conditional Query
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: filter_by
+          in: query
+          type: string
+          description: A filter expression to identify documents to update.
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: deletedocuments
+        method: DELETE
+        description: Delete Documents By Query
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: filter_by
+          in: query
+          type: string
+          description: A filter expression to identify documents to delete.
+          required: true
+        - name: batch_size
+          in: query
+          type: integer
+          description: Number of documents to delete per batch.
+    - name: collections-collectionName-documents-export
+      path: /collections/{collectionName}/documents/export
+      operations:
+      - name: exportdocuments
+        method: GET
+        description: Export Documents From A Collection
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: filter_by
+          in: query
+          type: string
+          description: Filter condition to export a subset of documents.
+        - name: include_fields
+          in: query
+          type: string
+          description: Comma-separated list of fields to include.
+        - name: exclude_fields
+          in: query
+          type: string
+          description: Comma-separated list of fields to exclude.
+    - name: collections-collectionName-documents-import
+      path: /collections/{collectionName}/documents/import
+      operations:
+      - name: importdocuments
+        method: POST
+        description: Import Documents Into A Collection
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: action
+          in: query
+          type: string
+          description: The import action to perform. Use create, upsert, update, or emplace.
+        - name: batch_size
+          in: query
+          type: integer
+          description: Number of documents to process per batch.
+        - name: dirty_values
+          in: query
+          type: string
+          description: How to handle values that do not match the schema type.
+        - name: return_id
+          in: query
+          type: boolean
+          description: Whether to return the document ID in the response.
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: collections-collectionName-documents-documentId
+      path: /collections/{collectionName}/documents/{documentId}
+      operations:
+      - name: getdocument
+        method: GET
+        description: Retrieve A Document
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: updatedocument
+        method: PATCH
+        description: Update A Document
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: deletedocument
+        method: DELETE
+        description: Delete A Document
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: apikey
+      key: X-TYPESENSE-API-KEY
+      value: '{{env.TYPESENSE_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: search-documents-rest
+    port: 8080
+    description: REST adapter for Typesense Search API — Documents. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/collections/{collectionname}/documents
+      name: collections-collectionname-documents
+      description: REST surface for collections-collectionName-documents.
+      operations:
+      - method: POST
+        name: indexdocument
+        description: Index A Document
+        call: search-documents.indexdocument
+        with:
+          action: rest.action
+          dirty_values: rest.dirty_values
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: updatedocuments
+        description: Update Documents With Conditional Query
+        call: search-documents.updatedocuments
+        with:
+          filter_by: rest.filter_by
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deletedocuments
+        description: Delete Documents By Query
+        call: search-documents.deletedocuments
+        with:
+          filter_by: rest.filter_by
+          batch_size: rest.batch_size
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/collections/{collectionname}/documents/export
+      name: collections-collectionname-documents-export
+      description: REST surface for collections-collectionName-documents-export.
+      operations:
+      - method: GET
+        name: exportdocuments
+        description: Export Documents From A Collection
+        call: search-documents.exportdocuments
+        with:
+          filter_by: rest.filter_by
+          include_fields: rest.include_fields
+          exclude_fields: rest.exclude_fields
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/collections/{collectionname}/documents/import
+      name: collections-collectionname-documents-import
+      description: REST surface for collections-collectionName-documents-import.
+      operations:
+      - method: POST
+        name: importdocuments
+        description: Import Documents Into A Collection
+        call: search-documents.importdocuments
+        with:
+          action: rest.action
+          batch_size: rest.batch_size
+          dirty_values: rest.dirty_values
+          return_id: rest.return_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/collections/{collectionname}/documents/{documentid}
+      name: collections-collectionname-documents-documentid
+      description: REST surface for collections-collectionName-documents-documentId.
+      operations:
+      - method: GET
+        name: getdocument
+        description: Retrieve A Document
+        call: search-documents.getdocument
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: updatedocument
+        description: Update A Document
+        call: search-documents.updatedocument
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deletedocument
+        description: Delete A Document
+        call: search-documents.deletedocument
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: search-documents-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Typesense Search API — Documents. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: index-document
+      description: Index A Document
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: search-documents.indexdocument
+      with:
+        action: tools.action
+        dirty_values: tools.dirty_values
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-documents-conditional-query
+      description: Update Documents With Conditional Query
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: search-documents.updatedocuments
+      with:
+        filter_by: tools.filter_by
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-documents-query
+      description: Delete Documents By Query
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: search-documents.deletedocuments
+      with:
+        filter_by: tools.filter_by
+        batch_size: tools.batch_size
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: export-documents-collection
+      description: Export Documents From A Collection
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: search-documents.exportdocuments
+      with:
+        filter_by: tools.filter_by
+        include_fields: tools.include_fields
+        exclude_fields: tools.exclude_fields
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: import-documents-collection
+      description: Import Documents Into A Collection
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: search-documents.importdocuments
+      with:
+        action: tools.action
+        batch_size: tools.batch_size
+        dirty_values: tools.dirty_values
+        return_id: tools.return_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: retrieve-document
+      description: Retrieve A Document
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: search-documents.getdocument
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-document
+      description: Update A Document
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: search-documents.updatedocument
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-document
+      description: Delete A Document
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: search-documents.deletedocument
+      outputParameters:
+      - type: object
+        mapping: $.

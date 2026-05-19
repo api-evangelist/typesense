@@ -1,0 +1,82 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Typesense Search API — Configuration
+  description: 'Typesense Search API — Configuration. 1 operations. Lead operation: Update Server Configuration. Self-contained
+    Naftiko capability covering one Typesense business surface.'
+  tags:
+  - Typesense
+  - Configuration
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    TYPESENSE_API_KEY: TYPESENSE_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: search-configuration
+    baseUri: ''
+    description: Typesense Search API — Configuration business capability. Self-contained, no shared references.
+    resources:
+    - name: config
+      path: /config
+      operations:
+      - name: updateconfig
+        method: POST
+        description: Update Server Configuration
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: apikey
+      key: X-TYPESENSE-API-KEY
+      value: '{{env.TYPESENSE_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: search-configuration-rest
+    port: 8080
+    description: REST adapter for Typesense Search API — Configuration. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/config
+      name: config
+      description: REST surface for config.
+      operations:
+      - method: POST
+        name: updateconfig
+        description: Update Server Configuration
+        call: search-configuration.updateconfig
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: search-configuration-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Typesense Search API — Configuration. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: update-server-configuration
+      description: Update Server Configuration
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: search-configuration.updateconfig
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

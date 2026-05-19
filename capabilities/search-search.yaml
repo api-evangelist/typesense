@@ -1,0 +1,257 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Typesense Search API — Search
+  description: 'Typesense Search API — Search. 1 operations. Lead operation: Search For Documents. Self-contained Naftiko
+    capability covering one Typesense business surface.'
+  tags:
+  - Typesense
+  - Search
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    TYPESENSE_API_KEY: TYPESENSE_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: search-search
+    baseUri: ''
+    description: Typesense Search API — Search business capability. Self-contained, no shared references.
+    resources:
+    - name: collections-collectionName-documents-search
+      path: /collections/{collectionName}/documents/search
+      operations:
+      - name: searchcollection
+        method: GET
+        description: Search For Documents
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: q
+          in: query
+          type: string
+          description: The search query string. Use * for wildcard queries.
+          required: true
+        - name: query_by
+          in: query
+          type: string
+          description: Comma-separated list of fields to search against.
+          required: true
+        - name: query_by_weights
+          in: query
+          type: string
+          description: Comma-separated weights for each query_by field.
+        - name: text_match_type
+          in: query
+          type: string
+          description: How text matching is calculated. Options are max_score or max_weight.
+        - name: prefix
+          in: query
+          type: string
+          description: Whether prefix search is enabled for query_by fields.
+        - name: infix
+          in: query
+          type: string
+          description: Enable infix search for specified fields.
+        - name: filter_by
+          in: query
+          type: string
+          description: Filter conditions for narrowing search results.
+        - name: sort_by
+          in: query
+          type: string
+          description: Comma-separated list of fields and sort directions.
+        - name: facet_by
+          in: query
+          type: string
+          description: Comma-separated list of fields to facet on.
+        - name: max_facet_values
+          in: query
+          type: integer
+          description: Maximum number of facet values to return.
+        - name: facet_query
+          in: query
+          type: string
+          description: Facet query for filtering facet values.
+        - name: page
+          in: query
+          type: integer
+          description: Page number for pagination.
+        - name: per_page
+          in: query
+          type: integer
+          description: Number of results per page.
+        - name: group_by
+          in: query
+          type: string
+          description: Field to group results by.
+        - name: group_limit
+          in: query
+          type: integer
+          description: Maximum number of hits per group.
+        - name: include_fields
+          in: query
+          type: string
+          description: Comma-separated list of fields to include in results.
+        - name: exclude_fields
+          in: query
+          type: string
+          description: Comma-separated list of fields to exclude from results.
+        - name: highlight_fields
+          in: query
+          type: string
+          description: Comma-separated list of fields to highlight.
+        - name: highlight_full_fields
+          in: query
+          type: string
+          description: Fields for which full highlights are returned.
+        - name: num_typos
+          in: query
+          type: string
+          description: Number of typographical errors to tolerate per token.
+        - name: typo_tokens_threshold
+          in: query
+          type: integer
+          description: Minimum token count to enable typo tolerance.
+        - name: drop_tokens_threshold
+          in: query
+          type: integer
+          description: Token threshold below which tokens are dropped from query.
+        - name: pinned_hits
+          in: query
+          type: string
+          description: Comma-separated list of document IDs to pin at specific positions.
+        - name: hidden_hits
+          in: query
+          type: string
+          description: Comma-separated list of document IDs to hide from results.
+        - name: enable_overrides
+          in: query
+          type: boolean
+          description: Whether to apply curations and overrides.
+        - name: preset
+          in: query
+          type: string
+          description: Name of a preset to use for search parameters.
+        - name: vector_query
+          in: query
+          type: string
+          description: Vector query for nearest-neighbor search.
+        - name: conversation
+          in: query
+          type: boolean
+          description: Whether to enable conversational search (RAG).
+        - name: conversation_model_id
+          in: query
+          type: string
+          description: ID of the conversation model to use.
+        - name: conversation_id
+          in: query
+          type: string
+          description: ID of an existing conversation to continue.
+    authentication:
+      type: apikey
+      key: X-TYPESENSE-API-KEY
+      value: '{{env.TYPESENSE_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: search-search-rest
+    port: 8080
+    description: REST adapter for Typesense Search API — Search. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/collections/{collectionname}/documents/search
+      name: collections-collectionname-documents-search
+      description: REST surface for collections-collectionName-documents-search.
+      operations:
+      - method: GET
+        name: searchcollection
+        description: Search For Documents
+        call: search-search.searchcollection
+        with:
+          q: rest.q
+          query_by: rest.query_by
+          query_by_weights: rest.query_by_weights
+          text_match_type: rest.text_match_type
+          prefix: rest.prefix
+          infix: rest.infix
+          filter_by: rest.filter_by
+          sort_by: rest.sort_by
+          facet_by: rest.facet_by
+          max_facet_values: rest.max_facet_values
+          facet_query: rest.facet_query
+          page: rest.page
+          per_page: rest.per_page
+          group_by: rest.group_by
+          group_limit: rest.group_limit
+          include_fields: rest.include_fields
+          exclude_fields: rest.exclude_fields
+          highlight_fields: rest.highlight_fields
+          highlight_full_fields: rest.highlight_full_fields
+          num_typos: rest.num_typos
+          typo_tokens_threshold: rest.typo_tokens_threshold
+          drop_tokens_threshold: rest.drop_tokens_threshold
+          pinned_hits: rest.pinned_hits
+          hidden_hits: rest.hidden_hits
+          enable_overrides: rest.enable_overrides
+          preset: rest.preset
+          vector_query: rest.vector_query
+          conversation: rest.conversation
+          conversation_model_id: rest.conversation_model_id
+          conversation_id: rest.conversation_id
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: search-search-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Typesense Search API — Search. One tool per consumed operation, routed inline through this
+      capability's consumes block.
+    tools:
+    - name: search-documents
+      description: Search For Documents
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: search-search.searchcollection
+      with:
+        q: tools.q
+        query_by: tools.query_by
+        query_by_weights: tools.query_by_weights
+        text_match_type: tools.text_match_type
+        prefix: tools.prefix
+        infix: tools.infix
+        filter_by: tools.filter_by
+        sort_by: tools.sort_by
+        facet_by: tools.facet_by
+        max_facet_values: tools.max_facet_values
+        facet_query: tools.facet_query
+        page: tools.page
+        per_page: tools.per_page
+        group_by: tools.group_by
+        group_limit: tools.group_limit
+        include_fields: tools.include_fields
+        exclude_fields: tools.exclude_fields
+        highlight_fields: tools.highlight_fields
+        highlight_full_fields: tools.highlight_full_fields
+        num_typos: tools.num_typos
+        typo_tokens_threshold: tools.typo_tokens_threshold
+        drop_tokens_threshold: tools.drop_tokens_threshold
+        pinned_hits: tools.pinned_hits
+        hidden_hits: tools.hidden_hits
+        enable_overrides: tools.enable_overrides
+        preset: tools.preset
+        vector_query: tools.vector_query
+        conversation: tools.conversation
+        conversation_model_id: tools.conversation_model_id
+        conversation_id: tools.conversation_id
+      outputParameters:
+      - type: object
+        mapping: $.

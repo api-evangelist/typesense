@@ -1,0 +1,82 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Typesense Vector Search API — Vector Collections
+  description: 'Typesense Vector Search API — Vector Collections. 1 operations. Lead operation: Create A Collection With Vector
+    Fields. Self-contained Naftiko capability covering one Typesense business surface.'
+  tags:
+  - Typesense
+  - Vector Collections
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    TYPESENSE_API_KEY: TYPESENSE_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: vector-search-vector-collections
+    baseUri: ''
+    description: Typesense Vector Search API — Vector Collections business capability. Self-contained, no shared references.
+    resources:
+    - name: collections
+      path: /collections
+      operations:
+      - name: createvectorcollection
+        method: POST
+        description: Create A Collection With Vector Fields
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: apikey
+      key: X-TYPESENSE-API-KEY
+      value: '{{env.TYPESENSE_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: vector-search-vector-collections-rest
+    port: 8080
+    description: REST adapter for Typesense Vector Search API — Vector Collections. One Spectral-compliant resource per consumed
+      operation, prefixed with /v1.
+    resources:
+    - path: /v1/collections
+      name: collections
+      description: REST surface for collections.
+      operations:
+      - method: POST
+        name: createvectorcollection
+        description: Create A Collection With Vector Fields
+        call: vector-search-vector-collections.createvectorcollection
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: vector-search-vector-collections-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Typesense Vector Search API — Vector Collections. One tool per consumed operation, routed
+      inline through this capability's consumes block.
+    tools:
+    - name: create-collection-vector-fields
+      description: Create A Collection With Vector Fields
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: vector-search-vector-collections.createvectorcollection
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

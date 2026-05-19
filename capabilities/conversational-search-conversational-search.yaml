@@ -1,0 +1,129 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Typesense Conversational Search API — Conversational Search
+  description: 'Typesense Conversational Search API — Conversational Search. 1 operations. Lead operation: Perform A Conversational
+    Search. Self-contained Naftiko capability covering one Typesense business surface.'
+  tags:
+  - Typesense
+  - Conversational Search
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    TYPESENSE_API_KEY: TYPESENSE_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: conversational-search-conversational-search
+    baseUri: ''
+    description: Typesense Conversational Search API — Conversational Search business capability. Self-contained, no shared
+      references.
+    resources:
+    - name: collections-collectionName-documents-search
+      path: /collections/{collectionName}/documents/search
+      operations:
+      - name: conversationalsearch
+        method: GET
+        description: Perform A Conversational Search
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: q
+          in: query
+          type: string
+          description: Natural language question or search query.
+          required: true
+        - name: query_by
+          in: query
+          type: string
+          description: Comma-separated list of fields to search against.
+          required: true
+        - name: conversation
+          in: query
+          type: boolean
+          description: Set to true to enable conversational search with RAG.
+          required: true
+        - name: conversation_model_id
+          in: query
+          type: string
+          description: ID of the conversation model to use for generating answers.
+          required: true
+        - name: conversation_id
+          in: query
+          type: string
+          description: ID of an existing conversation to continue a multi-turn dialog. If not provided, a new conversation
+            is started.
+        - name: filter_by
+          in: query
+          type: string
+          description: Filter conditions to narrow the search scope.
+        - name: sort_by
+          in: query
+          type: string
+          description: Sort conditions for the underlying search.
+        - name: per_page
+          in: query
+          type: integer
+          description: Number of documents to pass as context to the LLM.
+    authentication:
+      type: apikey
+      key: X-TYPESENSE-API-KEY
+      value: '{{env.TYPESENSE_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: conversational-search-conversational-search-rest
+    port: 8080
+    description: REST adapter for Typesense Conversational Search API — Conversational Search. One Spectral-compliant resource
+      per consumed operation, prefixed with /v1.
+    resources:
+    - path: /v1/collections/{collectionname}/documents/search
+      name: collections-collectionname-documents-search
+      description: REST surface for collections-collectionName-documents-search.
+      operations:
+      - method: GET
+        name: conversationalsearch
+        description: Perform A Conversational Search
+        call: conversational-search-conversational-search.conversationalsearch
+        with:
+          q: rest.q
+          query_by: rest.query_by
+          conversation: rest.conversation
+          conversation_model_id: rest.conversation_model_id
+          conversation_id: rest.conversation_id
+          filter_by: rest.filter_by
+          sort_by: rest.sort_by
+          per_page: rest.per_page
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: conversational-search-conversational-search-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Typesense Conversational Search API — Conversational Search. One tool per consumed operation,
+      routed inline through this capability's consumes block.
+    tools:
+    - name: perform-conversational-search
+      description: Perform A Conversational Search
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: conversational-search-conversational-search.conversationalsearch
+      with:
+        q: tools.q
+        query_by: tools.query_by
+        conversation: tools.conversation
+        conversation_model_id: tools.conversation_model_id
+        conversation_id: tools.conversation_id
+        filter_by: tools.filter_by
+        sort_by: tools.sort_by
+        per_page: tools.per_page
+      outputParameters:
+      - type: object
+        mapping: $.

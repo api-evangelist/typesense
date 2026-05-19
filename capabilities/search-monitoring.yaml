@@ -1,0 +1,168 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Typesense Search API — Monitoring
+  description: 'Typesense Search API — Monitoring. 4 operations. Lead operation: Get Debug Information. Self-contained Naftiko
+    capability covering one Typesense business surface.'
+  tags:
+  - Typesense
+  - Monitoring
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    TYPESENSE_API_KEY: TYPESENSE_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: search-monitoring
+    baseUri: ''
+    description: Typesense Search API — Monitoring business capability. Self-contained, no shared references.
+    resources:
+    - name: debug
+      path: /debug
+      operations:
+      - name: getdebuginfo
+        method: GET
+        description: Get Debug Information
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: health
+      path: /health
+      operations:
+      - name: checkhealth
+        method: GET
+        description: Check Server Health
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: metrics.json
+      path: /metrics.json
+      operations:
+      - name: getmetrics
+        method: GET
+        description: Get Server Metrics
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: stats.json
+      path: /stats.json
+      operations:
+      - name: getapistats
+        method: GET
+        description: Get API Endpoint Statistics
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: apikey
+      key: X-TYPESENSE-API-KEY
+      value: '{{env.TYPESENSE_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: search-monitoring-rest
+    port: 8080
+    description: REST adapter for Typesense Search API — Monitoring. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/debug
+      name: debug
+      description: REST surface for debug.
+      operations:
+      - method: GET
+        name: getdebuginfo
+        description: Get Debug Information
+        call: search-monitoring.getdebuginfo
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/health
+      name: health
+      description: REST surface for health.
+      operations:
+      - method: GET
+        name: checkhealth
+        description: Check Server Health
+        call: search-monitoring.checkhealth
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/metrics-json
+      name: metrics-json
+      description: REST surface for metrics.json.
+      operations:
+      - method: GET
+        name: getmetrics
+        description: Get Server Metrics
+        call: search-monitoring.getmetrics
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/stats-json
+      name: stats-json
+      description: REST surface for stats.json.
+      operations:
+      - method: GET
+        name: getapistats
+        description: Get API Endpoint Statistics
+        call: search-monitoring.getapistats
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: search-monitoring-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Typesense Search API — Monitoring. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: get-debug-information
+      description: Get Debug Information
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: search-monitoring.getdebuginfo
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: check-server-health
+      description: Check Server Health
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: search-monitoring.checkhealth
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-server-metrics
+      description: Get Server Metrics
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: search-monitoring.getmetrics
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-api-endpoint-statistics
+      description: Get API Endpoint Statistics
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: search-monitoring.getapistats
+      outputParameters:
+      - type: object
+        mapping: $.

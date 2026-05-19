@@ -1,0 +1,164 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Typesense Search API — Presets
+  description: 'Typesense Search API — Presets. 4 operations. Lead operation: List All Presets. Self-contained Naftiko capability
+    covering one Typesense business surface.'
+  tags:
+  - Typesense
+  - Presets
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    TYPESENSE_API_KEY: TYPESENSE_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: search-presets
+    baseUri: ''
+    description: Typesense Search API — Presets business capability. Self-contained, no shared references.
+    resources:
+    - name: presets
+      path: /presets
+      operations:
+      - name: listpresets
+        method: GET
+        description: List All Presets
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: presets-presetId
+      path: /presets/{presetId}
+      operations:
+      - name: getpreset
+        method: GET
+        description: Retrieve A Preset
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: upsertpreset
+        method: PUT
+        description: Create Or Update A Preset
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: deletepreset
+        method: DELETE
+        description: Delete A Preset
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: apikey
+      key: X-TYPESENSE-API-KEY
+      value: '{{env.TYPESENSE_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: search-presets-rest
+    port: 8080
+    description: REST adapter for Typesense Search API — Presets. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/presets
+      name: presets
+      description: REST surface for presets.
+      operations:
+      - method: GET
+        name: listpresets
+        description: List All Presets
+        call: search-presets.listpresets
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/presets/{presetid}
+      name: presets-presetid
+      description: REST surface for presets-presetId.
+      operations:
+      - method: GET
+        name: getpreset
+        description: Retrieve A Preset
+        call: search-presets.getpreset
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: upsertpreset
+        description: Create Or Update A Preset
+        call: search-presets.upsertpreset
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deletepreset
+        description: Delete A Preset
+        call: search-presets.deletepreset
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: search-presets-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Typesense Search API — Presets. One tool per consumed operation, routed inline through this
+      capability's consumes block.
+    tools:
+    - name: list-all-presets
+      description: List All Presets
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: search-presets.listpresets
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: retrieve-preset
+      description: Retrieve A Preset
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: search-presets.getpreset
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-update-preset
+      description: Create Or Update A Preset
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: search-presets.upsertpreset
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-preset
+      description: Delete A Preset
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: search-presets.deletepreset
+      outputParameters:
+      - type: object
+        mapping: $.

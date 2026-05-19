@@ -1,0 +1,104 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Typesense Analytics API — Analytics Operations
+  description: 'Typesense Analytics API — Analytics Operations. 2 operations. Lead operation: Flush Analytics Data To Disk.
+    Self-contained Naftiko capability covering one Typesense business surface.'
+  tags:
+  - Typesense
+  - Analytics Operations
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    TYPESENSE_API_KEY: TYPESENSE_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: analytics-analytics-operations
+    baseUri: ''
+    description: Typesense Analytics API — Analytics Operations business capability. Self-contained, no shared references.
+    resources:
+    - name: analytics-flush
+      path: /analytics/flush
+      operations:
+      - name: flushanalytics
+        method: POST
+        description: Flush Analytics Data To Disk
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: analytics-status
+      path: /analytics/status
+      operations:
+      - name: getanalyticsstatus
+        method: GET
+        description: Get Analytics Subsystem Status
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: apikey
+      key: X-TYPESENSE-API-KEY
+      value: '{{env.TYPESENSE_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: analytics-analytics-operations-rest
+    port: 8080
+    description: REST adapter for Typesense Analytics API — Analytics Operations. One Spectral-compliant resource per consumed
+      operation, prefixed with /v1.
+    resources:
+    - path: /v1/analytics/flush
+      name: analytics-flush
+      description: REST surface for analytics-flush.
+      operations:
+      - method: POST
+        name: flushanalytics
+        description: Flush Analytics Data To Disk
+        call: analytics-analytics-operations.flushanalytics
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/analytics/status
+      name: analytics-status
+      description: REST surface for analytics-status.
+      operations:
+      - method: GET
+        name: getanalyticsstatus
+        description: Get Analytics Subsystem Status
+        call: analytics-analytics-operations.getanalyticsstatus
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: analytics-analytics-operations-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Typesense Analytics API — Analytics Operations. One tool per consumed operation, routed inline
+      through this capability's consumes block.
+    tools:
+    - name: flush-analytics-data-disk
+      description: Flush Analytics Data To Disk
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: analytics-analytics-operations.flushanalytics
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-analytics-subsystem-status
+      description: Get Analytics Subsystem Status
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: analytics-analytics-operations.getanalyticsstatus
+      outputParameters:
+      - type: object
+        mapping: $.

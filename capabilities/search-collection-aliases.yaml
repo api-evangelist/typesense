@@ -1,0 +1,164 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Typesense Search API — Collection Aliases
+  description: 'Typesense Search API — Collection Aliases. 4 operations. Lead operation: List All Collection Aliases. Self-contained
+    Naftiko capability covering one Typesense business surface.'
+  tags:
+  - Typesense
+  - Collection Aliases
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    TYPESENSE_API_KEY: TYPESENSE_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: search-collection-aliases
+    baseUri: ''
+    description: Typesense Search API — Collection Aliases business capability. Self-contained, no shared references.
+    resources:
+    - name: aliases
+      path: /aliases
+      operations:
+      - name: listaliases
+        method: GET
+        description: List All Collection Aliases
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: aliases-aliasName
+      path: /aliases/{aliasName}
+      operations:
+      - name: getalias
+        method: GET
+        description: Retrieve A Collection Alias
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: upsertalias
+        method: PUT
+        description: Create Or Update A Collection Alias
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: deletealias
+        method: DELETE
+        description: Delete A Collection Alias
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: apikey
+      key: X-TYPESENSE-API-KEY
+      value: '{{env.TYPESENSE_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: search-collection-aliases-rest
+    port: 8080
+    description: REST adapter for Typesense Search API — Collection Aliases. One Spectral-compliant resource per consumed
+      operation, prefixed with /v1.
+    resources:
+    - path: /v1/aliases
+      name: aliases
+      description: REST surface for aliases.
+      operations:
+      - method: GET
+        name: listaliases
+        description: List All Collection Aliases
+        call: search-collection-aliases.listaliases
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/aliases/{aliasname}
+      name: aliases-aliasname
+      description: REST surface for aliases-aliasName.
+      operations:
+      - method: GET
+        name: getalias
+        description: Retrieve A Collection Alias
+        call: search-collection-aliases.getalias
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: upsertalias
+        description: Create Or Update A Collection Alias
+        call: search-collection-aliases.upsertalias
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deletealias
+        description: Delete A Collection Alias
+        call: search-collection-aliases.deletealias
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: search-collection-aliases-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Typesense Search API — Collection Aliases. One tool per consumed operation, routed inline
+      through this capability's consumes block.
+    tools:
+    - name: list-all-collection-aliases
+      description: List All Collection Aliases
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: search-collection-aliases.listaliases
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: retrieve-collection-alias
+      description: Retrieve A Collection Alias
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: search-collection-aliases.getalias
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-update-collection-alias
+      description: Create Or Update A Collection Alias
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: search-collection-aliases.upsertalias
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-collection-alias
+      description: Delete A Collection Alias
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: search-collection-aliases.deletealias
+      outputParameters:
+      - type: object
+        mapping: $.

@@ -1,0 +1,231 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Typesense Cloud Management API — Cluster Management
+  description: 'Typesense Cloud Management API — Cluster Management. 6 operations. Lead operation: Create A New Cluster. Self-contained
+    Naftiko capability covering one Typesense business surface.'
+  tags:
+  - Typesense
+  - Cluster Management
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    TYPESENSE_API_KEY: TYPESENSE_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: cloud-management-cluster-management
+    baseUri: https://cloud.typesense.org/api/v1
+    description: Typesense Cloud Management API — Cluster Management business capability. Self-contained, no shared references.
+    resources:
+    - name: clusters
+      path: /clusters
+      operations:
+      - name: createcluster
+        method: POST
+        description: Create A New Cluster
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: listclusters
+        method: GET
+        description: List All Clusters
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: clusters-clusterId
+      path: /clusters/{clusterId}
+      operations:
+      - name: getcluster
+        method: GET
+        description: Retrieve A Cluster
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: updatecluster
+        method: PATCH
+        description: Update A Cluster
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: terminatecluster
+        method: DELETE
+        description: Terminate A Cluster
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: clusters-clusterId-generate-api-key
+      path: /clusters/{clusterId}/generate-api-key
+      operations:
+      - name: generateapikey
+        method: POST
+        description: Generate Typesense Server API Keys
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: apikey
+      key: X-TYPESENSE-CLOUD-MANAGEMENT-API-KEY
+      value: '{{env.TYPESENSE_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: cloud-management-cluster-management-rest
+    port: 8080
+    description: REST adapter for Typesense Cloud Management API — Cluster Management. One Spectral-compliant resource per
+      consumed operation, prefixed with /v1.
+    resources:
+    - path: /v1/clusters
+      name: clusters
+      description: REST surface for clusters.
+      operations:
+      - method: POST
+        name: createcluster
+        description: Create A New Cluster
+        call: cloud-management-cluster-management.createcluster
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: GET
+        name: listclusters
+        description: List All Clusters
+        call: cloud-management-cluster-management.listclusters
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/clusters/{clusterid}
+      name: clusters-clusterid
+      description: REST surface for clusters-clusterId.
+      operations:
+      - method: GET
+        name: getcluster
+        description: Retrieve A Cluster
+        call: cloud-management-cluster-management.getcluster
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: updatecluster
+        description: Update A Cluster
+        call: cloud-management-cluster-management.updatecluster
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: terminatecluster
+        description: Terminate A Cluster
+        call: cloud-management-cluster-management.terminatecluster
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/clusters/{clusterid}/generate-api-key
+      name: clusters-clusterid-generate-api-key
+      description: REST surface for clusters-clusterId-generate-api-key.
+      operations:
+      - method: POST
+        name: generateapikey
+        description: Generate Typesense Server API Keys
+        call: cloud-management-cluster-management.generateapikey
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: cloud-management-cluster-management-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Typesense Cloud Management API — Cluster Management. One tool per consumed operation, routed
+      inline through this capability's consumes block.
+    tools:
+    - name: create-new-cluster
+      description: Create A New Cluster
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: cloud-management-cluster-management.createcluster
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-all-clusters
+      description: List All Clusters
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: cloud-management-cluster-management.listclusters
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: retrieve-cluster
+      description: Retrieve A Cluster
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: cloud-management-cluster-management.getcluster
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-cluster
+      description: Update A Cluster
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: cloud-management-cluster-management.updatecluster
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: terminate-cluster
+      description: Terminate A Cluster
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: cloud-management-cluster-management.terminatecluster
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: generate-typesense-server-api-keys
+      description: Generate Typesense Server API Keys
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: cloud-management-cluster-management.generateapikey
+      outputParameters:
+      - type: object
+        mapping: $.
