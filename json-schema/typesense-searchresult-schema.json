@@ -1,0 +1,78 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/SearchResult",
+  "title": "SearchResult",
+  "type": "object",
+  "properties": {
+    "facet_counts": {
+      "type": "array",
+      "description": "Facet value counts for the search results.",
+      "items": {
+        "$ref": "#/components/schemas/FacetCounts"
+      }
+    },
+    "found": {
+      "type": "integer",
+      "description": "Total number of documents matching the query."
+    },
+    "found_docs": {
+      "type": "integer",
+      "description": "Total number of documents found before grouping."
+    },
+    "search_time_ms": {
+      "type": "integer",
+      "description": "Time taken for the search in milliseconds."
+    },
+    "out_of": {
+      "type": "integer",
+      "description": "Total number of documents in the collection."
+    },
+    "search_cutoff": {
+      "type": "boolean",
+      "description": "Whether the search was cut off due to time limits."
+    },
+    "page": {
+      "type": "integer",
+      "description": "Current page number."
+    },
+    "hits": {
+      "type": "array",
+      "description": "Array of search result hits.",
+      "items": {
+        "$ref": "#/components/schemas/SearchResultHit"
+      }
+    },
+    "grouped_hits": {
+      "type": "array",
+      "description": "Array of grouped search result hits when group_by is used.",
+      "items": {
+        "$ref": "#/components/schemas/SearchGroupedHit"
+      }
+    },
+    "request_params": {
+      "type": "object",
+      "description": "Parameters used for the search request."
+    },
+    "conversation": {
+      "type": "object",
+      "description": "Conversational search response when conversation mode is enabled.",
+      "properties": {
+        "answer": {
+          "type": "string",
+          "description": "Generated answer from the conversation model."
+        },
+        "conversation_history": {
+          "type": "array",
+          "description": "History of the conversation.",
+          "items": {
+            "type": "object"
+          }
+        },
+        "conversation_id": {
+          "type": "string",
+          "description": "ID of the conversation for follow-up queries."
+        }
+      }
+    }
+  }
+}

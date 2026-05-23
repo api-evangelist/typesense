@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/IndexAction",
+  "title": "IndexAction",
+  "type": "string",
+  "description": "Action to perform during document indexing.",
+  "enum": [
+    "create",
+    "upsert",
+    "update",
+    "emplace"
+  ]
+}

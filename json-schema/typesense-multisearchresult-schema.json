@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/MultiSearchResult",
+  "title": "MultiSearchResult",
+  "type": "object",
+  "properties": {
+    "results": {
+      "type": "array",
+      "description": "Array of search results, one per search request.",
+      "items": {
+        "$ref": "#/components/schemas/SearchResult"
+      }
+    },
+    "conversation": {
+      "type": "object",
+      "description": "Conversation context when conversational multi-search is used."
+    }
+  }
+}

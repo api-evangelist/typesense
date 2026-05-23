@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ConversationModelCreateSchema",
+  "title": "ConversationModelCreateSchema",
+  "type": "object",
+  "required": [
+    "model_name",
+    "api_key",
+    "system_prompt"
+  ],
+  "properties": {
+    "model_name": {
+      "type": "string",
+      "description": "Name of the LLM model to use, such as gpt-4o, claude-3-opus, or a model hosted on a compatible endpoint."
+    },
+    "api_key": {
+      "type": "string",
+      "description": "API key for authenticating with the LLM provider."
+    },
+    "account_id": {
+      "type": "string",
+      "description": "Account ID for the LLM provider if required."
+    },
+    "system_prompt": {
+      "type": "string",
+      "description": "System prompt that instructs the LLM how to generate answers from the search results context. This prompt is prepended to every conversation."
+    },
+    "max_bytes": {
+      "type": "integer",
+      "description": "Maximum number of bytes of search context to send to the LLM."
+    },
+    "history_collection": {
+      "type": "string",
+      "description": "Name of the collection to store conversation history."
+    },
+    "ttl": {
+      "type": "integer",
+      "description": "Time-to-live in seconds for conversation history entries."
+    }
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ConversationModelUpdateSchema",
+  "title": "ConversationModelUpdateSchema",
+  "type": "object",
+  "properties": {
+    "model_name": {
+      "type": "string",
+      "description": "Updated LLM model name."
+    },
+    "api_key": {
+      "type": "string",
+      "description": "Updated API key for the LLM provider."
+    },
+    "system_prompt": {
+      "type": "string",
+      "description": "Updated system prompt."
+    },
+    "max_bytes": {
+      "type": "integer",
+      "description": "Updated maximum context bytes."
+    }
+  }
+}

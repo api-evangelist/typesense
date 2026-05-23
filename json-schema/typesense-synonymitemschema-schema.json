@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/SynonymItemSchema",
+  "title": "SynonymItemSchema",
+  "type": "object",
+  "properties": {
+    "synonyms": {
+      "type": "array",
+      "description": "List of synonym terms that are interchangeable.",
+      "items": {
+        "type": "string"
+      }
+    },
+    "root": {
+      "type": "string",
+      "description": "Root term for one-way synonyms. When set, the synonyms list maps to this root term."
+    }
+  }
+}

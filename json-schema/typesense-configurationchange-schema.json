@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ConfigurationChange",
+  "title": "ConfigurationChange",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique identifier of the configuration change."
+    },
+    "status": {
+      "type": "string",
+      "description": "Current status of the change.",
+      "enum": [
+        "pending",
+        "in_progress",
+        "completed",
+        "canceled",
+        "failed"
+      ]
+    },
+    "new_memory": {
+      "type": "string"
+    },
+    "new_vcpu": {
+      "type": "string"
+    },
+    "new_typesense_server_version": {
+      "type": "string"
+    },
+    "new_high_availability": {
+      "type": "string"
+    },
+    "perform_change_at": {
+      "type": "integer",
+      "format": "int64",
+      "description": "Scheduled time for the change."
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When the change was created."
+    }
+  }
+}

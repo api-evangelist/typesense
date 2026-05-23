@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ConversationModel",
+  "title": "ConversationModel",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique identifier of the conversation model."
+    },
+    "model_name": {
+      "type": "string",
+      "description": "Name of the LLM model."
+    },
+    "system_prompt": {
+      "type": "string",
+      "description": "System prompt for the model."
+    },
+    "max_bytes": {
+      "type": "integer",
+      "description": "Maximum context bytes."
+    },
+    "history_collection": {
+      "type": "string",
+      "description": "Collection storing conversation history."
+    },
+    "ttl": {
+      "type": "integer",
+      "description": "TTL for conversation history."
+    }
+  }
+}

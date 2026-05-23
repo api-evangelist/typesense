@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/VectorSearchResult",
+  "title": "VectorSearchResult",
+  "type": "object",
+  "properties": {
+    "facet_counts": {
+      "type": "array",
+      "description": "Facet value counts for the search results.",
+      "items": {
+        "type": "object"
+      }
+    },
+    "found": {
+      "type": "integer",
+      "description": "Total number of matching documents."
+    },
+    "search_time_ms": {
+      "type": "integer",
+      "description": "Time taken for the search in milliseconds."
+    },
+    "out_of": {
+      "type": "integer",
+      "description": "Total number of documents in the collection."
+    },
+    "page": {
+      "type": "integer",
+      "description": "Current page number."
+    },
+    "hits": {
+      "type": "array",
+      "description": "Array of search result hits with vector distance scores.",
+      "items": {
+        "$ref": "#/components/schemas/VectorSearchHit"
+      }
+    }
+  }
+}

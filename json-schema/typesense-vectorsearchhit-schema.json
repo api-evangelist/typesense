@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/VectorSearchHit",
+  "title": "VectorSearchHit",
+  "type": "object",
+  "properties": {
+    "document": {
+      "type": "object",
+      "description": "The matched document."
+    },
+    "highlights": {
+      "type": "array",
+      "description": "Highlighted field snippets for keyword matches.",
+      "items": {
+        "type": "object"
+      }
+    },
+    "text_match": {
+      "type": "integer",
+      "format": "int64",
+      "description": "Keyword text match score."
+    },
+    "vector_distance": {
+      "type": "number",
+      "format": "float",
+      "description": "Distance between the query vector and the document vector. Lower values indicate greater similarity for cosine distance."
+    },
+    "hybrid_search_info": {
+      "type": "object",
+      "description": "Information about hybrid scoring when both keyword and vector search are combined.",
+      "properties": {
+        "text_match_score": {
+          "type": "number",
+          "description": "Normalized text match score component."
+        },
+        "vector_distance_score": {
+          "type": "number",
+          "description": "Normalized vector distance score component."
+        },
+        "rank_fusion_score": {
+          "type": "number",
+          "description": "Combined score from rank fusion of text and vector scores."
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/VoiceQueryModelConfig",
+  "title": "VoiceQueryModelConfig",
+  "type": "object",
+  "properties": {
+    "model_name": {
+      "type": "string",
+      "description": "Name of the voice query model."
+    }
+  }
+}

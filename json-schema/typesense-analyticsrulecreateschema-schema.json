@@ -1,0 +1,89 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/AnalyticsRuleCreateSchema",
+  "title": "AnalyticsRuleCreateSchema",
+  "type": "object",
+  "required": [
+    "name",
+    "type",
+    "params"
+  ],
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Unique name for the analytics rule."
+    },
+    "type": {
+      "type": "string",
+      "description": "Type of analytics rule. popular_queries aggregates frequently occurring queries, nohits_queries tracks queries with zero results, and log logs raw events for downstream processing.",
+      "enum": [
+        "popular_queries",
+        "nohits_queries",
+        "counter",
+        "log"
+      ]
+    },
+    "params": {
+      "type": "object",
+      "description": "Parameters for the analytics rule.",
+      "properties": {
+        "source": {
+          "type": "object",
+          "description": "Source configuration for the rule.",
+          "properties": {
+            "collections": {
+              "type": "array",
+              "description": "Collections to track queries for.",
+              "items": {
+                "type": "string"
+              }
+            },
+            "events": {
+              "type": "array",
+              "description": "Event types to track.",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "description": "Event type (click, conversion, visit)."
+                  },
+                  "weight": {
+                    "type": "number",
+                    "description": "Weight assigned to this event type."
+                  },
+                  "name": {
+                    "type": "string",
+                    "description": "Name of the event."
+                  }
+                }
+              }
+            }
+          }
+        },
+        "destination": {
+          "type": "object",
+          "description": "Destination configuration for aggregated data.",
+          "properties": {
+            "collection": {
+              "type": "string",
+              "description": "Collection to store aggregated results in."
+            },
+            "counter_field": {
+              "type": "string",
+              "description": "Field to use as a counter for counter-type rules."
+            }
+          }
+        },
+        "limit": {
+          "type": "integer",
+          "description": "Maximum number of suggestions to generate."
+        },
+        "expand_query": {
+          "type": "boolean",
+          "description": "Whether to expand the query for suggestions."
+        }
+      }
+    }
+  }
+}

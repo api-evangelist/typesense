@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/VectorCollectionResponse",
+  "title": "VectorCollectionResponse",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Name of the collection."
+    },
+    "fields": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/VectorField"
+      }
+    },
+    "num_documents": {
+      "type": "integer",
+      "format": "int64",
+      "description": "Number of documents in the collection."
+    },
+    "created_at": {
+      "type": "integer",
+      "format": "int64",
+      "description": "Unix timestamp when the collection was created."
+    }
+  }
+}

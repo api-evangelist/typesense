@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/SearchResultHit",
+  "title": "SearchResultHit",
+  "type": "object",
+  "properties": {
+    "document": {
+      "type": "object",
+      "description": "The matched document."
+    },
+    "highlights": {
+      "type": "array",
+      "description": "Array of field highlights with matched tokens.",
+      "items": {
+        "$ref": "#/components/schemas/SearchHighlight"
+      }
+    },
+    "highlight": {
+      "type": "object",
+      "description": "Structured highlight object with nested field support."
+    },
+    "text_match": {
+      "type": "integer",
+      "format": "int64",
+      "description": "Text match score for the hit."
+    },
+    "text_match_info": {
+      "type": "object",
+      "description": "Detailed text match scoring breakdown."
+    },
+    "geo_distance_meters": {
+      "type": "object",
+      "description": "Distance in meters from the search geo point."
+    },
+    "vector_distance": {
+      "type": "number",
+      "format": "float",
+      "description": "Distance from the query vector for vector searches."
+    },
+    "hybrid_search_info": {
+      "type": "object",
+      "description": "Information about hybrid keyword and vector search scoring."
+    }
+  }
+}

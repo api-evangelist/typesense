@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/FacetCounts",
+  "title": "FacetCounts",
+  "type": "object",
+  "properties": {
+    "field_name": {
+      "type": "string",
+      "description": "Name of the faceted field."
+    },
+    "counts": {
+      "type": "array",
+      "description": "Array of facet value counts.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "count": {
+            "type": "integer",
+            "description": "Number of documents with this facet value."
+          },
+          "highlighted": {
+            "type": "string",
+            "description": "Highlighted facet value."
+          },
+          "value": {
+            "type": "string",
+            "description": "Facet value."
+          }
+        }
+      }
+    },
+    "stats": {
+      "type": "object",
+      "description": "Statistics for numeric faceted fields.",
+      "properties": {
+        "min": {
+          "type": "number"
+        },
+        "max": {
+          "type": "number"
+        },
+        "sum": {
+          "type": "number"
+        },
+        "avg": {
+          "type": "number"
+        },
+        "total_values": {
+          "type": "integer"
+        }
+      }
+    }
+  }
+}

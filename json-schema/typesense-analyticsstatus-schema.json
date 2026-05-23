@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/AnalyticsStatus",
+  "title": "AnalyticsStatus",
+  "type": "object",
+  "properties": {
+    "state": {
+      "type": "string",
+      "description": "Current state of the analytics subsystem."
+    },
+    "pending_operations": {
+      "type": "integer",
+      "description": "Number of pending analytics operations."
+    }
+  }
+}

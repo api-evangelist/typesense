@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/SchemaChangeStatus",
+  "title": "SchemaChangeStatus",
+  "type": "object",
+  "properties": {
+    "collection": {
+      "type": "string",
+      "description": "Name of the collection being modified."
+    },
+    "validated_docs": {
+      "type": "integer",
+      "description": "Number of documents validated so far."
+    },
+    "altered_docs": {
+      "type": "integer",
+      "description": "Number of documents altered so far."
+    }
+  }
+}

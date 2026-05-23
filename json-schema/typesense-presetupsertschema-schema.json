@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/PresetUpsertSchema",
+  "title": "PresetUpsertSchema",
+  "type": "object",
+  "properties": {
+    "value": {
+      "type": "object",
+      "description": "Search parameters to store in the preset."
+    }
+  }
+}

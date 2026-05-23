@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ClusterApiKeys",
+  "title": "ClusterApiKeys",
+  "type": "object",
+  "properties": {
+    "admin_key": {
+      "type": "string",
+      "description": "Admin API key with full access to the Typesense Server."
+    },
+    "search_only_key": {
+      "type": "string",
+      "description": "Search-only API key for client-side use."
+    }
+  }
+}

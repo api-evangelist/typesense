@@ -1,0 +1,56 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/CurationItemSchema",
+  "title": "CurationItemSchema",
+  "type": "object",
+  "properties": {
+    "rule": {
+      "type": "object",
+      "description": "Match rule for triggering this curation.",
+      "properties": {
+        "query": {
+          "type": "string",
+          "description": "Query string to match."
+        },
+        "match": {
+          "type": "string",
+          "description": "Match type: exact or contains.",
+          "enum": [
+            "exact",
+            "contains"
+          ]
+        }
+      }
+    },
+    "includes": {
+      "type": "array",
+      "description": "Documents to pin at specific positions.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Document ID to include."
+          },
+          "position": {
+            "type": "integer",
+            "description": "Position to pin the document at."
+          }
+        }
+      }
+    },
+    "excludes": {
+      "type": "array",
+      "description": "Documents to hide from results.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Document ID to exclude."
+          }
+        }
+      }
+    }
+  }
+}

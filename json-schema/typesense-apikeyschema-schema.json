@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ApiKeySchema",
+  "title": "ApiKeySchema",
+  "type": "object",
+  "required": [
+    "description",
+    "actions",
+    "collections"
+  ],
+  "properties": {
+    "value": {
+      "type": "string",
+      "description": "Custom API key value. If not provided, one is auto-generated."
+    },
+    "description": {
+      "type": "string",
+      "description": "Human-readable description of the key."
+    },
+    "actions": {
+      "type": "array",
+      "description": "Allowed actions for this key, such as documents:search, collections:create, or * for all.",
+      "items": {
+        "type": "string"
+      }
+    },
+    "collections": {
+      "type": "array",
+      "description": "Collections this key can access. Use * for all collections.",
+      "items": {
+        "type": "string"
+      }
+    },
+    "expires_at": {
+      "type": "integer",
+      "format": "int64",
+      "description": "Unix timestamp when this key expires. Set to 0 for no expiration."
+    }
+  }
+}

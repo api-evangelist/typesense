@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/SearchHighlight",
+  "title": "SearchHighlight",
+  "type": "object",
+  "properties": {
+    "field": {
+      "type": "string",
+      "description": "Name of the highlighted field."
+    },
+    "snippet": {
+      "type": "string",
+      "description": "Highlighted snippet of the field value."
+    },
+    "snippets": {
+      "type": "array",
+      "description": "Array of highlighted snippets for array fields.",
+      "items": {
+        "type": "string"
+      }
+    },
+    "value": {
+      "type": "string",
+      "description": "Full highlighted field value."
+    },
+    "values": {
+      "type": "array",
+      "description": "Full highlighted values for array fields.",
+      "items": {
+        "type": "string"
+      }
+    },
+    "matched_tokens": {
+      "type": "array",
+      "description": "Tokens in the field that matched the query.",
+      "items": {}
+    },
+    "indices": {
+      "type": "array",
+      "description": "Indices of matched values in array fields.",
+      "items": {
+        "type": "integer"
+      }
+    }
+  }
+}

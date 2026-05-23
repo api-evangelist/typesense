@@ -1,0 +1,784 @@
+{
+  "provider": "Typesense",
+  "providerId": "typesense",
+  "kind": "json-structure",
+  "description": "Structural overview of the Typesense API surface; extracted from openapi/.",
+  "schemaCount": 36,
+  "operationCount": 60,
+  "schemas": [
+    {
+      "name": "CollectionSchema",
+      "type": "object",
+      "propertyCount": 9,
+      "required": [
+        "name",
+        "fields"
+      ]
+    },
+    {
+      "name": "CollectionUpdateSchema",
+      "type": "object",
+      "propertyCount": 3,
+      "required": []
+    },
+    {
+      "name": "CollectionResponse",
+      "type": "object",
+      "propertyCount": 8,
+      "required": []
+    },
+    {
+      "name": "Field",
+      "type": "object",
+      "propertyCount": 17,
+      "required": [
+        "name",
+        "type"
+      ]
+    },
+    {
+      "name": "VoiceQueryModelConfig",
+      "type": "object",
+      "propertyCount": 1,
+      "required": []
+    },
+    {
+      "name": "SearchResult",
+      "type": "object",
+      "propertyCount": 11,
+      "required": []
+    },
+    {
+      "name": "SearchResultHit",
+      "type": "object",
+      "propertyCount": 8,
+      "required": []
+    },
+    {
+      "name": "SearchGroupedHit",
+      "type": "object",
+      "propertyCount": 3,
+      "required": []
+    },
+    {
+      "name": "SearchHighlight",
+      "type": "object",
+      "propertyCount": 7,
+      "required": []
+    },
+    {
+      "name": "FacetCounts",
+      "type": "object",
+      "propertyCount": 3,
+      "required": []
+    },
+    {
+      "name": "MultiSearchParameters",
+      "type": "object",
+      "propertyCount": 9,
+      "required": [
+        "collection"
+      ]
+    },
+    {
+      "name": "MultiSearchResult",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    },
+    {
+      "name": "SynonymSetSchema",
+      "type": "object",
+      "propertyCount": 1,
+      "required": []
+    },
+    {
+      "name": "SynonymSet",
+      "type": "object",
+      "propertyCount": 1,
+      "required": []
+    },
+    {
+      "name": "SynonymItemSchema",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    },
+    {
+      "name": "SynonymItem",
+      "type": "object",
+      "propertyCount": 3,
+      "required": []
+    },
+    {
+      "name": "CurationSetSchema",
+      "type": "object",
+      "propertyCount": 1,
+      "required": []
+    },
+    {
+      "name": "CurationSet",
+      "type": "object",
+      "propertyCount": 1,
+      "required": []
+    },
+    {
+      "name": "CurationItemSchema",
+      "type": "object",
+      "propertyCount": 3,
+      "required": []
+    },
+    {
+      "name": "CurationItem",
+      "type": "object",
+      "propertyCount": 4,
+      "required": []
+    },
+    {
+      "name": "ApiKeySchema",
+      "type": "object",
+      "propertyCount": 5,
+      "required": [
+        "description",
+        "actions",
+        "collections"
+      ]
+    },
+    {
+      "name": "ApiKey",
+      "type": "object",
+      "propertyCount": 7,
+      "required": []
+    },
+    {
+      "name": "ApiKeysResponse",
+      "type": "object",
+      "propertyCount": 1,
+      "required": []
+    },
+    {
+      "name": "CollectionAliasSchema",
+      "type": "object",
+      "propertyCount": 1,
+      "required": [
+        "collection_name"
+      ]
+    },
+    {
+      "name": "CollectionAlias",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    },
+    {
+      "name": "CollectionAliasesResponse",
+      "type": "object",
+      "propertyCount": 1,
+      "required": []
+    },
+    {
+      "name": "StopwordsSetUpsertSchema",
+      "type": "object",
+      "propertyCount": 2,
+      "required": [
+        "stopwords"
+      ]
+    },
+    {
+      "name": "StopwordsSet",
+      "type": "object",
+      "propertyCount": 3,
+      "required": []
+    },
+    {
+      "name": "PresetUpsertSchema",
+      "type": "object",
+      "propertyCount": 1,
+      "required": []
+    },
+    {
+      "name": "Preset",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    },
+    {
+      "name": "StemmingDictionary",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    },
+    {
+      "name": "IndexAction",
+      "type": "string",
+      "propertyCount": 0,
+      "required": []
+    },
+    {
+      "name": "DirtyValues",
+      "type": "string",
+      "propertyCount": 0,
+      "required": []
+    },
+    {
+      "name": "HealthStatus",
+      "type": "object",
+      "propertyCount": 1,
+      "required": []
+    },
+    {
+      "name": "SuccessStatus",
+      "type": "object",
+      "propertyCount": 1,
+      "required": []
+    },
+    {
+      "name": "SchemaChangeStatus",
+      "type": "object",
+      "propertyCount": 3,
+      "required": []
+    }
+  ],
+  "operations": [
+    {
+      "method": "GET",
+      "path": "/collections",
+      "operationId": "listCollections",
+      "summary": "List All Collections",
+      "tags": [
+        "Collections"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/collections",
+      "operationId": "createCollection",
+      "summary": "Create A New Collection",
+      "tags": [
+        "Collections"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/collections/{collectionName}",
+      "operationId": "getCollection",
+      "summary": "Retrieve A Collection",
+      "tags": [
+        "Collections"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/collections/{collectionName}",
+      "operationId": "deleteCollection",
+      "summary": "Delete A Collection",
+      "tags": [
+        "Collections"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/collections/{collectionName}",
+      "operationId": "updateCollection",
+      "summary": "Update A Collection",
+      "tags": [
+        "Collections"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/collections/{collectionName}/documents",
+      "operationId": "indexDocument",
+      "summary": "Index A Document",
+      "tags": [
+        "Documents"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/collections/{collectionName}/documents",
+      "operationId": "deleteDocuments",
+      "summary": "Delete Documents By Query",
+      "tags": [
+        "Documents"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/collections/{collectionName}/documents",
+      "operationId": "updateDocuments",
+      "summary": "Update Documents With Conditional Query",
+      "tags": [
+        "Documents"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/collections/{collectionName}/documents/search",
+      "operationId": "searchCollection",
+      "summary": "Search For Documents",
+      "tags": [
+        "Search"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/collections/{collectionName}/documents/export",
+      "operationId": "exportDocuments",
+      "summary": "Export Documents From A Collection",
+      "tags": [
+        "Documents"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/collections/{collectionName}/documents/import",
+      "operationId": "importDocuments",
+      "summary": "Import Documents Into A Collection",
+      "tags": [
+        "Documents"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/collections/{collectionName}/documents/{documentId}",
+      "operationId": "getDocument",
+      "summary": "Retrieve A Document",
+      "tags": [
+        "Documents"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/collections/{collectionName}/documents/{documentId}",
+      "operationId": "deleteDocument",
+      "summary": "Delete A Document",
+      "tags": [
+        "Documents"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/collections/{collectionName}/documents/{documentId}",
+      "operationId": "updateDocument",
+      "summary": "Update A Document",
+      "tags": [
+        "Documents"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/multi_search",
+      "operationId": "multiSearch",
+      "summary": "Multi-search Across Collections",
+      "tags": [
+        "Multi-Search"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/synonym_sets",
+      "operationId": "listSynonymSets",
+      "summary": "List All Synonym Sets",
+      "tags": [
+        "Synonym Sets"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/synonym_sets/{synonymSetName}",
+      "operationId": "getSynonymSet",
+      "summary": "Retrieve A Synonym Set",
+      "tags": [
+        "Synonym Sets"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/synonym_sets/{synonymSetName}",
+      "operationId": "upsertSynonymSet",
+      "summary": "Create Or Update A Synonym Set",
+      "tags": [
+        "Synonym Sets"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/synonym_sets/{synonymSetName}",
+      "operationId": "deleteSynonymSet",
+      "summary": "Delete A Synonym Set",
+      "tags": [
+        "Synonym Sets"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/synonym_sets/{synonymSetName}/items",
+      "operationId": "listSynonymSetItems",
+      "summary": "List Items In A Synonym Set",
+      "tags": [
+        "Synonym Sets"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/synonym_sets/{synonymSetName}/items/{itemId}",
+      "operationId": "getSynonymSetItem",
+      "summary": "Retrieve A Synonym Set Item",
+      "tags": [
+        "Synonym Sets"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/synonym_sets/{synonymSetName}/items/{itemId}",
+      "operationId": "upsertSynonymSetItem",
+      "summary": "Create Or Update A Synonym Set Item",
+      "tags": [
+        "Synonym Sets"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/synonym_sets/{synonymSetName}/items/{itemId}",
+      "operationId": "deleteSynonymSetItem",
+      "summary": "Delete A Synonym Set Item",
+      "tags": [
+        "Synonym Sets"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/curation_sets",
+      "operationId": "listCurationSets",
+      "summary": "List All Curation Sets",
+      "tags": [
+        "Curation Sets"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/curation_sets/{curationSetName}",
+      "operationId": "getCurationSet",
+      "summary": "Retrieve A Curation Set",
+      "tags": [
+        "Curation Sets"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/curation_sets/{curationSetName}",
+      "operationId": "upsertCurationSet",
+      "summary": "Create Or Update A Curation Set",
+      "tags": [
+        "Curation Sets"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/curation_sets/{curationSetName}",
+      "operationId": "deleteCurationSet",
+      "summary": "Delete A Curation Set",
+      "tags": [
+        "Curation Sets"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/curation_sets/{curationSetName}/items",
+      "operationId": "listCurationSetItems",
+      "summary": "List Items In A Curation Set",
+      "tags": [
+        "Curation Sets"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/curation_sets/{curationSetName}/items/{itemId}",
+      "operationId": "getCurationSetItem",
+      "summary": "Retrieve A Curation Set Item",
+      "tags": [
+        "Curation Sets"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/curation_sets/{curationSetName}/items/{itemId}",
+      "operationId": "upsertCurationSetItem",
+      "summary": "Create Or Update A Curation Set Item",
+      "tags": [
+        "Curation Sets"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/curation_sets/{curationSetName}/items/{itemId}",
+      "operationId": "deleteCurationSetItem",
+      "summary": "Delete A Curation Set Item",
+      "tags": [
+        "Curation Sets"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/keys",
+      "operationId": "listApiKeys",
+      "summary": "Retrieve Metadata For All API Keys",
+      "tags": [
+        "API Keys"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/keys",
+      "operationId": "createApiKey",
+      "summary": "Create An API Key",
+      "tags": [
+        "API Keys"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/keys/{keyId}",
+      "operationId": "getApiKey",
+      "summary": "Retrieve An API Key",
+      "tags": [
+        "API Keys"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/keys/{keyId}",
+      "operationId": "deleteApiKey",
+      "summary": "Delete An API Key",
+      "tags": [
+        "API Keys"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/aliases",
+      "operationId": "listAliases",
+      "summary": "List All Collection Aliases",
+      "tags": [
+        "Collection Aliases"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/aliases/{aliasName}",
+      "operationId": "getAlias",
+      "summary": "Retrieve A Collection Alias",
+      "tags": [
+        "Collection Aliases"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/aliases/{aliasName}",
+      "operationId": "upsertAlias",
+      "summary": "Create Or Update A Collection Alias",
+      "tags": [
+        "Collection Aliases"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/aliases/{aliasName}",
+      "operationId": "deleteAlias",
+      "summary": "Delete A Collection Alias",
+      "tags": [
+        "Collection Aliases"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/stopwords",
+      "operationId": "listStopwordsSets",
+      "summary": "List All Stopwords Sets",
+      "tags": [
+        "Stopwords"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/stopwords/{setId}",
+      "operationId": "getStopwordsSet",
+      "summary": "Retrieve A Stopwords Set",
+      "tags": [
+        "Stopwords"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/stopwords/{setId}",
+      "operationId": "upsertStopwordsSet",
+      "summary": "Create Or Update A Stopwords Set",
+      "tags": [
+        "Stopwords"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/stopwords/{setId}",
+      "operationId": "deleteStopwordsSet",
+      "summary": "Delete A Stopwords Set",
+      "tags": [
+        "Stopwords"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/presets",
+      "operationId": "listPresets",
+      "summary": "List All Presets",
+      "tags": [
+        "Presets"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/presets/{presetId}",
+      "operationId": "getPreset",
+      "summary": "Retrieve A Preset",
+      "tags": [
+        "Presets"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/presets/{presetId}",
+      "operationId": "upsertPreset",
+      "summary": "Create Or Update A Preset",
+      "tags": [
+        "Presets"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/presets/{presetId}",
+      "operationId": "deletePreset",
+      "summary": "Delete A Preset",
+      "tags": [
+        "Presets"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/stemming/dictionaries",
+      "operationId": "listStemmingDictionaries",
+      "summary": "List Stemming Dictionaries",
+      "tags": [
+        "Stemming"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/stemming/dictionaries/{dictionaryId}",
+      "operationId": "getStemmingDictionary",
+      "summary": "Retrieve A Stemming Dictionary",
+      "tags": [
+        "Stemming"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/stemming/dictionaries/import",
+      "operationId": "importStemmingDictionary",
+      "summary": "Import A Stemming Dictionary",
+      "tags": [
+        "Stemming"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/operations/snapshot",
+      "operationId": "takeSnapshot",
+      "summary": "Create A Point-in-time Snapshot",
+      "tags": [
+        "Operations"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/operations/vote",
+      "operationId": "vote",
+      "summary": "Trigger Raft Voting",
+      "tags": [
+        "Operations"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/operations/cache/clear",
+      "operationId": "clearCache",
+      "summary": "Clear The LRU Cache",
+      "tags": [
+        "Operations"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/operations/db/compact",
+      "operationId": "compactDatabase",
+      "summary": "Compact The On-disk Database",
+      "tags": [
+        "Operations"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/operations/schema_changes",
+      "operationId": "getSchemaChanges",
+      "summary": "Get Schema Change Status",
+      "tags": [
+        "Operations"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/config",
+      "operationId": "updateConfig",
+      "summary": "Update Server Configuration",
+      "tags": [
+        "Configuration"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/debug",
+      "operationId": "getDebugInfo",
+      "summary": "Get Debug Information",
+      "tags": [
+        "Monitoring"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/health",
+      "operationId": "checkHealth",
+      "summary": "Check Server Health",
+      "tags": [
+        "Monitoring"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/metrics.json",
+      "operationId": "getMetrics",
+      "summary": "Get Server Metrics",
+      "tags": [
+        "Monitoring"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/stats.json",
+      "operationId": "getApiStats",
+      "summary": "Get API Endpoint Statistics",
+      "tags": [
+        "Monitoring"
+      ]
+    }
+  ]
+}

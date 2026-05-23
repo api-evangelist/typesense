@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/MultiSearchParameters",
+  "title": "MultiSearchParameters",
+  "type": "object",
+  "required": [
+    "collection"
+  ],
+  "properties": {
+    "collection": {
+      "type": "string",
+      "description": "Name of the collection to search."
+    },
+    "q": {
+      "type": "string",
+      "description": "Search query string."
+    },
+    "query_by": {
+      "type": "string",
+      "description": "Comma-separated list of fields to search."
+    },
+    "filter_by": {
+      "type": "string",
+      "description": "Filter conditions."
+    },
+    "sort_by": {
+      "type": "string",
+      "description": "Sort conditions."
+    },
+    "facet_by": {
+      "type": "string",
+      "description": "Fields to facet on."
+    },
+    "page": {
+      "type": "integer",
+      "description": "Page number."
+    },
+    "per_page": {
+      "type": "integer",
+      "description": "Results per page."
+    },
+    "preset": {
+      "type": "string",
+      "description": "Name of a preset to apply."
+    }
+  }
+}

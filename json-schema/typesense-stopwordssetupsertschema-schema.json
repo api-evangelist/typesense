@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/StopwordsSetUpsertSchema",
+  "title": "StopwordsSetUpsertSchema",
+  "type": "object",
+  "required": [
+    "stopwords"
+  ],
+  "properties": {
+    "stopwords": {
+      "type": "array",
+      "description": "List of stopword strings.",
+      "items": {
+        "type": "string"
+      }
+    },
+    "locale": {
+      "type": "string",
+      "description": "Locale for the stopwords set."
+    }
+  }
+}

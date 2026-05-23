@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/CurationItem",
+  "title": "CurationItem",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "ID of the curation item."
+    },
+    "rule": {
+      "type": "object",
+      "properties": {
+        "query": {
+          "type": "string"
+        },
+        "match": {
+          "type": "string"
+        }
+      }
+    },
+    "includes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "position": {
+            "type": "integer"
+          }
+        }
+      }
+    },
+    "excludes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

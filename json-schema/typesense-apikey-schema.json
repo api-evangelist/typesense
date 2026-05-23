@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ApiKey",
+  "title": "ApiKey",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "integer",
+      "format": "int64",
+      "description": "Numeric ID of the API key."
+    },
+    "value": {
+      "type": "string",
+      "description": "Full API key value. Only returned on creation."
+    },
+    "value_prefix": {
+      "type": "string",
+      "description": "First few characters of the key for identification."
+    },
+    "description": {
+      "type": "string",
+      "description": "Human-readable description."
+    },
+    "actions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "collections": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "expires_at": {
+      "type": "integer",
+      "format": "int64"
+    }
+  }
+}

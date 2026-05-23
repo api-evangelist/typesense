@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/CollectionUpdateSchema",
+  "title": "CollectionUpdateSchema",
+  "type": "object",
+  "properties": {
+    "fields": {
+      "type": "array",
+      "description": "Array of field definitions to add, modify, or drop.",
+      "items": {
+        "$ref": "#/components/schemas/Field"
+      }
+    },
+    "synonym_sets": {
+      "type": "array",
+      "description": "Updated list of synonym set names for this collection.",
+      "items": {
+        "type": "string"
+      }
+    },
+    "metadata": {
+      "type": "object",
+      "description": "Updated metadata for the collection."
+    }
+  }
+}

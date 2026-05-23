@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ClusterUpdateSchema",
+  "title": "ClusterUpdateSchema",
+  "type": "object",
+  "properties": {
+    "cluster_name": {
+      "type": "string",
+      "description": "Updated friendly name for the cluster."
+    },
+    "auto_upgrade_capacity": {
+      "type": "boolean",
+      "description": "Updated auto-upgrade setting."
+    }
+  }
+}

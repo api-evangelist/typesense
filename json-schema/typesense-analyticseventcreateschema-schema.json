@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/AnalyticsEventCreateSchema",
+  "title": "AnalyticsEventCreateSchema",
+  "type": "object",
+  "required": [
+    "type",
+    "name",
+    "data"
+  ],
+  "properties": {
+    "type": {
+      "type": "string",
+      "description": "Type of event being logged.",
+      "enum": [
+        "click",
+        "conversion",
+        "visit",
+        "custom"
+      ]
+    },
+    "name": {
+      "type": "string",
+      "description": "Name of the event, matching an analytics rule event name."
+    },
+    "data": {
+      "type": "object",
+      "description": "Event data payload.",
+      "properties": {
+        "q": {
+          "type": "string",
+          "description": "The search query associated with this event."
+        },
+        "doc_id": {
+          "type": "string",
+          "description": "ID of the document the user interacted with."
+        },
+        "user_id": {
+          "type": "string",
+          "description": "ID of the user who triggered the event."
+        },
+        "position": {
+          "type": "integer",
+          "description": "Position of the document in search results."
+        }
+      }
+    }
+  }
+}

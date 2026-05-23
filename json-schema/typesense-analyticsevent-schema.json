@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/AnalyticsEvent",
+  "title": "AnalyticsEvent",
+  "type": "object",
+  "properties": {
+    "type": {
+      "type": "string",
+      "description": "Event type."
+    },
+    "name": {
+      "type": "string",
+      "description": "Event name."
+    },
+    "data": {
+      "type": "object",
+      "description": "Event data payload."
+    },
+    "timestamp": {
+      "type": "integer",
+      "format": "int64",
+      "description": "Unix timestamp of the event."
+    }
+  }
+}

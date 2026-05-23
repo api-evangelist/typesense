@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ServerConfigurationParameters",
+  "title": "ServerConfigurationParameters",
+  "type": "object",
+  "description": "Typesense Server runtime configuration parameters. Changes take effect after a server restart.",
+  "additionalProperties": true,
+  "properties": {
+    "cache-num-entries": {
+      "type": "integer",
+      "description": "Number of entries in the LRU cache."
+    },
+    "thread-pool-size": {
+      "type": "integer",
+      "description": "Size of the thread pool for handling requests."
+    },
+    "log-slow-requests-time-ms": {
+      "type": "integer",
+      "description": "Threshold in milliseconds for logging slow requests."
+    }
+  }
+}

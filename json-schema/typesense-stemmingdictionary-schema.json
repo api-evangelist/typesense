@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/StemmingDictionary",
+  "title": "StemmingDictionary",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Stemming dictionary ID."
+    },
+    "words": {
+      "type": "object",
+      "description": "Map of words to their stems.",
+      "additionalProperties": {
+        "type": "string"
+      }
+    }
+  }
+}

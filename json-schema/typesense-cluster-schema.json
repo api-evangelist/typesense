@@ -1,0 +1,78 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/Cluster",
+  "title": "Cluster",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique identifier of the cluster."
+    },
+    "cluster_name": {
+      "type": "string",
+      "description": "Friendly name of the cluster."
+    },
+    "memory": {
+      "type": "string",
+      "description": "Memory allocation."
+    },
+    "vcpu": {
+      "type": "string",
+      "description": "vCPU configuration."
+    },
+    "gpu": {
+      "type": "boolean",
+      "description": "Whether the cluster is GPU-enabled."
+    },
+    "high_performance_disk": {
+      "type": "string",
+      "description": "High-performance disk configuration."
+    },
+    "typesense_server_version": {
+      "type": "string",
+      "description": "Typesense Server version running on the cluster."
+    },
+    "high_availability": {
+      "type": "string",
+      "description": "Whether high availability is enabled."
+    },
+    "search_delivery_network": {
+      "type": "string",
+      "description": "Whether search delivery network is enabled."
+    },
+    "load_balancing": {
+      "type": "string",
+      "description": "Whether load balancing is enabled."
+    },
+    "regions": {
+      "type": "array",
+      "description": "Regions the cluster is deployed in.",
+      "items": {
+        "type": "string"
+      }
+    },
+    "status": {
+      "type": "string",
+      "description": "Current status of the cluster.",
+      "enum": [
+        "provisioning",
+        "in_service",
+        "terminating",
+        "terminated"
+      ]
+    },
+    "hostnames": {
+      "type": "object",
+      "description": "Hostnames for connecting to the cluster nodes."
+    },
+    "auto_upgrade_capacity": {
+      "type": "boolean",
+      "description": "Whether auto-upgrade is enabled."
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When the cluster was created."
+    }
+  }
+}

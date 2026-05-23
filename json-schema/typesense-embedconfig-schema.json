@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/EmbedConfig",
+  "title": "EmbedConfig",
+  "type": "object",
+  "description": "Configuration for automatic embedding generation from source fields.",
+  "properties": {
+    "from": {
+      "type": "array",
+      "description": "Field names to generate embeddings from. Typesense concatenates these fields and generates an embedding vector.",
+      "items": {
+        "type": "string"
+      }
+    },
+    "model_config": {
+      "type": "object",
+      "description": "Model configuration for embedding generation.",
+      "properties": {
+        "model_name": {
+          "type": "string",
+          "description": "Name of the embedding model. Supports built-in models like ts/all-MiniLM-L12-v2 or external models via OpenAI, Google, and other providers."
+        },
+        "api_key": {
+          "type": "string",
+          "description": "API key for external embedding services such as OpenAI."
+        },
+        "url": {
+          "type": "string",
+          "description": "URL of an external embedding service endpoint."
+        },
+        "access_token": {
+          "type": "string",
+          "description": "Access token for embedding service authentication."
+        },
+        "client_id": {
+          "type": "string",
+          "description": "Client ID for OAuth-based embedding services."
+        },
+        "client_secret": {
+          "type": "string",
+          "description": "Client secret for OAuth-based embedding services."
+        },
+        "project_id": {
+          "type": "string",
+          "description": "Project ID for cloud-based embedding services."
+        }
+      }
+    }
+  }
+}

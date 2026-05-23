@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/SearchGroupedHit",
+  "title": "SearchGroupedHit",
+  "type": "object",
+  "properties": {
+    "found": {
+      "type": "integer",
+      "description": "Number of hits in this group."
+    },
+    "group_key": {
+      "type": "array",
+      "description": "Values of the group_by field.",
+      "items": {}
+    },
+    "hits": {
+      "type": "array",
+      "description": "Search hits within this group.",
+      "items": {
+        "$ref": "#/components/schemas/SearchResultHit"
+      }
+    }
+  }
+}

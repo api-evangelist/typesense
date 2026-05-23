@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/NLSearchModel",
+  "title": "NLSearchModel",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique identifier of the NL search model."
+    },
+    "model_name": {
+      "type": "string",
+      "description": "Name of the model."
+    },
+    "model_config": {
+      "type": "object",
+      "description": "Model configuration parameters."
+    }
+  }
+}

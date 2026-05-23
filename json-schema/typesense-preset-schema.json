@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/Preset",
+  "title": "Preset",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Preset name."
+    },
+    "value": {
+      "type": "object",
+      "description": "Stored search parameters."
+    }
+  }
+}

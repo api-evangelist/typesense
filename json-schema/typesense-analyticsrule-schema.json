@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/AnalyticsRule",
+  "title": "AnalyticsRule",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Name of the analytics rule."
+    },
+    "type": {
+      "type": "string",
+      "description": "Type of the analytics rule."
+    },
+    "params": {
+      "type": "object",
+      "description": "Rule parameters."
+    },
+    "created_at": {
+      "type": "integer",
+      "format": "int64",
+      "description": "Unix timestamp when the rule was created."
+    }
+  }
+}

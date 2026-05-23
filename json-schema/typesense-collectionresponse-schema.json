@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/CollectionResponse",
+  "title": "CollectionResponse",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Name of the collection."
+    },
+    "fields": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/Field"
+      }
+    },
+    "default_sorting_field": {
+      "type": "string",
+      "description": "Default sorting field for this collection."
+    },
+    "num_documents": {
+      "type": "integer",
+      "format": "int64",
+      "description": "Number of documents in the collection."
+    },
+    "created_at": {
+      "type": "integer",
+      "format": "int64",
+      "description": "Unix timestamp when the collection was created."
+    },
+    "token_separators": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "symbols_to_index": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "enable_nested_fields": {
+      "type": "boolean",
+      "description": "Whether nested field indexing is enabled."
+    }
+  }
+}

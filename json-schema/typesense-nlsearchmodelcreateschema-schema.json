@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/NLSearchModelCreateSchema",
+  "title": "NLSearchModelCreateSchema",
+  "type": "object",
+  "required": [
+    "model_name"
+  ],
+  "properties": {
+    "model_name": {
+      "type": "string",
+      "description": "Name of the natural language search model."
+    },
+    "api_key": {
+      "type": "string",
+      "description": "API key for accessing the model provider."
+    },
+    "model_config": {
+      "type": "object",
+      "description": "Additional model configuration parameters."
+    }
+  }
+}

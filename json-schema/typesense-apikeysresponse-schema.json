@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ApiKeysResponse",
+  "title": "ApiKeysResponse",
+  "type": "object",
+  "properties": {
+    "keys": {
+      "type": "array",
+      "description": "Array of API key metadata.",
+      "items": {
+        "$ref": "#/components/schemas/ApiKey"
+      }
+    }
+  }
+}

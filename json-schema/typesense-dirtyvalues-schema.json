@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/DirtyValues",
+  "title": "DirtyValues",
+  "type": "string",
+  "description": "Strategy for handling field values that do not match the schema type.",
+  "enum": [
+    "coerce_or_reject",
+    "coerce_or_drop",
+    "drop",
+    "reject"
+  ]
+}

@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/VectorField",
+  "title": "VectorField",
+  "type": "object",
+  "required": [
+    "name",
+    "type"
+  ],
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Name of the field."
+    },
+    "type": {
+      "type": "string",
+      "description": "Data type. Use float[] for vector embedding fields."
+    },
+    "optional": {
+      "type": "boolean",
+      "description": "Whether this field is optional."
+    },
+    "facet": {
+      "type": "boolean",
+      "description": "Whether this field can be used for faceting."
+    },
+    "index": {
+      "type": "boolean",
+      "description": "Whether this field should be indexed."
+    },
+    "num_dim": {
+      "type": "integer",
+      "description": "Number of dimensions for vector fields. Required for float[] type fields used as embeddings."
+    },
+    "vec_dist": {
+      "type": "string",
+      "description": "Distance metric for nearest-neighbor search.",
+      "enum": [
+        "cosine",
+        "ip"
+      ]
+    },
+    "embed": {
+      "$ref": "#/components/schemas/EmbedConfig"
+    }
+  }
+}
