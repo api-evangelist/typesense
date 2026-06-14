@@ -1,0 +1,692 @@
+"""
+Typesense GraphQL Schema
+Typesense is a fast, typo-tolerant, open-source search engine.
+Derived from the Typesense REST API: https://typesense.org/docs/latest/api/
+"""
+
+# ─── Scalars ────────────────────────────────────────────────────────────────
+
+scalar JSON
+scalar DateTime
+
+# ─── Enumerations ────────────────────────────────────────────────────────────
+
+enum FieldType {
+  STRING
+  STRING_ARRAY
+  INT32
+  INT32_ARRAY
+  INT64
+  INT64_ARRAY
+  FLOAT
+  FLOAT_ARRAY
+  BOOL
+  BOOL_ARRAY
+  GEOPOINT
+  GEOPOINT_ARRAY
+  OBJECT
+  OBJECT_ARRAY
+  AUTO
+  STRING_STAR
+}
+
+enum SynonymType {
+  ONE_WAY
+  MULTI_WAY
+}
+
+enum APIKeyAction {
+  DOCUMENTS_SEARCH
+  DOCUMENTS_GET
+  DOCUMENTS_CREATE
+  DOCUMENTS_UPSERT
+  DOCUMENTS_UPDATE
+  DOCUMENTS_DELETE
+  DOCUMENTS_IMPORT
+  DOCUMENTS_EXPORT
+  COLLECTIONS_LIST
+  COLLECTIONS_GET
+  COLLECTIONS_CREATE
+  COLLECTIONS_DELETE
+  COLLECTIONS_UPDATE
+  ALIASES_LIST
+  ALIASES_GET
+  ALIASES_UPSERT
+  ALIASES_DELETE
+  SYNONYMS_LIST
+  SYNONYMS_GET
+  SYNONYMS_UPSERT
+  SYNONYMS_DELETE
+  OVERRIDES_LIST
+  OVERRIDES_GET
+  OVERRIDES_UPSERT
+  OVERRIDES_DELETE
+  KEYS_LIST
+  KEYS_GET
+  KEYS_CREATE
+  KEYS_DELETE
+  DEBUG_GET
+  HEALTH_GET
+  METRICS_GET
+  ANALYTICS_RULES_LIST
+  ANALYTICS_RULES_GET
+  ANALYTICS_RULES_CREATE
+  ANALYTICS_RULES_DELETE
+  STAR
+}
+
+enum NodeStatus {
+  OK
+  INITIALIZING
+  NOT_READY
+  CANDIDATE
+  LEADER
+}
+
+enum OverrideRuleMatch {
+  EXACT
+  CONTAINS
+}
+
+# ─── Field types ─────────────────────────────────────────────────────────────
+
+"""A field definition as returned by the API (includes runtime stats)."""
+type FieldDetails {
+  name: String!
+  type: FieldType!
+  facet: Boolean
+  optional: Boolean
+  sort: Boolean
+  index: Boolean
+  infix: Boolean
+  locale: String
+  numDocuments: Int
+}
+
+"""A field definition used when creating or updating a collection schema."""
+input FieldInput {
+  name: String!
+  type: FieldType!
+  facet: Boolean
+  optional: Boolean
+  sort: Boolean
+  index: Boolean
+  infix: Boolean
+  locale: String
+  drop: Boolean
+}
+
+"""Boolean toggle for whether a field is facetable."""
+type FieldFacet {
+  name: String!
+  facet: Boolean!
+}
+
+"""Boolean toggle for whether a field is optional."""
+type FieldOptional {
+  name: String!
+  optional: Boolean!
+}
+
+"""Boolean toggle for whether a field supports sorting."""
+type FieldSort {
+  name: String!
+  sort: Boolean!
+}
+
+"""Boolean toggle for whether a field is indexed for search."""
+type FieldIndex {
+  name: String!
+  index: Boolean!
+}
+
+# ─── Collection types ────────────────────────────────────────────────────────
+
+"""Minimal collection reference (name only)."""
+type Collection {
+  name: String!
+}
+
+"""Full collection details as returned by the API."""
+type CollectionDetails {
+  name: String!
+  numDocuments: Int!
+  fields: [FieldDetails!]!
+  defaultSortingField: String
+  enableNestedFields: Boolean
+  tokenSeparators: [String!]
+  symbolsToIndex: [String!]
+  createdAt: Int
+}
+
+"""Schema used when creating a new collection."""
+type CollectionSchema {
+  name: String!
+  fields: [FieldDetails!]!
+  defaultSortingField: String
+  enableNestedFields: Boolean
+  tokenSeparators: [String!]
+  symbolsToIndex: [String!]
+}
+
+# ─── Document types ───────────────────────────────────────────────────────────
+
+"""A raw document stored in a collection (untyped fields)."""
+type Document {
+  id: String!
+  data: JSON
+}
+
+"""A document with metadata returned after indexing."""
+type DocumentDetails {
+  id: String!
+  data: JSON
+  collection: String
+}
+
+"""Result of a partial document update (PATCH)."""
+type DocumentUpdate {
+  id: String!
+  numUpdated: Int
+}
+
+# ─── Search types ─────────────────────────────────────────────────────────────
+
+"""A text segment highlighted during search."""
+type Highlight {
+  field: String!
+  snippet: String
+  matchedTokens: [String!]
+  indices: [Int!]
+}
+
+"""Extended highlight with position details."""
+type HighlightDetails {
+  field: String!
+  snippet: String
+  value: String
+  matchedTokens: [String!]
+  indices: [Int!]
+  snippets: [String!]
+}
+
+"""A single hit (document match) in a search result."""
+type Hit {
+  document: JSON!
+  highlights: [Highlight!]
+  textMatch: Float
+}
+
+"""A hit with full highlight details and ranking info."""
+type HitDetails {
+  document: JSON!
+  highlights: [HighlightDetails!]
+  textMatch: Float
+  textMatchInfo: JSON
+  vectorDistance: Float
+  geoDistanceMeters: JSON
+}
+
+"""A single search result set (one query)."""
+type SearchResult {
+  found: Int!
+  outOf: Int
+  page: Int
+  requestParams: JSON
+  searchTimeMs: Int
+  hits: [HitDetails!]
+  facetCounts: [FacetDetails!]
+  groupedHits: [GroupedResult!]
+}
+
+"""A search hit as it appears inside a grouped result."""
+type SearchHit {
+  document: JSON!
+  highlights: [Highlight!]
+  textMatch: Float
+}
+
+"""A group of hits sharing the same group-by field value."""
+type GroupedResult {
+  groupKey: [String!]!
+  hits: [HitDetails!]!
+  found: Int
+}
+
+"""Additional details about a grouped result set."""
+type GroupDetails {
+  groupKey: [String!]!
+  hits: [HitDetails!]!
+  found: Int
+  outOf: Int
+}
+
+"""A facet value count within a facet field."""
+type FacetCount {
+  value: String!
+  count: Int!
+  highlighted: String
+}
+
+"""All counts for a single facet field."""
+type FacetDetails {
+  fieldName: String!
+  counts: [FacetCount!]!
+  stats: JSON
+  sampled: Boolean
+}
+
+"""Represents a sorting specification in a query."""
+type SortField {
+  field: String!
+  order: String!
+  missingValues: String
+}
+
+"""A pinned hit — forced to appear at a specific position."""
+type PinnedHit {
+  id: String!
+  position: Int!
+}
+
+"""A hidden hit — suppressed from search results."""
+type HiddenHit {
+  id: String!
+}
+
+# ─── Query / Filter helpers ──────────────────────────────────────────────────
+
+"""Represents a fully-formed search query (mirrors search API params)."""
+type SearchQuery {
+  q: String!
+  queryBy: [String!]!
+  filterBy: String
+  sortBy: String
+  facetBy: [String!]
+  maxFacetValues: Int
+  facetQuery: String
+  page: Int
+  perPage: Int
+  groupBy: [String!]
+  groupLimit: Int
+  pinned: String
+  hidden: String
+  includeFields: [String!]
+  excludeFields: [String!]
+  highlightFields: [String!]
+  highlightFullFields: [String!]
+  numTypos: Int
+  prefix: Boolean
+  exhaustiveSearch: Boolean
+  vectorQuery: String
+}
+
+"""A filter expression applied to a search."""
+type SearchFilter {
+  expression: String!
+  parsed: JSON
+}
+
+"""A facet query for narrowing facet counts."""
+type FacetQuery {
+  field: String!
+  query: String!
+}
+
+# ─── Override / Curation types ───────────────────────────────────────────────
+
+"""Condition that triggers a search override."""
+type OverrideRule {
+  query: String
+  match: OverrideRuleMatch
+  filterBy: String
+  tags: [String!]
+}
+
+"""A document to include (promote) in overridden results."""
+type OverrideInclude {
+  id: String!
+  position: Int!
+}
+
+"""A document to exclude (demote/hide) from overridden results."""
+type OverrideExclude {
+  id: String!
+}
+
+"""A search override (curation rule)."""
+type SearchOverride {
+  id: String!
+  rule: OverrideRule!
+  includes: [OverrideInclude!]
+  excludes: [OverrideExclude!]
+  filterBy: String
+  sortBy: String
+  replacementQuery: String
+  filterCuratedHits: Boolean
+  removeMatchedTokens: Boolean
+  stopProcessing: Boolean
+}
+
+"""Full details of an override including metadata."""
+type OverrideDetails {
+  id: String!
+  collection: String!
+  rule: OverrideRule!
+  includes: [OverrideInclude!]
+  excludes: [OverrideExclude!]
+  filterBy: String
+  sortBy: String
+  replacementQuery: String
+  filterCuratedHits: Boolean
+  removeMatchedTokens: Boolean
+  stopProcessing: Boolean
+  effectiveFromTs: Int
+  effectiveTillTs: Int
+}
+
+"""Alias for curation rule (same concept, alternate name)."""
+type Curate {
+  id: String!
+  rule: OverrideRule!
+}
+
+"""Full curation (override) details."""
+type CurateDetails {
+  id: String!
+  collection: String!
+  rule: OverrideRule!
+  includes: [OverrideInclude!]
+  excludes: [OverrideExclude!]
+}
+
+# ─── Synonym types ────────────────────────────────────────────────────────────
+
+"""A synonym set."""
+type Synonym {
+  id: String!
+  synonyms: [String!]!
+}
+
+"""Full synonym details including type."""
+type SynonymDetails {
+  id: String!
+  collection: String!
+  synonyms: [String!]!
+  root: String
+  locale: String
+  symbols_to_index: [String!]
+  type: SynonymType
+}
+
+# ─── Alias types ──────────────────────────────────────────────────────────────
+
+"""A collection alias (pointer to a real collection name)."""
+type Alias {
+  name: String!
+  collectionName: String!
+}
+
+"""Full alias details."""
+type AliasDetails {
+  name: String!
+  collectionName: String!
+}
+
+# ─── API Key types ────────────────────────────────────────────────────────────
+
+"""Scope filter applied to an API key."""
+type APIKeyScope {
+  collection: String
+  action: APIKeyAction
+  filterBy: String
+}
+
+"""A Typesense API key."""
+type APIKey {
+  id: Int!
+  description: String
+  actions: [APIKeyAction!]!
+  collections: [String!]!
+  value: String
+}
+
+"""Full API key details including expiry and embedded search params."""
+type APIKeyDetails {
+  id: Int!
+  description: String
+  actions: [APIKeyAction!]!
+  collections: [String!]!
+  value: String
+  valuePrefix: String
+  expiresAt: Int
+  autofillMissingFieldsWith: JSON
+  fields: [APIKeyScope!]
+}
+
+# ─── Cluster / Node types ────────────────────────────────────────────────────
+
+"""A node in a Typesense cluster."""
+type Node {
+  host: String!
+  port: Int!
+  protocol: String!
+}
+
+"""Status of a single node."""
+type NodeStatus {
+  host: String!
+  port: Int!
+  protocol: String!
+  state: String!
+  isLeader: Boolean
+}
+
+"""A Typesense cluster (self-hosted or cloud)."""
+type Cluster {
+  id: String!
+  nodes: [Node!]!
+  numNodes: Int
+}
+
+"""Full cluster details."""
+type ClusterDetails {
+  id: String!
+  nodes: [NodeStatus!]!
+  numNodes: Int
+  raftState: String
+  commitIndex: Int
+  version: String
+  memoryUsedBytes: Int
+}
+
+# ─── Analytics types ──────────────────────────────────────────────────────────
+
+"""A query analytics event."""
+type QueryEvent {
+  queryId: String!
+  query: String!
+  collectionName: String!
+  timestamp: DateTime
+  numResults: Int
+  userId: String
+}
+
+"""A click analytics event."""
+type ClickEvent {
+  queryId: String!
+  docId: String!
+  position: Int
+  userId: String
+  timestamp: DateTime
+}
+
+"""A conversion analytics event."""
+type ConversionEvent {
+  queryId: String!
+  docId: String!
+  userId: String
+  timestamp: DateTime
+}
+
+"""An analytics aggregation rule."""
+type AnalyticsRule {
+  name: String!
+  type: String!
+}
+
+"""Full analytics rule details."""
+type AnalyticsRuleDetails {
+  name: String!
+  type: String!
+  params: JSON
+  source: JSON
+  destination: JSON
+}
+
+"""Top-level analytics container."""
+type Analytics {
+  rules: [AnalyticsRuleDetails!]!
+}
+
+# ─── Pagination ───────────────────────────────────────────────────────────────
+
+"""Cursor-based page info for list responses."""
+type PageInfo {
+  page: Int!
+  perPage: Int!
+  total: Int
+  hasNextPage: Boolean!
+}
+
+# ─── Error type ───────────────────────────────────────────────────────────────
+
+"""A structured API error."""
+type Error {
+  code: Int!
+  message: String!
+  field: String
+}
+
+# ─── Root types ───────────────────────────────────────────────────────────────
+
+type Query {
+  """List all collections."""
+  collections: [CollectionDetails!]!
+
+  """Get a single collection by name."""
+  collection(name: String!): CollectionDetails
+
+  """Search within a collection."""
+  search(collection: String!, params: JSON!): SearchResult
+
+  """Multi-search across one or more collections."""
+  multiSearch(searches: [JSON!]!): [SearchResult!]!
+
+  """Retrieve a document by ID."""
+  document(collection: String!, id: String!): Document
+
+  """Export documents from a collection."""
+  exportDocuments(collection: String!, filterBy: String, includeFields: String, excludeFields: String): [Document!]!
+
+  """List all overrides for a collection."""
+  overrides(collection: String!): [SearchOverride!]!
+
+  """Get a specific override."""
+  override(collection: String!, id: String!): OverrideDetails
+
+  """List all synonyms for a collection."""
+  synonyms(collection: String!): [SynonymDetails!]!
+
+  """Get a specific synonym."""
+  synonym(collection: String!, id: String!): SynonymDetails
+
+  """List all aliases."""
+  aliases: [AliasDetails!]!
+
+  """Get a specific alias."""
+  alias(name: String!): AliasDetails
+
+  """List all API keys."""
+  apiKeys: [APIKey!]!
+
+  """Get a specific API key."""
+  apiKey(id: Int!): APIKeyDetails
+
+  """Get cluster health and node status."""
+  clusterHealth: ClusterDetails
+
+  """List all analytics rules."""
+  analyticsRules: [AnalyticsRuleDetails!]!
+
+  """Get a specific analytics rule."""
+  analyticsRule(name: String!): AnalyticsRuleDetails
+}
+
+type Mutation {
+  """Create a new collection."""
+  createCollection(name: String!, fields: [FieldInput!]!, defaultSortingField: String, enableNestedFields: Boolean): CollectionDetails
+
+  """Update (alter) an existing collection schema."""
+  updateCollection(name: String!, fields: [FieldInput!]!): CollectionDetails
+
+  """Delete a collection."""
+  deleteCollection(name: String!): CollectionDetails
+
+  """Index a single document."""
+  indexDocument(collection: String!, document: JSON!, action: String): DocumentDetails
+
+  """Upsert a single document."""
+  upsertDocument(collection: String!, document: JSON!): DocumentDetails
+
+  """Update a document by ID."""
+  updateDocument(collection: String!, id: String!, patch: JSON!): DocumentDetails
+
+  """Delete a document by ID."""
+  deleteDocument(collection: String!, id: String!): Document
+
+  """Bulk import documents."""
+  importDocuments(collection: String!, documents: [JSON!]!, action: String, batchSize: Int): JSON
+
+  """Delete documents matching a filter."""
+  deleteDocuments(collection: String!, filterBy: String!): JSON
+
+  """Create or update a search override."""
+  upsertOverride(collection: String!, id: String!, rule: JSON!, includes: [JSON!], excludes: [JSON!], filterBy: String, sortBy: String): OverrideDetails
+
+  """Delete an override."""
+  deleteOverride(collection: String!, id: String!): SearchOverride
+
+  """Create or update a synonym."""
+  upsertSynonym(collection: String!, id: String!, synonyms: [String!]!, root: String, locale: String, type: SynonymType): SynonymDetails
+
+  """Delete a synonym."""
+  deleteSynonym(collection: String!, id: String!): Synonym
+
+  """Create or update a collection alias."""
+  upsertAlias(name: String!, collectionName: String!): AliasDetails
+
+  """Delete an alias."""
+  deleteAlias(name: String!): AliasDetails
+
+  """Create an API key."""
+  createAPIKey(description: String, actions: [APIKeyAction!]!, collections: [String!]!, expiresAt: Int): APIKeyDetails
+
+  """Delete an API key."""
+  deleteAPIKey(id: Int!): APIKey
+
+  """Create an analytics rule."""
+  createAnalyticsRule(name: String!, type: String!, params: JSON): AnalyticsRuleDetails
+
+  """Delete an analytics rule."""
+  deleteAnalyticsRule(name: String!): AnalyticsRule
+
+  """Send a search analytics event."""
+  sendQueryEvent(queryId: String!, query: String!, collectionName: String!, userId: String): QueryEvent
+
+  """Send a click analytics event."""
+  sendClickEvent(queryId: String!, docId: String!, position: Int, userId: String): ClickEvent
+
+  """Send a conversion analytics event."""
+  sendConversionEvent(queryId: String!, docId: String!, userId: String): ConversionEvent
+}
