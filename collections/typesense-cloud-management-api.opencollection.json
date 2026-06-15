@@ -1,0 +1,292 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Typesense Cloud Management API",
+    "version": "1"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-TYPESENSE-CLOUD-MANAGEMENT-API-KEY",
+      "value": "{{X-TYPESENSE-CLOUD-MANAGEMENT-API-KEY}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Cluster Management",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List All Clusters",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud.typesense.org/api/v1/clusters"
+          },
+          "docs": "Retrieves all clusters under your Typesense Cloud account."
+        },
+        {
+          "info": {
+            "name": "Create A New Cluster",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://cloud.typesense.org/api/v1/clusters",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Provisions a new Typesense Cloud cluster. Cluster creation is asynchronous and typically takes 4-5 minutes. Poll the single cluster endpoint to check when the status changes from provisioning to in_service."
+        },
+        {
+          "info": {
+            "name": "Retrieve A Cluster",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud.typesense.org/api/v1/clusters/:clusterId",
+            "params": [
+              {
+                "name": "clusterId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the cluster."
+              }
+            ]
+          },
+          "docs": "Retrieves detailed information about a specific cluster including its current status, configuration, hostnames, and region details."
+        },
+        {
+          "info": {
+            "name": "Update A Cluster",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://cloud.typesense.org/api/v1/clusters/:clusterId",
+            "params": [
+              {
+                "name": "clusterId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the cluster."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates cluster settings such as the cluster name and auto-upgrade configuration."
+        },
+        {
+          "info": {
+            "name": "Terminate A Cluster",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://cloud.typesense.org/api/v1/clusters/:clusterId",
+            "params": [
+              {
+                "name": "clusterId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the cluster."
+              }
+            ]
+          },
+          "docs": "Terminates a running cluster permanently. This action cannot be undone. Once terminated, all data in the cluster is destroyed permanently as a security and privacy measure."
+        },
+        {
+          "info": {
+            "name": "Generate Typesense Server API Keys",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://cloud.typesense.org/api/v1/clusters/:clusterId/generate-api-key",
+            "params": [
+              {
+                "name": "clusterId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the cluster."
+              }
+            ]
+          },
+          "docs": "Generates Typesense Server API keys for the cluster. This endpoint is only available once the cluster status changes to in_service. Returns the admin and search-only API keys needed to interact with the Typesense Server running on the cluster."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Configuration Changes",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Configuration Changes",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud.typesense.org/api/v1/clusters/:clusterId/configuration-changes",
+            "params": [
+              {
+                "name": "clusterId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the cluster."
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page."
+              }
+            ]
+          },
+          "docs": "Retrieves all configuration changes for a cluster, including pending, applied, and canceled changes."
+        },
+        {
+          "info": {
+            "name": "Schedule A Configuration Change",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://cloud.typesense.org/api/v1/clusters/:clusterId/configuration-changes",
+            "params": [
+              {
+                "name": "clusterId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the cluster."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Schedules a configuration change for a cluster such as upgrading memory, changing vCPU allocation, upgrading Typesense server version, or enabling/disabling high availability. Changes are applied at the specified time."
+        },
+        {
+          "info": {
+            "name": "Retrieve A Configuration Change",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud.typesense.org/api/v1/clusters/:clusterId/configuration-changes/:changeId",
+            "params": [
+              {
+                "name": "clusterId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the cluster."
+              },
+              {
+                "name": "changeId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the configuration change."
+              }
+            ]
+          },
+          "docs": "Retrieves details of a specific configuration change by ID."
+        },
+        {
+          "info": {
+            "name": "Cancel A Configuration Change",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://cloud.typesense.org/api/v1/clusters/:clusterId/configuration-changes/:changeId",
+            "params": [
+              {
+                "name": "clusterId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the cluster."
+              },
+              {
+                "name": "changeId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the configuration change."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates a configuration change, typically to cancel a pending change by setting its status to canceled."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Server Configuration Parameters",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Server Configuration Parameters",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud.typesense.org/api/v1/clusters/:clusterId/typesense-server-configuration-parameters",
+            "params": [
+              {
+                "name": "clusterId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the cluster."
+              }
+            ]
+          },
+          "docs": "Retrieves the current Typesense Server configuration parameters for a cloud cluster. Changes to parameters take effect when the server is restarted."
+        },
+        {
+          "info": {
+            "name": "Update Server Configuration Parameters",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://cloud.typesense.org/api/v1/clusters/:clusterId/typesense-server-configuration-parameters",
+            "params": [
+              {
+                "name": "clusterId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the cluster."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates Typesense Server configuration parameters for a cloud cluster. The server must be restarted for changes to take effect. Use the configuration changes endpoint to schedule a restart."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,2402 @@
+{
+  "item": [
+    {
+      "id": "857f1a48-ceb3-461c-9adc-aa37c672df12",
+      "name": "Analytics Events",
+      "description": {
+        "content": "Log and retrieve user interaction events such as clicks, conversions, and visits for tracking search behavior and personalization.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "0246cfd6-4c06-413b-aabd-7c6e7efd48f2",
+          "name": "Log An Analytics Event",
+          "request": {
+            "name": "Log An Analytics Event",
+            "description": {
+              "content": "Logs a user interaction event such as a click, conversion, or visit. Events are associated with search queries and documents to track user behavior and improve relevance.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "analytics",
+                "events"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": " (This can only be one of http,https)",
+                  "type": "any",
+                  "value": "{{protocol}}",
+                  "key": "protocol"
+                },
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{hostname}}",
+                  "key": "hostname"
+                },
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{port}}",
+                  "key": "port"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"type\": \"<string>\",\n  \"name\": \"<string>\",\n  \"data\": {\n    \"q\": \"<string>\",\n    \"doc_id\": \"<string>\",\n    \"user_id\": \"<string>\",\n    \"position\": \"<integer>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "dca9f872-7e5a-45df-8b5a-51c20b149b15",
+              "name": "Event logged successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "analytics",
+                    "events"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": " (This can only be one of http,https)",
+                      "type": "any",
+                      "value": "{{protocol}}",
+                      "key": "protocol"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{hostname}}",
+                      "key": "hostname"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{port}}",
+                      "key": "port"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-TYPESENSE-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"type\": \"<string>\",\n  \"name\": \"<string>\",\n  \"data\": {\n    \"q\": \"<string>\",\n    \"doc_id\": \"<string>\",\n    \"user_id\": \"<string>\",\n    \"position\": \"<integer>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"ok\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6c6b63ac-2043-4ece-be81-b877a170ff25",
+              "name": "Bad request - invalid event data",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "analytics",
+                    "events"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": " (This can only be one of http,https)",
+                      "type": "any",
+                      "value": "{{protocol}}",
+                      "key": "protocol"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{hostname}}",
+                      "key": "hostname"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{port}}",
+                      "key": "port"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-TYPESENSE-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"type\": \"<string>\",\n  \"name\": \"<string>\",\n  \"data\": {\n    \"q\": \"<string>\",\n    \"doc_id\": \"<string>\",\n    \"user_id\": \"<string>\",\n    \"position\": \"<integer>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "e260edfe-2bbf-4aa9-8b22-9c9e6f8b2c5d",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "analytics",
+                    "events"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": " (This can only be one of http,https)",
+                      "type": "any",
+                      "value": "{{protocol}}",
+                      "key": "protocol"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{hostname}}",
+                      "key": "hostname"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{port}}",
+                      "key": "port"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-TYPESENSE-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"type\": \"<string>\",\n  \"name\": \"<string>\",\n  \"data\": {\n    \"q\": \"<string>\",\n    \"doc_id\": \"<string>\",\n    \"user_id\": \"<string>\",\n    \"position\": \"<integer>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9c973ded-e7de-4f06-ac55-828fe22beda2",
+          "name": "Retrieve Analytics Events",
+          "request": {
+            "name": "Retrieve Analytics Events",
+            "description": {
+              "content": "Retrieves logged analytics events. Supports filtering by event type and other criteria.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "analytics",
+                "events"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "type",
+                  "value": "<string>",
+                  "description": "Filter events by type (click, conversion, visit)."
+                }
+              ],
+              "variable": [
+                {
+                  "description": " (This can only be one of http,https)",
+                  "type": "any",
+                  "value": "{{protocol}}",
+                  "key": "protocol"
+                },
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{hostname}}",
+                  "key": "hostname"
+                },
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{port}}",
+                  "key": "port"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "dae06076-705b-4374-a0a1-98b5bd32c96a",
+              "name": "List of analytics events",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "analytics",
+                    "events"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": " (This can only be one of http,https)",
+                      "type": "any",
+                      "value": "{{protocol}}",
+                      "key": "protocol"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{hostname}}",
+                      "key": "hostname"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{port}}",
+                      "key": "port"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-TYPESENSE-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"events\": [\n    {\n      \"type\": \"string\",\n      \"name\": \"string\",\n      \"data\": {},\n      \"timestamp\": 6265\n    },\n    {\n      \"type\": \"string\",\n      \"name\": \"string\",\n      \"data\": {},\n      \"timestamp\": 4329\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "630a6ce4-4d3a-47cb-93f4-b4418fbf1a59",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "analytics",
+                    "events"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": " (This can only be one of http,https)",
+                      "type": "any",
+                      "value": "{{protocol}}",
+                      "key": "protocol"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{hostname}}",
+                      "key": "hostname"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{port}}",
+                      "key": "port"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-TYPESENSE-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "bfa9f785-1573-40d6-bb19-a796b590b9e1",
+      "name": "Analytics Operations",
+      "description": {
+        "content": "Operational endpoints for managing the analytics subsystem.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "8417ddc9-86c9-4adb-b5a3-cfa6bc8be91f",
+          "name": "Flush Analytics Data To Disk",
+          "request": {
+            "name": "Flush Analytics Data To Disk",
+            "description": {
+              "content": "Flushes in-memory analytics data to disk. Useful for ensuring analytics data is persisted before a server restart.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "analytics",
+                "flush"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": " (This can only be one of http,https)",
+                  "type": "any",
+                  "value": "{{protocol}}",
+                  "key": "protocol"
+                },
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{hostname}}",
+                  "key": "hostname"
+                },
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{port}}",
+                  "key": "port"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "749aa12c-5ca4-4ac7-b460-b59ec685c1e7",
+              "name": "Analytics data flushed",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "analytics",
+                    "flush"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": " (This can only be one of http,https)",
+                      "type": "any",
+                      "value": "{{protocol}}",
+                      "key": "protocol"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{hostname}}",
+                      "key": "hostname"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{port}}",
+                      "key": "port"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-TYPESENSE-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4a35d1fc-d8d9-4296-a753-3819bd023023",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "analytics",
+                    "flush"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": " (This can only be one of http,https)",
+                      "type": "any",
+                      "value": "{{protocol}}",
+                      "key": "protocol"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{hostname}}",
+                      "key": "hostname"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{port}}",
+                      "key": "port"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-TYPESENSE-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "db8459ed-f4a4-47c5-95b4-32ff62c0b47a",
+          "name": "Get Analytics Subsystem Status",
+          "request": {
+            "name": "Get Analytics Subsystem Status",
+            "description": {
+              "content": "Returns the current status of the analytics subsystem including whether it is operational and any pending operations.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "analytics",
+                "status"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": " (This can only be one of http,https)",
+                  "type": "any",
+                  "value": "{{protocol}}",
+                  "key": "protocol"
+                },
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{hostname}}",
+                  "key": "hostname"
+                },
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{port}}",
+                  "key": "port"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "16fd8dac-62bd-4afd-8c7f-19a056cebc37",
+              "name": "Analytics status",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "analytics",
+                    "status"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": " (This can only be one of http,https)",
+                      "type": "any",
+                      "value": "{{protocol}}",
+                      "key": "protocol"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{hostname}}",
+                      "key": "hostname"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{port}}",
+                      "key": "port"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-TYPESENSE-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"state\": \"string\",\n  \"pending_operations\": 6808\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "dc588dfb-f730-4202-9444-e226920f4a6f",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "analytics",
+                    "status"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": " (This can only be one of http,https)",
+                      "type": "any",
+                      "value": "{{protocol}}",
+                      "key": "protocol"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{hostname}}",
+                      "key": "hostname"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{port}}",
+                      "key": "port"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-TYPESENSE-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "88a2e97f-cde3-4c74-a3ea-c5349c16d36c",
+      "name": "Analytics Rules",
+      "description": {
+        "content": "Create and manage analytics rules that control how search queries and user events are aggregated for query suggestions and relevance tuning.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "7b962c7d-3e13-484f-80b6-79253f33e066",
+          "name": "List All Analytics Rules",
+          "request": {
+            "name": "List All Analytics Rules",
+            "description": {
+              "content": "Retrieves all analytics rules configured in the Typesense instance. Rules control how search queries and events are aggregated.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "analytics",
+                "rules"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": " (This can only be one of http,https)",
+                  "type": "any",
+                  "value": "{{protocol}}",
+                  "key": "protocol"
+                },
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{hostname}}",
+                  "key": "hostname"
+                },
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{port}}",
+                  "key": "port"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ab2651eb-9a06-41e4-abcf-b20d54cf0dff",
+              "name": "List of analytics rules",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "analytics",
+                    "rules"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": " (This can only be one of http,https)",
+                      "type": "any",
+                      "value": "{{protocol}}",
+                      "key": "protocol"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{hostname}}",
+                      "key": "hostname"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{port}}",
+                      "key": "port"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-TYPESENSE-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"rules\": [\n    {\n      \"name\": \"string\",\n      \"type\": \"string\",\n      \"params\": {},\n      \"created_at\": 6379\n    },\n    {\n      \"name\": \"string\",\n      \"type\": \"string\",\n      \"params\": {},\n      \"created_at\": 5\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "748b8e62-f205-4923-a50a-c9f53ded2565",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "analytics",
+                    "rules"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": " (This can only be one of http,https)",
+                      "type": "any",
+                      "value": "{{protocol}}",
+                      "key": "protocol"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{hostname}}",
+                      "key": "hostname"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{port}}",
+                      "key": "port"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-TYPESENSE-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "cf4b829c-b88b-4b5a-874e-db1d4893c549",
+          "name": "Create An Analytics Rule",
+          "request": {
+            "name": "Create An Analytics Rule",
+            "description": {
+              "content": "Creates one or more analytics rules for aggregating search queries or tracking events. Rule types include popular_queries for frequently occurring queries, nohits_queries for queries that produced zero results, and log for raw event logging.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "analytics",
+                "rules"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": " (This can only be one of http,https)",
+                  "type": "any",
+                  "value": "{{protocol}}",
+                  "key": "protocol"
+                },
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{hostname}}",
+                  "key": "hostname"
+                },
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{port}}",
+                  "key": "port"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"type\": \"<string>\",\n  \"params\": {\n    \"source\": {\n      \"collections\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"events\": [\n        {\n          \"type\": \"<string>\",\n          \"weight\": \"<number>\",\n          \"name\": \"<string>\"\n        },\n        {\n          \"type\": \"<string>\",\n          \"weight\": \"<number>\",\n          \"name\": \"<string>\"\n        }\n      ]\n    },\n    \"destination\": {\n      \"collection\": \"<string>\",\n      \"counter_field\": \"<string>\"\n    },\n    \"limit\": \"<integer>\",\n    \"expand_query\": \"<boolean>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "64412a75-8f17-4556-b2b6-33fbd7a21d80",
+              "name": "Analytics rule created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "analytics",
+                    "rules"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": " (This can only be one of http,https)",
+                      "type": "any",
+                      "value": "{{protocol}}",
+                      "key": "protocol"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{hostname}}",
+                      "key": "hostname"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{port}}",
+                      "key": "port"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-TYPESENSE-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"type\": \"<string>\",\n  \"params\": {\n    \"source\": {\n      \"collections\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"events\": [\n        {\n          \"type\": \"<string>\",\n          \"weight\": \"<number>\",\n          \"name\": \"<string>\"\n        },\n        {\n          \"type\": \"<string>\",\n          \"weight\": \"<number>\",\n          \"name\": \"<string>\"\n        }\n      ]\n    },\n    \"destination\": {\n      \"collection\": \"<string>\",\n      \"counter_field\": \"<string>\"\n    },\n    \"limit\": \"<integer>\",\n    \"expand_query\": \"<boolean>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"name\": \"string\",\n  \"type\": \"string\",\n  \"params\": {},\n  \"created_at\": 1677\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fca9cd9e-5514-4e70-8d06-1a7630413374",
+              "name": "Bad request - invalid rule definition",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "analytics",
+                    "rules"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": " (This can only be one of http,https)",
+                      "type": "any",
+                      "value": "{{protocol}}",
+                      "key": "protocol"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{hostname}}",
+                      "key": "hostname"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{port}}",
+                      "key": "port"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-TYPESENSE-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"type\": \"<string>\",\n  \"params\": {\n    \"source\": {\n      \"collections\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"events\": [\n        {\n          \"type\": \"<string>\",\n          \"weight\": \"<number>\",\n          \"name\": \"<string>\"\n        },\n        {\n          \"type\": \"<string>\",\n          \"weight\": \"<number>\",\n          \"name\": \"<string>\"\n        }\n      ]\n    },\n    \"destination\": {\n      \"collection\": \"<string>\",\n      \"counter_field\": \"<string>\"\n    },\n    \"limit\": \"<integer>\",\n    \"expand_query\": \"<boolean>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "c7379df6-32c0-4312-aa4d-708b192d9736",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "analytics",
+                    "rules"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": " (This can only be one of http,https)",
+                      "type": "any",
+                      "value": "{{protocol}}",
+                      "key": "protocol"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{hostname}}",
+                      "key": "hostname"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{port}}",
+                      "key": "port"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-TYPESENSE-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"type\": \"<string>\",\n  \"params\": {\n    \"source\": {\n      \"collections\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"events\": [\n        {\n          \"type\": \"<string>\",\n          \"weight\": \"<number>\",\n          \"name\": \"<string>\"\n        },\n        {\n          \"type\": \"<string>\",\n          \"weight\": \"<number>\",\n          \"name\": \"<string>\"\n        }\n      ]\n    },\n    \"destination\": {\n      \"collection\": \"<string>\",\n      \"counter_field\": \"<string>\"\n    },\n    \"limit\": \"<integer>\",\n    \"expand_query\": \"<boolean>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2b662902-8b6c-4fd4-9247-c36d0cd1eea3",
+          "name": "Retrieve An Analytics Rule",
+          "request": {
+            "name": "Retrieve An Analytics Rule",
+            "description": {
+              "content": "Retrieves a specific analytics rule by name.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "analytics",
+                "rules",
+                ":ruleName"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "ruleName",
+                  "description": "(Required) Name of the analytics rule."
+                },
+                {
+                  "description": " (This can only be one of http,https)",
+                  "type": "any",
+                  "value": "{{protocol}}",
+                  "key": "protocol"
+                },
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{hostname}}",
+                  "key": "hostname"
+                },
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{port}}",
+                  "key": "port"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "044c34c7-4aad-4154-99a9-ccbb2fc15492",
+              "name": "Analytics rule retrieved",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "analytics",
+                    "rules",
+                    ":ruleName"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ruleName",
+                      "description": "(Required) Name of the analytics rule."
+                    },
+                    {
+                      "description": " (This can only be one of http,https)",
+                      "type": "any",
+                      "value": "{{protocol}}",
+                      "key": "protocol"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{hostname}}",
+                      "key": "hostname"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{port}}",
+                      "key": "port"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-TYPESENSE-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"name\": \"string\",\n  \"type\": \"string\",\n  \"params\": {},\n  \"created_at\": 1677\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fcbd2512-99b1-4981-abf3-92e9e52f59b4",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "analytics",
+                    "rules",
+                    ":ruleName"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ruleName",
+                      "description": "(Required) Name of the analytics rule."
+                    },
+                    {
+                      "description": " (This can only be one of http,https)",
+                      "type": "any",
+                      "value": "{{protocol}}",
+                      "key": "protocol"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{hostname}}",
+                      "key": "hostname"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{port}}",
+                      "key": "port"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-TYPESENSE-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "0f80858f-27e9-4013-b47d-5faa65052be8",
+              "name": "Analytics rule not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "analytics",
+                    "rules",
+                    ":ruleName"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ruleName",
+                      "description": "(Required) Name of the analytics rule."
+                    },
+                    {
+                      "description": " (This can only be one of http,https)",
+                      "type": "any",
+                      "value": "{{protocol}}",
+                      "key": "protocol"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{hostname}}",
+                      "key": "hostname"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{port}}",
+                      "key": "port"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-TYPESENSE-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "469a8dcc-707c-4628-ac68-d6a6d0219f27",
+          "name": "Create Or Update An Analytics Rule",
+          "request": {
+            "name": "Create Or Update An Analytics Rule",
+            "description": {
+              "content": "Creates a new analytics rule or updates an existing one by name.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "analytics",
+                "rules",
+                ":ruleName"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "ruleName",
+                  "description": "(Required) Name of the analytics rule."
+                },
+                {
+                  "description": " (This can only be one of http,https)",
+                  "type": "any",
+                  "value": "{{protocol}}",
+                  "key": "protocol"
+                },
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{hostname}}",
+                  "key": "hostname"
+                },
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{port}}",
+                  "key": "port"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"type\": \"<string>\",\n  \"params\": {\n    \"source\": {\n      \"collections\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"events\": [\n        {\n          \"type\": \"<string>\",\n          \"weight\": \"<number>\",\n          \"name\": \"<string>\"\n        },\n        {\n          \"type\": \"<string>\",\n          \"weight\": \"<number>\",\n          \"name\": \"<string>\"\n        }\n      ]\n    },\n    \"destination\": {\n      \"collection\": \"<string>\",\n      \"counter_field\": \"<string>\"\n    },\n    \"limit\": \"<integer>\",\n    \"expand_query\": \"<boolean>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "22072989-a25b-4087-b597-d6b6ecdfeadf",
+              "name": "Analytics rule upserted",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "analytics",
+                    "rules",
+                    ":ruleName"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ruleName",
+                      "description": "(Required) Name of the analytics rule."
+                    },
+                    {
+                      "description": " (This can only be one of http,https)",
+                      "type": "any",
+                      "value": "{{protocol}}",
+                      "key": "protocol"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{hostname}}",
+                      "key": "hostname"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{port}}",
+                      "key": "port"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-TYPESENSE-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"type\": \"<string>\",\n  \"params\": {\n    \"source\": {\n      \"collections\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"events\": [\n        {\n          \"type\": \"<string>\",\n          \"weight\": \"<number>\",\n          \"name\": \"<string>\"\n        },\n        {\n          \"type\": \"<string>\",\n          \"weight\": \"<number>\",\n          \"name\": \"<string>\"\n        }\n      ]\n    },\n    \"destination\": {\n      \"collection\": \"<string>\",\n      \"counter_field\": \"<string>\"\n    },\n    \"limit\": \"<integer>\",\n    \"expand_query\": \"<boolean>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"name\": \"string\",\n  \"type\": \"string\",\n  \"params\": {},\n  \"created_at\": 1677\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d84ce790-7826-46f5-8cf6-8f27d8937232",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "analytics",
+                    "rules",
+                    ":ruleName"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ruleName",
+                      "description": "(Required) Name of the analytics rule."
+                    },
+                    {
+                      "description": " (This can only be one of http,https)",
+                      "type": "any",
+                      "value": "{{protocol}}",
+                      "key": "protocol"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{hostname}}",
+                      "key": "hostname"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{port}}",
+                      "key": "port"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-TYPESENSE-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"type\": \"<string>\",\n  \"params\": {\n    \"source\": {\n      \"collections\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"events\": [\n        {\n          \"type\": \"<string>\",\n          \"weight\": \"<number>\",\n          \"name\": \"<string>\"\n        },\n        {\n          \"type\": \"<string>\",\n          \"weight\": \"<number>\",\n          \"name\": \"<string>\"\n        }\n      ]\n    },\n    \"destination\": {\n      \"collection\": \"<string>\",\n      \"counter_field\": \"<string>\"\n    },\n    \"limit\": \"<integer>\",\n    \"expand_query\": \"<boolean>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "99a027ac-e1eb-43a6-80eb-5096b5646864",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "analytics",
+                    "rules",
+                    ":ruleName"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ruleName",
+                      "description": "(Required) Name of the analytics rule."
+                    },
+                    {
+                      "description": " (This can only be one of http,https)",
+                      "type": "any",
+                      "value": "{{protocol}}",
+                      "key": "protocol"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{hostname}}",
+                      "key": "hostname"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{port}}",
+                      "key": "port"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-TYPESENSE-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"type\": \"<string>\",\n  \"params\": {\n    \"source\": {\n      \"collections\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"events\": [\n        {\n          \"type\": \"<string>\",\n          \"weight\": \"<number>\",\n          \"name\": \"<string>\"\n        },\n        {\n          \"type\": \"<string>\",\n          \"weight\": \"<number>\",\n          \"name\": \"<string>\"\n        }\n      ]\n    },\n    \"destination\": {\n      \"collection\": \"<string>\",\n      \"counter_field\": \"<string>\"\n    },\n    \"limit\": \"<integer>\",\n    \"expand_query\": \"<boolean>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "acd769c3-659e-4a4d-a5f0-fa9a4842ead8",
+          "name": "Delete An Analytics Rule",
+          "request": {
+            "name": "Delete An Analytics Rule",
+            "description": {
+              "content": "Deletes an analytics rule by name.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "analytics",
+                "rules",
+                ":ruleName"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "ruleName",
+                  "description": "(Required) Name of the analytics rule."
+                },
+                {
+                  "description": " (This can only be one of http,https)",
+                  "type": "any",
+                  "value": "{{protocol}}",
+                  "key": "protocol"
+                },
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{hostname}}",
+                  "key": "hostname"
+                },
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{port}}",
+                  "key": "port"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "0b417d5a-cd7e-4670-829d-7cfa231b09e0",
+              "name": "Analytics rule deleted",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "analytics",
+                    "rules",
+                    ":ruleName"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ruleName",
+                      "description": "(Required) Name of the analytics rule."
+                    },
+                    {
+                      "description": " (This can only be one of http,https)",
+                      "type": "any",
+                      "value": "{{protocol}}",
+                      "key": "protocol"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{hostname}}",
+                      "key": "hostname"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{port}}",
+                      "key": "port"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-TYPESENSE-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"name\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "762b8d9a-5a3b-4357-a781-eb5f1a04a369",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "analytics",
+                    "rules",
+                    ":ruleName"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ruleName",
+                      "description": "(Required) Name of the analytics rule."
+                    },
+                    {
+                      "description": " (This can only be one of http,https)",
+                      "type": "any",
+                      "value": "{{protocol}}",
+                      "key": "protocol"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{hostname}}",
+                      "key": "hostname"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{port}}",
+                      "key": "port"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-TYPESENSE-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "cfe1c088-8f3d-4e92-a74a-e6318489e0a4",
+              "name": "Analytics rule not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "analytics",
+                    "rules",
+                    ":ruleName"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ruleName",
+                      "description": "(Required) Name of the analytics rule."
+                    },
+                    {
+                      "description": " (This can only be one of http,https)",
+                      "type": "any",
+                      "value": "{{protocol}}",
+                      "key": "protocol"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{hostname}}",
+                      "key": "hostname"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{port}}",
+                      "key": "port"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-TYPESENSE-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": " (This can only be one of http,https)",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "http",
+      "key": "protocol"
+    },
+    {
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "localhost",
+      "key": "hostname"
+    },
+    {
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "8108",
+      "key": "port"
+    },
+    {
+      "type": "string",
+      "value": "{{protocol}}://{{hostname}}:{{port}}",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-TYPESENSE-API-KEY"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "a4f828e8-4f0d-4040-92b4-01a565e4b77b",
+    "name": "Typesense Analytics API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Typesense Analytics API allows developers to track and analyze search behavior by recording click, conversion, and visit events. It provides endpoints for creating analytics rules, logging events with metadata tags, and retrieving popular queries and queries with no results. This data can be used to improve search relevance through query suggestions, curations, and understanding user search patterns.\n\nContact Support:\n Name: Typesense Support",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,2124 @@
+{
+  "item": [
+    {
+      "id": "b3f1bcc3-da9a-4a71-9b3f-dc764fa5c63d",
+      "name": "Conversation Models",
+      "description": {
+        "content": "Create and manage conversation models that define which LLM provider and configuration to use for generating conversational answers from search results.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "a3c75aa3-6cf2-40aa-b02f-4cdc04753505",
+          "name": "List All Conversation Models",
+          "request": {
+            "name": "List All Conversation Models",
+            "description": {
+              "content": "Retrieves all conversation models configured in the Typesense instance. Conversation models define the LLM provider and parameters used for generating answers in conversational search.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "conversations",
+                "models"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": " (This can only be one of http,https)",
+                  "type": "any",
+                  "value": "{{protocol}}",
+                  "key": "protocol"
+                },
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{hostname}}",
+                  "key": "hostname"
+                },
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{port}}",
+                  "key": "port"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "1f16e485-04da-439a-854c-d2b01988fc80",
+              "name": "List of conversation models",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "conversations",
+                    "models"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": " (This can only be one of http,https)",
+                      "type": "any",
+                      "value": "{{protocol}}",
+                      "key": "protocol"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{hostname}}",
+                      "key": "hostname"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{port}}",
+                      "key": "port"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-TYPESENSE-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": \"string\",\n    \"model_name\": \"string\",\n    \"system_prompt\": \"string\",\n    \"max_bytes\": 1791,\n    \"history_collection\": \"string\",\n    \"ttl\": 5921\n  },\n  {\n    \"id\": \"string\",\n    \"model_name\": \"string\",\n    \"system_prompt\": \"string\",\n    \"max_bytes\": 9167,\n    \"history_collection\": \"string\",\n    \"ttl\": 1431\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "67e70e6c-d5bb-417d-a9e9-11025a7f2fd9",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "conversations",
+                    "models"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": " (This can only be one of http,https)",
+                      "type": "any",
+                      "value": "{{protocol}}",
+                      "key": "protocol"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{hostname}}",
+                      "key": "hostname"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{port}}",
+                      "key": "port"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-TYPESENSE-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "af57c166-b81f-451d-bfb7-41b622fa4a29",
+          "name": "Create A Conversation Model",
+          "request": {
+            "name": "Create A Conversation Model",
+            "description": {
+              "content": "Creates a new conversation model that specifies the LLM provider, model name, API key, and system prompt for generating conversational answers from search results.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "conversations",
+                "models"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": " (This can only be one of http,https)",
+                  "type": "any",
+                  "value": "{{protocol}}",
+                  "key": "protocol"
+                },
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{hostname}}",
+                  "key": "hostname"
+                },
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{port}}",
+                  "key": "port"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"model_name\": \"<string>\",\n  \"api_key\": \"<string>\",\n  \"system_prompt\": \"<string>\",\n  \"account_id\": \"<string>\",\n  \"max_bytes\": \"<integer>\",\n  \"history_collection\": \"<string>\",\n  \"ttl\": \"<integer>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "c0c660ce-1d9d-4e23-9bab-e0833943fba4",
+              "name": "Conversation model created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "conversations",
+                    "models"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": " (This can only be one of http,https)",
+                      "type": "any",
+                      "value": "{{protocol}}",
+                      "key": "protocol"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{hostname}}",
+                      "key": "hostname"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{port}}",
+                      "key": "port"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-TYPESENSE-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"model_name\": \"<string>\",\n  \"api_key\": \"<string>\",\n  \"system_prompt\": \"<string>\",\n  \"account_id\": \"<string>\",\n  \"max_bytes\": \"<integer>\",\n  \"history_collection\": \"<string>\",\n  \"ttl\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"model_name\": \"string\",\n  \"system_prompt\": \"string\",\n  \"max_bytes\": 3614,\n  \"history_collection\": \"string\",\n  \"ttl\": 9086\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bc59ace4-a786-496d-84a7-70ae6ead5870",
+              "name": "Bad request - invalid model configuration",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "conversations",
+                    "models"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": " (This can only be one of http,https)",
+                      "type": "any",
+                      "value": "{{protocol}}",
+                      "key": "protocol"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{hostname}}",
+                      "key": "hostname"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{port}}",
+                      "key": "port"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-TYPESENSE-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"model_name\": \"<string>\",\n  \"api_key\": \"<string>\",\n  \"system_prompt\": \"<string>\",\n  \"account_id\": \"<string>\",\n  \"max_bytes\": \"<integer>\",\n  \"history_collection\": \"<string>\",\n  \"ttl\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "bf08a833-e1d4-499d-9f9f-57241198a6d9",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "conversations",
+                    "models"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": " (This can only be one of http,https)",
+                      "type": "any",
+                      "value": "{{protocol}}",
+                      "key": "protocol"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{hostname}}",
+                      "key": "hostname"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{port}}",
+                      "key": "port"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-TYPESENSE-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"model_name\": \"<string>\",\n  \"api_key\": \"<string>\",\n  \"system_prompt\": \"<string>\",\n  \"account_id\": \"<string>\",\n  \"max_bytes\": \"<integer>\",\n  \"history_collection\": \"<string>\",\n  \"ttl\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b454f9a5-34b4-413b-848b-6146556e950d",
+          "name": "Retrieve A Conversation Model",
+          "request": {
+            "name": "Retrieve A Conversation Model",
+            "description": {
+              "content": "Retrieves a specific conversation model by ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "conversations",
+                "models",
+                ":modelId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "modelId",
+                  "description": "(Required) ID of the conversation model."
+                },
+                {
+                  "description": " (This can only be one of http,https)",
+                  "type": "any",
+                  "value": "{{protocol}}",
+                  "key": "protocol"
+                },
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{hostname}}",
+                  "key": "hostname"
+                },
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{port}}",
+                  "key": "port"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c1752a06-671b-4a72-b31d-9ffe301b0161",
+              "name": "Conversation model retrieved",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "conversations",
+                    "models",
+                    ":modelId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "modelId",
+                      "description": "(Required) ID of the conversation model."
+                    },
+                    {
+                      "description": " (This can only be one of http,https)",
+                      "type": "any",
+                      "value": "{{protocol}}",
+                      "key": "protocol"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{hostname}}",
+                      "key": "hostname"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{port}}",
+                      "key": "port"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-TYPESENSE-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"model_name\": \"string\",\n  \"system_prompt\": \"string\",\n  \"max_bytes\": 3614,\n  \"history_collection\": \"string\",\n  \"ttl\": 9086\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b9d64c2a-af68-4098-8d9a-3dd683a9d339",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "conversations",
+                    "models",
+                    ":modelId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "modelId",
+                      "description": "(Required) ID of the conversation model."
+                    },
+                    {
+                      "description": " (This can only be one of http,https)",
+                      "type": "any",
+                      "value": "{{protocol}}",
+                      "key": "protocol"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{hostname}}",
+                      "key": "hostname"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{port}}",
+                      "key": "port"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-TYPESENSE-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "0a64c031-4d12-4eca-9094-736a7246bcdd",
+              "name": "Conversation model not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "conversations",
+                    "models",
+                    ":modelId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "modelId",
+                      "description": "(Required) ID of the conversation model."
+                    },
+                    {
+                      "description": " (This can only be one of http,https)",
+                      "type": "any",
+                      "value": "{{protocol}}",
+                      "key": "protocol"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{hostname}}",
+                      "key": "hostname"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{port}}",
+                      "key": "port"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-TYPESENSE-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "66ed7512-7281-4f74-9ef1-ec98ab101e6e",
+          "name": "Update A Conversation Model",
+          "request": {
+            "name": "Update A Conversation Model",
+            "description": {
+              "content": "Updates an existing conversation model configuration including the LLM provider, model name, and system prompt.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "conversations",
+                "models",
+                ":modelId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "modelId",
+                  "description": "(Required) ID of the conversation model."
+                },
+                {
+                  "description": " (This can only be one of http,https)",
+                  "type": "any",
+                  "value": "{{protocol}}",
+                  "key": "protocol"
+                },
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{hostname}}",
+                  "key": "hostname"
+                },
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{port}}",
+                  "key": "port"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"model_name\": \"<string>\",\n  \"api_key\": \"<string>\",\n  \"system_prompt\": \"<string>\",\n  \"max_bytes\": \"<integer>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "92f6f8bf-e73a-4e0a-9139-30c5df565044",
+              "name": "Conversation model updated",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "conversations",
+                    "models",
+                    ":modelId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "modelId",
+                      "description": "(Required) ID of the conversation model."
+                    },
+                    {
+                      "description": " (This can only be one of http,https)",
+                      "type": "any",
+                      "value": "{{protocol}}",
+                      "key": "protocol"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{hostname}}",
+                      "key": "hostname"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{port}}",
+                      "key": "port"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-TYPESENSE-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"model_name\": \"<string>\",\n  \"api_key\": \"<string>\",\n  \"system_prompt\": \"<string>\",\n  \"max_bytes\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"model_name\": \"string\",\n  \"system_prompt\": \"string\",\n  \"max_bytes\": 3614,\n  \"history_collection\": \"string\",\n  \"ttl\": 9086\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "21f01982-4caa-46d8-ad40-1c180e56fccb",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "conversations",
+                    "models",
+                    ":modelId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "modelId",
+                      "description": "(Required) ID of the conversation model."
+                    },
+                    {
+                      "description": " (This can only be one of http,https)",
+                      "type": "any",
+                      "value": "{{protocol}}",
+                      "key": "protocol"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{hostname}}",
+                      "key": "hostname"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{port}}",
+                      "key": "port"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-TYPESENSE-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"model_name\": \"<string>\",\n  \"api_key\": \"<string>\",\n  \"system_prompt\": \"<string>\",\n  \"max_bytes\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "d5af08a0-4a71-43c9-b27f-a63b70ca7e55",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "conversations",
+                    "models",
+                    ":modelId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "modelId",
+                      "description": "(Required) ID of the conversation model."
+                    },
+                    {
+                      "description": " (This can only be one of http,https)",
+                      "type": "any",
+                      "value": "{{protocol}}",
+                      "key": "protocol"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{hostname}}",
+                      "key": "hostname"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{port}}",
+                      "key": "port"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-TYPESENSE-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"model_name\": \"<string>\",\n  \"api_key\": \"<string>\",\n  \"system_prompt\": \"<string>\",\n  \"max_bytes\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "0d23c4ad-8550-4694-b19f-436ca03976c3",
+              "name": "Conversation model not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "conversations",
+                    "models",
+                    ":modelId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "modelId",
+                      "description": "(Required) ID of the conversation model."
+                    },
+                    {
+                      "description": " (This can only be one of http,https)",
+                      "type": "any",
+                      "value": "{{protocol}}",
+                      "key": "protocol"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{hostname}}",
+                      "key": "hostname"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{port}}",
+                      "key": "port"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-TYPESENSE-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"model_name\": \"<string>\",\n  \"api_key\": \"<string>\",\n  \"system_prompt\": \"<string>\",\n  \"max_bytes\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "35a66b45-a1c2-4ee4-9d41-4b88d5e97c7c",
+          "name": "Delete A Conversation Model",
+          "request": {
+            "name": "Delete A Conversation Model",
+            "description": {
+              "content": "Deletes a conversation model by ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "conversations",
+                "models",
+                ":modelId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "modelId",
+                  "description": "(Required) ID of the conversation model."
+                },
+                {
+                  "description": " (This can only be one of http,https)",
+                  "type": "any",
+                  "value": "{{protocol}}",
+                  "key": "protocol"
+                },
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{hostname}}",
+                  "key": "hostname"
+                },
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{port}}",
+                  "key": "port"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "07e3766f-bd99-4733-9b10-c912e868509f",
+              "name": "Conversation model deleted",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "conversations",
+                    "models",
+                    ":modelId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "modelId",
+                      "description": "(Required) ID of the conversation model."
+                    },
+                    {
+                      "description": " (This can only be one of http,https)",
+                      "type": "any",
+                      "value": "{{protocol}}",
+                      "key": "protocol"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{hostname}}",
+                      "key": "hostname"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{port}}",
+                      "key": "port"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-TYPESENSE-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7f310ebd-d159-48ab-a520-cc927b5547e3",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "conversations",
+                    "models",
+                    ":modelId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "modelId",
+                      "description": "(Required) ID of the conversation model."
+                    },
+                    {
+                      "description": " (This can only be one of http,https)",
+                      "type": "any",
+                      "value": "{{protocol}}",
+                      "key": "protocol"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{hostname}}",
+                      "key": "hostname"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{port}}",
+                      "key": "port"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-TYPESENSE-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "268e8408-199a-4e20-a535-68a683fb5ef3",
+              "name": "Conversation model not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "conversations",
+                    "models",
+                    ":modelId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "modelId",
+                      "description": "(Required) ID of the conversation model."
+                    },
+                    {
+                      "description": " (This can only be one of http,https)",
+                      "type": "any",
+                      "value": "{{protocol}}",
+                      "key": "protocol"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{hostname}}",
+                      "key": "hostname"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{port}}",
+                      "key": "port"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-TYPESENSE-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "80c7cfa6-6109-4056-be1d-0082b8a298d6",
+      "name": "Conversational Search",
+      "description": {
+        "content": "Perform conversational search queries that return both traditional search results and AI-generated natural language answers.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "f0c51784-1fc4-4cce-9feb-7e71056abf0f",
+          "name": "Perform A Conversational Search",
+          "request": {
+            "name": "Perform A Conversational Search",
+            "description": {
+              "content": "Performs a search query with conversational RAG enabled. Typesense retrieves relevant documents and passes them as context to the configured LLM, which generates a natural language answer. Supports multi-turn conversations by passing a conversation_id to maintain context across queries.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "collections",
+                ":collectionName",
+                "documents",
+                "search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "q",
+                  "value": "<string>",
+                  "description": "(Required) Natural language question or search query."
+                },
+                {
+                  "disabled": false,
+                  "key": "query_by",
+                  "value": "<string>",
+                  "description": "(Required) Comma-separated list of fields to search against."
+                },
+                {
+                  "disabled": false,
+                  "key": "conversation",
+                  "value": "<boolean>",
+                  "description": "(Required) Set to true to enable conversational search with RAG."
+                },
+                {
+                  "disabled": false,
+                  "key": "conversation_model_id",
+                  "value": "<string>",
+                  "description": "(Required) ID of the conversation model to use for generating answers."
+                },
+                {
+                  "disabled": false,
+                  "key": "conversation_id",
+                  "value": "<string>",
+                  "description": "ID of an existing conversation to continue a multi-turn dialog. If not provided, a new conversation is started."
+                },
+                {
+                  "disabled": false,
+                  "key": "filter_by",
+                  "value": "<string>",
+                  "description": "Filter conditions to narrow the search scope."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort_by",
+                  "value": "<string>",
+                  "description": "Sort conditions for the underlying search."
+                },
+                {
+                  "disabled": false,
+                  "key": "per_page",
+                  "value": "<integer>",
+                  "description": "Number of documents to pass as context to the LLM."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "collectionName",
+                  "description": "(Required) Name of the collection to search."
+                },
+                {
+                  "description": " (This can only be one of http,https)",
+                  "type": "any",
+                  "value": "{{protocol}}",
+                  "key": "protocol"
+                },
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{hostname}}",
+                  "key": "hostname"
+                },
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{port}}",
+                  "key": "port"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7aa88eb5-55f0-4b50-887e-ffab4883f9f5",
+              "name": "Conversational search results with generated answer",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "collections",
+                    ":collectionName",
+                    "documents",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "q",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "query_by",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "conversation",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "conversation_model_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "conversation_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter_by",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "collectionName",
+                      "description": "(Required) Name of the collection to search."
+                    },
+                    {
+                      "description": " (This can only be one of http,https)",
+                      "type": "any",
+                      "value": "{{protocol}}",
+                      "key": "protocol"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{hostname}}",
+                      "key": "hostname"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{port}}",
+                      "key": "port"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-TYPESENSE-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"found\": 2274,\n  \"search_time_ms\": 2985,\n  \"hits\": [\n    {\n      \"document\": {},\n      \"text_match\": 6009\n    },\n    {\n      \"document\": {},\n      \"text_match\": 6891\n    }\n  ],\n  \"conversation\": {\n    \"answer\": \"string\",\n    \"conversation_id\": \"string\",\n    \"conversation_history\": [\n      {\n        \"role\": \"string\",\n        \"content\": \"string\"\n      },\n      {\n        \"role\": \"string\",\n        \"content\": \"string\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5773485c-7293-48ab-a507-3ffc562bd8af",
+              "name": "Bad request - invalid conversation parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "collections",
+                    ":collectionName",
+                    "documents",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "q",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "query_by",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "conversation",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "conversation_model_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "conversation_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter_by",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "collectionName",
+                      "description": "(Required) Name of the collection to search."
+                    },
+                    {
+                      "description": " (This can only be one of http,https)",
+                      "type": "any",
+                      "value": "{{protocol}}",
+                      "key": "protocol"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{hostname}}",
+                      "key": "hostname"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{port}}",
+                      "key": "port"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-TYPESENSE-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "d0b36862-bd3f-4b98-859d-86091bf5e41a",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "collections",
+                    ":collectionName",
+                    "documents",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "q",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "query_by",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "conversation",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "conversation_model_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "conversation_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter_by",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "collectionName",
+                      "description": "(Required) Name of the collection to search."
+                    },
+                    {
+                      "description": " (This can only be one of http,https)",
+                      "type": "any",
+                      "value": "{{protocol}}",
+                      "key": "protocol"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{hostname}}",
+                      "key": "hostname"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{port}}",
+                      "key": "port"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-TYPESENSE-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "86ff8c50-cf59-4017-a122-f3780ccf237a",
+              "name": "Collection or conversation model not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "collections",
+                    ":collectionName",
+                    "documents",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "q",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "query_by",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "conversation",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "conversation_model_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "conversation_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter_by",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "collectionName",
+                      "description": "(Required) Name of the collection to search."
+                    },
+                    {
+                      "description": " (This can only be one of http,https)",
+                      "type": "any",
+                      "value": "{{protocol}}",
+                      "key": "protocol"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{hostname}}",
+                      "key": "hostname"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{port}}",
+                      "key": "port"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-TYPESENSE-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": " (This can only be one of http,https)",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "http",
+      "key": "protocol"
+    },
+    {
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "localhost",
+      "key": "hostname"
+    },
+    {
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "8108",
+      "key": "port"
+    },
+    {
+      "type": "string",
+      "value": "{{protocol}}://{{hostname}}:{{port}}",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-TYPESENSE-API-KEY"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "1f8d33b7-2684-476c-97c0-344df5b68996",
+    "name": "Typesense Conversational Search API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Typesense Conversational Search API provides built-in Retrieval Augmented Generation (RAG) capabilities that allow developers to send natural language questions and receive fully formed sentence responses. It combines Typesense search with large language models to generate contextual answers grounded in the indexed data. This API enables building conversational interfaces on top of existing search collections without requiring a separate RAG pipeline.\n\nContact Support:\n Name: Typesense Support",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,2847 @@
+{
+  "item": [
+    {
+      "id": "2f9d1a4a-6a36-44e8-99cb-5d1846ad629b",
+      "name": "Cluster Management",
+      "description": {
+        "content": "Create, retrieve, update, and terminate Typesense Cloud clusters. Manage cluster lifecycle and generate Typesense Server API keys.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "caf91b56-74be-428a-973a-9188745644b1",
+          "name": "Create A New Cluster",
+          "request": {
+            "name": "Create A New Cluster",
+            "description": {
+              "content": "Provisions a new Typesense Cloud cluster. Cluster creation is asynchronous and typically takes 4-5 minutes. Poll the single cluster endpoint to check when the status changes from provisioning to in_service.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "clusters"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"memory\": \"<string>\",\n  \"typesense_server_version\": \"<string>\",\n  \"regions\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"vcpu\": \"<string>\",\n  \"gpu\": \"<boolean>\",\n  \"high_performance_disk\": \"<string>\",\n  \"high_availability\": \"<string>\",\n  \"search_delivery_network\": \"<string>\",\n  \"load_balancing\": \"<string>\",\n  \"cluster_name\": \"<string>\",\n  \"auto_upgrade_capacity\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "82e60737-229e-4509-b950-e402804e6c3b",
+              "name": "Cluster provisioning initiated",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "clusters"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-TYPESENSE-CLOUD-MANAGEMENT-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"memory\": \"<string>\",\n  \"typesense_server_version\": \"<string>\",\n  \"regions\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"vcpu\": \"<string>\",\n  \"gpu\": \"<boolean>\",\n  \"high_performance_disk\": \"<string>\",\n  \"high_availability\": \"<string>\",\n  \"search_delivery_network\": \"<string>\",\n  \"load_balancing\": \"<string>\",\n  \"cluster_name\": \"<string>\",\n  \"auto_upgrade_capacity\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"cluster_name\": \"string\",\n  \"memory\": \"string\",\n  \"vcpu\": \"string\",\n  \"gpu\": false,\n  \"high_performance_disk\": \"string\",\n  \"typesense_server_version\": \"string\",\n  \"high_availability\": \"string\",\n  \"search_delivery_network\": \"string\",\n  \"load_balancing\": \"string\",\n  \"regions\": [\n    \"string\",\n    \"string\"\n  ],\n  \"status\": \"terminated\",\n  \"hostnames\": {},\n  \"auto_upgrade_capacity\": true,\n  \"created_at\": \"2020-11-23T02:17:56.732Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "734cbb85-d56b-4215-abe0-204903b15db1",
+              "name": "Bad request - invalid cluster configuration",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "clusters"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-TYPESENSE-CLOUD-MANAGEMENT-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"memory\": \"<string>\",\n  \"typesense_server_version\": \"<string>\",\n  \"regions\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"vcpu\": \"<string>\",\n  \"gpu\": \"<boolean>\",\n  \"high_performance_disk\": \"<string>\",\n  \"high_availability\": \"<string>\",\n  \"search_delivery_network\": \"<string>\",\n  \"load_balancing\": \"<string>\",\n  \"cluster_name\": \"<string>\",\n  \"auto_upgrade_capacity\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "c6da2f1e-5bde-497a-a8f4-727a996a6dff",
+              "name": "Unauthorized - invalid or missing management API key",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "clusters"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-TYPESENSE-CLOUD-MANAGEMENT-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"memory\": \"<string>\",\n  \"typesense_server_version\": \"<string>\",\n  \"regions\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"vcpu\": \"<string>\",\n  \"gpu\": \"<boolean>\",\n  \"high_performance_disk\": \"<string>\",\n  \"high_availability\": \"<string>\",\n  \"search_delivery_network\": \"<string>\",\n  \"load_balancing\": \"<string>\",\n  \"cluster_name\": \"<string>\",\n  \"auto_upgrade_capacity\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "52ad71f2-84ae-4cca-83ae-af13330083e1",
+          "name": "List All Clusters",
+          "request": {
+            "name": "List All Clusters",
+            "description": {
+              "content": "Retrieves all clusters under your Typesense Cloud account.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "clusters"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "3fa01003-c02f-465a-8508-0830ee94bc8c",
+              "name": "List of clusters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "clusters"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-TYPESENSE-CLOUD-MANAGEMENT-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": \"string\",\n    \"cluster_name\": \"string\",\n    \"memory\": \"string\",\n    \"vcpu\": \"string\",\n    \"gpu\": true,\n    \"high_performance_disk\": \"string\",\n    \"typesense_server_version\": \"string\",\n    \"high_availability\": \"string\",\n    \"search_delivery_network\": \"string\",\n    \"load_balancing\": \"string\",\n    \"regions\": [\n      \"string\",\n      \"string\"\n    ],\n    \"status\": \"terminating\",\n    \"hostnames\": {},\n    \"auto_upgrade_capacity\": false,\n    \"created_at\": \"1947-12-01T04:23:45.466Z\"\n  },\n  {\n    \"id\": \"string\",\n    \"cluster_name\": \"string\",\n    \"memory\": \"string\",\n    \"vcpu\": \"string\",\n    \"gpu\": false,\n    \"high_performance_disk\": \"string\",\n    \"typesense_server_version\": \"string\",\n    \"high_availability\": \"string\",\n    \"search_delivery_network\": \"string\",\n    \"load_balancing\": \"string\",\n    \"regions\": [\n      \"string\",\n      \"string\"\n    ],\n    \"status\": \"provisioning\",\n    \"hostnames\": {},\n    \"auto_upgrade_capacity\": true,\n    \"created_at\": \"1980-09-30T14:14:50.086Z\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a91b6f71-0e90-409b-9b40-4630c0c3d5e8",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "clusters"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-TYPESENSE-CLOUD-MANAGEMENT-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "dec09f8b-d175-4131-b299-783e116a1f7d",
+          "name": "Retrieve A Cluster",
+          "request": {
+            "name": "Retrieve A Cluster",
+            "description": {
+              "content": "Retrieves detailed information about a specific cluster including its current status, configuration, hostnames, and region details.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "clusters",
+                ":clusterId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "clusterId",
+                  "description": "(Required) Unique identifier of the cluster."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "1be9f095-3886-4d31-a7ca-7d1c7fc67d3f",
+              "name": "Cluster details",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "clusters",
+                    ":clusterId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "clusterId",
+                      "description": "(Required) Unique identifier of the cluster."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-TYPESENSE-CLOUD-MANAGEMENT-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"cluster_name\": \"string\",\n  \"memory\": \"string\",\n  \"vcpu\": \"string\",\n  \"gpu\": false,\n  \"high_performance_disk\": \"string\",\n  \"typesense_server_version\": \"string\",\n  \"high_availability\": \"string\",\n  \"search_delivery_network\": \"string\",\n  \"load_balancing\": \"string\",\n  \"regions\": [\n    \"string\",\n    \"string\"\n  ],\n  \"status\": \"terminated\",\n  \"hostnames\": {},\n  \"auto_upgrade_capacity\": true,\n  \"created_at\": \"2020-11-23T02:17:56.732Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0a8d46c3-402c-41dc-92f5-d4170809bde0",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "clusters",
+                    ":clusterId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "clusterId",
+                      "description": "(Required) Unique identifier of the cluster."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-TYPESENSE-CLOUD-MANAGEMENT-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "acf36d4d-d2d5-4d42-aaab-9a61834e1779",
+              "name": "Cluster not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "clusters",
+                    ":clusterId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "clusterId",
+                      "description": "(Required) Unique identifier of the cluster."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-TYPESENSE-CLOUD-MANAGEMENT-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "03ef8e90-8eb5-4e1b-b69e-0a43b417ae66",
+          "name": "Update A Cluster",
+          "request": {
+            "name": "Update A Cluster",
+            "description": {
+              "content": "Updates cluster settings such as the cluster name and auto-upgrade configuration.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "clusters",
+                ":clusterId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "clusterId",
+                  "description": "(Required) Unique identifier of the cluster."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"cluster_name\": \"<string>\",\n  \"auto_upgrade_capacity\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "56706e69-7ae4-4385-bba9-c0a931471534",
+              "name": "Cluster updated",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "clusters",
+                    ":clusterId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "clusterId",
+                      "description": "(Required) Unique identifier of the cluster."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-TYPESENSE-CLOUD-MANAGEMENT-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"cluster_name\": \"<string>\",\n  \"auto_upgrade_capacity\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"cluster_name\": \"string\",\n  \"memory\": \"string\",\n  \"vcpu\": \"string\",\n  \"gpu\": false,\n  \"high_performance_disk\": \"string\",\n  \"typesense_server_version\": \"string\",\n  \"high_availability\": \"string\",\n  \"search_delivery_network\": \"string\",\n  \"load_balancing\": \"string\",\n  \"regions\": [\n    \"string\",\n    \"string\"\n  ],\n  \"status\": \"terminated\",\n  \"hostnames\": {},\n  \"auto_upgrade_capacity\": true,\n  \"created_at\": \"2020-11-23T02:17:56.732Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "14064cf6-ee04-4816-86b8-8d2b5d8c9beb",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "clusters",
+                    ":clusterId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "clusterId",
+                      "description": "(Required) Unique identifier of the cluster."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-TYPESENSE-CLOUD-MANAGEMENT-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"cluster_name\": \"<string>\",\n  \"auto_upgrade_capacity\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "1ab60692-2ea5-4ad8-af1a-dc9cc3fd0fff",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "clusters",
+                    ":clusterId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "clusterId",
+                      "description": "(Required) Unique identifier of the cluster."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-TYPESENSE-CLOUD-MANAGEMENT-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"cluster_name\": \"<string>\",\n  \"auto_upgrade_capacity\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "9c66d567-bcb5-4fbb-99b3-7ecc6e77c7e9",
+              "name": "Cluster not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "clusters",
+                    ":clusterId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "clusterId",
+                      "description": "(Required) Unique identifier of the cluster."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-TYPESENSE-CLOUD-MANAGEMENT-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"cluster_name\": \"<string>\",\n  \"auto_upgrade_capacity\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "23fcb1e2-79fa-4a2f-a188-1c116925e3c1",
+          "name": "Terminate A Cluster",
+          "request": {
+            "name": "Terminate A Cluster",
+            "description": {
+              "content": "Terminates a running cluster permanently. This action cannot be undone. Once terminated, all data in the cluster is destroyed permanently as a security and privacy measure.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "clusters",
+                ":clusterId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "clusterId",
+                  "description": "(Required) Unique identifier of the cluster."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f58cc8e4-1455-47b1-8b7e-7a5d097ce045",
+              "name": "Cluster terminated",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "clusters",
+                    ":clusterId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "clusterId",
+                      "description": "(Required) Unique identifier of the cluster."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-TYPESENSE-CLOUD-MANAGEMENT-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "91fddc26-6105-441f-9f4b-e38a80aefeeb",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "clusters",
+                    ":clusterId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "clusterId",
+                      "description": "(Required) Unique identifier of the cluster."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-TYPESENSE-CLOUD-MANAGEMENT-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "67273495-d87b-4e1a-bdad-4a934332f33d",
+              "name": "Cluster not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "clusters",
+                    ":clusterId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "clusterId",
+                      "description": "(Required) Unique identifier of the cluster."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-TYPESENSE-CLOUD-MANAGEMENT-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e98d7349-42b1-499f-a3fc-5e0482424907",
+          "name": "Generate Typesense Server API Keys",
+          "request": {
+            "name": "Generate Typesense Server API Keys",
+            "description": {
+              "content": "Generates Typesense Server API keys for the cluster. This endpoint is only available once the cluster status changes to in_service. Returns the admin and search-only API keys needed to interact with the Typesense Server running on the cluster.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "clusters",
+                ":clusterId",
+                "generate-api-key"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "clusterId",
+                  "description": "(Required) Unique identifier of the cluster."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "da77d757-1be9-42d4-a627-d9d038e35529",
+              "name": "API keys generated",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "clusters",
+                    ":clusterId",
+                    "generate-api-key"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "clusterId",
+                      "description": "(Required) Unique identifier of the cluster."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-TYPESENSE-CLOUD-MANAGEMENT-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"admin_key\": \"string\",\n  \"search_only_key\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c7fb96de-8516-42c7-a5c0-a0ef0f6525a5",
+              "name": "Cluster is not yet in service",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "clusters",
+                    ":clusterId",
+                    "generate-api-key"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "clusterId",
+                      "description": "(Required) Unique identifier of the cluster."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-TYPESENSE-CLOUD-MANAGEMENT-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "43daa4f9-e918-4bf0-8dce-efb2c7001d53",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "clusters",
+                    ":clusterId",
+                    "generate-api-key"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "clusterId",
+                      "description": "(Required) Unique identifier of the cluster."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-TYPESENSE-CLOUD-MANAGEMENT-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "4bb8f9cb-7efe-4d24-b524-0d6e10397645",
+              "name": "Cluster not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "clusters",
+                    ":clusterId",
+                    "generate-api-key"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "clusterId",
+                      "description": "(Required) Unique identifier of the cluster."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-TYPESENSE-CLOUD-MANAGEMENT-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "b9caaac2-c8c6-4142-909d-49f470edf19c",
+      "name": "Configuration Changes",
+      "description": {
+        "content": "Schedule, retrieve, list, and cancel configuration changes to running clusters such as memory upgrades, version changes, and HA toggles.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "f10312ab-a02e-4658-a892-4a4e6f2e73b5",
+          "name": "Schedule A Configuration Change",
+          "request": {
+            "name": "Schedule A Configuration Change",
+            "description": {
+              "content": "Schedules a configuration change for a cluster such as upgrading memory, changing vCPU allocation, upgrading Typesense server version, or enabling/disabling high availability. Changes are applied at the specified time.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "clusters",
+                ":clusterId",
+                "configuration-changes"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "clusterId",
+                  "description": "(Required) Unique identifier of the cluster."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"new_memory\": \"<string>\",\n  \"new_vcpu\": \"<string>\",\n  \"new_gpu\": \"<boolean>\",\n  \"new_high_performance_disk\": \"<string>\",\n  \"new_typesense_server_version\": \"<string>\",\n  \"new_high_availability\": \"<string>\",\n  \"perform_change_at\": \"<long>\",\n  \"notification_email_addresses\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "b6ea4c47-bd27-4d95-ae6d-df79e6497f18",
+              "name": "Configuration change scheduled",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "clusters",
+                    ":clusterId",
+                    "configuration-changes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "clusterId",
+                      "description": "(Required) Unique identifier of the cluster."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-TYPESENSE-CLOUD-MANAGEMENT-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"new_memory\": \"<string>\",\n  \"new_vcpu\": \"<string>\",\n  \"new_gpu\": \"<boolean>\",\n  \"new_high_performance_disk\": \"<string>\",\n  \"new_typesense_server_version\": \"<string>\",\n  \"new_high_availability\": \"<string>\",\n  \"perform_change_at\": \"<long>\",\n  \"notification_email_addresses\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"status\": \"completed\",\n  \"new_memory\": \"string\",\n  \"new_vcpu\": \"string\",\n  \"new_typesense_server_version\": \"string\",\n  \"new_high_availability\": \"string\",\n  \"perform_change_at\": 3933,\n  \"created_at\": \"1995-06-09T08:34:12.675Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "735ebf4f-869d-4f52-95c4-e42ea546ad3a",
+              "name": "Bad request - invalid configuration",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "clusters",
+                    ":clusterId",
+                    "configuration-changes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "clusterId",
+                      "description": "(Required) Unique identifier of the cluster."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-TYPESENSE-CLOUD-MANAGEMENT-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"new_memory\": \"<string>\",\n  \"new_vcpu\": \"<string>\",\n  \"new_gpu\": \"<boolean>\",\n  \"new_high_performance_disk\": \"<string>\",\n  \"new_typesense_server_version\": \"<string>\",\n  \"new_high_availability\": \"<string>\",\n  \"perform_change_at\": \"<long>\",\n  \"notification_email_addresses\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "f8b0e31f-18b1-4dbb-b63a-4035155e9a2c",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "clusters",
+                    ":clusterId",
+                    "configuration-changes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "clusterId",
+                      "description": "(Required) Unique identifier of the cluster."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-TYPESENSE-CLOUD-MANAGEMENT-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"new_memory\": \"<string>\",\n  \"new_vcpu\": \"<string>\",\n  \"new_gpu\": \"<boolean>\",\n  \"new_high_performance_disk\": \"<string>\",\n  \"new_typesense_server_version\": \"<string>\",\n  \"new_high_availability\": \"<string>\",\n  \"perform_change_at\": \"<long>\",\n  \"notification_email_addresses\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "0a5c4294-182a-4262-9f29-9b7014099b2f",
+              "name": "Cluster not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "clusters",
+                    ":clusterId",
+                    "configuration-changes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "clusterId",
+                      "description": "(Required) Unique identifier of the cluster."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-TYPESENSE-CLOUD-MANAGEMENT-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"new_memory\": \"<string>\",\n  \"new_vcpu\": \"<string>\",\n  \"new_gpu\": \"<boolean>\",\n  \"new_high_performance_disk\": \"<string>\",\n  \"new_typesense_server_version\": \"<string>\",\n  \"new_high_availability\": \"<string>\",\n  \"perform_change_at\": \"<long>\",\n  \"notification_email_addresses\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c1732bf6-7e87-4b34-a9ce-1babb4ad29d0",
+          "name": "List Configuration Changes",
+          "request": {
+            "name": "List Configuration Changes",
+            "description": {
+              "content": "Retrieves all configuration changes for a cluster, including pending, applied, and canceled changes.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "clusters",
+                ":clusterId",
+                "configuration-changes"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "per_page",
+                  "value": "<integer>",
+                  "description": "Number of results per page."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "clusterId",
+                  "description": "(Required) Unique identifier of the cluster."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f91d7372-11da-4d4e-8d1f-07bdf2c9710f",
+              "name": "List of configuration changes",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "clusters",
+                    ":clusterId",
+                    "configuration-changes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "per_page",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "clusterId",
+                      "description": "(Required) Unique identifier of the cluster."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-TYPESENSE-CLOUD-MANAGEMENT-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": \"string\",\n    \"status\": \"in_progress\",\n    \"new_memory\": \"string\",\n    \"new_vcpu\": \"string\",\n    \"new_typesense_server_version\": \"string\",\n    \"new_high_availability\": \"string\",\n    \"perform_change_at\": 3894,\n    \"created_at\": \"2009-03-07T00:52:29.857Z\"\n  },\n  {\n    \"id\": \"string\",\n    \"status\": \"canceled\",\n    \"new_memory\": \"string\",\n    \"new_vcpu\": \"string\",\n    \"new_typesense_server_version\": \"string\",\n    \"new_high_availability\": \"string\",\n    \"perform_change_at\": 7419,\n    \"created_at\": \"1952-05-26T23:57:49.521Z\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "908f1a74-de91-44a8-83fe-6af14bb7edfb",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "clusters",
+                    ":clusterId",
+                    "configuration-changes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "per_page",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "clusterId",
+                      "description": "(Required) Unique identifier of the cluster."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-TYPESENSE-CLOUD-MANAGEMENT-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "1bcb5569-b44b-4e54-b8fd-024a93951396",
+              "name": "Cluster not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "clusters",
+                    ":clusterId",
+                    "configuration-changes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "per_page",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "clusterId",
+                      "description": "(Required) Unique identifier of the cluster."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-TYPESENSE-CLOUD-MANAGEMENT-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e68d6fc1-e07e-43f9-8073-93043a7a95b0",
+          "name": "Retrieve A Configuration Change",
+          "request": {
+            "name": "Retrieve A Configuration Change",
+            "description": {
+              "content": "Retrieves details of a specific configuration change by ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "clusters",
+                ":clusterId",
+                "configuration-changes",
+                ":changeId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "clusterId",
+                  "description": "(Required) Unique identifier of the cluster."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "changeId",
+                  "description": "(Required) Unique identifier of the configuration change."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "26d515ac-4682-471b-a017-d9d0d0c0b705",
+              "name": "Configuration change details",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "clusters",
+                    ":clusterId",
+                    "configuration-changes",
+                    ":changeId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "clusterId",
+                      "description": "(Required) Unique identifier of the cluster."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "changeId",
+                      "description": "(Required) Unique identifier of the configuration change."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-TYPESENSE-CLOUD-MANAGEMENT-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"status\": \"completed\",\n  \"new_memory\": \"string\",\n  \"new_vcpu\": \"string\",\n  \"new_typesense_server_version\": \"string\",\n  \"new_high_availability\": \"string\",\n  \"perform_change_at\": 3933,\n  \"created_at\": \"1995-06-09T08:34:12.675Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8fa3896c-08a4-440f-b173-43d681974877",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "clusters",
+                    ":clusterId",
+                    "configuration-changes",
+                    ":changeId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "clusterId",
+                      "description": "(Required) Unique identifier of the cluster."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "changeId",
+                      "description": "(Required) Unique identifier of the configuration change."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-TYPESENSE-CLOUD-MANAGEMENT-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "f3ee39b7-c041-4bfc-a672-d040c1b6bd90",
+              "name": "Configuration change or cluster not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "clusters",
+                    ":clusterId",
+                    "configuration-changes",
+                    ":changeId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "clusterId",
+                      "description": "(Required) Unique identifier of the cluster."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "changeId",
+                      "description": "(Required) Unique identifier of the configuration change."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-TYPESENSE-CLOUD-MANAGEMENT-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "cd0112d1-e2be-4217-8e8a-3a7dd4fc523a",
+          "name": "Cancel A Configuration Change",
+          "request": {
+            "name": "Cancel A Configuration Change",
+            "description": {
+              "content": "Updates a configuration change, typically to cancel a pending change by setting its status to canceled.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "clusters",
+                ":clusterId",
+                "configuration-changes",
+                ":changeId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "clusterId",
+                  "description": "(Required) Unique identifier of the cluster."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "changeId",
+                  "description": "(Required) Unique identifier of the configuration change."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "efb9e123-0d46-4b60-989e-bbb930f302f8",
+              "name": "Configuration change updated",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "clusters",
+                    ":clusterId",
+                    "configuration-changes",
+                    ":changeId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "clusterId",
+                      "description": "(Required) Unique identifier of the cluster."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "changeId",
+                      "description": "(Required) Unique identifier of the configuration change."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-TYPESENSE-CLOUD-MANAGEMENT-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"status\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"status\": \"completed\",\n  \"new_memory\": \"string\",\n  \"new_vcpu\": \"string\",\n  \"new_typesense_server_version\": \"string\",\n  \"new_high_availability\": \"string\",\n  \"perform_change_at\": 3933,\n  \"created_at\": \"1995-06-09T08:34:12.675Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "99121927-d548-4010-bb9a-58435fdf5262",
+              "name": "Bad request - change cannot be canceled",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "clusters",
+                    ":clusterId",
+                    "configuration-changes",
+                    ":changeId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "clusterId",
+                      "description": "(Required) Unique identifier of the cluster."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "changeId",
+                      "description": "(Required) Unique identifier of the configuration change."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-TYPESENSE-CLOUD-MANAGEMENT-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"status\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "05eef895-aecc-4556-b242-3c87c39580ac",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "clusters",
+                    ":clusterId",
+                    "configuration-changes",
+                    ":changeId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "clusterId",
+                      "description": "(Required) Unique identifier of the cluster."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "changeId",
+                      "description": "(Required) Unique identifier of the configuration change."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-TYPESENSE-CLOUD-MANAGEMENT-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"status\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "6c50151b-8433-45a1-bd20-ea3fa1e05591",
+              "name": "Configuration change or cluster not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "clusters",
+                    ":clusterId",
+                    "configuration-changes",
+                    ":changeId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "clusterId",
+                      "description": "(Required) Unique identifier of the cluster."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "changeId",
+                      "description": "(Required) Unique identifier of the configuration change."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-TYPESENSE-CLOUD-MANAGEMENT-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"status\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "7f94ac7b-2481-4e80-ba81-b1193168e201",
+      "name": "Server Configuration Parameters",
+      "description": {
+        "content": "Manage Typesense Server configuration parameters for cloud clusters.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "81beb95b-e0f4-44ca-a9c1-a71a20d6e681",
+          "name": "Get Server Configuration Parameters",
+          "request": {
+            "name": "Get Server Configuration Parameters",
+            "description": {
+              "content": "Retrieves the current Typesense Server configuration parameters for a cloud cluster. Changes to parameters take effect when the server is restarted.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "clusters",
+                ":clusterId",
+                "typesense-server-configuration-parameters"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "clusterId",
+                  "description": "(Required) Unique identifier of the cluster."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "27aa640c-c708-42b4-a2bd-e494cf6f365c",
+              "name": "Server configuration parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "clusters",
+                    ":clusterId",
+                    "typesense-server-configuration-parameters"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "clusterId",
+                      "description": "(Required) Unique identifier of the cluster."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-TYPESENSE-CLOUD-MANAGEMENT-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"cache-num-entries\": 8261,\n  \"thread-pool-size\": 4672,\n  \"log-slow-requests-time-ms\": 5085\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "785743ad-a531-4ddd-a0e9-04a3685552a5",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "clusters",
+                    ":clusterId",
+                    "typesense-server-configuration-parameters"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "clusterId",
+                      "description": "(Required) Unique identifier of the cluster."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-TYPESENSE-CLOUD-MANAGEMENT-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "54cf65dd-055d-4af3-a087-fa14382c4121",
+              "name": "Cluster not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "clusters",
+                    ":clusterId",
+                    "typesense-server-configuration-parameters"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "clusterId",
+                      "description": "(Required) Unique identifier of the cluster."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-TYPESENSE-CLOUD-MANAGEMENT-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e8221d70-018c-44fb-90f9-e7c56bcc8a97",
+          "name": "Update Server Configuration Parameters",
+          "request": {
+            "name": "Update Server Configuration Parameters",
+            "description": {
+              "content": "Updates Typesense Server configuration parameters for a cloud cluster. The server must be restarted for changes to take effect. Use the configuration changes endpoint to schedule a restart.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "clusters",
+                ":clusterId",
+                "typesense-server-configuration-parameters"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "clusterId",
+                  "description": "(Required) Unique identifier of the cluster."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"cache-num-entries\": \"<integer>\",\n  \"thread-pool-size\": \"<integer>\",\n  \"log-slow-requests-time-ms\": \"<integer>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "0585ef20-bb95-4dcb-ac8a-20a64d0fc9bb",
+              "name": "Parameters updated",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "clusters",
+                    ":clusterId",
+                    "typesense-server-configuration-parameters"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "clusterId",
+                      "description": "(Required) Unique identifier of the cluster."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-TYPESENSE-CLOUD-MANAGEMENT-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"cache-num-entries\": \"<integer>\",\n  \"thread-pool-size\": \"<integer>\",\n  \"log-slow-requests-time-ms\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"cache-num-entries\": 8261,\n  \"thread-pool-size\": 4672,\n  \"log-slow-requests-time-ms\": 5085\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b596416c-ac3e-4444-9207-3a98bfb4c2e9",
+              "name": "Bad request - invalid parameter values",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "clusters",
+                    ":clusterId",
+                    "typesense-server-configuration-parameters"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "clusterId",
+                      "description": "(Required) Unique identifier of the cluster."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-TYPESENSE-CLOUD-MANAGEMENT-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"cache-num-entries\": \"<integer>\",\n  \"thread-pool-size\": \"<integer>\",\n  \"log-slow-requests-time-ms\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "048b7430-437c-469f-8e05-0d40aade5a06",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "clusters",
+                    ":clusterId",
+                    "typesense-server-configuration-parameters"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "clusterId",
+                      "description": "(Required) Unique identifier of the cluster."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-TYPESENSE-CLOUD-MANAGEMENT-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"cache-num-entries\": \"<integer>\",\n  \"thread-pool-size\": \"<integer>\",\n  \"log-slow-requests-time-ms\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "029134f1-8179-4f07-946c-f6082460f80c",
+              "name": "Cluster not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "clusters",
+                    ":clusterId",
+                    "typesense-server-configuration-parameters"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "clusterId",
+                      "description": "(Required) Unique identifier of the cluster."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-TYPESENSE-CLOUD-MANAGEMENT-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"cache-num-entries\": \"<integer>\",\n  \"thread-pool-size\": \"<integer>\",\n  \"log-slow-requests-time-ms\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://cloud.typesense.org/api/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-TYPESENSE-CLOUD-MANAGEMENT-API-KEY"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "031b1cf4-2d06-4fbe-b808-f468eb0febca",
+    "name": "Typesense Cloud Management API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Typesense Cloud Management API provides endpoints for provisioning and managing Typesense Cloud clusters programmatically. It supports creating, updating, and deleting clusters, managing cluster configuration parameters, generating API keys, and applying configuration changes. This API enables infrastructure automation for teams running Typesense on the managed cloud platform, with authentication handled through cloud management API keys.\n\nContact Support:\n Name: Typesense Support",
+      "type": "text/plain"
+    }
+  }
+}

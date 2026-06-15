@@ -1,0 +1,185 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Typesense Analytics API",
+    "version": "30.1"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-TYPESENSE-API-KEY",
+      "value": "{{X-TYPESENSE-API-KEY}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Analytics Rules",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List All Analytics Rules",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{protocol}://{hostname}:{port}/analytics/rules"
+          },
+          "docs": "Retrieves all analytics rules configured in the Typesense instance. Rules control how search queries and events are aggregated."
+        },
+        {
+          "info": {
+            "name": "Create An Analytics Rule",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{protocol}://{hostname}:{port}/analytics/rules",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates one or more analytics rules for aggregating search queries or tracking events. Rule types include popular_queries for frequently occurring queries, nohits_queries for queries that produced zero results, and log for raw event logging."
+        },
+        {
+          "info": {
+            "name": "Retrieve An Analytics Rule",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{protocol}://{hostname}:{port}/analytics/rules/:ruleName",
+            "params": [
+              {
+                "name": "ruleName",
+                "value": "",
+                "type": "path",
+                "description": "Name of the analytics rule."
+              }
+            ]
+          },
+          "docs": "Retrieves a specific analytics rule by name."
+        },
+        {
+          "info": {
+            "name": "Create Or Update An Analytics Rule",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{protocol}://{hostname}:{port}/analytics/rules/:ruleName",
+            "params": [
+              {
+                "name": "ruleName",
+                "value": "",
+                "type": "path",
+                "description": "Name of the analytics rule."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new analytics rule or updates an existing one by name."
+        },
+        {
+          "info": {
+            "name": "Delete An Analytics Rule",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{protocol}://{hostname}:{port}/analytics/rules/:ruleName",
+            "params": [
+              {
+                "name": "ruleName",
+                "value": "",
+                "type": "path",
+                "description": "Name of the analytics rule."
+              }
+            ]
+          },
+          "docs": "Deletes an analytics rule by name."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Analytics Events",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve Analytics Events",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{protocol}://{hostname}:{port}/analytics/events",
+            "params": [
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "Filter events by type (click, conversion, visit)."
+              }
+            ]
+          },
+          "docs": "Retrieves logged analytics events. Supports filtering by event type and other criteria."
+        },
+        {
+          "info": {
+            "name": "Log An Analytics Event",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{protocol}://{hostname}:{port}/analytics/events",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Logs a user interaction event such as a click, conversion, or visit. Events are associated with search queries and documents to track user behavior and improve relevance."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Analytics Operations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Flush Analytics Data To Disk",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{protocol}://{hostname}:{port}/analytics/flush"
+          },
+          "docs": "Flushes in-memory analytics data to disk. Useful for ensuring analytics data is persisted before a server restart."
+        },
+        {
+          "info": {
+            "name": "Get Analytics Subsystem Status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{protocol}://{hostname}:{port}/analytics/status"
+          },
+          "docs": "Returns the current status of the analytics subsystem including whether it is operational and any pending operations."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
