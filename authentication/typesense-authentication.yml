@@ -1,0 +1,29 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/typesense-analytics-api-openapi.yml, openapi/typesense-cloud-management-api-openapi.yml,
+  openapi/typesense-conversational-search-api-openapi.yml, openapi/typesense-search-api-openapi.yml,
+  openapi/typesense-vector-search-api-openapi.yml
+summary:
+  types:
+  - apiKey
+  api_key_in:
+  - header
+schemes:
+- name: api_key_header
+  type: apiKey
+  in: header
+  parameter: X-TYPESENSE-API-KEY
+  description: API key for authenticating requests to the Typesense server.
+  sources:
+  - openapi/typesense-analytics-api-openapi.yml
+  - openapi/typesense-conversational-search-api-openapi.yml
+  - openapi/typesense-search-api-openapi.yml
+  - openapi/typesense-vector-search-api-openapi.yml
+- name: cloudApiKey
+  type: apiKey
+  in: header
+  parameter: X-TYPESENSE-CLOUD-MANAGEMENT-API-KEY
+  description: Cloud management API key for authenticating requests to the Typesense Cloud Management
+    API.
+  sources:
+  - openapi/typesense-cloud-management-api-openapi.yml

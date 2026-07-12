@@ -115,6 +115,10 @@ maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 common:
+- type: DomainSecurity
+  url: security/typesense-domain-security.yml
+- type: Authentication
+  url: authentication/typesense-authentication.yml
 - type: LinkedIn
   url: https://www.linkedin.com/company/typesense
 - type: Website
