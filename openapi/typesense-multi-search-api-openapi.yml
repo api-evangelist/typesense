@@ -1,6 +1,6 @@
 openapi: 3.1.0
 info:
-  title: Typesense Analytics Analytics Events Search API
+  title: Typesense Analytics Analytics Events Multi-Search API
   description: The Typesense Analytics API allows developers to track and analyze search behavior by recording click, conversion, and visit events. It provides endpoints for creating analytics rules, logging events with metadata tags, and retrieving popular queries and queries with no results. This data can be used to improve search relevance through query suggestions, curations, and understanding user search patterns.
   version: '30.1'
   contact:
@@ -26,204 +26,49 @@ servers:
 security:
 - api_key_header: []
 tags:
-- name: Search
-  description: Search for documents in a collection with typo tolerance, faceting, filtering, sorting, geo search, and grouping.
+- name: Multi-Search
+  description: Send multiple search requests across one or more collections in a single HTTP request.
 paths:
-  /collections/{collectionName}/documents/search:
-    parameters:
-    - $ref: '#/components/parameters/collectionName'
-    get:
-      operationId: searchCollection
-      summary: Search For Documents
-      description: Searches for documents in a collection using full-text search with typo tolerance, faceting, filtering, sorting, grouping, geo search, and vector search capabilities.
+  /multi_search:
+    post:
+      operationId: multiSearch
+      summary: Multi-search Across Collections
+      description: Sends multiple search requests in a single HTTP request. Each search can target a different collection with different parameters. Useful for federated search and reducing network round trips.
       tags:
-      - Search
+      - Multi-Search
       parameters:
-      - name: q
+      - name: limit_multi_searches
         in: query
+        description: Maximum number of search requests allowed in a single multi-search.
+        schema:
+          type: integer
+      requestBody:
         required: true
-        description: The search query string. Use * for wildcard queries.
-        schema:
-          type: string
-      - name: query_by
-        in: query
-        required: true
-        description: Comma-separated list of fields to search against.
-        schema:
-          type: string
-      - name: query_by_weights
-        in: query
-        description: Comma-separated weights for each query_by field.
-        schema:
-          type: string
-      - name: text_match_type
-        in: query
-        description: How text matching is calculated. Options are max_score or max_weight.
-        schema:
-          type: string
-      - name: prefix
-        in: query
-        description: Whether prefix search is enabled for query_by fields.
-        schema:
-          type: string
-      - name: infix
-        in: query
-        description: Enable infix search for specified fields.
-        schema:
-          type: string
-      - name: filter_by
-        in: query
-        description: Filter conditions for narrowing search results.
-        schema:
-          type: string
-      - name: sort_by
-        in: query
-        description: Comma-separated list of fields and sort directions.
-        schema:
-          type: string
-      - name: facet_by
-        in: query
-        description: Comma-separated list of fields to facet on.
-        schema:
-          type: string
-      - name: max_facet_values
-        in: query
-        description: Maximum number of facet values to return.
-        schema:
-          type: integer
-      - name: facet_query
-        in: query
-        description: Facet query for filtering facet values.
-        schema:
-          type: string
-      - name: page
-        in: query
-        description: Page number for pagination.
-        schema:
-          type: integer
-          minimum: 1
-      - name: per_page
-        in: query
-        description: Number of results per page.
-        schema:
-          type: integer
-          minimum: 1
-          maximum: 250
-      - name: group_by
-        in: query
-        description: Field to group results by.
-        schema:
-          type: string
-      - name: group_limit
-        in: query
-        description: Maximum number of hits per group.
-        schema:
-          type: integer
-      - name: include_fields
-        in: query
-        description: Comma-separated list of fields to include in results.
-        schema:
-          type: string
-      - name: exclude_fields
-        in: query
-        description: Comma-separated list of fields to exclude from results.
-        schema:
-          type: string
-      - name: highlight_fields
-        in: query
-        description: Comma-separated list of fields to highlight.
-        schema:
-          type: string
-      - name: highlight_full_fields
-        in: query
-        description: Fields for which full highlights are returned.
-        schema:
-          type: string
-      - name: num_typos
-        in: query
-        description: Number of typographical errors to tolerate per token.
-        schema:
-          type: string
-      - name: typo_tokens_threshold
-        in: query
-        description: Minimum token count to enable typo tolerance.
-        schema:
-          type: integer
-      - name: drop_tokens_threshold
-        in: query
-        description: Token threshold below which tokens are dropped from query.
-        schema:
-          type: integer
-      - name: pinned_hits
-        in: query
-        description: Comma-separated list of document IDs to pin at specific positions.
-        schema:
-          type: string
-      - name: hidden_hits
-        in: query
-        description: Comma-separated list of document IDs to hide from results.
-        schema:
-          type: string
-      - name: enable_overrides
-        in: query
-        description: Whether to apply curations and overrides.
-        schema:
-          type: boolean
-      - name: preset
-        in: query
-        description: Name of a preset to use for search parameters.
-        schema:
-          type: string
-      - name: vector_query
-        in: query
-        description: Vector query for nearest-neighbor search.
-        schema:
-          type: string
-      - name: conversation
-        in: query
-        description: Whether to enable conversational search (RAG).
-        schema:
-          type: boolean
-      - name: conversation_model_id
-        in: query
-        description: ID of the conversation model to use.
-        schema:
-          type: string
-      - name: conversation_id
-        in: query
-        description: ID of an existing conversation to continue.
-        schema:
-          type: string
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - searches
+              properties:
+                searches:
+                  type: array
+                  description: Array of search request objects.
+                  items:
+                    $ref: '#/components/schemas/MultiSearchParameters'
       responses:
         '200':
-          description: Search results returned successfully
+          description: Multi-search results returned successfully
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SearchResult'
+                $ref: '#/components/schemas/MultiSearchResult'
         '400':
-          description: Bad request - invalid search parameters
+          description: Bad request
         '401':
           description: Unauthorized
-        '404':
-          description: Collection not found
 components:
   schemas:
-    SearchGroupedHit:
-      type: object
-      properties:
-        found:
-          type: integer
-          description: Number of hits in this group.
-        group_key:
-          type: array
-          description: Values of the group_by field.
-          items: {}
-        hits:
-          type: array
-          description: Search hits within this group.
-          items:
-            $ref: '#/components/schemas/SearchResultHit'
     SearchResult:
       type: object
       properties:
@@ -278,6 +123,21 @@ components:
             conversation_id:
               type: string
               description: ID of the conversation for follow-up queries.
+    SearchGroupedHit:
+      type: object
+      properties:
+        found:
+          type: integer
+          description: Number of hits in this group.
+        group_key:
+          type: array
+          description: Values of the group_by field.
+          items: {}
+        hits:
+          type: array
+          description: Search hits within this group.
+          items:
+            $ref: '#/components/schemas/SearchResultHit'
     FacetCounts:
       type: object
       properties:
@@ -344,6 +204,49 @@ components:
           description: Indices of matched values in array fields.
           items:
             type: integer
+    MultiSearchResult:
+      type: object
+      properties:
+        results:
+          type: array
+          description: Array of search results, one per search request.
+          items:
+            $ref: '#/components/schemas/SearchResult'
+        conversation:
+          type: object
+          description: Conversation context when conversational multi-search is used.
+    MultiSearchParameters:
+      type: object
+      required:
+      - collection
+      properties:
+        collection:
+          type: string
+          description: Name of the collection to search.
+        q:
+          type: string
+          description: Search query string.
+        query_by:
+          type: string
+          description: Comma-separated list of fields to search.
+        filter_by:
+          type: string
+          description: Filter conditions.
+        sort_by:
+          type: string
+          description: Sort conditions.
+        facet_by:
+          type: string
+          description: Fields to facet on.
+        page:
+          type: integer
+          description: Page number.
+        per_page:
+          type: integer
+          description: Results per page.
+        preset:
+          type: string
+          description: Name of a preset to apply.
     SearchResultHit:
       type: object
       properties:
@@ -375,14 +278,6 @@ components:
         hybrid_search_info:
           type: object
           description: Information about hybrid keyword and vector search scoring.
-  parameters:
-    collectionName:
-      name: collectionName
-      in: path
-      required: true
-      description: Name of the collection.
-      schema:
-        type: string
   securitySchemes:
     api_key_header:
       type: apiKey

@@ -1,0 +1,152 @@
+openapi: 3.1.0
+info:
+  title: Typesense Analytics Analytics Events API
+  description: The Typesense Analytics API allows developers to track and analyze search behavior by recording click, conversion, and visit events. It provides endpoints for creating analytics rules, logging events with metadata tags, and retrieving popular queries and queries with no results. This data can be used to improve search relevance through query suggestions, curations, and understanding user search patterns.
+  version: '30.1'
+  contact:
+    name: Typesense Support
+    url: https://typesense.org/support
+  license:
+    name: GPL-3.0
+    url: https://www.gnu.org/licenses/gpl-3.0.html
+  termsOfService: https://typesense.org/terms
+servers:
+- url: '{protocol}://{hostname}:{port}'
+  description: Typesense Server
+  variables:
+    protocol:
+      default: http
+      enum:
+      - http
+      - https
+    hostname:
+      default: localhost
+    port:
+      default: '8108'
+security:
+- api_key_header: []
+tags:
+- name: Analytics Events
+  description: Log and retrieve user interaction events such as clicks, conversions, and visits for tracking search behavior and personalization.
+paths:
+  /analytics/events:
+    post:
+      operationId: createAnalyticsEvent
+      summary: Log An Analytics Event
+      description: Logs a user interaction event such as a click, conversion, or visit. Events are associated with search queries and documents to track user behavior and improve relevance.
+      tags:
+      - Analytics Events
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AnalyticsEventCreateSchema'
+      responses:
+        '201':
+          description: Event logged successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AnalyticsEventCreateResponse'
+        '400':
+          description: Bad request - invalid event data
+        '401':
+          description: Unauthorized
+    get:
+      operationId: listAnalyticsEvents
+      summary: Retrieve Analytics Events
+      description: Retrieves logged analytics events. Supports filtering by event type and other criteria.
+      tags:
+      - Analytics Events
+      parameters:
+      - name: type
+        in: query
+        description: Filter events by type (click, conversion, visit).
+        schema:
+          type: string
+          enum:
+          - click
+          - conversion
+          - visit
+      responses:
+        '200':
+          description: List of analytics events
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  events:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/AnalyticsEvent'
+        '401':
+          description: Unauthorized
+components:
+  schemas:
+    AnalyticsEventCreateResponse:
+      type: object
+      properties:
+        ok:
+          type: boolean
+          description: Whether the event was logged successfully.
+    AnalyticsEventCreateSchema:
+      type: object
+      required:
+      - type
+      - name
+      - data
+      properties:
+        type:
+          type: string
+          description: Type of event being logged.
+          enum:
+          - click
+          - conversion
+          - visit
+          - custom
+        name:
+          type: string
+          description: Name of the event, matching an analytics rule event name.
+        data:
+          type: object
+          description: Event data payload.
+          properties:
+            q:
+              type: string
+              description: The search query associated with this event.
+            doc_id:
+              type: string
+              description: ID of the document the user interacted with.
+            user_id:
+              type: string
+              description: ID of the user who triggered the event.
+            position:
+              type: integer
+              description: Position of the document in search results.
+    AnalyticsEvent:
+      type: object
+      properties:
+        type:
+          type: string
+          description: Event type.
+        name:
+          type: string
+          description: Event name.
+        data:
+          type: object
+          description: Event data payload.
+        timestamp:
+          type: integer
+          format: int64
+          description: Unix timestamp of the event.
+  securitySchemes:
+    api_key_header:
+      type: apiKey
+      in: header
+      name: X-TYPESENSE-API-KEY
+      description: API key for authenticating requests to the Typesense server.
+externalDocs:
+  description: Typesense Analytics Documentation
+  url: https://typesense.org/docs/30.1/api/analytics-query-suggestions.html

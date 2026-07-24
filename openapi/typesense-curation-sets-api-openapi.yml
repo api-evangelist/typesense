@@ -1,0 +1,308 @@
+openapi: 3.1.0
+info:
+  title: Typesense Analytics Analytics Events Curation Sets API
+  description: The Typesense Analytics API allows developers to track and analyze search behavior by recording click, conversion, and visit events. It provides endpoints for creating analytics rules, logging events with metadata tags, and retrieving popular queries and queries with no results. This data can be used to improve search relevance through query suggestions, curations, and understanding user search patterns.
+  version: '30.1'
+  contact:
+    name: Typesense Support
+    url: https://typesense.org/support
+  license:
+    name: GPL-3.0
+    url: https://www.gnu.org/licenses/gpl-3.0.html
+  termsOfService: https://typesense.org/terms
+servers:
+- url: '{protocol}://{hostname}:{port}'
+  description: Typesense Server
+  variables:
+    protocol:
+      default: http
+      enum:
+      - http
+      - https
+    hostname:
+      default: localhost
+    port:
+      default: '8108'
+security:
+- api_key_header: []
+tags:
+- name: Curation Sets
+  description: Manage top-level curation sets for pinning, hiding, and boosting search results across collections.
+paths:
+  /curation_sets:
+    get:
+      operationId: listCurationSets
+      summary: List All Curation Sets
+      description: Retrieves all curation sets. Curation sets are top-level resources for pinning, hiding, and boosting search results across collections.
+      tags:
+      - Curation Sets
+      responses:
+        '200':
+          description: List of curation sets
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  curation_sets:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/CurationSet'
+        '401':
+          description: Unauthorized
+  /curation_sets/{curationSetName}:
+    parameters:
+    - $ref: '#/components/parameters/curationSetName'
+    get:
+      operationId: getCurationSet
+      summary: Retrieve A Curation Set
+      description: Retrieves a specific curation set by name.
+      tags:
+      - Curation Sets
+      responses:
+        '200':
+          description: Curation set retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CurationSet'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Curation set not found
+    put:
+      operationId: upsertCurationSet
+      summary: Create Or Update A Curation Set
+      description: Creates a new curation set or updates an existing one.
+      tags:
+      - Curation Sets
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CurationSetSchema'
+      responses:
+        '200':
+          description: Curation set upserted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CurationSet'
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+    delete:
+      operationId: deleteCurationSet
+      summary: Delete A Curation Set
+      description: Deletes a curation set by name.
+      tags:
+      - Curation Sets
+      responses:
+        '200':
+          description: Curation set deleted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessStatus'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Curation set not found
+  /curation_sets/{curationSetName}/items:
+    parameters:
+    - $ref: '#/components/parameters/curationSetName'
+    get:
+      operationId: listCurationSetItems
+      summary: List Items In A Curation Set
+      description: Retrieves all curation items within a specific curation set.
+      tags:
+      - Curation Sets
+      responses:
+        '200':
+          description: List of curation items
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  curations:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/CurationItem'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Curation set not found
+  /curation_sets/{curationSetName}/items/{itemId}:
+    parameters:
+    - $ref: '#/components/parameters/curationSetName'
+    - $ref: '#/components/parameters/itemId'
+    get:
+      operationId: getCurationSetItem
+      summary: Retrieve A Curation Set Item
+      description: Retrieves a specific curation item by ID.
+      tags:
+      - Curation Sets
+      responses:
+        '200':
+          description: Curation item retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CurationItem'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Curation item or set not found
+    put:
+      operationId: upsertCurationSetItem
+      summary: Create Or Update A Curation Set Item
+      description: Creates or updates a curation item within a curation set.
+      tags:
+      - Curation Sets
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CurationItemSchema'
+      responses:
+        '200':
+          description: Curation item upserted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CurationItem'
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+    delete:
+      operationId: deleteCurationSetItem
+      summary: Delete A Curation Set Item
+      description: Deletes a specific curation item from a curation set.
+      tags:
+      - Curation Sets
+      responses:
+        '200':
+          description: Curation item deleted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessStatus'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Curation item or set not found
+components:
+  parameters:
+    itemId:
+      name: itemId
+      in: path
+      required: true
+      description: ID of the item within a set.
+      schema:
+        type: string
+    curationSetName:
+      name: curationSetName
+      in: path
+      required: true
+      description: Name of the curation set.
+      schema:
+        type: string
+  schemas:
+    CurationItem:
+      type: object
+      properties:
+        id:
+          type: string
+          description: ID of the curation item.
+        rule:
+          type: object
+          properties:
+            query:
+              type: string
+            match:
+              type: string
+        includes:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+              position:
+                type: integer
+        excludes:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+    CurationSet:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Name of the curation set.
+    CurationItemSchema:
+      type: object
+      properties:
+        rule:
+          type: object
+          description: Match rule for triggering this curation.
+          properties:
+            query:
+              type: string
+              description: Query string to match.
+            match:
+              type: string
+              description: 'Match type: exact or contains.'
+              enum:
+              - exact
+              - contains
+        includes:
+          type: array
+          description: Documents to pin at specific positions.
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+                description: Document ID to include.
+              position:
+                type: integer
+                description: Position to pin the document at.
+        excludes:
+          type: array
+          description: Documents to hide from results.
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+                description: Document ID to exclude.
+    SuccessStatus:
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Whether the operation was successful.
+    CurationSetSchema:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Name of the curation set.
+  securitySchemes:
+    api_key_header:
+      type: apiKey
+      in: header
+      name: X-TYPESENSE-API-KEY
+      description: API key for authenticating requests to the Typesense server.
+externalDocs:
+  description: Typesense Analytics Documentation
+  url: https://typesense.org/docs/30.1/api/analytics-query-suggestions.html

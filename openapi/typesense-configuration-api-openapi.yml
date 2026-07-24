@@ -1,0 +1,74 @@
+openapi: 3.1.0
+info:
+  title: Typesense Analytics Analytics Events Configuration API
+  description: The Typesense Analytics API allows developers to track and analyze search behavior by recording click, conversion, and visit events. It provides endpoints for creating analytics rules, logging events with metadata tags, and retrieving popular queries and queries with no results. This data can be used to improve search relevance through query suggestions, curations, and understanding user search patterns.
+  version: '30.1'
+  contact:
+    name: Typesense Support
+    url: https://typesense.org/support
+  license:
+    name: GPL-3.0
+    url: https://www.gnu.org/licenses/gpl-3.0.html
+  termsOfService: https://typesense.org/terms
+servers:
+- url: '{protocol}://{hostname}:{port}'
+  description: Typesense Server
+  variables:
+    protocol:
+      default: http
+      enum:
+      - http
+      - https
+    hostname:
+      default: localhost
+    port:
+      default: '8108'
+security:
+- api_key_header: []
+tags:
+- name: Configuration
+  description: Server configuration management including slow request logging.
+paths:
+  /config:
+    post:
+      operationId: updateConfig
+      summary: Update Server Configuration
+      description: Updates server configuration settings such as toggling slow request logging.
+      tags:
+      - Configuration
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                log-slow-requests-time-ms:
+                  type: integer
+                  description: Threshold in milliseconds for logging slow requests. Set to -1 to disable.
+      responses:
+        '200':
+          description: Configuration updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessStatus'
+        '401':
+          description: Unauthorized
+components:
+  schemas:
+    SuccessStatus:
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Whether the operation was successful.
+  securitySchemes:
+    api_key_header:
+      type: apiKey
+      in: header
+      name: X-TYPESENSE-API-KEY
+      description: API key for authenticating requests to the Typesense server.
+externalDocs:
+  description: Typesense Analytics Documentation
+  url: https://typesense.org/docs/30.1/api/analytics-query-suggestions.html

@@ -1,0 +1,149 @@
+openapi: 3.1.0
+info:
+  title: Typesense Analytics Analytics Events Operations API
+  description: The Typesense Analytics API allows developers to track and analyze search behavior by recording click, conversion, and visit events. It provides endpoints for creating analytics rules, logging events with metadata tags, and retrieving popular queries and queries with no results. This data can be used to improve search relevance through query suggestions, curations, and understanding user search patterns.
+  version: '30.1'
+  contact:
+    name: Typesense Support
+    url: https://typesense.org/support
+  license:
+    name: GPL-3.0
+    url: https://www.gnu.org/licenses/gpl-3.0.html
+  termsOfService: https://typesense.org/terms
+servers:
+- url: '{protocol}://{hostname}:{port}'
+  description: Typesense Server
+  variables:
+    protocol:
+      default: http
+      enum:
+      - http
+      - https
+    hostname:
+      default: localhost
+    port:
+      default: '8108'
+security:
+- api_key_header: []
+tags:
+- name: Operations
+  description: Cluster operations including snapshots, cache management, compaction, and voting.
+paths:
+  /operations/snapshot:
+    post:
+      operationId: takeSnapshot
+      summary: Create A Point-in-time Snapshot
+      description: Creates a point-in-time snapshot of the Typesense data directory for backup purposes.
+      tags:
+      - Operations
+      parameters:
+      - name: snapshot_path
+        in: query
+        required: true
+        description: Absolute filesystem path where the snapshot will be stored.
+        schema:
+          type: string
+      responses:
+        '201':
+          description: Snapshot created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessStatus'
+        '401':
+          description: Unauthorized
+  /operations/vote:
+    post:
+      operationId: vote
+      summary: Trigger Raft Voting
+      description: Triggers a raft voting process in a multi-node Typesense cluster.
+      tags:
+      - Operations
+      responses:
+        '200':
+          description: Voting triggered
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessStatus'
+        '401':
+          description: Unauthorized
+  /operations/cache/clear:
+    post:
+      operationId: clearCache
+      summary: Clear The LRU Cache
+      description: Clears the in-memory LRU cache used by Typesense for frequently accessed data.
+      tags:
+      - Operations
+      responses:
+        '200':
+          description: Cache cleared
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessStatus'
+        '401':
+          description: Unauthorized
+  /operations/db/compact:
+    post:
+      operationId: compactDatabase
+      summary: Compact The On-disk Database
+      description: Triggers compaction of the on-disk RocksDB database to reclaim space and improve performance.
+      tags:
+      - Operations
+      responses:
+        '200':
+          description: Database compacted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessStatus'
+        '401':
+          description: Unauthorized
+  /operations/schema_changes:
+    get:
+      operationId: getSchemaChanges
+      summary: Get Schema Change Status
+      description: Retrieves the status of in-progress schema change operations.
+      tags:
+      - Operations
+      responses:
+        '200':
+          description: Schema change status
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SchemaChangeStatus'
+        '401':
+          description: Unauthorized
+components:
+  schemas:
+    SchemaChangeStatus:
+      type: object
+      properties:
+        collection:
+          type: string
+          description: Name of the collection being modified.
+        validated_docs:
+          type: integer
+          description: Number of documents validated so far.
+        altered_docs:
+          type: integer
+          description: Number of documents altered so far.
+    SuccessStatus:
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Whether the operation was successful.
+  securitySchemes:
+    api_key_header:
+      type: apiKey
+      in: header
+      name: X-TYPESENSE-API-KEY
+      description: API key for authenticating requests to the Typesense server.
+externalDocs:
+  description: Typesense Analytics Documentation
+  url: https://typesense.org/docs/30.1/api/analytics-query-suggestions.html

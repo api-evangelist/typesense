@@ -1,0 +1,109 @@
+openapi: 3.1.0
+info:
+  title: Typesense Analytics Analytics Events Server Configuration Parameters API
+  description: The Typesense Analytics API allows developers to track and analyze search behavior by recording click, conversion, and visit events. It provides endpoints for creating analytics rules, logging events with metadata tags, and retrieving popular queries and queries with no results. This data can be used to improve search relevance through query suggestions, curations, and understanding user search patterns.
+  version: '30.1'
+  contact:
+    name: Typesense Support
+    url: https://typesense.org/support
+  license:
+    name: GPL-3.0
+    url: https://www.gnu.org/licenses/gpl-3.0.html
+  termsOfService: https://typesense.org/terms
+servers:
+- url: '{protocol}://{hostname}:{port}'
+  description: Typesense Server
+  variables:
+    protocol:
+      default: http
+      enum:
+      - http
+      - https
+    hostname:
+      default: localhost
+    port:
+      default: '8108'
+security:
+- api_key_header: []
+tags:
+- name: Server Configuration Parameters
+  description: Manage Typesense Server configuration parameters for cloud clusters.
+paths:
+  /clusters/{clusterId}/typesense-server-configuration-parameters:
+    parameters:
+    - $ref: '#/components/parameters/clusterId'
+    get:
+      operationId: getServerConfigurationParameters
+      summary: Get Server Configuration Parameters
+      description: Retrieves the current Typesense Server configuration parameters for a cloud cluster. Changes to parameters take effect when the server is restarted.
+      tags:
+      - Server Configuration Parameters
+      responses:
+        '200':
+          description: Server configuration parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServerConfigurationParameters'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Cluster not found
+    patch:
+      operationId: updateServerConfigurationParameters
+      summary: Update Server Configuration Parameters
+      description: Updates Typesense Server configuration parameters for a cloud cluster. The server must be restarted for changes to take effect. Use the configuration changes endpoint to schedule a restart.
+      tags:
+      - Server Configuration Parameters
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ServerConfigurationParameters'
+      responses:
+        '200':
+          description: Parameters updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServerConfigurationParameters'
+        '400':
+          description: Bad request - invalid parameter values
+        '401':
+          description: Unauthorized
+        '404':
+          description: Cluster not found
+components:
+  parameters:
+    clusterId:
+      name: clusterId
+      in: path
+      required: true
+      description: Unique identifier of the cluster.
+      schema:
+        type: string
+  schemas:
+    ServerConfigurationParameters:
+      type: object
+      description: Typesense Server runtime configuration parameters. Changes take effect after a server restart.
+      additionalProperties: true
+      properties:
+        cache-num-entries:
+          type: integer
+          description: Number of entries in the LRU cache.
+        thread-pool-size:
+          type: integer
+          description: Size of the thread pool for handling requests.
+        log-slow-requests-time-ms:
+          type: integer
+          description: Threshold in milliseconds for logging slow requests.
+  securitySchemes:
+    api_key_header:
+      type: apiKey
+      in: header
+      name: X-TYPESENSE-API-KEY
+      description: API key for authenticating requests to the Typesense server.
+externalDocs:
+  description: Typesense Analytics Documentation
+  url: https://typesense.org/docs/30.1/api/analytics-query-suggestions.html

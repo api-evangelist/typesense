@@ -1,0 +1,124 @@
+openapi: 3.1.0
+info:
+  title: Typesense Analytics Analytics Events Stemming API
+  description: The Typesense Analytics API allows developers to track and analyze search behavior by recording click, conversion, and visit events. It provides endpoints for creating analytics rules, logging events with metadata tags, and retrieving popular queries and queries with no results. This data can be used to improve search relevance through query suggestions, curations, and understanding user search patterns.
+  version: '30.1'
+  contact:
+    name: Typesense Support
+    url: https://typesense.org/support
+  license:
+    name: GPL-3.0
+    url: https://www.gnu.org/licenses/gpl-3.0.html
+  termsOfService: https://typesense.org/terms
+servers:
+- url: '{protocol}://{hostname}:{port}'
+  description: Typesense Server
+  variables:
+    protocol:
+      default: http
+      enum:
+      - http
+      - https
+    hostname:
+      default: localhost
+    port:
+      default: '8108'
+security:
+- api_key_header: []
+tags:
+- name: Stemming
+  description: Manage stemming dictionaries for custom word stemming rules.
+paths:
+  /stemming/dictionaries:
+    get:
+      operationId: listStemmingDictionaries
+      summary: List Stemming Dictionaries
+      description: Retrieves all custom stemming dictionaries.
+      tags:
+      - Stemming
+      responses:
+        '200':
+          description: List of stemming dictionaries
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/StemmingDictionary'
+        '401':
+          description: Unauthorized
+  /stemming/dictionaries/{dictionaryId}:
+    parameters:
+    - $ref: '#/components/parameters/dictionaryId'
+    get:
+      operationId: getStemmingDictionary
+      summary: Retrieve A Stemming Dictionary
+      description: Retrieves a specific stemming dictionary by ID.
+      tags:
+      - Stemming
+      responses:
+        '200':
+          description: Stemming dictionary retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StemmingDictionary'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Stemming dictionary not found
+  /stemming/dictionaries/import:
+    post:
+      operationId: importStemmingDictionary
+      summary: Import A Stemming Dictionary
+      description: Imports a custom stemming dictionary with word-to-stem mappings.
+      tags:
+      - Stemming
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              description: Stemming dictionary data with word-to-stem mappings.
+      responses:
+        '200':
+          description: Stemming dictionary imported
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StemmingDictionary'
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+components:
+  parameters:
+    dictionaryId:
+      name: dictionaryId
+      in: path
+      required: true
+      description: ID of the stemming dictionary.
+      schema:
+        type: string
+  schemas:
+    StemmingDictionary:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Stemming dictionary ID.
+        words:
+          type: object
+          description: Map of words to their stems.
+          additionalProperties:
+            type: string
+  securitySchemes:
+    api_key_header:
+      type: apiKey
+      in: header
+      name: X-TYPESENSE-API-KEY
+      description: API key for authenticating requests to the Typesense server.
+externalDocs:
+  description: Typesense Analytics Documentation
+  url: https://typesense.org/docs/30.1/api/analytics-query-suggestions.html

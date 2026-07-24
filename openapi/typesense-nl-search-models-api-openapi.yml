@@ -1,0 +1,195 @@
+openapi: 3.1.0
+info:
+  title: Typesense Analytics Analytics Events NL Search Models API
+  description: The Typesense Analytics API allows developers to track and analyze search behavior by recording click, conversion, and visit events. It provides endpoints for creating analytics rules, logging events with metadata tags, and retrieving popular queries and queries with no results. This data can be used to improve search relevance through query suggestions, curations, and understanding user search patterns.
+  version: '30.1'
+  contact:
+    name: Typesense Support
+    url: https://typesense.org/support
+  license:
+    name: GPL-3.0
+    url: https://www.gnu.org/licenses/gpl-3.0.html
+  termsOfService: https://typesense.org/terms
+servers:
+- url: '{protocol}://{hostname}:{port}'
+  description: Typesense Server
+  variables:
+    protocol:
+      default: http
+      enum:
+      - http
+      - https
+    hostname:
+      default: localhost
+    port:
+      default: '8108'
+security:
+- api_key_header: []
+tags:
+- name: NL Search Models
+  description: Manage natural language search models used for query understanding and semantic matching.
+paths:
+  /nl_search_models:
+    get:
+      operationId: listNLSearchModels
+      summary: List All NL Search Models
+      description: Retrieves all natural language search models configured in the Typesense instance. NL search models are used for query understanding and semantic matching.
+      tags:
+      - NL Search Models
+      responses:
+        '200':
+          description: List of NL search models
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/NLSearchModel'
+        '401':
+          description: Unauthorized
+    post:
+      operationId: createNLSearchModel
+      summary: Create An NL Search Model
+      description: Creates a new natural language search model configuration for semantic query understanding.
+      tags:
+      - NL Search Models
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NLSearchModelCreateSchema'
+      responses:
+        '201':
+          description: NL search model created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NLSearchModel'
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+  /nl_search_models/{modelId}:
+    parameters:
+    - $ref: '#/components/parameters/modelId'
+    get:
+      operationId: getNLSearchModel
+      summary: Retrieve An NL Search Model
+      description: Retrieves a specific NL search model by ID.
+      tags:
+      - NL Search Models
+      responses:
+        '200':
+          description: NL search model retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NLSearchModel'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Model not found
+    put:
+      operationId: updateNLSearchModel
+      summary: Update An NL Search Model
+      description: Updates an existing NL search model configuration.
+      tags:
+      - NL Search Models
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NLSearchModelUpdateSchema'
+      responses:
+        '200':
+          description: NL search model updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NLSearchModel'
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Model not found
+    delete:
+      operationId: deleteNLSearchModel
+      summary: Delete An NL Search Model
+      description: Deletes an NL search model by ID.
+      tags:
+      - NL Search Models
+      responses:
+        '200':
+          description: NL search model deleted
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    description: ID of the deleted model.
+        '401':
+          description: Unauthorized
+        '404':
+          description: Model not found
+components:
+  schemas:
+    NLSearchModel:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the NL search model.
+        model_name:
+          type: string
+          description: Name of the model.
+        model_config:
+          type: object
+          description: Model configuration parameters.
+    NLSearchModelUpdateSchema:
+      type: object
+      properties:
+        model_name:
+          type: string
+          description: Updated model name.
+        api_key:
+          type: string
+          description: Updated API key.
+        model_config:
+          type: object
+          description: Updated model configuration.
+    NLSearchModelCreateSchema:
+      type: object
+      required:
+      - model_name
+      properties:
+        model_name:
+          type: string
+          description: Name of the natural language search model.
+        api_key:
+          type: string
+          description: API key for accessing the model provider.
+        model_config:
+          type: object
+          description: Additional model configuration parameters.
+  parameters:
+    modelId:
+      name: modelId
+      in: path
+      required: true
+      description: ID of the NL search model.
+      schema:
+        type: string
+  securitySchemes:
+    api_key_header:
+      type: apiKey
+      in: header
+      name: X-TYPESENSE-API-KEY
+      description: API key for authenticating requests to the Typesense server.
+externalDocs:
+  description: Typesense Analytics Documentation
+  url: https://typesense.org/docs/30.1/api/analytics-query-suggestions.html

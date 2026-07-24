@@ -1,0 +1,162 @@
+openapi: 3.1.0
+info:
+  title: Typesense Analytics Analytics Events Stopwords API
+  description: The Typesense Analytics API allows developers to track and analyze search behavior by recording click, conversion, and visit events. It provides endpoints for creating analytics rules, logging events with metadata tags, and retrieving popular queries and queries with no results. This data can be used to improve search relevance through query suggestions, curations, and understanding user search patterns.
+  version: '30.1'
+  contact:
+    name: Typesense Support
+    url: https://typesense.org/support
+  license:
+    name: GPL-3.0
+    url: https://www.gnu.org/licenses/gpl-3.0.html
+  termsOfService: https://typesense.org/terms
+servers:
+- url: '{protocol}://{hostname}:{port}'
+  description: Typesense Server
+  variables:
+    protocol:
+      default: http
+      enum:
+      - http
+      - https
+    hostname:
+      default: localhost
+    port:
+      default: '8108'
+security:
+- api_key_header: []
+tags:
+- name: Stopwords
+  description: Manage stopword sets that define keywords to be removed from search queries.
+paths:
+  /stopwords:
+    get:
+      operationId: listStopwordsSets
+      summary: List All Stopwords Sets
+      description: Retrieves all stopwords sets. Stopwords are keywords removed from search queries during search (not during indexing).
+      tags:
+      - Stopwords
+      responses:
+        '200':
+          description: List of stopwords sets
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  stopwords:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/StopwordsSet'
+        '401':
+          description: Unauthorized
+  /stopwords/{setId}:
+    parameters:
+    - $ref: '#/components/parameters/stopwordsSetId'
+    get:
+      operationId: getStopwordsSet
+      summary: Retrieve A Stopwords Set
+      description: Retrieves a specific stopwords set by ID.
+      tags:
+      - Stopwords
+      responses:
+        '200':
+          description: Stopwords set retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StopwordsSet'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Stopwords set not found
+    put:
+      operationId: upsertStopwordsSet
+      summary: Create Or Update A Stopwords Set
+      description: Creates a new stopwords set or updates an existing one.
+      tags:
+      - Stopwords
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StopwordsSetUpsertSchema'
+      responses:
+        '200':
+          description: Stopwords set upserted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StopwordsSet'
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+    delete:
+      operationId: deleteStopwordsSet
+      summary: Delete A Stopwords Set
+      description: Deletes a stopwords set by ID.
+      tags:
+      - Stopwords
+      responses:
+        '200':
+          description: Stopwords set deleted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessStatus'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Stopwords set not found
+components:
+  schemas:
+    StopwordsSet:
+      type: object
+      properties:
+        id:
+          type: string
+          description: ID of the stopwords set.
+        stopwords:
+          type: array
+          items:
+            type: string
+        locale:
+          type: string
+    SuccessStatus:
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Whether the operation was successful.
+    StopwordsSetUpsertSchema:
+      type: object
+      required:
+      - stopwords
+      properties:
+        stopwords:
+          type: array
+          description: List of stopword strings.
+          items:
+            type: string
+        locale:
+          type: string
+          description: Locale for the stopwords set.
+  parameters:
+    stopwordsSetId:
+      name: setId
+      in: path
+      required: true
+      description: ID of the stopwords set.
+      schema:
+        type: string
+  securitySchemes:
+    api_key_header:
+      type: apiKey
+      in: header
+      name: X-TYPESENSE-API-KEY
+      description: API key for authenticating requests to the Typesense server.
+externalDocs:
+  description: Typesense Analytics Documentation
+  url: https://typesense.org/docs/30.1/api/analytics-query-suggestions.html

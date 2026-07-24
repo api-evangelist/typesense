@@ -1,0 +1,335 @@
+openapi: 3.1.0
+info:
+  title: Typesense Analytics Analytics Events Documents API
+  description: The Typesense Analytics API allows developers to track and analyze search behavior by recording click, conversion, and visit events. It provides endpoints for creating analytics rules, logging events with metadata tags, and retrieving popular queries and queries with no results. This data can be used to improve search relevance through query suggestions, curations, and understanding user search patterns.
+  version: '30.1'
+  contact:
+    name: Typesense Support
+    url: https://typesense.org/support
+  license:
+    name: GPL-3.0
+    url: https://www.gnu.org/licenses/gpl-3.0.html
+  termsOfService: https://typesense.org/terms
+servers:
+- url: '{protocol}://{hostname}:{port}'
+  description: Typesense Server
+  variables:
+    protocol:
+      default: http
+      enum:
+      - http
+      - https
+    hostname:
+      default: localhost
+    port:
+      default: '8108'
+security:
+- api_key_header: []
+tags:
+- name: Documents
+  description: Index, retrieve, update, delete, import, and export documents within a collection.
+paths:
+  /collections/{collectionName}/documents:
+    parameters:
+    - $ref: '#/components/parameters/collectionName'
+    post:
+      operationId: indexDocument
+      summary: Index A Document
+      description: Indexes a single document into the specified collection. If the document contains an id field of type string, Typesense will use that as the identifier. Otherwise, an auto-generated identifier is assigned.
+      tags:
+      - Documents
+      parameters:
+      - name: action
+        in: query
+        description: Additional action to perform. Use create, upsert, update, or emplace.
+        schema:
+          $ref: '#/components/schemas/IndexAction'
+      - name: dirty_values
+        in: query
+        description: How to handle field values that do not match the schema type.
+        schema:
+          $ref: '#/components/schemas/DirtyValues'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              description: A JSON document matching the collection schema.
+      responses:
+        '201':
+          description: Document indexed successfully
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request - document does not match schema
+        '401':
+          description: Unauthorized
+        '404':
+          description: Collection not found
+    patch:
+      operationId: updateDocuments
+      summary: Update Documents With Conditional Query
+      description: Updates multiple documents that match a given filter condition. Only the fields specified in the request body are updated.
+      tags:
+      - Documents
+      parameters:
+      - name: filter_by
+        in: query
+        required: true
+        description: A filter expression to identify documents to update.
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              description: Partial document with fields to update.
+      responses:
+        '200':
+          description: Documents updated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  num_updated:
+                    type: integer
+                    description: Number of documents updated.
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Collection not found
+    delete:
+      operationId: deleteDocuments
+      summary: Delete Documents By Query
+      description: Deletes documents that match a given filter condition from the collection.
+      tags:
+      - Documents
+      parameters:
+      - name: filter_by
+        in: query
+        required: true
+        description: A filter expression to identify documents to delete.
+        schema:
+          type: string
+      - name: batch_size
+        in: query
+        description: Number of documents to delete per batch.
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Documents deleted successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  num_deleted:
+                    type: integer
+                    description: Number of documents deleted.
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Collection not found
+  /collections/{collectionName}/documents/export:
+    parameters:
+    - $ref: '#/components/parameters/collectionName'
+    get:
+      operationId: exportDocuments
+      summary: Export Documents From A Collection
+      description: Exports all documents from a collection as a stream of JSONL-formatted lines. Supports filtering to export a subset of documents.
+      tags:
+      - Documents
+      parameters:
+      - name: filter_by
+        in: query
+        description: Filter condition to export a subset of documents.
+        schema:
+          type: string
+      - name: include_fields
+        in: query
+        description: Comma-separated list of fields to include.
+        schema:
+          type: string
+      - name: exclude_fields
+        in: query
+        description: Comma-separated list of fields to exclude.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Documents exported as JSONL stream
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+        '401':
+          description: Unauthorized
+        '404':
+          description: Collection not found
+  /collections/{collectionName}/documents/import:
+    parameters:
+    - $ref: '#/components/parameters/collectionName'
+    post:
+      operationId: importDocuments
+      summary: Import Documents Into A Collection
+      description: Imports multiple documents into a collection via a JSONL-formatted request body. Supports create, upsert, update, and emplace actions.
+      tags:
+      - Documents
+      parameters:
+      - name: action
+        in: query
+        description: The import action to perform. Use create, upsert, update, or emplace.
+        schema:
+          $ref: '#/components/schemas/IndexAction'
+      - name: batch_size
+        in: query
+        description: Number of documents to process per batch.
+        schema:
+          type: integer
+      - name: dirty_values
+        in: query
+        description: How to handle values that do not match the schema type.
+        schema:
+          $ref: '#/components/schemas/DirtyValues'
+      - name: return_id
+        in: query
+        description: Whether to return the document ID in the response.
+        schema:
+          type: boolean
+      requestBody:
+        required: true
+        content:
+          text/plain:
+            schema:
+              type: string
+              description: JSONL-formatted documents, one JSON object per line.
+      responses:
+        '200':
+          description: Import results as JSONL stream
+          content:
+            text/plain:
+              schema:
+                type: string
+        '400':
+          description: Bad request - malformed import data
+        '401':
+          description: Unauthorized
+        '404':
+          description: Collection not found
+  /collections/{collectionName}/documents/{documentId}:
+    parameters:
+    - $ref: '#/components/parameters/collectionName'
+    - $ref: '#/components/parameters/documentId'
+    get:
+      operationId: getDocument
+      summary: Retrieve A Document
+      description: Retrieves a single document from a collection by its ID.
+      tags:
+      - Documents
+      responses:
+        '200':
+          description: Document retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+        '401':
+          description: Unauthorized
+        '404':
+          description: Document or collection not found
+    patch:
+      operationId: updateDocument
+      summary: Update A Document
+      description: Partially updates a document in the collection. Only the fields specified in the request body are updated.
+      tags:
+      - Documents
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              description: Partial document with fields to update.
+      responses:
+        '200':
+          description: Document updated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Document or collection not found
+    delete:
+      operationId: deleteDocument
+      summary: Delete A Document
+      description: Deletes a single document from a collection by its ID.
+      tags:
+      - Documents
+      responses:
+        '200':
+          description: Document deleted successfully
+          content:
+            application/json:
+              schema:
+                type: object
+        '401':
+          description: Unauthorized
+        '404':
+          description: Document or collection not found
+components:
+  schemas:
+    DirtyValues:
+      type: string
+      description: Strategy for handling field values that do not match the schema type.
+      enum:
+      - coerce_or_reject
+      - coerce_or_drop
+      - drop
+      - reject
+    IndexAction:
+      type: string
+      description: Action to perform during document indexing.
+      enum:
+      - create
+      - upsert
+      - update
+      - emplace
+  parameters:
+    documentId:
+      name: documentId
+      in: path
+      required: true
+      description: ID of the document.
+      schema:
+        type: string
+    collectionName:
+      name: collectionName
+      in: path
+      required: true
+      description: Name of the collection.
+      schema:
+        type: string
+  securitySchemes:
+    api_key_header:
+      type: apiKey
+      in: header
+      name: X-TYPESENSE-API-KEY
+      description: API key for authenticating requests to the Typesense server.
+externalDocs:
+  description: Typesense Analytics Documentation
+  url: https://typesense.org/docs/30.1/api/analytics-query-suggestions.html

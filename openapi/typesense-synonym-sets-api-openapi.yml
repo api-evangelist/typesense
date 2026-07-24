@@ -1,0 +1,266 @@
+openapi: 3.1.0
+info:
+  title: Typesense Analytics Analytics Events Synonym Sets API
+  description: The Typesense Analytics API allows developers to track and analyze search behavior by recording click, conversion, and visit events. It provides endpoints for creating analytics rules, logging events with metadata tags, and retrieving popular queries and queries with no results. This data can be used to improve search relevance through query suggestions, curations, and understanding user search patterns.
+  version: '30.1'
+  contact:
+    name: Typesense Support
+    url: https://typesense.org/support
+  license:
+    name: GPL-3.0
+    url: https://www.gnu.org/licenses/gpl-3.0.html
+  termsOfService: https://typesense.org/terms
+servers:
+- url: '{protocol}://{hostname}:{port}'
+  description: Typesense Server
+  variables:
+    protocol:
+      default: http
+      enum:
+      - http
+      - https
+    hostname:
+      default: localhost
+    port:
+      default: '8108'
+security:
+- api_key_header: []
+tags:
+- name: Synonym Sets
+  description: Manage top-level synonym sets that can be shared across multiple collections.
+paths:
+  /synonym_sets:
+    get:
+      operationId: listSynonymSets
+      summary: List All Synonym Sets
+      description: Retrieves all synonym sets defined in the Typesense instance. Synonym sets are top-level resources that can be shared across collections.
+      tags:
+      - Synonym Sets
+      responses:
+        '200':
+          description: List of synonym sets
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  synonym_sets:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/SynonymSet'
+        '401':
+          description: Unauthorized
+  /synonym_sets/{synonymSetName}:
+    parameters:
+    - $ref: '#/components/parameters/synonymSetName'
+    get:
+      operationId: getSynonymSet
+      summary: Retrieve A Synonym Set
+      description: Retrieves a specific synonym set by name.
+      tags:
+      - Synonym Sets
+      responses:
+        '200':
+          description: Synonym set retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SynonymSet'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Synonym set not found
+    put:
+      operationId: upsertSynonymSet
+      summary: Create Or Update A Synonym Set
+      description: Creates a new synonym set or updates an existing one by name.
+      tags:
+      - Synonym Sets
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SynonymSetSchema'
+      responses:
+        '200':
+          description: Synonym set upserted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SynonymSet'
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+    delete:
+      operationId: deleteSynonymSet
+      summary: Delete A Synonym Set
+      description: Deletes a synonym set by name.
+      tags:
+      - Synonym Sets
+      responses:
+        '200':
+          description: Synonym set deleted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessStatus'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Synonym set not found
+  /synonym_sets/{synonymSetName}/items:
+    parameters:
+    - $ref: '#/components/parameters/synonymSetName'
+    get:
+      operationId: listSynonymSetItems
+      summary: List Items In A Synonym Set
+      description: Retrieves all synonym items within a specific synonym set.
+      tags:
+      - Synonym Sets
+      responses:
+        '200':
+          description: List of synonym items
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  synonyms:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/SynonymItem'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Synonym set not found
+  /synonym_sets/{synonymSetName}/items/{itemId}:
+    parameters:
+    - $ref: '#/components/parameters/synonymSetName'
+    - $ref: '#/components/parameters/itemId'
+    get:
+      operationId: getSynonymSetItem
+      summary: Retrieve A Synonym Set Item
+      description: Retrieves a specific synonym item by ID from a synonym set.
+      tags:
+      - Synonym Sets
+      responses:
+        '200':
+          description: Synonym item retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SynonymItem'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Synonym item or set not found
+    put:
+      operationId: upsertSynonymSetItem
+      summary: Create Or Update A Synonym Set Item
+      description: Creates or updates a synonym item within a synonym set.
+      tags:
+      - Synonym Sets
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SynonymItemSchema'
+      responses:
+        '200':
+          description: Synonym item upserted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SynonymItem'
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+    delete:
+      operationId: deleteSynonymSetItem
+      summary: Delete A Synonym Set Item
+      description: Deletes a specific synonym item from a synonym set.
+      tags:
+      - Synonym Sets
+      responses:
+        '200':
+          description: Synonym item deleted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessStatus'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Synonym item or set not found
+components:
+  parameters:
+    itemId:
+      name: itemId
+      in: path
+      required: true
+      description: ID of the item within a set.
+      schema:
+        type: string
+    synonymSetName:
+      name: synonymSetName
+      in: path
+      required: true
+      description: Name of the synonym set.
+      schema:
+        type: string
+  schemas:
+    SynonymSetSchema:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Name of the synonym set.
+    SynonymItemSchema:
+      type: object
+      properties:
+        synonyms:
+          type: array
+          description: List of synonym terms that are interchangeable.
+          items:
+            type: string
+        root:
+          type: string
+          description: Root term for one-way synonyms. When set, the synonyms list maps to this root term.
+    SynonymSet:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Name of the synonym set.
+    SuccessStatus:
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Whether the operation was successful.
+    SynonymItem:
+      type: object
+      properties:
+        id:
+          type: string
+          description: ID of the synonym item.
+        synonyms:
+          type: array
+          items:
+            type: string
+        root:
+          type: string
+          description: Root term for one-way synonyms.
+  securitySchemes:
+    api_key_header:
+      type: apiKey
+      in: header
+      name: X-TYPESENSE-API-KEY
+      description: API key for authenticating requests to the Typesense server.
+externalDocs:
+  description: Typesense Analytics Documentation
+  url: https://typesense.org/docs/30.1/api/analytics-query-suggestions.html
