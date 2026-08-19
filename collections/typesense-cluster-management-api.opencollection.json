@@ -1,0 +1,132 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Typesense Analytics Analytics Events Cluster Management API",
+    "version": "30.1"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-TYPESENSE-API-KEY",
+      "value": "{{X-TYPESENSE-API-KEY}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Cluster Management",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List All Clusters",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{protocol}://{hostname}:{port}/clusters"
+          },
+          "docs": "Retrieves all clusters under your Typesense Cloud account."
+        },
+        {
+          "info": {
+            "name": "Create A New Cluster",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{protocol}://{hostname}:{port}/clusters",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Provisions a new Typesense Cloud cluster. Cluster creation is asynchronous and typically takes 4-5 minutes. Poll the single cluster endpoint to check when the status changes from provisioning to in_service."
+        },
+        {
+          "info": {
+            "name": "Retrieve A Cluster",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{protocol}://{hostname}:{port}/clusters/:clusterId",
+            "params": [
+              {
+                "name": "clusterId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the cluster."
+              }
+            ]
+          },
+          "docs": "Retrieves detailed information about a specific cluster including its current status, configuration, hostnames, and region details."
+        },
+        {
+          "info": {
+            "name": "Update A Cluster",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{protocol}://{hostname}:{port}/clusters/:clusterId",
+            "params": [
+              {
+                "name": "clusterId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the cluster."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates cluster settings such as the cluster name and auto-upgrade configuration."
+        },
+        {
+          "info": {
+            "name": "Terminate A Cluster",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{protocol}://{hostname}:{port}/clusters/:clusterId",
+            "params": [
+              {
+                "name": "clusterId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the cluster."
+              }
+            ]
+          },
+          "docs": "Terminates a running cluster permanently. This action cannot be undone. Once terminated, all data in the cluster is destroyed permanently as a security and privacy measure."
+        },
+        {
+          "info": {
+            "name": "Generate Typesense Server API Keys",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{protocol}://{hostname}:{port}/clusters/:clusterId/generate-api-key",
+            "params": [
+              {
+                "name": "clusterId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the cluster."
+              }
+            ]
+          },
+          "docs": "Generates Typesense Server API keys for the cluster. This endpoint is only available once the cluster status changes to in_service. Returns the admin and search-only API keys needed to interact with the Typesense Server running on the cluster."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,280 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Typesense Analytics Analytics Events Documents API",
+    "version": "30.1"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-TYPESENSE-API-KEY",
+      "value": "{{X-TYPESENSE-API-KEY}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Documents",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Index A Document",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{protocol}://{hostname}:{port}/collections/:collectionName/documents",
+            "params": [
+              {
+                "name": "collectionName",
+                "value": "",
+                "type": "path",
+                "description": "Name of the collection."
+              },
+              {
+                "name": "action",
+                "value": "",
+                "type": "query",
+                "description": "Additional action to perform. Use create, upsert, update, or emplace."
+              },
+              {
+                "name": "dirty_values",
+                "value": "",
+                "type": "query",
+                "description": "How to handle field values that do not match the schema type."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Indexes a single document into the specified collection. If the document contains an id field of type string, Typesense will use that as the identifier. Otherwise, an auto-generated identifier is assigned."
+        },
+        {
+          "info": {
+            "name": "Update Documents With Conditional Query",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{protocol}://{hostname}:{port}/collections/:collectionName/documents",
+            "params": [
+              {
+                "name": "collectionName",
+                "value": "",
+                "type": "path",
+                "description": "Name of the collection."
+              },
+              {
+                "name": "filter_by",
+                "value": "",
+                "type": "query",
+                "description": "A filter expression to identify documents to update."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates multiple documents that match a given filter condition. Only the fields specified in the request body are updated."
+        },
+        {
+          "info": {
+            "name": "Delete Documents By Query",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{protocol}://{hostname}:{port}/collections/:collectionName/documents",
+            "params": [
+              {
+                "name": "collectionName",
+                "value": "",
+                "type": "path",
+                "description": "Name of the collection."
+              },
+              {
+                "name": "filter_by",
+                "value": "",
+                "type": "query",
+                "description": "A filter expression to identify documents to delete."
+              },
+              {
+                "name": "batch_size",
+                "value": "",
+                "type": "query",
+                "description": "Number of documents to delete per batch."
+              }
+            ]
+          },
+          "docs": "Deletes documents that match a given filter condition from the collection."
+        },
+        {
+          "info": {
+            "name": "Export Documents From A Collection",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{protocol}://{hostname}:{port}/collections/:collectionName/documents/export",
+            "params": [
+              {
+                "name": "collectionName",
+                "value": "",
+                "type": "path",
+                "description": "Name of the collection."
+              },
+              {
+                "name": "filter_by",
+                "value": "",
+                "type": "query",
+                "description": "Filter condition to export a subset of documents."
+              },
+              {
+                "name": "include_fields",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to include."
+              },
+              {
+                "name": "exclude_fields",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to exclude."
+              }
+            ]
+          },
+          "docs": "Exports all documents from a collection as a stream of JSONL-formatted lines. Supports filtering to export a subset of documents."
+        },
+        {
+          "info": {
+            "name": "Import Documents Into A Collection",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{protocol}://{hostname}:{port}/collections/:collectionName/documents/import",
+            "params": [
+              {
+                "name": "collectionName",
+                "value": "",
+                "type": "path",
+                "description": "Name of the collection."
+              },
+              {
+                "name": "action",
+                "value": "",
+                "type": "query",
+                "description": "The import action to perform. Use create, upsert, update, or emplace."
+              },
+              {
+                "name": "batch_size",
+                "value": "",
+                "type": "query",
+                "description": "Number of documents to process per batch."
+              },
+              {
+                "name": "dirty_values",
+                "value": "",
+                "type": "query",
+                "description": "How to handle values that do not match the schema type."
+              },
+              {
+                "name": "return_id",
+                "value": "",
+                "type": "query",
+                "description": "Whether to return the document ID in the response."
+              }
+            ]
+          },
+          "docs": "Imports multiple documents into a collection via a JSONL-formatted request body. Supports create, upsert, update, and emplace actions."
+        },
+        {
+          "info": {
+            "name": "Retrieve A Document",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{protocol}://{hostname}:{port}/collections/:collectionName/documents/:documentId",
+            "params": [
+              {
+                "name": "collectionName",
+                "value": "",
+                "type": "path",
+                "description": "Name of the collection."
+              },
+              {
+                "name": "documentId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the document."
+              }
+            ]
+          },
+          "docs": "Retrieves a single document from a collection by its ID."
+        },
+        {
+          "info": {
+            "name": "Update A Document",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{protocol}://{hostname}:{port}/collections/:collectionName/documents/:documentId",
+            "params": [
+              {
+                "name": "collectionName",
+                "value": "",
+                "type": "path",
+                "description": "Name of the collection."
+              },
+              {
+                "name": "documentId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the document."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Partially updates a document in the collection. Only the fields specified in the request body are updated."
+        },
+        {
+          "info": {
+            "name": "Delete A Document",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{protocol}://{hostname}:{port}/collections/:collectionName/documents/:documentId",
+            "params": [
+              {
+                "name": "collectionName",
+                "value": "",
+                "type": "path",
+                "description": "Name of the collection."
+              },
+              {
+                "name": "documentId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the document."
+              }
+            ]
+          },
+          "docs": "Deletes a single document from a collection by its ID."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

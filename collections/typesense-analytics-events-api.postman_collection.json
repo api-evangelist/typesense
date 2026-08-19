@@ -1,28 +1,323 @@
 {
   "item": [
     {
-      "id": "3c9ea902-b44a-4e10-8b82-1bc3596306db",
-      "name": "Conversational Search",
+      "id": "784ed9b6-06a0-4bc2-88e8-6d306746e9c6",
+      "name": "Analytics Events",
       "description": {
-        "content": "Perform conversational search queries that return both traditional search results and AI-generated natural language answers.",
+        "content": "Log and retrieve user interaction events such as clicks, conversions, and visits for tracking search behavior and personalization.",
         "type": "text/plain"
       },
       "item": [
         {
-          "id": "96264aa6-3501-487a-b416-ed34bfb277f8",
-          "name": "Perform A Conversational Search",
+          "id": "d14a74ab-9d72-4574-bf81-928a75ca8583",
+          "name": "Log An Analytics Event",
           "request": {
-            "name": "Perform A Conversational Search",
+            "name": "Log An Analytics Event",
             "description": {
-              "content": "Performs a search query with conversational RAG enabled. Typesense retrieves relevant documents and passes them as context to the configured LLM, which generates a natural language answer. Supports multi-turn conversations by passing a conversation_id to maintain context across queries.",
+              "content": "Logs a user interaction event such as a click, conversion, or visit. Events are associated with search queries and documents to track user behavior and improve relevance.",
               "type": "text/plain"
             },
             "url": {
               "path": [
-                "collections",
-                ":collectionName",
-                "documents",
-                "search"
+                "analytics",
+                "events"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": " (This can only be one of http,https)",
+                  "type": "any",
+                  "value": "{{protocol}}",
+                  "key": "protocol"
+                },
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{hostname}}",
+                  "key": "hostname"
+                },
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{port}}",
+                  "key": "port"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"type\": \"<string>\",\n  \"name\": \"<string>\",\n  \"data\": {\n    \"q\": \"<string>\",\n    \"doc_id\": \"<string>\",\n    \"user_id\": \"<string>\",\n    \"position\": \"<integer>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "350632e8-7ef4-4dd9-a01e-2af6621f28da",
+              "name": "Event logged successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "analytics",
+                    "events"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": " (This can only be one of http,https)",
+                      "type": "any",
+                      "value": "{{protocol}}",
+                      "key": "protocol"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{hostname}}",
+                      "key": "hostname"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{port}}",
+                      "key": "port"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-TYPESENSE-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"type\": \"<string>\",\n  \"name\": \"<string>\",\n  \"data\": {\n    \"q\": \"<string>\",\n    \"doc_id\": \"<string>\",\n    \"user_id\": \"<string>\",\n    \"position\": \"<integer>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"ok\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "772dfd7d-dae2-4143-93b1-c288f37f8ca8",
+              "name": "Bad request - invalid event data",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "analytics",
+                    "events"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": " (This can only be one of http,https)",
+                      "type": "any",
+                      "value": "{{protocol}}",
+                      "key": "protocol"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{hostname}}",
+                      "key": "hostname"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{port}}",
+                      "key": "port"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-TYPESENSE-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"type\": \"<string>\",\n  \"name\": \"<string>\",\n  \"data\": {\n    \"q\": \"<string>\",\n    \"doc_id\": \"<string>\",\n    \"user_id\": \"<string>\",\n    \"position\": \"<integer>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "11881865-dfa6-4b75-8686-ae1e79ed788b",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "analytics",
+                    "events"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": " (This can only be one of http,https)",
+                      "type": "any",
+                      "value": "{{protocol}}",
+                      "key": "protocol"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{hostname}}",
+                      "key": "hostname"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{port}}",
+                      "key": "port"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-TYPESENSE-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"type\": \"<string>\",\n  \"name\": \"<string>\",\n  \"data\": {\n    \"q\": \"<string>\",\n    \"doc_id\": \"<string>\",\n    \"user_id\": \"<string>\",\n    \"position\": \"<integer>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "dcef9c1d-9b78-4e97-9ccd-ba037cb73a32",
+          "name": "Retrieve Analytics Events",
+          "request": {
+            "name": "Retrieve Analytics Events",
+            "description": {
+              "content": "Retrieves logged analytics events. Supports filtering by event type and other criteria.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "analytics",
+                "events"
               ],
               "host": [
                 "{{baseUrl}}"
@@ -30,61 +325,12 @@
               "query": [
                 {
                   "disabled": false,
-                  "key": "q",
+                  "key": "type",
                   "value": "<string>",
-                  "description": "(Required) Natural language question or search query."
-                },
-                {
-                  "disabled": false,
-                  "key": "query_by",
-                  "value": "<string>",
-                  "description": "(Required) Comma-separated list of fields to search against."
-                },
-                {
-                  "disabled": false,
-                  "key": "conversation",
-                  "value": "<boolean>",
-                  "description": "(Required) Set to true to enable conversational search with RAG."
-                },
-                {
-                  "disabled": false,
-                  "key": "conversation_model_id",
-                  "value": "<string>",
-                  "description": "(Required) ID of the conversation model to use for generating answers."
-                },
-                {
-                  "disabled": false,
-                  "key": "conversation_id",
-                  "value": "<string>",
-                  "description": "ID of an existing conversation to continue a multi-turn dialog. If not provided, a new conversation is started."
-                },
-                {
-                  "disabled": false,
-                  "key": "filter_by",
-                  "value": "<string>",
-                  "description": "Filter conditions to narrow the search scope."
-                },
-                {
-                  "disabled": false,
-                  "key": "sort_by",
-                  "value": "<string>",
-                  "description": "Sort conditions for the underlying search."
-                },
-                {
-                  "disabled": false,
-                  "key": "per_page",
-                  "value": "<integer>",
-                  "description": "Number of documents to pass as context to the LLM."
+                  "description": "Filter events by type (click, conversion, visit)."
                 }
               ],
               "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "collectionName",
-                  "description": "(Required) Name of the collection to search."
-                },
                 {
                   "description": " (This can only be one of http,https)",
                   "type": "any",
@@ -122,61 +368,24 @@
           },
           "response": [
             {
-              "id": "a90bdfb7-206b-464f-8a64-13b477f973c9",
-              "name": "Conversational search results with generated answer",
+              "id": "0483ce71-6c14-427e-a0ee-1264a7e43526",
+              "name": "List of analytics events",
               "originalRequest": {
                 "url": {
                   "path": [
-                    "collections",
-                    ":collectionName",
-                    "documents",
-                    "search"
+                    "analytics",
+                    "events"
                   ],
                   "host": [
                     "{{baseUrl}}"
                   ],
                   "query": [
                     {
-                      "key": "q",
+                      "key": "type",
                       "value": "<string>"
-                    },
-                    {
-                      "key": "query_by",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "conversation",
-                      "value": "<boolean>"
-                    },
-                    {
-                      "key": "conversation_model_id",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "conversation_id",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "filter_by",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "sort_by",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "per_page",
-                      "value": "<integer>"
                     }
                   ],
                   "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "collectionName",
-                      "description": "(Required) Name of the collection to search."
-                    },
                     {
                       "description": " (This can only be one of http,https)",
                       "type": "any",
@@ -228,173 +437,29 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"found\": 6679,\n  \"search_time_ms\": 2308,\n  \"hits\": [\n    {\n      \"document\": {},\n      \"text_match\": 6665\n    },\n    {\n      \"document\": {},\n      \"text_match\": 867\n    }\n  ],\n  \"conversation\": {\n    \"answer\": \"string\",\n    \"conversation_id\": \"string\",\n    \"conversation_history\": [\n      {\n        \"role\": \"string\",\n        \"content\": \"string\"\n      },\n      {\n        \"role\": \"string\",\n        \"content\": \"string\"\n      }\n    ]\n  }\n}",
+              "body": "{\n  \"events\": [\n    {\n      \"type\": \"string\",\n      \"name\": \"string\",\n      \"data\": {},\n      \"timestamp\": 6795\n    },\n    {\n      \"type\": \"string\",\n      \"name\": \"string\",\n      \"data\": {},\n      \"timestamp\": 2475\n    }\n  ]\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "6f1b12b2-18ad-4009-8e40-cf35259b9f5b",
-              "name": "Bad request - invalid conversation parameters",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "collections",
-                    ":collectionName",
-                    "documents",
-                    "search"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "q",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "query_by",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "conversation",
-                      "value": "<boolean>"
-                    },
-                    {
-                      "key": "conversation_model_id",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "conversation_id",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "filter_by",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "sort_by",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "per_page",
-                      "value": "<integer>"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "collectionName",
-                      "description": "(Required) Name of the collection to search."
-                    },
-                    {
-                      "description": " (This can only be one of http,https)",
-                      "type": "any",
-                      "value": "{{protocol}}",
-                      "key": "protocol"
-                    },
-                    {
-                      "description": {
-                        "content": "",
-                        "type": "text/plain"
-                      },
-                      "type": "any",
-                      "value": "{{hostname}}",
-                      "key": "hostname"
-                    },
-                    {
-                      "description": {
-                        "content": "",
-                        "type": "text/plain"
-                      },
-                      "type": "any",
-                      "value": "{{port}}",
-                      "key": "port"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "X-TYPESENSE-API-KEY",
-                    "value": "<API Key>"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "db92ab19-547f-440a-a42b-24152aba9d86",
+              "id": "244d8dbb-8117-4770-b9e6-5331a67c72bf",
               "name": "Unauthorized",
               "originalRequest": {
                 "url": {
                   "path": [
-                    "collections",
-                    ":collectionName",
-                    "documents",
-                    "search"
+                    "analytics",
+                    "events"
                   ],
                   "host": [
                     "{{baseUrl}}"
                   ],
                   "query": [
                     {
-                      "key": "q",
+                      "key": "type",
                       "value": "<string>"
-                    },
-                    {
-                      "key": "query_by",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "conversation",
-                      "value": "<boolean>"
-                    },
-                    {
-                      "key": "conversation_model_id",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "conversation_id",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "filter_by",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "sort_by",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "per_page",
-                      "value": "<integer>"
                     }
                   ],
                   "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "collectionName",
-                      "description": "(Required) Name of the collection to search."
-                    },
                     {
                       "description": " (This can only be one of http,https)",
                       "type": "any",
@@ -436,113 +501,6 @@
               },
               "status": "Unauthorized",
               "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "a1a8a290-6457-453d-84bb-cd79a73ae659",
-              "name": "Collection or conversation model not found",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "collections",
-                    ":collectionName",
-                    "documents",
-                    "search"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "q",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "query_by",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "conversation",
-                      "value": "<boolean>"
-                    },
-                    {
-                      "key": "conversation_model_id",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "conversation_id",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "filter_by",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "sort_by",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "per_page",
-                      "value": "<integer>"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "collectionName",
-                      "description": "(Required) Name of the collection to search."
-                    },
-                    {
-                      "description": " (This can only be one of http,https)",
-                      "type": "any",
-                      "value": "{{protocol}}",
-                      "key": "protocol"
-                    },
-                    {
-                      "description": {
-                        "content": "",
-                        "type": "text/plain"
-                      },
-                      "type": "any",
-                      "value": "{{hostname}}",
-                      "key": "hostname"
-                    },
-                    {
-                      "description": {
-                        "content": "",
-                        "type": "text/plain"
-                      },
-                      "type": "any",
-                      "value": "{{port}}",
-                      "key": "port"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "X-TYPESENSE-API-KEY",
-                    "value": "<API Key>"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
               "header": [
                 {
                   "key": "Content-Type",
@@ -616,8 +574,8 @@
     ]
   },
   "info": {
-    "_postman_id": "8bc4e437-3a49-496b-b5c8-1b00105b8a12",
-    "name": "Typesense Analytics Analytics Events Conversational Search API",
+    "_postman_id": "378fb3d3-334d-4fd1-9adb-69d3f15c17a3",
+    "name": "Typesense Analytics Analytics Events API",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
     "description": {
       "content": "The Typesense Analytics API allows developers to track and analyze search behavior by recording click, conversion, and visit events. It provides endpoints for creating analytics rules, logging events with metadata tags, and retrieving popular queries and queries with no results. This data can be used to improve search relevance through query suggestions, curations, and understanding user search patterns.\n\nContact Support:\n Name: Typesense Support",

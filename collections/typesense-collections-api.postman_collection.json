@@ -1,0 +1,1614 @@
+{
+  "item": [
+    {
+      "id": "44d436f7-5f8d-4486-977a-9ace2c547e13",
+      "name": "Collections",
+      "description": {
+        "content": "Create, retrieve, update, and delete collections. A collection is a group of related documents with a defined schema.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "1ee03540-93e4-490b-bb13-f4089ce3476e",
+          "name": "List All Collections",
+          "request": {
+            "name": "List All Collections",
+            "description": {
+              "content": "Returns a summary of all collections, including the name, number of documents, and schema for each collection.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "collections"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": " (This can only be one of http,https)",
+                  "type": "any",
+                  "value": "{{protocol}}",
+                  "key": "protocol"
+                },
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{hostname}}",
+                  "key": "hostname"
+                },
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{port}}",
+                  "key": "port"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "93759cdd-18a9-4154-b116-936b33336b7f",
+              "name": "Successfully retrieved list of collections",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "collections"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": " (This can only be one of http,https)",
+                      "type": "any",
+                      "value": "{{protocol}}",
+                      "key": "protocol"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{hostname}}",
+                      "key": "hostname"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{port}}",
+                      "key": "port"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-TYPESENSE-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"name\": \"string\",\n    \"fields\": [\n      {\n        \"name\": \"string\",\n        \"type\": \"string\",\n        \"optional\": true,\n        \"facet\": true,\n        \"index\": true,\n        \"sort\": true,\n        \"infix\": false,\n        \"locale\": \"string\",\n        \"reference\": \"string\",\n        \"num_dim\": 9760,\n        \"store\": true,\n        \"range_index\": false,\n        \"stem\": false,\n        \"stem_dictionary\": \"string\",\n        \"drop\": true,\n        \"vec_dist\": \"ip\",\n        \"embed\": {\n          \"from\": [\n            \"string\",\n            \"string\"\n          ],\n          \"model_config\": {\n            \"model_name\": \"string\",\n            \"api_key\": \"string\",\n            \"url\": \"string\"\n          }\n        }\n      },\n      {\n        \"name\": \"string\",\n        \"type\": \"object[]\",\n        \"optional\": true,\n        \"facet\": false,\n        \"index\": false,\n        \"sort\": true,\n        \"infix\": false,\n        \"locale\": \"string\",\n        \"reference\": \"string\",\n        \"num_dim\": 5957,\n        \"store\": true,\n        \"range_index\": false,\n        \"stem\": true,\n        \"stem_dictionary\": \"string\",\n        \"drop\": false,\n        \"vec_dist\": \"ip\",\n        \"embed\": {\n          \"from\": [\n            \"string\",\n            \"string\"\n          ],\n          \"model_config\": {\n            \"model_name\": \"string\",\n            \"api_key\": \"string\",\n            \"url\": \"string\"\n          }\n        }\n      }\n    ],\n    \"default_sorting_field\": \"string\",\n    \"num_documents\": 9113,\n    \"created_at\": 3626,\n    \"token_separators\": [\n      \"string\",\n      \"string\"\n    ],\n    \"symbols_to_index\": [\n      \"string\",\n      \"string\"\n    ],\n    \"enable_nested_fields\": false\n  },\n  {\n    \"name\": \"string\",\n    \"fields\": [\n      {\n        \"name\": \"string\",\n        \"type\": \"int32\",\n        \"optional\": true,\n        \"facet\": false,\n        \"index\": false,\n        \"sort\": false,\n        \"infix\": false,\n        \"locale\": \"string\",\n        \"reference\": \"string\",\n        \"num_dim\": 7375,\n        \"store\": false,\n        \"range_index\": false,\n        \"stem\": true,\n        \"stem_dictionary\": \"string\",\n        \"drop\": true,\n        \"vec_dist\": \"ip\",\n        \"embed\": {\n          \"from\": [\n            \"string\",\n            \"string\"\n          ],\n          \"model_config\": {\n            \"model_name\": \"string\",\n            \"api_key\": \"string\",\n            \"url\": \"string\"\n          }\n        }\n      },\n      {\n        \"name\": \"string\",\n        \"type\": \"int32\",\n        \"optional\": false,\n        \"facet\": false,\n        \"index\": false,\n        \"sort\": false,\n        \"infix\": true,\n        \"locale\": \"string\",\n        \"reference\": \"string\",\n        \"num_dim\": 7117,\n        \"store\": false,\n        \"range_index\": true,\n        \"stem\": true,\n        \"stem_dictionary\": \"string\",\n        \"drop\": false,\n        \"vec_dist\": \"cosine\",\n        \"embed\": {\n          \"from\": [\n            \"string\",\n            \"string\"\n          ],\n          \"model_config\": {\n            \"model_name\": \"string\",\n            \"api_key\": \"string\",\n            \"url\": \"string\"\n          }\n        }\n      }\n    ],\n    \"default_sorting_field\": \"string\",\n    \"num_documents\": 2236,\n    \"created_at\": 9589,\n    \"token_separators\": [\n      \"string\",\n      \"string\"\n    ],\n    \"symbols_to_index\": [\n      \"string\",\n      \"string\"\n    ],\n    \"enable_nested_fields\": false\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9a039131-0744-49d3-bb72-930726b87d01",
+              "name": "Unauthorized - invalid or missing API key",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "collections"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": " (This can only be one of http,https)",
+                      "type": "any",
+                      "value": "{{protocol}}",
+                      "key": "protocol"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{hostname}}",
+                      "key": "hostname"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{port}}",
+                      "key": "port"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-TYPESENSE-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ef2be50e-6a88-4c91-b518-e76ee4992619",
+          "name": "Create A New Collection",
+          "request": {
+            "name": "Create A New Collection",
+            "description": {
+              "content": "Creates a new collection with the specified schema. A collection defines the fields that will be indexed from documents. Before adding documents to Typesense, you must first create a collection.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "collections"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": " (This can only be one of http,https)",
+                  "type": "any",
+                  "value": "{{protocol}}",
+                  "key": "protocol"
+                },
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{hostname}}",
+                  "key": "hostname"
+                },
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{port}}",
+                  "key": "port"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"fields\": [\n    {\n      \"name\": \"<string>\",\n      \"type\": \"<string>\",\n      \"optional\": \"<boolean>\",\n      \"facet\": \"<boolean>\",\n      \"index\": \"<boolean>\",\n      \"sort\": \"<boolean>\",\n      \"infix\": \"<boolean>\",\n      \"locale\": \"<string>\",\n      \"reference\": \"<string>\",\n      \"num_dim\": \"<integer>\",\n      \"store\": \"<boolean>\",\n      \"range_index\": \"<boolean>\",\n      \"stem\": \"<boolean>\",\n      \"stem_dictionary\": \"<string>\",\n      \"drop\": \"<boolean>\",\n      \"vec_dist\": \"<string>\",\n      \"embed\": {\n        \"from\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"model_config\": {\n          \"model_name\": \"<string>\",\n          \"api_key\": \"<string>\",\n          \"url\": \"<string>\"\n        }\n      }\n    },\n    {\n      \"name\": \"<string>\",\n      \"type\": \"<string>\",\n      \"optional\": \"<boolean>\",\n      \"facet\": \"<boolean>\",\n      \"index\": \"<boolean>\",\n      \"sort\": \"<boolean>\",\n      \"infix\": \"<boolean>\",\n      \"locale\": \"<string>\",\n      \"reference\": \"<string>\",\n      \"num_dim\": \"<integer>\",\n      \"store\": \"<boolean>\",\n      \"range_index\": \"<boolean>\",\n      \"stem\": \"<boolean>\",\n      \"stem_dictionary\": \"<string>\",\n      \"drop\": \"<boolean>\",\n      \"vec_dist\": \"<string>\",\n      \"embed\": {\n        \"from\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"model_config\": {\n          \"model_name\": \"<string>\",\n          \"api_key\": \"<string>\",\n          \"url\": \"<string>\"\n        }\n      }\n    }\n  ],\n  \"default_sorting_field\": \"<string>\",\n  \"token_separators\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"symbols_to_index\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"enable_nested_fields\": \"<boolean>\",\n  \"synonym_sets\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"voice_query_model\": {\n    \"model_name\": \"<string>\"\n  },\n  \"metadata\": \"<object>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "b0641f3d-f07d-4a94-9af6-00d81f8d6b67",
+              "name": "Collection created successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "collections"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": " (This can only be one of http,https)",
+                      "type": "any",
+                      "value": "{{protocol}}",
+                      "key": "protocol"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{hostname}}",
+                      "key": "hostname"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{port}}",
+                      "key": "port"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-TYPESENSE-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"fields\": [\n    {\n      \"name\": \"string\",\n      \"type\": \"geopoint\",\n      \"optional\": true,\n      \"facet\": true,\n      \"index\": false,\n      \"sort\": false,\n      \"infix\": true,\n      \"locale\": \"string\",\n      \"reference\": \"string\",\n      \"num_dim\": 6956,\n      \"store\": false,\n      \"range_index\": false,\n      \"stem\": false,\n      \"stem_dictionary\": \"string\",\n      \"drop\": false,\n      \"vec_dist\": \"cosine\",\n      \"embed\": {\n        \"from\": [\n          \"string\",\n          \"string\"\n        ],\n        \"model_config\": {\n          \"model_name\": \"string\",\n          \"api_key\": \"string\",\n          \"url\": \"string\"\n        }\n      }\n    },\n    {\n      \"name\": \"string\",\n      \"type\": \"bool\",\n      \"optional\": true,\n      \"facet\": true,\n      \"index\": false,\n      \"sort\": false,\n      \"infix\": true,\n      \"locale\": \"string\",\n      \"reference\": \"string\",\n      \"num_dim\": 316,\n      \"store\": false,\n      \"range_index\": true,\n      \"stem\": true,\n      \"stem_dictionary\": \"string\",\n      \"drop\": false,\n      \"vec_dist\": \"ip\",\n      \"embed\": {\n        \"from\": [\n          \"string\",\n          \"string\"\n        ],\n        \"model_config\": {\n          \"model_name\": \"string\",\n          \"api_key\": \"string\",\n          \"url\": \"string\"\n        }\n      }\n    }\n  ],\n  \"default_sorting_field\": \"<string>\",\n  \"token_separators\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"symbols_to_index\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"enable_nested_fields\": \"<boolean>\",\n  \"synonym_sets\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"voice_query_model\": {\n    \"model_name\": \"string\"\n  },\n  \"metadata\": \"<object>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"name\": \"string\",\n  \"fields\": [\n    {\n      \"name\": \"string\",\n      \"type\": \"int32\",\n      \"optional\": true,\n      \"facet\": false,\n      \"index\": true,\n      \"sort\": true,\n      \"infix\": false,\n      \"locale\": \"string\",\n      \"reference\": \"string\",\n      \"num_dim\": 7613,\n      \"store\": true,\n      \"range_index\": false,\n      \"stem\": false,\n      \"stem_dictionary\": \"string\",\n      \"drop\": false,\n      \"vec_dist\": \"ip\",\n      \"embed\": {\n        \"from\": [\n          \"string\",\n          \"string\"\n        ],\n        \"model_config\": {\n          \"model_name\": \"string\",\n          \"api_key\": \"string\",\n          \"url\": \"string\"\n        }\n      }\n    },\n    {\n      \"name\": \"string\",\n      \"type\": \"float\",\n      \"optional\": false,\n      \"facet\": false,\n      \"index\": false,\n      \"sort\": false,\n      \"infix\": true,\n      \"locale\": \"string\",\n      \"reference\": \"string\",\n      \"num_dim\": 2462,\n      \"store\": true,\n      \"range_index\": false,\n      \"stem\": false,\n      \"stem_dictionary\": \"string\",\n      \"drop\": false,\n      \"vec_dist\": \"cosine\",\n      \"embed\": {\n        \"from\": [\n          \"string\",\n          \"string\"\n        ],\n        \"model_config\": {\n          \"model_name\": \"string\",\n          \"api_key\": \"string\",\n          \"url\": \"string\"\n        }\n      }\n    }\n  ],\n  \"default_sorting_field\": \"string\",\n  \"num_documents\": 343,\n  \"created_at\": 3033,\n  \"token_separators\": [\n    \"string\",\n    \"string\"\n  ],\n  \"symbols_to_index\": [\n    \"string\",\n    \"string\"\n  ],\n  \"enable_nested_fields\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "85d38769-f979-4cee-8423-d3c07ed04a2d",
+              "name": "Bad request - invalid schema",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "collections"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": " (This can only be one of http,https)",
+                      "type": "any",
+                      "value": "{{protocol}}",
+                      "key": "protocol"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{hostname}}",
+                      "key": "hostname"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{port}}",
+                      "key": "port"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-TYPESENSE-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"fields\": [\n    {\n      \"name\": \"string\",\n      \"type\": \"geopoint\",\n      \"optional\": true,\n      \"facet\": true,\n      \"index\": false,\n      \"sort\": false,\n      \"infix\": true,\n      \"locale\": \"string\",\n      \"reference\": \"string\",\n      \"num_dim\": 6956,\n      \"store\": false,\n      \"range_index\": false,\n      \"stem\": false,\n      \"stem_dictionary\": \"string\",\n      \"drop\": false,\n      \"vec_dist\": \"cosine\",\n      \"embed\": {\n        \"from\": [\n          \"string\",\n          \"string\"\n        ],\n        \"model_config\": {\n          \"model_name\": \"string\",\n          \"api_key\": \"string\",\n          \"url\": \"string\"\n        }\n      }\n    },\n    {\n      \"name\": \"string\",\n      \"type\": \"bool\",\n      \"optional\": true,\n      \"facet\": true,\n      \"index\": false,\n      \"sort\": false,\n      \"infix\": true,\n      \"locale\": \"string\",\n      \"reference\": \"string\",\n      \"num_dim\": 316,\n      \"store\": false,\n      \"range_index\": true,\n      \"stem\": true,\n      \"stem_dictionary\": \"string\",\n      \"drop\": false,\n      \"vec_dist\": \"ip\",\n      \"embed\": {\n        \"from\": [\n          \"string\",\n          \"string\"\n        ],\n        \"model_config\": {\n          \"model_name\": \"string\",\n          \"api_key\": \"string\",\n          \"url\": \"string\"\n        }\n      }\n    }\n  ],\n  \"default_sorting_field\": \"<string>\",\n  \"token_separators\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"symbols_to_index\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"enable_nested_fields\": \"<boolean>\",\n  \"synonym_sets\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"voice_query_model\": {\n    \"model_name\": \"string\"\n  },\n  \"metadata\": \"<object>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "e3e2dbb2-07e1-48d9-8a27-8b8f58d3f6ac",
+              "name": "Unauthorized - invalid or missing API key",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "collections"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": " (This can only be one of http,https)",
+                      "type": "any",
+                      "value": "{{protocol}}",
+                      "key": "protocol"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{hostname}}",
+                      "key": "hostname"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{port}}",
+                      "key": "port"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-TYPESENSE-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"fields\": [\n    {\n      \"name\": \"string\",\n      \"type\": \"geopoint\",\n      \"optional\": true,\n      \"facet\": true,\n      \"index\": false,\n      \"sort\": false,\n      \"infix\": true,\n      \"locale\": \"string\",\n      \"reference\": \"string\",\n      \"num_dim\": 6956,\n      \"store\": false,\n      \"range_index\": false,\n      \"stem\": false,\n      \"stem_dictionary\": \"string\",\n      \"drop\": false,\n      \"vec_dist\": \"cosine\",\n      \"embed\": {\n        \"from\": [\n          \"string\",\n          \"string\"\n        ],\n        \"model_config\": {\n          \"model_name\": \"string\",\n          \"api_key\": \"string\",\n          \"url\": \"string\"\n        }\n      }\n    },\n    {\n      \"name\": \"string\",\n      \"type\": \"bool\",\n      \"optional\": true,\n      \"facet\": true,\n      \"index\": false,\n      \"sort\": false,\n      \"infix\": true,\n      \"locale\": \"string\",\n      \"reference\": \"string\",\n      \"num_dim\": 316,\n      \"store\": false,\n      \"range_index\": true,\n      \"stem\": true,\n      \"stem_dictionary\": \"string\",\n      \"drop\": false,\n      \"vec_dist\": \"ip\",\n      \"embed\": {\n        \"from\": [\n          \"string\",\n          \"string\"\n        ],\n        \"model_config\": {\n          \"model_name\": \"string\",\n          \"api_key\": \"string\",\n          \"url\": \"string\"\n        }\n      }\n    }\n  ],\n  \"default_sorting_field\": \"<string>\",\n  \"token_separators\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"symbols_to_index\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"enable_nested_fields\": \"<boolean>\",\n  \"synonym_sets\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"voice_query_model\": {\n    \"model_name\": \"string\"\n  },\n  \"metadata\": \"<object>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "9edc71f5-2ee5-4ad4-9f36-d39a91bcbcf3",
+              "name": "Conflict - collection already exists",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "collections"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": " (This can only be one of http,https)",
+                      "type": "any",
+                      "value": "{{protocol}}",
+                      "key": "protocol"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{hostname}}",
+                      "key": "hostname"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{port}}",
+                      "key": "port"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-TYPESENSE-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"fields\": [\n    {\n      \"name\": \"string\",\n      \"type\": \"geopoint\",\n      \"optional\": true,\n      \"facet\": true,\n      \"index\": false,\n      \"sort\": false,\n      \"infix\": true,\n      \"locale\": \"string\",\n      \"reference\": \"string\",\n      \"num_dim\": 6956,\n      \"store\": false,\n      \"range_index\": false,\n      \"stem\": false,\n      \"stem_dictionary\": \"string\",\n      \"drop\": false,\n      \"vec_dist\": \"cosine\",\n      \"embed\": {\n        \"from\": [\n          \"string\",\n          \"string\"\n        ],\n        \"model_config\": {\n          \"model_name\": \"string\",\n          \"api_key\": \"string\",\n          \"url\": \"string\"\n        }\n      }\n    },\n    {\n      \"name\": \"string\",\n      \"type\": \"bool\",\n      \"optional\": true,\n      \"facet\": true,\n      \"index\": false,\n      \"sort\": false,\n      \"infix\": true,\n      \"locale\": \"string\",\n      \"reference\": \"string\",\n      \"num_dim\": 316,\n      \"store\": false,\n      \"range_index\": true,\n      \"stem\": true,\n      \"stem_dictionary\": \"string\",\n      \"drop\": false,\n      \"vec_dist\": \"ip\",\n      \"embed\": {\n        \"from\": [\n          \"string\",\n          \"string\"\n        ],\n        \"model_config\": {\n          \"model_name\": \"string\",\n          \"api_key\": \"string\",\n          \"url\": \"string\"\n        }\n      }\n    }\n  ],\n  \"default_sorting_field\": \"<string>\",\n  \"token_separators\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"symbols_to_index\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"enable_nested_fields\": \"<boolean>\",\n  \"synonym_sets\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"voice_query_model\": {\n    \"model_name\": \"string\"\n  },\n  \"metadata\": \"<object>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e147df12-a12a-407e-8df8-b3e01c949787",
+          "name": "Retrieve A Collection",
+          "request": {
+            "name": "Retrieve A Collection",
+            "description": {
+              "content": "Retrieves the schema and metadata of a specific collection by name.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "collections",
+                ":collectionName"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "collectionName",
+                  "description": "(Required) Name of the collection."
+                },
+                {
+                  "description": " (This can only be one of http,https)",
+                  "type": "any",
+                  "value": "{{protocol}}",
+                  "key": "protocol"
+                },
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{hostname}}",
+                  "key": "hostname"
+                },
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{port}}",
+                  "key": "port"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "daef767d-6b78-45ab-82ba-3109f8cb4aeb",
+              "name": "Successfully retrieved collection",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "collections",
+                    ":collectionName"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "collectionName",
+                      "description": "(Required) Name of the collection."
+                    },
+                    {
+                      "description": " (This can only be one of http,https)",
+                      "type": "any",
+                      "value": "{{protocol}}",
+                      "key": "protocol"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{hostname}}",
+                      "key": "hostname"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{port}}",
+                      "key": "port"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-TYPESENSE-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"name\": \"string\",\n  \"fields\": [\n    {\n      \"name\": \"string\",\n      \"type\": \"int32\",\n      \"optional\": true,\n      \"facet\": false,\n      \"index\": true,\n      \"sort\": true,\n      \"infix\": false,\n      \"locale\": \"string\",\n      \"reference\": \"string\",\n      \"num_dim\": 7613,\n      \"store\": true,\n      \"range_index\": false,\n      \"stem\": false,\n      \"stem_dictionary\": \"string\",\n      \"drop\": false,\n      \"vec_dist\": \"ip\",\n      \"embed\": {\n        \"from\": [\n          \"string\",\n          \"string\"\n        ],\n        \"model_config\": {\n          \"model_name\": \"string\",\n          \"api_key\": \"string\",\n          \"url\": \"string\"\n        }\n      }\n    },\n    {\n      \"name\": \"string\",\n      \"type\": \"float\",\n      \"optional\": false,\n      \"facet\": false,\n      \"index\": false,\n      \"sort\": false,\n      \"infix\": true,\n      \"locale\": \"string\",\n      \"reference\": \"string\",\n      \"num_dim\": 2462,\n      \"store\": true,\n      \"range_index\": false,\n      \"stem\": false,\n      \"stem_dictionary\": \"string\",\n      \"drop\": false,\n      \"vec_dist\": \"cosine\",\n      \"embed\": {\n        \"from\": [\n          \"string\",\n          \"string\"\n        ],\n        \"model_config\": {\n          \"model_name\": \"string\",\n          \"api_key\": \"string\",\n          \"url\": \"string\"\n        }\n      }\n    }\n  ],\n  \"default_sorting_field\": \"string\",\n  \"num_documents\": 343,\n  \"created_at\": 3033,\n  \"token_separators\": [\n    \"string\",\n    \"string\"\n  ],\n  \"symbols_to_index\": [\n    \"string\",\n    \"string\"\n  ],\n  \"enable_nested_fields\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "aa8fe52b-1fa9-4fe4-a532-aed27a1b18a0",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "collections",
+                    ":collectionName"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "collectionName",
+                      "description": "(Required) Name of the collection."
+                    },
+                    {
+                      "description": " (This can only be one of http,https)",
+                      "type": "any",
+                      "value": "{{protocol}}",
+                      "key": "protocol"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{hostname}}",
+                      "key": "hostname"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{port}}",
+                      "key": "port"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-TYPESENSE-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "681a20a2-0df8-4568-b77b-c8bd51e6f97d",
+              "name": "Collection not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "collections",
+                    ":collectionName"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "collectionName",
+                      "description": "(Required) Name of the collection."
+                    },
+                    {
+                      "description": " (This can only be one of http,https)",
+                      "type": "any",
+                      "value": "{{protocol}}",
+                      "key": "protocol"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{hostname}}",
+                      "key": "hostname"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{port}}",
+                      "key": "port"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-TYPESENSE-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "58eef6b9-3f79-4e75-b862-2fa38f4c447a",
+          "name": "Update A Collection",
+          "request": {
+            "name": "Update A Collection",
+            "description": {
+              "content": "Updates the schema of an existing collection. You can add new fields, drop existing fields, or modify field attributes.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "collections",
+                ":collectionName"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "collectionName",
+                  "description": "(Required) Name of the collection."
+                },
+                {
+                  "description": " (This can only be one of http,https)",
+                  "type": "any",
+                  "value": "{{protocol}}",
+                  "key": "protocol"
+                },
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{hostname}}",
+                  "key": "hostname"
+                },
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{port}}",
+                  "key": "port"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"fields\": [\n    {\n      \"name\": \"<string>\",\n      \"type\": \"<string>\",\n      \"optional\": \"<boolean>\",\n      \"facet\": \"<boolean>\",\n      \"index\": \"<boolean>\",\n      \"sort\": \"<boolean>\",\n      \"infix\": \"<boolean>\",\n      \"locale\": \"<string>\",\n      \"reference\": \"<string>\",\n      \"num_dim\": \"<integer>\",\n      \"store\": \"<boolean>\",\n      \"range_index\": \"<boolean>\",\n      \"stem\": \"<boolean>\",\n      \"stem_dictionary\": \"<string>\",\n      \"drop\": \"<boolean>\",\n      \"vec_dist\": \"<string>\",\n      \"embed\": {\n        \"from\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"model_config\": {\n          \"model_name\": \"<string>\",\n          \"api_key\": \"<string>\",\n          \"url\": \"<string>\"\n        }\n      }\n    },\n    {\n      \"name\": \"<string>\",\n      \"type\": \"<string>\",\n      \"optional\": \"<boolean>\",\n      \"facet\": \"<boolean>\",\n      \"index\": \"<boolean>\",\n      \"sort\": \"<boolean>\",\n      \"infix\": \"<boolean>\",\n      \"locale\": \"<string>\",\n      \"reference\": \"<string>\",\n      \"num_dim\": \"<integer>\",\n      \"store\": \"<boolean>\",\n      \"range_index\": \"<boolean>\",\n      \"stem\": \"<boolean>\",\n      \"stem_dictionary\": \"<string>\",\n      \"drop\": \"<boolean>\",\n      \"vec_dist\": \"<string>\",\n      \"embed\": {\n        \"from\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"model_config\": {\n          \"model_name\": \"<string>\",\n          \"api_key\": \"<string>\",\n          \"url\": \"<string>\"\n        }\n      }\n    }\n  ],\n  \"synonym_sets\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"metadata\": \"<object>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "d4a463a9-99c4-42fb-9430-3b8f1133ed24",
+              "name": "Collection updated successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "collections",
+                    ":collectionName"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "collectionName",
+                      "description": "(Required) Name of the collection."
+                    },
+                    {
+                      "description": " (This can only be one of http,https)",
+                      "type": "any",
+                      "value": "{{protocol}}",
+                      "key": "protocol"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{hostname}}",
+                      "key": "hostname"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{port}}",
+                      "key": "port"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-TYPESENSE-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"fields\": [\n    {\n      \"name\": \"string\",\n      \"type\": \"bool[]\",\n      \"optional\": false,\n      \"facet\": false,\n      \"index\": false,\n      \"sort\": true,\n      \"infix\": true,\n      \"locale\": \"string\",\n      \"reference\": \"string\",\n      \"num_dim\": 2789,\n      \"store\": true,\n      \"range_index\": false,\n      \"stem\": false,\n      \"stem_dictionary\": \"string\",\n      \"drop\": true,\n      \"vec_dist\": \"cosine\",\n      \"embed\": {\n        \"from\": [\n          \"string\",\n          \"string\"\n        ],\n        \"model_config\": {\n          \"model_name\": \"string\",\n          \"api_key\": \"string\",\n          \"url\": \"string\"\n        }\n      }\n    },\n    {\n      \"name\": \"string\",\n      \"type\": \"int32[]\",\n      \"optional\": false,\n      \"facet\": false,\n      \"index\": true,\n      \"sort\": true,\n      \"infix\": true,\n      \"locale\": \"string\",\n      \"reference\": \"string\",\n      \"num_dim\": 2704,\n      \"store\": false,\n      \"range_index\": true,\n      \"stem\": true,\n      \"stem_dictionary\": \"string\",\n      \"drop\": true,\n      \"vec_dist\": \"ip\",\n      \"embed\": {\n        \"from\": [\n          \"string\",\n          \"string\"\n        ],\n        \"model_config\": {\n          \"model_name\": \"string\",\n          \"api_key\": \"string\",\n          \"url\": \"string\"\n        }\n      }\n    }\n  ],\n  \"synonym_sets\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"metadata\": \"<object>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"name\": \"string\",\n  \"fields\": [\n    {\n      \"name\": \"string\",\n      \"type\": \"int32\",\n      \"optional\": true,\n      \"facet\": false,\n      \"index\": true,\n      \"sort\": true,\n      \"infix\": false,\n      \"locale\": \"string\",\n      \"reference\": \"string\",\n      \"num_dim\": 7613,\n      \"store\": true,\n      \"range_index\": false,\n      \"stem\": false,\n      \"stem_dictionary\": \"string\",\n      \"drop\": false,\n      \"vec_dist\": \"ip\",\n      \"embed\": {\n        \"from\": [\n          \"string\",\n          \"string\"\n        ],\n        \"model_config\": {\n          \"model_name\": \"string\",\n          \"api_key\": \"string\",\n          \"url\": \"string\"\n        }\n      }\n    },\n    {\n      \"name\": \"string\",\n      \"type\": \"float\",\n      \"optional\": false,\n      \"facet\": false,\n      \"index\": false,\n      \"sort\": false,\n      \"infix\": true,\n      \"locale\": \"string\",\n      \"reference\": \"string\",\n      \"num_dim\": 2462,\n      \"store\": true,\n      \"range_index\": false,\n      \"stem\": false,\n      \"stem_dictionary\": \"string\",\n      \"drop\": false,\n      \"vec_dist\": \"cosine\",\n      \"embed\": {\n        \"from\": [\n          \"string\",\n          \"string\"\n        ],\n        \"model_config\": {\n          \"model_name\": \"string\",\n          \"api_key\": \"string\",\n          \"url\": \"string\"\n        }\n      }\n    }\n  ],\n  \"default_sorting_field\": \"string\",\n  \"num_documents\": 343,\n  \"created_at\": 3033,\n  \"token_separators\": [\n    \"string\",\n    \"string\"\n  ],\n  \"symbols_to_index\": [\n    \"string\",\n    \"string\"\n  ],\n  \"enable_nested_fields\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a863603c-9e75-40e6-b06b-710340cc962a",
+              "name": "Bad request - invalid update",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "collections",
+                    ":collectionName"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "collectionName",
+                      "description": "(Required) Name of the collection."
+                    },
+                    {
+                      "description": " (This can only be one of http,https)",
+                      "type": "any",
+                      "value": "{{protocol}}",
+                      "key": "protocol"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{hostname}}",
+                      "key": "hostname"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{port}}",
+                      "key": "port"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-TYPESENSE-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"fields\": [\n    {\n      \"name\": \"string\",\n      \"type\": \"bool[]\",\n      \"optional\": false,\n      \"facet\": false,\n      \"index\": false,\n      \"sort\": true,\n      \"infix\": true,\n      \"locale\": \"string\",\n      \"reference\": \"string\",\n      \"num_dim\": 2789,\n      \"store\": true,\n      \"range_index\": false,\n      \"stem\": false,\n      \"stem_dictionary\": \"string\",\n      \"drop\": true,\n      \"vec_dist\": \"cosine\",\n      \"embed\": {\n        \"from\": [\n          \"string\",\n          \"string\"\n        ],\n        \"model_config\": {\n          \"model_name\": \"string\",\n          \"api_key\": \"string\",\n          \"url\": \"string\"\n        }\n      }\n    },\n    {\n      \"name\": \"string\",\n      \"type\": \"int32[]\",\n      \"optional\": false,\n      \"facet\": false,\n      \"index\": true,\n      \"sort\": true,\n      \"infix\": true,\n      \"locale\": \"string\",\n      \"reference\": \"string\",\n      \"num_dim\": 2704,\n      \"store\": false,\n      \"range_index\": true,\n      \"stem\": true,\n      \"stem_dictionary\": \"string\",\n      \"drop\": true,\n      \"vec_dist\": \"ip\",\n      \"embed\": {\n        \"from\": [\n          \"string\",\n          \"string\"\n        ],\n        \"model_config\": {\n          \"model_name\": \"string\",\n          \"api_key\": \"string\",\n          \"url\": \"string\"\n        }\n      }\n    }\n  ],\n  \"synonym_sets\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"metadata\": \"<object>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "2ef45ccd-ec1c-42bd-b1d3-33ff5039f05b",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "collections",
+                    ":collectionName"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "collectionName",
+                      "description": "(Required) Name of the collection."
+                    },
+                    {
+                      "description": " (This can only be one of http,https)",
+                      "type": "any",
+                      "value": "{{protocol}}",
+                      "key": "protocol"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{hostname}}",
+                      "key": "hostname"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{port}}",
+                      "key": "port"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-TYPESENSE-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"fields\": [\n    {\n      \"name\": \"string\",\n      \"type\": \"bool[]\",\n      \"optional\": false,\n      \"facet\": false,\n      \"index\": false,\n      \"sort\": true,\n      \"infix\": true,\n      \"locale\": \"string\",\n      \"reference\": \"string\",\n      \"num_dim\": 2789,\n      \"store\": true,\n      \"range_index\": false,\n      \"stem\": false,\n      \"stem_dictionary\": \"string\",\n      \"drop\": true,\n      \"vec_dist\": \"cosine\",\n      \"embed\": {\n        \"from\": [\n          \"string\",\n          \"string\"\n        ],\n        \"model_config\": {\n          \"model_name\": \"string\",\n          \"api_key\": \"string\",\n          \"url\": \"string\"\n        }\n      }\n    },\n    {\n      \"name\": \"string\",\n      \"type\": \"int32[]\",\n      \"optional\": false,\n      \"facet\": false,\n      \"index\": true,\n      \"sort\": true,\n      \"infix\": true,\n      \"locale\": \"string\",\n      \"reference\": \"string\",\n      \"num_dim\": 2704,\n      \"store\": false,\n      \"range_index\": true,\n      \"stem\": true,\n      \"stem_dictionary\": \"string\",\n      \"drop\": true,\n      \"vec_dist\": \"ip\",\n      \"embed\": {\n        \"from\": [\n          \"string\",\n          \"string\"\n        ],\n        \"model_config\": {\n          \"model_name\": \"string\",\n          \"api_key\": \"string\",\n          \"url\": \"string\"\n        }\n      }\n    }\n  ],\n  \"synonym_sets\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"metadata\": \"<object>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "bb546b87-b4f6-4ce1-91c2-93b2ee6d9099",
+              "name": "Collection not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "collections",
+                    ":collectionName"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "collectionName",
+                      "description": "(Required) Name of the collection."
+                    },
+                    {
+                      "description": " (This can only be one of http,https)",
+                      "type": "any",
+                      "value": "{{protocol}}",
+                      "key": "protocol"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{hostname}}",
+                      "key": "hostname"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{port}}",
+                      "key": "port"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-TYPESENSE-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"fields\": [\n    {\n      \"name\": \"string\",\n      \"type\": \"bool[]\",\n      \"optional\": false,\n      \"facet\": false,\n      \"index\": false,\n      \"sort\": true,\n      \"infix\": true,\n      \"locale\": \"string\",\n      \"reference\": \"string\",\n      \"num_dim\": 2789,\n      \"store\": true,\n      \"range_index\": false,\n      \"stem\": false,\n      \"stem_dictionary\": \"string\",\n      \"drop\": true,\n      \"vec_dist\": \"cosine\",\n      \"embed\": {\n        \"from\": [\n          \"string\",\n          \"string\"\n        ],\n        \"model_config\": {\n          \"model_name\": \"string\",\n          \"api_key\": \"string\",\n          \"url\": \"string\"\n        }\n      }\n    },\n    {\n      \"name\": \"string\",\n      \"type\": \"int32[]\",\n      \"optional\": false,\n      \"facet\": false,\n      \"index\": true,\n      \"sort\": true,\n      \"infix\": true,\n      \"locale\": \"string\",\n      \"reference\": \"string\",\n      \"num_dim\": 2704,\n      \"store\": false,\n      \"range_index\": true,\n      \"stem\": true,\n      \"stem_dictionary\": \"string\",\n      \"drop\": true,\n      \"vec_dist\": \"ip\",\n      \"embed\": {\n        \"from\": [\n          \"string\",\n          \"string\"\n        ],\n        \"model_config\": {\n          \"model_name\": \"string\",\n          \"api_key\": \"string\",\n          \"url\": \"string\"\n        }\n      }\n    }\n  ],\n  \"synonym_sets\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"metadata\": \"<object>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0a57686b-0d7d-4c7c-95e7-c324a0d78a6b",
+          "name": "Delete A Collection",
+          "request": {
+            "name": "Delete A Collection",
+            "description": {
+              "content": "Permanently deletes a collection and all documents within it. This action cannot be undone.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "collections",
+                ":collectionName"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "collectionName",
+                  "description": "(Required) Name of the collection."
+                },
+                {
+                  "description": " (This can only be one of http,https)",
+                  "type": "any",
+                  "value": "{{protocol}}",
+                  "key": "protocol"
+                },
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{hostname}}",
+                  "key": "hostname"
+                },
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{port}}",
+                  "key": "port"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "bc05d08f-423f-4717-9585-783389af4ae1",
+              "name": "Collection deleted successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "collections",
+                    ":collectionName"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "collectionName",
+                      "description": "(Required) Name of the collection."
+                    },
+                    {
+                      "description": " (This can only be one of http,https)",
+                      "type": "any",
+                      "value": "{{protocol}}",
+                      "key": "protocol"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{hostname}}",
+                      "key": "hostname"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{port}}",
+                      "key": "port"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-TYPESENSE-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"name\": \"string\",\n  \"fields\": [\n    {\n      \"name\": \"string\",\n      \"type\": \"int32\",\n      \"optional\": true,\n      \"facet\": false,\n      \"index\": true,\n      \"sort\": true,\n      \"infix\": false,\n      \"locale\": \"string\",\n      \"reference\": \"string\",\n      \"num_dim\": 7613,\n      \"store\": true,\n      \"range_index\": false,\n      \"stem\": false,\n      \"stem_dictionary\": \"string\",\n      \"drop\": false,\n      \"vec_dist\": \"ip\",\n      \"embed\": {\n        \"from\": [\n          \"string\",\n          \"string\"\n        ],\n        \"model_config\": {\n          \"model_name\": \"string\",\n          \"api_key\": \"string\",\n          \"url\": \"string\"\n        }\n      }\n    },\n    {\n      \"name\": \"string\",\n      \"type\": \"float\",\n      \"optional\": false,\n      \"facet\": false,\n      \"index\": false,\n      \"sort\": false,\n      \"infix\": true,\n      \"locale\": \"string\",\n      \"reference\": \"string\",\n      \"num_dim\": 2462,\n      \"store\": true,\n      \"range_index\": false,\n      \"stem\": false,\n      \"stem_dictionary\": \"string\",\n      \"drop\": false,\n      \"vec_dist\": \"cosine\",\n      \"embed\": {\n        \"from\": [\n          \"string\",\n          \"string\"\n        ],\n        \"model_config\": {\n          \"model_name\": \"string\",\n          \"api_key\": \"string\",\n          \"url\": \"string\"\n        }\n      }\n    }\n  ],\n  \"default_sorting_field\": \"string\",\n  \"num_documents\": 343,\n  \"created_at\": 3033,\n  \"token_separators\": [\n    \"string\",\n    \"string\"\n  ],\n  \"symbols_to_index\": [\n    \"string\",\n    \"string\"\n  ],\n  \"enable_nested_fields\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "dba76597-5387-45af-9a99-dc2fb9b1e90b",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "collections",
+                    ":collectionName"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "collectionName",
+                      "description": "(Required) Name of the collection."
+                    },
+                    {
+                      "description": " (This can only be one of http,https)",
+                      "type": "any",
+                      "value": "{{protocol}}",
+                      "key": "protocol"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{hostname}}",
+                      "key": "hostname"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{port}}",
+                      "key": "port"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-TYPESENSE-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "121601ab-eae5-40c8-9ece-a0002d9bbdef",
+              "name": "Collection not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "collections",
+                    ":collectionName"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "collectionName",
+                      "description": "(Required) Name of the collection."
+                    },
+                    {
+                      "description": " (This can only be one of http,https)",
+                      "type": "any",
+                      "value": "{{protocol}}",
+                      "key": "protocol"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{hostname}}",
+                      "key": "hostname"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{port}}",
+                      "key": "port"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-TYPESENSE-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": " (This can only be one of http,https)",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "http",
+      "key": "protocol"
+    },
+    {
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "localhost",
+      "key": "hostname"
+    },
+    {
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "8108",
+      "key": "port"
+    },
+    {
+      "type": "string",
+      "value": "{{protocol}}://{{hostname}}:{{port}}",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-TYPESENSE-API-KEY"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "69230166-92c1-4023-8554-590594a9dac3",
+    "name": "Typesense Analytics Analytics Events Collections API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Typesense Analytics API allows developers to track and analyze search behavior by recording click, conversion, and visit events. It provides endpoints for creating analytics rules, logging events with metadata tags, and retrieving popular queries and queries with no results. This data can be used to improve search relevance through query suggestions, curations, and understanding user search patterns.\n\nContact Support:\n Name: Typesense Support",
+      "type": "text/plain"
+    }
+  }
+}

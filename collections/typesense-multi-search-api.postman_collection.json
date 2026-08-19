@@ -1,0 +1,391 @@
+{
+  "item": [
+    {
+      "id": "18cd7090-6c64-4ce8-975e-27a11a8c1819",
+      "name": "Multi-Search",
+      "description": {
+        "content": "Send multiple search requests across one or more collections in a single HTTP request.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "f9598859-ab12-43c0-97f8-2962ae6d26a8",
+          "name": "Multi-search Across Collections",
+          "request": {
+            "name": "Multi-search Across Collections",
+            "description": {
+              "content": "Sends multiple search requests in a single HTTP request. Each search can target a different collection with different parameters. Useful for federated search and reducing network round trips.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "multi_search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit_multi_searches",
+                  "value": "<integer>",
+                  "description": "Maximum number of search requests allowed in a single multi-search."
+                }
+              ],
+              "variable": [
+                {
+                  "description": " (This can only be one of http,https)",
+                  "type": "any",
+                  "value": "{{protocol}}",
+                  "key": "protocol"
+                },
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{hostname}}",
+                  "key": "hostname"
+                },
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{port}}",
+                  "key": "port"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"searches\": [\n    {\n      \"collection\": \"<string>\",\n      \"q\": \"<string>\",\n      \"query_by\": \"<string>\",\n      \"filter_by\": \"<string>\",\n      \"sort_by\": \"<string>\",\n      \"facet_by\": \"<string>\",\n      \"page\": \"<integer>\",\n      \"per_page\": \"<integer>\",\n      \"preset\": \"<string>\"\n    },\n    {\n      \"collection\": \"<string>\",\n      \"q\": \"<string>\",\n      \"query_by\": \"<string>\",\n      \"filter_by\": \"<string>\",\n      \"sort_by\": \"<string>\",\n      \"facet_by\": \"<string>\",\n      \"page\": \"<integer>\",\n      \"per_page\": \"<integer>\",\n      \"preset\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "af2fa573-4f69-41ec-a97b-73cc5f954d1f",
+              "name": "Multi-search results returned successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "multi_search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit_multi_searches",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": " (This can only be one of http,https)",
+                      "type": "any",
+                      "value": "{{protocol}}",
+                      "key": "protocol"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{hostname}}",
+                      "key": "hostname"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{port}}",
+                      "key": "port"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-TYPESENSE-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"searches\": [\n    {\n      \"collection\": \"string\",\n      \"q\": \"string\",\n      \"query_by\": \"string\",\n      \"filter_by\": \"string\",\n      \"sort_by\": \"string\",\n      \"facet_by\": \"string\",\n      \"page\": 6178,\n      \"per_page\": 3958,\n      \"preset\": \"string\"\n    },\n    {\n      \"collection\": \"string\",\n      \"q\": \"string\",\n      \"query_by\": \"string\",\n      \"filter_by\": \"string\",\n      \"sort_by\": \"string\",\n      \"facet_by\": \"string\",\n      \"page\": 4066,\n      \"per_page\": 5200,\n      \"preset\": \"string\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"results\": [\n    {\n      \"facet_counts\": [\n        {\n          \"field_name\": \"string\",\n          \"counts\": [\n            {\n              \"count\": 851,\n              \"highlighted\": \"string\",\n              \"value\": \"string\"\n            },\n            {\n              \"count\": 1863,\n              \"highlighted\": \"string\",\n              \"value\": \"string\"\n            }\n          ],\n          \"stats\": {\n            \"min\": 6971.0810304811985,\n            \"max\": 6232.314404075003,\n            \"sum\": 815.2170645362744,\n            \"avg\": 3546.5787541455206,\n            \"total_values\": 4084\n          }\n        },\n        {\n          \"field_name\": \"string\",\n          \"counts\": [\n            {\n              \"count\": 5213,\n              \"highlighted\": \"string\",\n              \"value\": \"string\"\n            },\n            {\n              \"count\": 9370,\n              \"highlighted\": \"string\",\n              \"value\": \"string\"\n            }\n          ],\n          \"stats\": {\n            \"min\": 9662.526269703245,\n            \"max\": 1025.660998376996,\n            \"sum\": 7545.719610303447,\n            \"avg\": 5438.849858474257,\n            \"total_values\": 4303\n          }\n        }\n      ],\n      \"found\": 8713,\n      \"found_docs\": 7186,\n      \"search_time_ms\": 1638,\n      \"out_of\": 8805,\n      \"search_cutoff\": false,\n      \"page\": 5546,\n      \"hits\": [\n        {\n          \"document\": {},\n          \"highlights\": [\n            {\n              \"field\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"snippet\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"snippets\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"values\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"matched_tokens\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"indices\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"field\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"snippet\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"snippets\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"values\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"matched_tokens\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"indices\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"highlight\": {},\n          \"text_match\": 556,\n          \"text_match_info\": {},\n          \"geo_distance_meters\": {},\n          \"vector_distance\": 9406.14022225258,\n          \"hybrid_search_info\": {}\n        },\n        {\n          \"document\": {},\n          \"highlights\": [\n            {\n              \"field\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"snippet\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"snippets\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"values\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"matched_tokens\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"indices\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"field\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"snippet\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"snippets\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"values\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"matched_tokens\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"indices\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"highlight\": {},\n          \"text_match\": 2720,\n          \"text_match_info\": {},\n          \"geo_distance_meters\": {},\n          \"vector_distance\": 9988.621448757936,\n          \"hybrid_search_info\": {}\n        }\n      ],\n      \"grouped_hits\": [\n        {\n          \"found\": 1958,\n          \"hits\": [\n            {\n              \"document\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"highlights\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"highlight\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"text_match\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"text_match_info\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"geo_distance_meters\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"vector_distance\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"hybrid_search_info\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"document\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"highlights\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"highlight\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"text_match\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"text_match_info\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"geo_distance_meters\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"vector_distance\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"hybrid_search_info\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        },\n        {\n          \"found\": 9937,\n          \"hits\": [\n            {\n              \"document\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"highlights\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"highlight\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"text_match\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"text_match_info\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"geo_distance_meters\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"vector_distance\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"hybrid_search_info\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"document\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"highlights\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"highlight\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"text_match\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"text_match_info\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"geo_distance_meters\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"vector_distance\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"hybrid_search_info\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        }\n      ],\n      \"request_params\": {},\n      \"conversation\": {\n        \"answer\": \"string\",\n        \"conversation_id\": \"string\"\n      }\n    },\n    {\n      \"facet_counts\": [\n        {\n          \"field_name\": \"string\",\n          \"counts\": [\n            {\n              \"count\": 724,\n              \"highlighted\": \"string\",\n              \"value\": \"string\"\n            },\n            {\n              \"count\": 631,\n              \"highlighted\": \"string\",\n              \"value\": \"string\"\n            }\n          ],\n          \"stats\": {\n            \"min\": 1068.7321429418316,\n            \"max\": 7625.42098434299,\n            \"sum\": 4005.4478855303278,\n            \"avg\": 8480.935709885789,\n            \"total_values\": 6463\n          }\n        },\n        {\n          \"field_name\": \"string\",\n          \"counts\": [\n            {\n              \"count\": 9462,\n              \"highlighted\": \"string\",\n              \"value\": \"string\"\n            },\n            {\n              \"count\": 9640,\n              \"highlighted\": \"string\",\n              \"value\": \"string\"\n            }\n          ],\n          \"stats\": {\n            \"min\": 2304.9847548702696,\n            \"max\": 120.23281275997944,\n            \"sum\": 2991.232909875989,\n            \"avg\": 6376.261933806234,\n            \"total_values\": 209\n          }\n        }\n      ],\n      \"found\": 750,\n      \"found_docs\": 7204,\n      \"search_time_ms\": 9726,\n      \"out_of\": 5204,\n      \"search_cutoff\": true,\n      \"page\": 7374,\n      \"hits\": [\n        {\n          \"document\": {},\n          \"highlights\": [\n            {\n              \"field\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"snippet\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"snippets\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"values\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"matched_tokens\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"indices\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"field\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"snippet\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"snippets\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"values\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"matched_tokens\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"indices\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"highlight\": {},\n          \"text_match\": 2703,\n          \"text_match_info\": {},\n          \"geo_distance_meters\": {},\n          \"vector_distance\": 4194.0206140303035,\n          \"hybrid_search_info\": {}\n        },\n        {\n          \"document\": {},\n          \"highlights\": [\n            {\n              \"field\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"snippet\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"snippets\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"values\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"matched_tokens\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"indices\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"field\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"snippet\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"snippets\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"values\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"matched_tokens\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"indices\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"highlight\": {},\n          \"text_match\": 5165,\n          \"text_match_info\": {},\n          \"geo_distance_meters\": {},\n          \"vector_distance\": 1792.9946679857424,\n          \"hybrid_search_info\": {}\n        }\n      ],\n      \"grouped_hits\": [\n        {\n          \"found\": 1368,\n          \"hits\": [\n            {\n              \"document\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"highlights\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"highlight\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"text_match\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"text_match_info\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"geo_distance_meters\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"vector_distance\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"hybrid_search_info\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"document\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"highlights\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"highlight\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"text_match\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"text_match_info\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"geo_distance_meters\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"vector_distance\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"hybrid_search_info\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        },\n        {\n          \"found\": 4612,\n          \"hits\": [\n            {\n              \"document\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"highlights\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"highlight\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"text_match\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"text_match_info\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"geo_distance_meters\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"vector_distance\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"hybrid_search_info\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"document\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"highlights\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"highlight\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"text_match\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"text_match_info\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"geo_distance_meters\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"vector_distance\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"hybrid_search_info\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        }\n      ],\n      \"request_params\": {},\n      \"conversation\": {\n        \"answer\": \"string\",\n        \"conversation_id\": \"string\"\n      }\n    }\n  ],\n  \"conversation\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "44265735-fad1-4cef-9c8e-8b5636be861d",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "multi_search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit_multi_searches",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": " (This can only be one of http,https)",
+                      "type": "any",
+                      "value": "{{protocol}}",
+                      "key": "protocol"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{hostname}}",
+                      "key": "hostname"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{port}}",
+                      "key": "port"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-TYPESENSE-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"searches\": [\n    {\n      \"collection\": \"string\",\n      \"q\": \"string\",\n      \"query_by\": \"string\",\n      \"filter_by\": \"string\",\n      \"sort_by\": \"string\",\n      \"facet_by\": \"string\",\n      \"page\": 6178,\n      \"per_page\": 3958,\n      \"preset\": \"string\"\n    },\n    {\n      \"collection\": \"string\",\n      \"q\": \"string\",\n      \"query_by\": \"string\",\n      \"filter_by\": \"string\",\n      \"sort_by\": \"string\",\n      \"facet_by\": \"string\",\n      \"page\": 4066,\n      \"per_page\": 5200,\n      \"preset\": \"string\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "ec534581-2fc4-4157-8e56-8517a3bdcdda",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "multi_search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit_multi_searches",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": " (This can only be one of http,https)",
+                      "type": "any",
+                      "value": "{{protocol}}",
+                      "key": "protocol"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{hostname}}",
+                      "key": "hostname"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{port}}",
+                      "key": "port"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-TYPESENSE-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"searches\": [\n    {\n      \"collection\": \"string\",\n      \"q\": \"string\",\n      \"query_by\": \"string\",\n      \"filter_by\": \"string\",\n      \"sort_by\": \"string\",\n      \"facet_by\": \"string\",\n      \"page\": 6178,\n      \"per_page\": 3958,\n      \"preset\": \"string\"\n    },\n    {\n      \"collection\": \"string\",\n      \"q\": \"string\",\n      \"query_by\": \"string\",\n      \"filter_by\": \"string\",\n      \"sort_by\": \"string\",\n      \"facet_by\": \"string\",\n      \"page\": 4066,\n      \"per_page\": 5200,\n      \"preset\": \"string\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": " (This can only be one of http,https)",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "http",
+      "key": "protocol"
+    },
+    {
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "localhost",
+      "key": "hostname"
+    },
+    {
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "8108",
+      "key": "port"
+    },
+    {
+      "type": "string",
+      "value": "{{protocol}}://{{hostname}}:{{port}}",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-TYPESENSE-API-KEY"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "d9747a6b-869d-4eb0-a147-368306b4b5e9",
+    "name": "Typesense Analytics Analytics Events Multi-Search API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Typesense Analytics API allows developers to track and analyze search behavior by recording click, conversion, and visit events. It provides endpoints for creating analytics rules, logging events with metadata tags, and retrieving popular queries and queries with no results. This data can be used to improve search relevance through query suggestions, curations, and understanding user search patterns.\n\nContact Support:\n Name: Typesense Support",
+      "type": "text/plain"
+    }
+  }
+}

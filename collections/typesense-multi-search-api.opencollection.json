@@ -1,0 +1,49 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Typesense Analytics Analytics Events Multi-Search API",
+    "version": "30.1"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-TYPESENSE-API-KEY",
+      "value": "{{X-TYPESENSE-API-KEY}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Multi-Search",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Multi-search Across Collections",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{protocol}://{hostname}:{port}/multi_search",
+            "params": [
+              {
+                "name": "limit_multi_searches",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of search requests allowed in a single multi-search."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Sends multiple search requests in a single HTTP request. Each search can target a different collection with different parameters. Useful for federated search and reducing network round trips."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

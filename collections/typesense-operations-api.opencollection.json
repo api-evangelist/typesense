@@ -1,0 +1,89 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Typesense Analytics Analytics Events Operations API",
+    "version": "30.1"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-TYPESENSE-API-KEY",
+      "value": "{{X-TYPESENSE-API-KEY}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Operations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create A Point-in-time Snapshot",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{protocol}://{hostname}:{port}/operations/snapshot",
+            "params": [
+              {
+                "name": "snapshot_path",
+                "value": "",
+                "type": "query",
+                "description": "Absolute filesystem path where the snapshot will be stored."
+              }
+            ]
+          },
+          "docs": "Creates a point-in-time snapshot of the Typesense data directory for backup purposes."
+        },
+        {
+          "info": {
+            "name": "Trigger Raft Voting",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{protocol}://{hostname}:{port}/operations/vote"
+          },
+          "docs": "Triggers a raft voting process in a multi-node Typesense cluster."
+        },
+        {
+          "info": {
+            "name": "Clear The LRU Cache",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{protocol}://{hostname}:{port}/operations/cache/clear"
+          },
+          "docs": "Clears the in-memory LRU cache used by Typesense for frequently accessed data."
+        },
+        {
+          "info": {
+            "name": "Compact The On-disk Database",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{protocol}://{hostname}:{port}/operations/db/compact"
+          },
+          "docs": "Triggers compaction of the on-disk RocksDB database to reclaim space and improve performance."
+        },
+        {
+          "info": {
+            "name": "Get Schema Change Status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{protocol}://{hostname}:{port}/operations/schema_changes"
+          },
+          "docs": "Retrieves the status of in-progress schema change operations."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

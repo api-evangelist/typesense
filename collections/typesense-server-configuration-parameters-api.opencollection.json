@@ -1,0 +1,68 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Typesense Analytics Analytics Events Server Configuration Parameters API",
+    "version": "30.1"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-TYPESENSE-API-KEY",
+      "value": "{{X-TYPESENSE-API-KEY}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Server Configuration Parameters",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Server Configuration Parameters",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{protocol}://{hostname}:{port}/clusters/:clusterId/typesense-server-configuration-parameters",
+            "params": [
+              {
+                "name": "clusterId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the cluster."
+              }
+            ]
+          },
+          "docs": "Retrieves the current Typesense Server configuration parameters for a cloud cluster. Changes to parameters take effect when the server is restarted."
+        },
+        {
+          "info": {
+            "name": "Update Server Configuration Parameters",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{protocol}://{hostname}:{port}/clusters/:clusterId/typesense-server-configuration-parameters",
+            "params": [
+              {
+                "name": "clusterId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the cluster."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates Typesense Server configuration parameters for a cloud cluster. The server must be restarted for changes to take effect. Use the configuration changes endpoint to schedule a restart."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

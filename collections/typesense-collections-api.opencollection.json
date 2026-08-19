@@ -1,0 +1,113 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Typesense Analytics Analytics Events Collections API",
+    "version": "30.1"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-TYPESENSE-API-KEY",
+      "value": "{{X-TYPESENSE-API-KEY}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Collections",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List All Collections",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{protocol}://{hostname}:{port}/collections"
+          },
+          "docs": "Returns a summary of all collections, including the name, number of documents, and schema for each collection."
+        },
+        {
+          "info": {
+            "name": "Create A New Collection",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{protocol}://{hostname}:{port}/collections",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new collection with the specified schema. A collection defines the fields that will be indexed from documents. Before adding documents to Typesense, you must first create a collection."
+        },
+        {
+          "info": {
+            "name": "Retrieve A Collection",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{protocol}://{hostname}:{port}/collections/:collectionName",
+            "params": [
+              {
+                "name": "collectionName",
+                "value": "",
+                "type": "path",
+                "description": "Name of the collection."
+              }
+            ]
+          },
+          "docs": "Retrieves the schema and metadata of a specific collection by name."
+        },
+        {
+          "info": {
+            "name": "Update A Collection",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{protocol}://{hostname}:{port}/collections/:collectionName",
+            "params": [
+              {
+                "name": "collectionName",
+                "value": "",
+                "type": "path",
+                "description": "Name of the collection."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the schema of an existing collection. You can add new fields, drop existing fields, or modify field attributes."
+        },
+        {
+          "info": {
+            "name": "Delete A Collection",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{protocol}://{hostname}:{port}/collections/:collectionName",
+            "params": [
+              {
+                "name": "collectionName",
+                "value": "",
+                "type": "path",
+                "description": "Name of the collection."
+              }
+            ]
+          },
+          "docs": "Permanently deletes a collection and all documents within it. This action cannot be undone."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

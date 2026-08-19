@@ -1,0 +1,70 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Typesense Analytics Analytics Events Monitoring API",
+    "version": "30.1"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-TYPESENSE-API-KEY",
+      "value": "{{X-TYPESENSE-API-KEY}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Monitoring",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Debug Information",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{protocol}://{hostname}:{port}/debug"
+          },
+          "docs": "Returns debugging information about the Typesense server including version and state details."
+        },
+        {
+          "info": {
+            "name": "Check Server Health",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{protocol}://{hostname}:{port}/health"
+          },
+          "docs": "Returns the health status of the Typesense server. Useful for load balancer health checks."
+        },
+        {
+          "info": {
+            "name": "Get Server Metrics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{protocol}://{hostname}:{port}/metrics.json"
+          },
+          "docs": "Returns RAM, CPU, disk, and network metrics for the Typesense server in Prometheus-compatible format."
+        },
+        {
+          "info": {
+            "name": "Get API Endpoint Statistics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{protocol}://{hostname}:{port}/stats.json"
+          },
+          "docs": "Returns request count and latency statistics for each API endpoint."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

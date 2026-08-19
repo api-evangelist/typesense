@@ -1,7 +1,7 @@
 {
   "opencollection": "1.0.0",
   "info": {
-    "name": "Typesense Vector Search API",
+    "name": "Typesense Analytics Analytics Events Vector Search API",
     "version": "30.1"
   },
   "request": {
@@ -13,29 +13,6 @@
     }
   },
   "items": [
-    {
-      "info": {
-        "name": "Vector Collections",
-        "type": "folder"
-      },
-      "items": [
-        {
-          "info": {
-            "name": "Create A Collection With Vector Fields",
-            "type": "http"
-          },
-          "http": {
-            "method": "POST",
-            "url": "{protocol}://{hostname}:{port}/collections",
-            "body": {
-              "type": "json",
-              "data": "{}"
-            }
-          },
-          "docs": "Creates a collection that includes vector embedding fields for semantic search. Vector fields are defined with a type of float[] and a num_dim property specifying the number of dimensions. The embed property can be used to configure automatic embedding generation from source fields using built-in models or external APIs like OpenAI."
-        }
-      ]
-    },
     {
       "info": {
         "name": "Vector Search",
@@ -135,101 +112,6 @@
             }
           },
           "docs": "Sends multiple search requests in a single HTTP request, where one or more requests can include vector queries for semantic or hybrid search across different collections."
-        }
-      ]
-    },
-    {
-      "info": {
-        "name": "NL Search Models",
-        "type": "folder"
-      },
-      "items": [
-        {
-          "info": {
-            "name": "List All NL Search Models",
-            "type": "http"
-          },
-          "http": {
-            "method": "GET",
-            "url": "{protocol}://{hostname}:{port}/nl_search_models"
-          },
-          "docs": "Retrieves all natural language search models configured in the Typesense instance. NL search models are used for query understanding and semantic matching."
-        },
-        {
-          "info": {
-            "name": "Create An NL Search Model",
-            "type": "http"
-          },
-          "http": {
-            "method": "POST",
-            "url": "{protocol}://{hostname}:{port}/nl_search_models",
-            "body": {
-              "type": "json",
-              "data": "{}"
-            }
-          },
-          "docs": "Creates a new natural language search model configuration for semantic query understanding."
-        },
-        {
-          "info": {
-            "name": "Retrieve An NL Search Model",
-            "type": "http"
-          },
-          "http": {
-            "method": "GET",
-            "url": "{protocol}://{hostname}:{port}/nl_search_models/:modelId",
-            "params": [
-              {
-                "name": "modelId",
-                "value": "",
-                "type": "path",
-                "description": "ID of the NL search model."
-              }
-            ]
-          },
-          "docs": "Retrieves a specific NL search model by ID."
-        },
-        {
-          "info": {
-            "name": "Update An NL Search Model",
-            "type": "http"
-          },
-          "http": {
-            "method": "PUT",
-            "url": "{protocol}://{hostname}:{port}/nl_search_models/:modelId",
-            "params": [
-              {
-                "name": "modelId",
-                "value": "",
-                "type": "path",
-                "description": "ID of the NL search model."
-              }
-            ],
-            "body": {
-              "type": "json",
-              "data": "{}"
-            }
-          },
-          "docs": "Updates an existing NL search model configuration."
-        },
-        {
-          "info": {
-            "name": "Delete An NL Search Model",
-            "type": "http"
-          },
-          "http": {
-            "method": "DELETE",
-            "url": "{protocol}://{hostname}:{port}/nl_search_models/:modelId",
-            "params": [
-              {
-                "name": "modelId",
-                "value": "",
-                "type": "path",
-                "description": "ID of the NL search model."
-              }
-            ]
-          },
-          "docs": "Deletes an NL search model by ID."
         }
       ]
     }

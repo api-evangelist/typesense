@@ -1,0 +1,71 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Typesense Analytics Analytics Events Stemming API",
+    "version": "30.1"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-TYPESENSE-API-KEY",
+      "value": "{{X-TYPESENSE-API-KEY}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Stemming",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Stemming Dictionaries",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{protocol}://{hostname}:{port}/stemming/dictionaries"
+          },
+          "docs": "Retrieves all custom stemming dictionaries."
+        },
+        {
+          "info": {
+            "name": "Retrieve A Stemming Dictionary",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{protocol}://{hostname}:{port}/stemming/dictionaries/:dictionaryId",
+            "params": [
+              {
+                "name": "dictionaryId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the stemming dictionary."
+              }
+            ]
+          },
+          "docs": "Retrieves a specific stemming dictionary by ID."
+        },
+        {
+          "info": {
+            "name": "Import A Stemming Dictionary",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{protocol}://{hostname}:{port}/stemming/dictionaries/import",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Imports a custom stemming dictionary with word-to-stem mappings."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

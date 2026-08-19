@@ -1,0 +1,128 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Typesense Analytics Analytics Events Configuration Changes API",
+    "version": "30.1"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-TYPESENSE-API-KEY",
+      "value": "{{X-TYPESENSE-API-KEY}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Configuration Changes",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Configuration Changes",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{protocol}://{hostname}:{port}/clusters/:clusterId/configuration-changes",
+            "params": [
+              {
+                "name": "clusterId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the cluster."
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page."
+              }
+            ]
+          },
+          "docs": "Retrieves all configuration changes for a cluster, including pending, applied, and canceled changes."
+        },
+        {
+          "info": {
+            "name": "Schedule A Configuration Change",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{protocol}://{hostname}:{port}/clusters/:clusterId/configuration-changes",
+            "params": [
+              {
+                "name": "clusterId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the cluster."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Schedules a configuration change for a cluster such as upgrading memory, changing vCPU allocation, upgrading Typesense server version, or enabling/disabling high availability. Changes are applied at the specified time."
+        },
+        {
+          "info": {
+            "name": "Retrieve A Configuration Change",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{protocol}://{hostname}:{port}/clusters/:clusterId/configuration-changes/:changeId",
+            "params": [
+              {
+                "name": "clusterId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the cluster."
+              },
+              {
+                "name": "changeId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the configuration change."
+              }
+            ]
+          },
+          "docs": "Retrieves details of a specific configuration change by ID."
+        },
+        {
+          "info": {
+            "name": "Cancel A Configuration Change",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{protocol}://{hostname}:{port}/clusters/:clusterId/configuration-changes/:changeId",
+            "params": [
+              {
+                "name": "clusterId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the cluster."
+              },
+              {
+                "name": "changeId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the configuration change."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates a configuration change, typically to cancel a pending change by setting its status to canceled."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

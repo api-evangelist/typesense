@@ -1,0 +1,113 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Typesense Analytics Analytics Events Analytics Rules API",
+    "version": "30.1"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-TYPESENSE-API-KEY",
+      "value": "{{X-TYPESENSE-API-KEY}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Analytics Rules",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List All Analytics Rules",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{protocol}://{hostname}:{port}/analytics/rules"
+          },
+          "docs": "Retrieves all analytics rules configured in the Typesense instance. Rules control how search queries and events are aggregated."
+        },
+        {
+          "info": {
+            "name": "Create An Analytics Rule",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{protocol}://{hostname}:{port}/analytics/rules",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates one or more analytics rules for aggregating search queries or tracking events. Rule types include popular_queries for frequently occurring queries, nohits_queries for queries that produced zero results, and log for raw event logging."
+        },
+        {
+          "info": {
+            "name": "Retrieve An Analytics Rule",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{protocol}://{hostname}:{port}/analytics/rules/:ruleName",
+            "params": [
+              {
+                "name": "ruleName",
+                "value": "",
+                "type": "path",
+                "description": "Name of the analytics rule."
+              }
+            ]
+          },
+          "docs": "Retrieves a specific analytics rule by name."
+        },
+        {
+          "info": {
+            "name": "Create Or Update An Analytics Rule",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{protocol}://{hostname}:{port}/analytics/rules/:ruleName",
+            "params": [
+              {
+                "name": "ruleName",
+                "value": "",
+                "type": "path",
+                "description": "Name of the analytics rule."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new analytics rule or updates an existing one by name."
+        },
+        {
+          "info": {
+            "name": "Delete An Analytics Rule",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{protocol}://{hostname}:{port}/analytics/rules/:ruleName",
+            "params": [
+              {
+                "name": "ruleName",
+                "value": "",
+                "type": "path",
+                "description": "Name of the analytics rule."
+              }
+            ]
+          },
+          "docs": "Deletes an analytics rule by name."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,28 +1,26 @@
 {
   "item": [
     {
-      "id": "d16e5bc2-75cd-41c4-8056-aeffca20bd5d",
-      "name": "Vector Search",
+      "id": "f1b9294e-6c3e-4fe1-94d3-84eca19fbd05",
+      "name": "Operations",
       "description": {
-        "content": "Perform nearest-neighbor vector search, hybrid keyword-vector search, and semantic search queries.",
+        "content": "Cluster operations including snapshots, cache management, compaction, and voting.",
         "type": "text/plain"
       },
       "item": [
         {
-          "id": "3f80e5f7-0849-49b3-9f28-e39634be3bd6",
-          "name": "Perform Vector Or Hybrid Search",
+          "id": "9b1cfc89-29e3-47cf-a762-bf6287c54258",
+          "name": "Create A Point-in-time Snapshot",
           "request": {
-            "name": "Perform Vector Or Hybrid Search",
+            "name": "Create A Point-in-time Snapshot",
             "description": {
-              "content": "Searches for documents using vector similarity, keyword matching, or a hybrid combination of both. When vector_query is specified, Typesense performs nearest-neighbor search using the specified vector field. When combined with a text query (q parameter), results are scored using a hybrid approach that blends keyword relevance and vector similarity.",
+              "content": "Creates a point-in-time snapshot of the Typesense data directory for backup purposes.",
               "type": "text/plain"
             },
             "url": {
               "path": [
-                "collections",
-                ":collectionName",
-                "documents",
-                "search"
+                "operations",
+                "snapshot"
               ],
               "host": [
                 "{{baseUrl}}"
@@ -30,73 +28,808 @@
               "query": [
                 {
                   "disabled": false,
-                  "key": "q",
+                  "key": "snapshot_path",
                   "value": "<string>",
-                  "description": "Text search query. Use * for pure vector search without keyword matching."
-                },
-                {
-                  "disabled": false,
-                  "key": "query_by",
-                  "value": "<string>",
-                  "description": "(Required) Comma-separated list of fields to search against for keyword matching."
-                },
-                {
-                  "disabled": false,
-                  "key": "vector_query",
-                  "value": "<string>",
-                  "description": "Vector query in the format field_name:([v1,v2,...],k:num) or field_name:([], id:doc_id) for finding similar documents. The k parameter controls how many nearest neighbors to return."
-                },
-                {
-                  "disabled": false,
-                  "key": "filter_by",
-                  "value": "<string>",
-                  "description": "Filter conditions to narrow search results."
-                },
-                {
-                  "disabled": false,
-                  "key": "sort_by",
-                  "value": "<string>",
-                  "description": "Sort conditions. Use _vector_distance for sorting by vector similarity."
-                },
-                {
-                  "disabled": false,
-                  "key": "include_fields",
-                  "value": "<string>",
-                  "description": "Comma-separated list of fields to include in results."
-                },
-                {
-                  "disabled": false,
-                  "key": "exclude_fields",
-                  "value": "<string>",
-                  "description": "Comma-separated list of fields to exclude from results."
-                },
-                {
-                  "disabled": false,
-                  "key": "page",
-                  "value": "<integer>",
-                  "description": "Page number for pagination."
-                },
-                {
-                  "disabled": false,
-                  "key": "per_page",
-                  "value": "<integer>",
-                  "description": "Number of results per page."
-                },
-                {
-                  "disabled": false,
-                  "key": "prefix",
-                  "value": "<string>",
-                  "description": "Whether prefix search is enabled for keyword matching."
+                  "description": "(Required) Absolute filesystem path where the snapshot will be stored."
                 }
               ],
               "variable": [
                 {
-                  "disabled": false,
+                  "description": " (This can only be one of http,https)",
                   "type": "any",
-                  "value": "<string>",
-                  "key": "collectionName",
-                  "description": "(Required) Name of the collection."
+                  "value": "{{protocol}}",
+                  "key": "protocol"
                 },
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{hostname}}",
+                  "key": "hostname"
+                },
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{port}}",
+                  "key": "port"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "bbe20348-3773-4d1f-9adb-9bb3a0ced549",
+              "name": "Snapshot created successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "operations",
+                    "snapshot"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "snapshot_path",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": " (This can only be one of http,https)",
+                      "type": "any",
+                      "value": "{{protocol}}",
+                      "key": "protocol"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{hostname}}",
+                      "key": "hostname"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{port}}",
+                      "key": "port"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-TYPESENSE-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b7c13241-44bc-4bc4-9963-52059e2b1e09",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "operations",
+                    "snapshot"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "snapshot_path",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": " (This can only be one of http,https)",
+                      "type": "any",
+                      "value": "{{protocol}}",
+                      "key": "protocol"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{hostname}}",
+                      "key": "hostname"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{port}}",
+                      "key": "port"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-TYPESENSE-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3e398440-21e7-4471-96c9-c65c0cea331a",
+          "name": "Trigger Raft Voting",
+          "request": {
+            "name": "Trigger Raft Voting",
+            "description": {
+              "content": "Triggers a raft voting process in a multi-node Typesense cluster.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "operations",
+                "vote"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": " (This can only be one of http,https)",
+                  "type": "any",
+                  "value": "{{protocol}}",
+                  "key": "protocol"
+                },
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{hostname}}",
+                  "key": "hostname"
+                },
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{port}}",
+                  "key": "port"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "06212b1b-fda9-4120-a449-12740f0a614a",
+              "name": "Voting triggered",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "operations",
+                    "vote"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": " (This can only be one of http,https)",
+                      "type": "any",
+                      "value": "{{protocol}}",
+                      "key": "protocol"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{hostname}}",
+                      "key": "hostname"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{port}}",
+                      "key": "port"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-TYPESENSE-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7db7e060-7cc3-4883-ac33-00d8a6fc6d67",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "operations",
+                    "vote"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": " (This can only be one of http,https)",
+                      "type": "any",
+                      "value": "{{protocol}}",
+                      "key": "protocol"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{hostname}}",
+                      "key": "hostname"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{port}}",
+                      "key": "port"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-TYPESENSE-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b95ba1cf-b6be-44f9-9e48-d288a002744d",
+          "name": "Clear The LRU Cache",
+          "request": {
+            "name": "Clear The LRU Cache",
+            "description": {
+              "content": "Clears the in-memory LRU cache used by Typesense for frequently accessed data.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "operations",
+                "cache",
+                "clear"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": " (This can only be one of http,https)",
+                  "type": "any",
+                  "value": "{{protocol}}",
+                  "key": "protocol"
+                },
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{hostname}}",
+                  "key": "hostname"
+                },
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{port}}",
+                  "key": "port"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "d50bfedf-6bfd-430d-bba3-fd87a9454e41",
+              "name": "Cache cleared",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "operations",
+                    "cache",
+                    "clear"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": " (This can only be one of http,https)",
+                      "type": "any",
+                      "value": "{{protocol}}",
+                      "key": "protocol"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{hostname}}",
+                      "key": "hostname"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{port}}",
+                      "key": "port"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-TYPESENSE-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8fea9d42-47b7-442f-a7d7-582f3433ceb7",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "operations",
+                    "cache",
+                    "clear"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": " (This can only be one of http,https)",
+                      "type": "any",
+                      "value": "{{protocol}}",
+                      "key": "protocol"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{hostname}}",
+                      "key": "hostname"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{port}}",
+                      "key": "port"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-TYPESENSE-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8b265bc9-a462-488e-8863-79368717d5dd",
+          "name": "Compact The On-disk Database",
+          "request": {
+            "name": "Compact The On-disk Database",
+            "description": {
+              "content": "Triggers compaction of the on-disk RocksDB database to reclaim space and improve performance.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "operations",
+                "db",
+                "compact"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": " (This can only be one of http,https)",
+                  "type": "any",
+                  "value": "{{protocol}}",
+                  "key": "protocol"
+                },
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{hostname}}",
+                  "key": "hostname"
+                },
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{port}}",
+                  "key": "port"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "5ba791e0-63bf-408b-a7e8-227707900f2a",
+              "name": "Database compacted",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "operations",
+                    "db",
+                    "compact"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": " (This can only be one of http,https)",
+                      "type": "any",
+                      "value": "{{protocol}}",
+                      "key": "protocol"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{hostname}}",
+                      "key": "hostname"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{port}}",
+                      "key": "port"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-TYPESENSE-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "272f14a5-5165-48f7-adba-9e317358f812",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "operations",
+                    "db",
+                    "compact"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": " (This can only be one of http,https)",
+                      "type": "any",
+                      "value": "{{protocol}}",
+                      "key": "protocol"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{hostname}}",
+                      "key": "hostname"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{port}}",
+                      "key": "port"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-TYPESENSE-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "470df3a2-81ea-4a3b-92bd-61f7ca14ae5a",
+          "name": "Get Schema Change Status",
+          "request": {
+            "name": "Get Schema Change Status",
+            "description": {
+              "content": "Retrieves the status of in-progress schema change operations.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "operations",
+                "schema_changes"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
                 {
                   "description": " (This can only be one of http,https)",
                   "type": "any",
@@ -134,69 +867,19 @@
           },
           "response": [
             {
-              "id": "15adaeb7-5620-4da4-8bb7-c7a5b9fdd7f4",
-              "name": "Vector search results returned",
+              "id": "199cb70c-b0d9-4a46-90e8-e14afdf2275a",
+              "name": "Schema change status",
               "originalRequest": {
                 "url": {
                   "path": [
-                    "collections",
-                    ":collectionName",
-                    "documents",
-                    "search"
+                    "operations",
+                    "schema_changes"
                   ],
                   "host": [
                     "{{baseUrl}}"
                   ],
-                  "query": [
-                    {
-                      "key": "q",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "query_by",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "vector_query",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "filter_by",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "sort_by",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "include_fields",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "exclude_fields",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "page",
-                      "value": "<integer>"
-                    },
-                    {
-                      "key": "per_page",
-                      "value": "<integer>"
-                    },
-                    {
-                      "key": "prefix",
-                      "value": "<string>"
-                    }
-                  ],
+                  "query": [],
                   "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "collectionName",
-                      "description": "(Required) Name of the collection."
-                    },
                     {
                       "description": " (This can only be one of http,https)",
                       "type": "any",
@@ -248,189 +931,24 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"found\": 5505,\n  \"search_time_ms\": 4967,\n  \"out_of\": 2877,\n  \"page\": 8228,\n  \"hits\": [\n    {\n      \"document\": {},\n      \"text_match\": 1334,\n      \"vector_distance\": 415.9632209637509,\n      \"hybrid_search_info\": {\n        \"text_match_score\": 6886.097524797707,\n        \"vector_distance_score\": 6259.112375604645,\n        \"rank_fusion_score\": 2300.720936291207\n      }\n    },\n    {\n      \"document\": {},\n      \"text_match\": 8954,\n      \"vector_distance\": 7974.966771747377,\n      \"hybrid_search_info\": {\n        \"text_match_score\": 2275.045526416315,\n        \"vector_distance_score\": 1835.9830498340712,\n        \"rank_fusion_score\": 3251.1994363631256\n      }\n    }\n  ]\n}",
+              "body": "[\n  {\n    \"collection\": \"string\",\n    \"validated_docs\": 4735,\n    \"altered_docs\": 3757\n  },\n  {\n    \"collection\": \"string\",\n    \"validated_docs\": 1660,\n    \"altered_docs\": 4260\n  }\n]",
               "cookie": [],
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "bd36f0e6-a54e-4efe-a6f0-b4237f093cf3",
-              "name": "Bad request - invalid vector query",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "collections",
-                    ":collectionName",
-                    "documents",
-                    "search"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "q",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "query_by",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "vector_query",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "filter_by",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "sort_by",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "include_fields",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "exclude_fields",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "page",
-                      "value": "<integer>"
-                    },
-                    {
-                      "key": "per_page",
-                      "value": "<integer>"
-                    },
-                    {
-                      "key": "prefix",
-                      "value": "<string>"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "collectionName",
-                      "description": "(Required) Name of the collection."
-                    },
-                    {
-                      "description": " (This can only be one of http,https)",
-                      "type": "any",
-                      "value": "{{protocol}}",
-                      "key": "protocol"
-                    },
-                    {
-                      "description": {
-                        "content": "",
-                        "type": "text/plain"
-                      },
-                      "type": "any",
-                      "value": "{{hostname}}",
-                      "key": "hostname"
-                    },
-                    {
-                      "description": {
-                        "content": "",
-                        "type": "text/plain"
-                      },
-                      "type": "any",
-                      "value": "{{port}}",
-                      "key": "port"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "X-TYPESENSE-API-KEY",
-                    "value": "<API Key>"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "77bd4a7b-c903-4f2d-8e99-1445095f8745",
+              "id": "906f8509-598b-4c29-840f-11d0fd40818d",
               "name": "Unauthorized",
               "originalRequest": {
                 "url": {
                   "path": [
-                    "collections",
-                    ":collectionName",
-                    "documents",
-                    "search"
+                    "operations",
+                    "schema_changes"
                   ],
                   "host": [
                     "{{baseUrl}}"
                   ],
-                  "query": [
-                    {
-                      "key": "q",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "query_by",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "vector_query",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "filter_by",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "sort_by",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "include_fields",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "exclude_fields",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "page",
-                      "value": "<integer>"
-                    },
-                    {
-                      "key": "per_page",
-                      "value": "<integer>"
-                    },
-                    {
-                      "key": "prefix",
-                      "value": "<string>"
-                    }
-                  ],
+                  "query": [],
                   "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "collectionName",
-                      "description": "(Required) Name of the collection."
-                    },
                     {
                       "description": " (This can only be one of http,https)",
                       "type": "any",
@@ -469,414 +987,6 @@
                 ],
                 "method": "GET",
                 "body": {}
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "38751ab5-8178-47e2-ad1e-7f6060e14293",
-              "name": "Collection not found",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "collections",
-                    ":collectionName",
-                    "documents",
-                    "search"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "q",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "query_by",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "vector_query",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "filter_by",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "sort_by",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "include_fields",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "exclude_fields",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "page",
-                      "value": "<integer>"
-                    },
-                    {
-                      "key": "per_page",
-                      "value": "<integer>"
-                    },
-                    {
-                      "key": "prefix",
-                      "value": "<string>"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "collectionName",
-                      "description": "(Required) Name of the collection."
-                    },
-                    {
-                      "description": " (This can only be one of http,https)",
-                      "type": "any",
-                      "value": "{{protocol}}",
-                      "key": "protocol"
-                    },
-                    {
-                      "description": {
-                        "content": "",
-                        "type": "text/plain"
-                      },
-                      "type": "any",
-                      "value": "{{hostname}}",
-                      "key": "hostname"
-                    },
-                    {
-                      "description": {
-                        "content": "",
-                        "type": "text/plain"
-                      },
-                      "type": "any",
-                      "value": "{{port}}",
-                      "key": "port"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "X-TYPESENSE-API-KEY",
-                    "value": "<API Key>"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "30407c78-3b59-4c1b-94ed-cb8b30f884e8",
-          "name": "Multi-search With Vector Queries",
-          "request": {
-            "name": "Multi-search With Vector Queries",
-            "description": {
-              "content": "Sends multiple search requests in a single HTTP request, where one or more requests can include vector queries for semantic or hybrid search across different collections.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "multi_search"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "description": " (This can only be one of http,https)",
-                  "type": "any",
-                  "value": "{{protocol}}",
-                  "key": "protocol"
-                },
-                {
-                  "description": {
-                    "content": "",
-                    "type": "text/plain"
-                  },
-                  "type": "any",
-                  "value": "{{hostname}}",
-                  "key": "hostname"
-                },
-                {
-                  "description": {
-                    "content": "",
-                    "type": "text/plain"
-                  },
-                  "type": "any",
-                  "value": "{{port}}",
-                  "key": "port"
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "POST",
-            "auth": null,
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"searches\": [\n    {\n      \"collection\": \"<string>\",\n      \"q\": \"<string>\",\n      \"query_by\": \"<string>\",\n      \"vector_query\": \"<string>\",\n      \"filter_by\": \"<string>\",\n      \"sort_by\": \"<string>\",\n      \"page\": \"<integer>\",\n      \"per_page\": \"<integer>\"\n    },\n    {\n      \"collection\": \"<string>\",\n      \"q\": \"<string>\",\n      \"query_by\": \"<string>\",\n      \"vector_query\": \"<string>\",\n      \"filter_by\": \"<string>\",\n      \"sort_by\": \"<string>\",\n      \"page\": \"<integer>\",\n      \"per_page\": \"<integer>\"\n    }\n  ]\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
-          },
-          "response": [
-            {
-              "id": "c46c6077-9ef6-4eb9-a516-3b7be05cb556",
-              "name": "Multi-search results",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "multi_search"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "description": " (This can only be one of http,https)",
-                      "type": "any",
-                      "value": "{{protocol}}",
-                      "key": "protocol"
-                    },
-                    {
-                      "description": {
-                        "content": "",
-                        "type": "text/plain"
-                      },
-                      "type": "any",
-                      "value": "{{hostname}}",
-                      "key": "hostname"
-                    },
-                    {
-                      "description": {
-                        "content": "",
-                        "type": "text/plain"
-                      },
-                      "type": "any",
-                      "value": "{{port}}",
-                      "key": "port"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "X-TYPESENSE-API-KEY",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"searches\": [\n    {\n      \"collection\": \"string\",\n      \"q\": \"string\",\n      \"query_by\": \"string\",\n      \"vector_query\": \"string\",\n      \"filter_by\": \"string\",\n      \"sort_by\": \"string\",\n      \"page\": 3611,\n      \"per_page\": 1133\n    },\n    {\n      \"collection\": \"string\",\n      \"q\": \"string\",\n      \"query_by\": \"string\",\n      \"vector_query\": \"string\",\n      \"filter_by\": \"string\",\n      \"sort_by\": \"string\",\n      \"page\": 1284,\n      \"per_page\": 5529\n    }\n  ]\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"results\": [\n    {\n      \"found\": 7217,\n      \"search_time_ms\": 1718,\n      \"out_of\": 9114,\n      \"page\": 2435,\n      \"hits\": [\n        {\n          \"document\": {},\n          \"text_match\": 7532,\n          \"vector_distance\": 5430.709619857045,\n          \"hybrid_search_info\": {\n            \"text_match_score\": 6893.152394585976,\n            \"vector_distance_score\": 6855.642155931222,\n            \"rank_fusion_score\": 1434.0089064006522\n          }\n        },\n        {\n          \"document\": {},\n          \"text_match\": 6178,\n          \"vector_distance\": 7501.630808428084,\n          \"hybrid_search_info\": {\n            \"text_match_score\": 9269.628118269024,\n            \"vector_distance_score\": 8523.736078769709,\n            \"rank_fusion_score\": 9823.617796939972\n          }\n        }\n      ]\n    },\n    {\n      \"found\": 417,\n      \"search_time_ms\": 1170,\n      \"out_of\": 4648,\n      \"page\": 5815,\n      \"hits\": [\n        {\n          \"document\": {},\n          \"text_match\": 3191,\n          \"vector_distance\": 2727.2364203165066,\n          \"hybrid_search_info\": {\n            \"text_match_score\": 3213.9256965923737,\n            \"vector_distance_score\": 894.5091981072073,\n            \"rank_fusion_score\": 894.517548735474\n          }\n        },\n        {\n          \"document\": {},\n          \"text_match\": 9343,\n          \"vector_distance\": 7354.514398783111,\n          \"hybrid_search_info\": {\n            \"text_match_score\": 6346.056372091382,\n            \"vector_distance_score\": 8378.896634125813,\n            \"rank_fusion_score\": 152.25118788648072\n          }\n        }\n      ]\n    }\n  ]\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "f9457884-6a62-4ada-a4fc-2dcc545ff7d1",
-              "name": "Bad request",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "multi_search"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "description": " (This can only be one of http,https)",
-                      "type": "any",
-                      "value": "{{protocol}}",
-                      "key": "protocol"
-                    },
-                    {
-                      "description": {
-                        "content": "",
-                        "type": "text/plain"
-                      },
-                      "type": "any",
-                      "value": "{{hostname}}",
-                      "key": "hostname"
-                    },
-                    {
-                      "description": {
-                        "content": "",
-                        "type": "text/plain"
-                      },
-                      "type": "any",
-                      "value": "{{port}}",
-                      "key": "port"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "X-TYPESENSE-API-KEY",
-                    "value": "<API Key>"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"searches\": [\n    {\n      \"collection\": \"string\",\n      \"q\": \"string\",\n      \"query_by\": \"string\",\n      \"vector_query\": \"string\",\n      \"filter_by\": \"string\",\n      \"sort_by\": \"string\",\n      \"page\": 3611,\n      \"per_page\": 1133\n    },\n    {\n      \"collection\": \"string\",\n      \"q\": \"string\",\n      \"query_by\": \"string\",\n      \"vector_query\": \"string\",\n      \"filter_by\": \"string\",\n      \"sort_by\": \"string\",\n      \"page\": 1284,\n      \"per_page\": 5529\n    }\n  ]\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "a5a22b93-1a9a-466c-b92d-13484e5c35fd",
-              "name": "Unauthorized",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "multi_search"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "description": " (This can only be one of http,https)",
-                      "type": "any",
-                      "value": "{{protocol}}",
-                      "key": "protocol"
-                    },
-                    {
-                      "description": {
-                        "content": "",
-                        "type": "text/plain"
-                      },
-                      "type": "any",
-                      "value": "{{hostname}}",
-                      "key": "hostname"
-                    },
-                    {
-                      "description": {
-                        "content": "",
-                        "type": "text/plain"
-                      },
-                      "type": "any",
-                      "value": "{{port}}",
-                      "key": "port"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "X-TYPESENSE-API-KEY",
-                    "value": "<API Key>"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"searches\": [\n    {\n      \"collection\": \"string\",\n      \"q\": \"string\",\n      \"query_by\": \"string\",\n      \"vector_query\": \"string\",\n      \"filter_by\": \"string\",\n      \"sort_by\": \"string\",\n      \"page\": 3611,\n      \"per_page\": 1133\n    },\n    {\n      \"collection\": \"string\",\n      \"q\": \"string\",\n      \"query_by\": \"string\",\n      \"vector_query\": \"string\",\n      \"filter_by\": \"string\",\n      \"sort_by\": \"string\",\n      \"page\": 1284,\n      \"per_page\": 5529\n    }\n  ]\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
               },
               "status": "Unauthorized",
               "code": 401,
@@ -953,8 +1063,8 @@
     ]
   },
   "info": {
-    "_postman_id": "81ecc1de-deb2-4715-80a6-16105dc736fe",
-    "name": "Typesense Analytics Analytics Events Vector Search API",
+    "_postman_id": "f75f39be-f020-470c-aa7f-5100c6735e83",
+    "name": "Typesense Analytics Analytics Events Operations API",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
     "description": {
       "content": "The Typesense Analytics API allows developers to track and analyze search behavior by recording click, conversion, and visit events. It provides endpoints for creating analytics rules, logging events with metadata tags, and retrieving popular queries and queries with no results. This data can be used to improve search relevance through query suggestions, curations, and understanding user search patterns.\n\nContact Support:\n Name: Typesense Support",

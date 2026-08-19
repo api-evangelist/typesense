@@ -1,0 +1,98 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Typesense Analytics Analytics Events Stopwords API",
+    "version": "30.1"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-TYPESENSE-API-KEY",
+      "value": "{{X-TYPESENSE-API-KEY}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Stopwords",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List All Stopwords Sets",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{protocol}://{hostname}:{port}/stopwords"
+          },
+          "docs": "Retrieves all stopwords sets. Stopwords are keywords removed from search queries during search (not during indexing)."
+        },
+        {
+          "info": {
+            "name": "Retrieve A Stopwords Set",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{protocol}://{hostname}:{port}/stopwords/:setId",
+            "params": [
+              {
+                "name": "setId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the stopwords set."
+              }
+            ]
+          },
+          "docs": "Retrieves a specific stopwords set by ID."
+        },
+        {
+          "info": {
+            "name": "Create Or Update A Stopwords Set",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{protocol}://{hostname}:{port}/stopwords/:setId",
+            "params": [
+              {
+                "name": "setId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the stopwords set."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new stopwords set or updates an existing one."
+        },
+        {
+          "info": {
+            "name": "Delete A Stopwords Set",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{protocol}://{hostname}:{port}/stopwords/:setId",
+            "params": [
+              {
+                "name": "setId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the stopwords set."
+              }
+            ]
+          },
+          "docs": "Deletes a stopwords set by ID."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,98 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Typesense Analytics Analytics Events Presets API",
+    "version": "30.1"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-TYPESENSE-API-KEY",
+      "value": "{{X-TYPESENSE-API-KEY}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Presets",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List All Presets",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{protocol}://{hostname}:{port}/presets"
+          },
+          "docs": "Retrieves all stored presets. Presets allow you to save named sets of search parameters for reuse across queries."
+        },
+        {
+          "info": {
+            "name": "Retrieve A Preset",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{protocol}://{hostname}:{port}/presets/:presetId",
+            "params": [
+              {
+                "name": "presetId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the preset."
+              }
+            ]
+          },
+          "docs": "Retrieves a specific preset by ID."
+        },
+        {
+          "info": {
+            "name": "Create Or Update A Preset",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{protocol}://{hostname}:{port}/presets/:presetId",
+            "params": [
+              {
+                "name": "presetId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the preset."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new preset or updates an existing one with saved search parameters."
+        },
+        {
+          "info": {
+            "name": "Delete A Preset",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{protocol}://{hostname}:{port}/presets/:presetId",
+            "params": [
+              {
+                "name": "presetId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the preset."
+              }
+            ]
+          },
+          "docs": "Deletes a preset by ID."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

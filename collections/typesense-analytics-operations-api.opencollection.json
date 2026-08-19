@@ -1,0 +1,48 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Typesense Analytics Analytics Events Analytics Operations API",
+    "version": "30.1"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-TYPESENSE-API-KEY",
+      "value": "{{X-TYPESENSE-API-KEY}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Analytics Operations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Flush Analytics Data To Disk",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{protocol}://{hostname}:{port}/analytics/flush"
+          },
+          "docs": "Flushes in-memory analytics data to disk. Useful for ensuring analytics data is persisted before a server restart."
+        },
+        {
+          "info": {
+            "name": "Get Analytics Subsystem Status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{protocol}://{hostname}:{port}/analytics/status"
+          },
+          "docs": "Returns the current status of the analytics subsystem including whether it is operational and any pending operations."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

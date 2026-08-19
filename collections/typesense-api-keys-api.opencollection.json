@@ -1,0 +1,90 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Typesense Analytics Analytics Events API Keys API",
+    "version": "30.1"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-TYPESENSE-API-KEY",
+      "value": "{{X-TYPESENSE-API-KEY}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "API Keys",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve Metadata For All API Keys",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{protocol}://{hostname}:{port}/keys"
+          },
+          "docs": "Returns metadata about all API keys. The actual key values are not returned for security; only the value_prefix is included."
+        },
+        {
+          "info": {
+            "name": "Create An API Key",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{protocol}://{hostname}:{port}/keys",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new API key with fine-grained access control. You can restrict access on a per-collection, per-action, per-record, or per-field level."
+        },
+        {
+          "info": {
+            "name": "Retrieve An API Key",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{protocol}://{hostname}:{port}/keys/:keyId",
+            "params": [
+              {
+                "name": "keyId",
+                "value": "",
+                "type": "path",
+                "description": "Numeric ID of the API key."
+              }
+            ]
+          },
+          "docs": "Retrieves metadata about a specific API key by ID. The full key value is not returned."
+        },
+        {
+          "info": {
+            "name": "Delete An API Key",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{protocol}://{hostname}:{port}/keys/:keyId",
+            "params": [
+              {
+                "name": "keyId",
+                "value": "",
+                "type": "path",
+                "description": "Numeric ID of the API key."
+              }
+            ]
+          },
+          "docs": "Deletes an API key by its numeric ID."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

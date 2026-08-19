@@ -1,101 +1,234 @@
 {
   "item": [
     {
-      "id": "d16e5bc2-75cd-41c4-8056-aeffca20bd5d",
-      "name": "Vector Search",
+      "id": "da384757-ae1d-4677-81df-25558d0208dc",
+      "name": "Stemming",
       "description": {
-        "content": "Perform nearest-neighbor vector search, hybrid keyword-vector search, and semantic search queries.",
+        "content": "Manage stemming dictionaries for custom word stemming rules.",
         "type": "text/plain"
       },
       "item": [
         {
-          "id": "3f80e5f7-0849-49b3-9f28-e39634be3bd6",
-          "name": "Perform Vector Or Hybrid Search",
+          "id": "e78fa1aa-8c97-4497-b7c8-dc3c4fbc5580",
+          "name": "List Stemming Dictionaries",
           "request": {
-            "name": "Perform Vector Or Hybrid Search",
+            "name": "List Stemming Dictionaries",
             "description": {
-              "content": "Searches for documents using vector similarity, keyword matching, or a hybrid combination of both. When vector_query is specified, Typesense performs nearest-neighbor search using the specified vector field. When combined with a text query (q parameter), results are scored using a hybrid approach that blends keyword relevance and vector similarity.",
+              "content": "Retrieves all custom stemming dictionaries.",
               "type": "text/plain"
             },
             "url": {
               "path": [
-                "collections",
-                ":collectionName",
-                "documents",
-                "search"
+                "stemming",
+                "dictionaries"
               ],
               "host": [
                 "{{baseUrl}}"
               ],
-              "query": [
+              "query": [],
+              "variable": [
                 {
-                  "disabled": false,
-                  "key": "q",
-                  "value": "<string>",
-                  "description": "Text search query. Use * for pure vector search without keyword matching."
+                  "description": " (This can only be one of http,https)",
+                  "type": "any",
+                  "value": "{{protocol}}",
+                  "key": "protocol"
                 },
                 {
-                  "disabled": false,
-                  "key": "query_by",
-                  "value": "<string>",
-                  "description": "(Required) Comma-separated list of fields to search against for keyword matching."
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{hostname}}",
+                  "key": "hostname"
                 },
                 {
-                  "disabled": false,
-                  "key": "vector_query",
-                  "value": "<string>",
-                  "description": "Vector query in the format field_name:([v1,v2,...],k:num) or field_name:([], id:doc_id) for finding similar documents. The k parameter controls how many nearest neighbors to return."
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{port}}",
+                  "key": "port"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "6bc161bb-ad0a-4534-ac2c-7c6b3dbd9e3a",
+              "name": "List of stemming dictionaries",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "stemming",
+                    "dictionaries"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": " (This can only be one of http,https)",
+                      "type": "any",
+                      "value": "{{protocol}}",
+                      "key": "protocol"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{hostname}}",
+                      "key": "hostname"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{port}}",
+                      "key": "port"
+                    }
+                  ]
                 },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-TYPESENSE-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
                 {
-                  "disabled": false,
-                  "key": "filter_by",
-                  "value": "<string>",
-                  "description": "Filter conditions to narrow search results."
-                },
-                {
-                  "disabled": false,
-                  "key": "sort_by",
-                  "value": "<string>",
-                  "description": "Sort conditions. Use _vector_distance for sorting by vector similarity."
-                },
-                {
-                  "disabled": false,
-                  "key": "include_fields",
-                  "value": "<string>",
-                  "description": "Comma-separated list of fields to include in results."
-                },
-                {
-                  "disabled": false,
-                  "key": "exclude_fields",
-                  "value": "<string>",
-                  "description": "Comma-separated list of fields to exclude from results."
-                },
-                {
-                  "disabled": false,
-                  "key": "page",
-                  "value": "<integer>",
-                  "description": "Page number for pagination."
-                },
-                {
-                  "disabled": false,
-                  "key": "per_page",
-                  "value": "<integer>",
-                  "description": "Number of results per page."
-                },
-                {
-                  "disabled": false,
-                  "key": "prefix",
-                  "value": "<string>",
-                  "description": "Whether prefix search is enabled for keyword matching."
+                  "key": "Content-Type",
+                  "value": "application/json"
                 }
               ],
+              "body": "[\n  {\n    \"id\": \"string\",\n    \"words\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\"\n    }\n  },\n  {\n    \"id\": \"string\",\n    \"words\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\",\n      \"key_2\": \"string\"\n    }\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "eb5088e7-7ccc-4655-98e4-03db00073825",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "stemming",
+                    "dictionaries"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": " (This can only be one of http,https)",
+                      "type": "any",
+                      "value": "{{protocol}}",
+                      "key": "protocol"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{hostname}}",
+                      "key": "hostname"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{port}}",
+                      "key": "port"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-TYPESENSE-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c88c1687-fe8b-4ddb-ba66-f22748d6478a",
+          "name": "Retrieve A Stemming Dictionary",
+          "request": {
+            "name": "Retrieve A Stemming Dictionary",
+            "description": {
+              "content": "Retrieves a specific stemming dictionary by ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "stemming",
+                "dictionaries",
+                ":dictionaryId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
               "variable": [
                 {
                   "disabled": false,
                   "type": "any",
                   "value": "<string>",
-                  "key": "collectionName",
-                  "description": "(Required) Name of the collection."
+                  "key": "dictionaryId",
+                  "description": "(Required) ID of the stemming dictionary."
                 },
                 {
                   "description": " (This can only be one of http,https)",
@@ -134,68 +267,26 @@
           },
           "response": [
             {
-              "id": "15adaeb7-5620-4da4-8bb7-c7a5b9fdd7f4",
-              "name": "Vector search results returned",
+              "id": "923ca781-9880-46bc-810b-ecddcfd7cd36",
+              "name": "Stemming dictionary retrieved",
               "originalRequest": {
                 "url": {
                   "path": [
-                    "collections",
-                    ":collectionName",
-                    "documents",
-                    "search"
+                    "stemming",
+                    "dictionaries",
+                    ":dictionaryId"
                   ],
                   "host": [
                     "{{baseUrl}}"
                   ],
-                  "query": [
-                    {
-                      "key": "q",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "query_by",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "vector_query",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "filter_by",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "sort_by",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "include_fields",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "exclude_fields",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "page",
-                      "value": "<integer>"
-                    },
-                    {
-                      "key": "per_page",
-                      "value": "<integer>"
-                    },
-                    {
-                      "key": "prefix",
-                      "value": "<string>"
-                    }
-                  ],
+                  "query": [],
                   "variable": [
                     {
                       "disabled": false,
                       "type": "any",
                       "value": "<string>",
-                      "key": "collectionName",
-                      "description": "(Required) Name of the collection."
+                      "key": "dictionaryId",
+                      "description": "(Required) ID of the stemming dictionary."
                     },
                     {
                       "description": " (This can only be one of http,https)",
@@ -248,188 +339,31 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"found\": 5505,\n  \"search_time_ms\": 4967,\n  \"out_of\": 2877,\n  \"page\": 8228,\n  \"hits\": [\n    {\n      \"document\": {},\n      \"text_match\": 1334,\n      \"vector_distance\": 415.9632209637509,\n      \"hybrid_search_info\": {\n        \"text_match_score\": 6886.097524797707,\n        \"vector_distance_score\": 6259.112375604645,\n        \"rank_fusion_score\": 2300.720936291207\n      }\n    },\n    {\n      \"document\": {},\n      \"text_match\": 8954,\n      \"vector_distance\": 7974.966771747377,\n      \"hybrid_search_info\": {\n        \"text_match_score\": 2275.045526416315,\n        \"vector_distance_score\": 1835.9830498340712,\n        \"rank_fusion_score\": 3251.1994363631256\n      }\n    }\n  ]\n}",
+              "body": "{\n  \"id\": \"string\",\n  \"words\": {\n    \"key_0\": \"string\"\n  }\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "bd36f0e6-a54e-4efe-a6f0-b4237f093cf3",
-              "name": "Bad request - invalid vector query",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "collections",
-                    ":collectionName",
-                    "documents",
-                    "search"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "q",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "query_by",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "vector_query",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "filter_by",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "sort_by",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "include_fields",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "exclude_fields",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "page",
-                      "value": "<integer>"
-                    },
-                    {
-                      "key": "per_page",
-                      "value": "<integer>"
-                    },
-                    {
-                      "key": "prefix",
-                      "value": "<string>"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "collectionName",
-                      "description": "(Required) Name of the collection."
-                    },
-                    {
-                      "description": " (This can only be one of http,https)",
-                      "type": "any",
-                      "value": "{{protocol}}",
-                      "key": "protocol"
-                    },
-                    {
-                      "description": {
-                        "content": "",
-                        "type": "text/plain"
-                      },
-                      "type": "any",
-                      "value": "{{hostname}}",
-                      "key": "hostname"
-                    },
-                    {
-                      "description": {
-                        "content": "",
-                        "type": "text/plain"
-                      },
-                      "type": "any",
-                      "value": "{{port}}",
-                      "key": "port"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "X-TYPESENSE-API-KEY",
-                    "value": "<API Key>"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "77bd4a7b-c903-4f2d-8e99-1445095f8745",
+              "id": "de901794-0bf9-402b-80d5-8744c70eb51e",
               "name": "Unauthorized",
               "originalRequest": {
                 "url": {
                   "path": [
-                    "collections",
-                    ":collectionName",
-                    "documents",
-                    "search"
+                    "stemming",
+                    "dictionaries",
+                    ":dictionaryId"
                   ],
                   "host": [
                     "{{baseUrl}}"
                   ],
-                  "query": [
-                    {
-                      "key": "q",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "query_by",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "vector_query",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "filter_by",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "sort_by",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "include_fields",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "exclude_fields",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "page",
-                      "value": "<integer>"
-                    },
-                    {
-                      "key": "per_page",
-                      "value": "<integer>"
-                    },
-                    {
-                      "key": "prefix",
-                      "value": "<string>"
-                    }
-                  ],
+                  "query": [],
                   "variable": [
                     {
                       "disabled": false,
                       "type": "any",
                       "value": "<string>",
-                      "key": "collectionName",
-                      "description": "(Required) Name of the collection."
+                      "key": "dictionaryId",
+                      "description": "(Required) ID of the stemming dictionary."
                     },
                     {
                       "description": " (This can only be one of http,https)",
@@ -483,68 +417,26 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "38751ab5-8178-47e2-ad1e-7f6060e14293",
-              "name": "Collection not found",
+              "id": "b2a89be3-08ca-4b91-9076-a2809dce9e3c",
+              "name": "Stemming dictionary not found",
               "originalRequest": {
                 "url": {
                   "path": [
-                    "collections",
-                    ":collectionName",
-                    "documents",
-                    "search"
+                    "stemming",
+                    "dictionaries",
+                    ":dictionaryId"
                   ],
                   "host": [
                     "{{baseUrl}}"
                   ],
-                  "query": [
-                    {
-                      "key": "q",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "query_by",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "vector_query",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "filter_by",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "sort_by",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "include_fields",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "exclude_fields",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "page",
-                      "value": "<integer>"
-                    },
-                    {
-                      "key": "per_page",
-                      "value": "<integer>"
-                    },
-                    {
-                      "key": "prefix",
-                      "value": "<string>"
-                    }
-                  ],
+                  "query": [],
                   "variable": [
                     {
                       "disabled": false,
                       "type": "any",
                       "value": "<string>",
-                      "key": "collectionName",
-                      "description": "(Required) Name of the collection."
+                      "key": "dictionaryId",
+                      "description": "(Required) ID of the stemming dictionary."
                     },
                     {
                       "description": " (This can only be one of http,https)",
@@ -604,17 +496,19 @@
           }
         },
         {
-          "id": "30407c78-3b59-4c1b-94ed-cb8b30f884e8",
-          "name": "Multi-search With Vector Queries",
+          "id": "f0acda2a-498b-4c49-8293-5d8e696a8f25",
+          "name": "Import A Stemming Dictionary",
           "request": {
-            "name": "Multi-search With Vector Queries",
+            "name": "Import A Stemming Dictionary",
             "description": {
-              "content": "Sends multiple search requests in a single HTTP request, where one or more requests can include vector queries for semantic or hybrid search across different collections.",
+              "content": "Imports a custom stemming dictionary with word-to-stem mappings.",
               "type": "text/plain"
             },
             "url": {
               "path": [
-                "multi_search"
+                "stemming",
+                "dictionaries",
+                "import"
               ],
               "host": [
                 "{{baseUrl}}"
@@ -661,7 +555,7 @@
             "auth": null,
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"searches\": [\n    {\n      \"collection\": \"<string>\",\n      \"q\": \"<string>\",\n      \"query_by\": \"<string>\",\n      \"vector_query\": \"<string>\",\n      \"filter_by\": \"<string>\",\n      \"sort_by\": \"<string>\",\n      \"page\": \"<integer>\",\n      \"per_page\": \"<integer>\"\n    },\n    {\n      \"collection\": \"<string>\",\n      \"q\": \"<string>\",\n      \"query_by\": \"<string>\",\n      \"vector_query\": \"<string>\",\n      \"filter_by\": \"<string>\",\n      \"sort_by\": \"<string>\",\n      \"page\": \"<integer>\",\n      \"per_page\": \"<integer>\"\n    }\n  ]\n}",
+              "raw": "<object>",
               "options": {
                 "raw": {
                   "language": "json"
@@ -671,12 +565,14 @@
           },
           "response": [
             {
-              "id": "c46c6077-9ef6-4eb9-a516-3b7be05cb556",
-              "name": "Multi-search results",
+              "id": "51bef94c-0e7f-4a24-8c24-85fcd975dbf6",
+              "name": "Stemming dictionary imported",
               "originalRequest": {
                 "url": {
                   "path": [
-                    "multi_search"
+                    "stemming",
+                    "dictionaries",
+                    "import"
                   ],
                   "host": [
                     "{{baseUrl}}"
@@ -726,7 +622,7 @@
                 "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"searches\": [\n    {\n      \"collection\": \"string\",\n      \"q\": \"string\",\n      \"query_by\": \"string\",\n      \"vector_query\": \"string\",\n      \"filter_by\": \"string\",\n      \"sort_by\": \"string\",\n      \"page\": 3611,\n      \"per_page\": 1133\n    },\n    {\n      \"collection\": \"string\",\n      \"q\": \"string\",\n      \"query_by\": \"string\",\n      \"vector_query\": \"string\",\n      \"filter_by\": \"string\",\n      \"sort_by\": \"string\",\n      \"page\": 1284,\n      \"per_page\": 5529\n    }\n  ]\n}",
+                  "raw": "<object>",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -742,17 +638,19 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"results\": [\n    {\n      \"found\": 7217,\n      \"search_time_ms\": 1718,\n      \"out_of\": 9114,\n      \"page\": 2435,\n      \"hits\": [\n        {\n          \"document\": {},\n          \"text_match\": 7532,\n          \"vector_distance\": 5430.709619857045,\n          \"hybrid_search_info\": {\n            \"text_match_score\": 6893.152394585976,\n            \"vector_distance_score\": 6855.642155931222,\n            \"rank_fusion_score\": 1434.0089064006522\n          }\n        },\n        {\n          \"document\": {},\n          \"text_match\": 6178,\n          \"vector_distance\": 7501.630808428084,\n          \"hybrid_search_info\": {\n            \"text_match_score\": 9269.628118269024,\n            \"vector_distance_score\": 8523.736078769709,\n            \"rank_fusion_score\": 9823.617796939972\n          }\n        }\n      ]\n    },\n    {\n      \"found\": 417,\n      \"search_time_ms\": 1170,\n      \"out_of\": 4648,\n      \"page\": 5815,\n      \"hits\": [\n        {\n          \"document\": {},\n          \"text_match\": 3191,\n          \"vector_distance\": 2727.2364203165066,\n          \"hybrid_search_info\": {\n            \"text_match_score\": 3213.9256965923737,\n            \"vector_distance_score\": 894.5091981072073,\n            \"rank_fusion_score\": 894.517548735474\n          }\n        },\n        {\n          \"document\": {},\n          \"text_match\": 9343,\n          \"vector_distance\": 7354.514398783111,\n          \"hybrid_search_info\": {\n            \"text_match_score\": 6346.056372091382,\n            \"vector_distance_score\": 8378.896634125813,\n            \"rank_fusion_score\": 152.25118788648072\n          }\n        }\n      ]\n    }\n  ]\n}",
+              "body": "{\n  \"id\": \"string\",\n  \"words\": {\n    \"key_0\": \"string\"\n  }\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "f9457884-6a62-4ada-a4fc-2dcc545ff7d1",
+              "id": "e67dd206-0504-4b5c-9a5a-f447e447d10d",
               "name": "Bad request",
               "originalRequest": {
                 "url": {
                   "path": [
-                    "multi_search"
+                    "stemming",
+                    "dictionaries",
+                    "import"
                   ],
                   "host": [
                     "{{baseUrl}}"
@@ -798,7 +696,7 @@
                 "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"searches\": [\n    {\n      \"collection\": \"string\",\n      \"q\": \"string\",\n      \"query_by\": \"string\",\n      \"vector_query\": \"string\",\n      \"filter_by\": \"string\",\n      \"sort_by\": \"string\",\n      \"page\": 3611,\n      \"per_page\": 1133\n    },\n    {\n      \"collection\": \"string\",\n      \"q\": \"string\",\n      \"query_by\": \"string\",\n      \"vector_query\": \"string\",\n      \"filter_by\": \"string\",\n      \"sort_by\": \"string\",\n      \"page\": 1284,\n      \"per_page\": 5529\n    }\n  ]\n}",
+                  "raw": "<object>",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -819,12 +717,14 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "a5a22b93-1a9a-466c-b92d-13484e5c35fd",
+              "id": "821ed956-4057-46f7-9ef8-31e77a6078d9",
               "name": "Unauthorized",
               "originalRequest": {
                 "url": {
                   "path": [
-                    "multi_search"
+                    "stemming",
+                    "dictionaries",
+                    "import"
                   ],
                   "host": [
                     "{{baseUrl}}"
@@ -870,7 +770,7 @@
                 "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"searches\": [\n    {\n      \"collection\": \"string\",\n      \"q\": \"string\",\n      \"query_by\": \"string\",\n      \"vector_query\": \"string\",\n      \"filter_by\": \"string\",\n      \"sort_by\": \"string\",\n      \"page\": 3611,\n      \"per_page\": 1133\n    },\n    {\n      \"collection\": \"string\",\n      \"q\": \"string\",\n      \"query_by\": \"string\",\n      \"vector_query\": \"string\",\n      \"filter_by\": \"string\",\n      \"sort_by\": \"string\",\n      \"page\": 1284,\n      \"per_page\": 5529\n    }\n  ]\n}",
+                  "raw": "<object>",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -953,8 +853,8 @@
     ]
   },
   "info": {
-    "_postman_id": "81ecc1de-deb2-4715-80a6-16105dc736fe",
-    "name": "Typesense Analytics Analytics Events Vector Search API",
+    "_postman_id": "96657e44-05ab-41bc-9279-c7b9b6ab9832",
+    "name": "Typesense Analytics Analytics Events Stemming API",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
     "description": {
       "content": "The Typesense Analytics API allows developers to track and analyze search behavior by recording click, conversion, and visit events. It provides endpoints for creating analytics rules, logging events with metadata tags, and retrieving popular queries and queries with no results. This data can be used to improve search relevance through query suggestions, curations, and understanding user search patterns.\n\nContact Support:\n Name: Typesense Support",
