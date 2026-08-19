@@ -21,7 +21,7 @@ image: https://typesense.org/favicon-32x32.png
 url: https://typesense.org
 created: '2026-05-03'
 modified: '2026-05-19'
-specificationVersion: '0.19'
+specificationVersion: '0.23'
 tags:
 - Full-Text Search
 - Open Source
