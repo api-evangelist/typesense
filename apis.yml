@@ -24,6 +24,12 @@ modified: '2026-05-19'
 specificationVersion: '0.23'
 tags:
 - Full-Text Search
+- Open-Source
+- Search Engines
+- Typo Tolerance
+- Vector Search
+tags_raw:
+- Full-Text Search
 - Open Source
 - Search Engine
 - Typo Tolerance
@@ -38,6 +44,11 @@ apis:
   humanURL: https://typesense.org/docs/
   baseURL: http://localhost:8108
   tags:
+  - Collection
+  - Documents
+  - Full-Text Search
+  - Search
+  tags_raw:
   - Collections
   - Documents
   - Full-Text Search
@@ -80,6 +91,11 @@ apis:
   humanURL: https://typesense.org/docs/guide/conversational-search-rag.html
   baseURL: http://localhost:8108
   tags:
+  - Artificial Intelligence
+  - Conversational Search
+  - LLM
+  - RAG
+  tags_raw:
   - AI
   - Conversational Search
   - LLM
@@ -143,6 +159,8 @@ apis:
   humanURL: https://typesense.org/docs/
   baseURL: http://localhost:8108
   tags:
+  - APIKeys
+  tags_raw:
   - API Keys
   properties:
   - type: OpenAPI
@@ -189,6 +207,8 @@ apis:
   humanURL: https://typesense.org/docs/
   baseURL: http://localhost:8108
   tags:
+  - Collection
+  tags_raw:
   - Collections
   properties:
   - type: OpenAPI
@@ -320,7 +340,8 @@ apis:
   description: Cluster operations including snapshots, cache management, compaction, and voting.
   humanURL: https://typesense.org/docs/
   baseURL: http://localhost:8108
-  tags:
+  tags: []
+  tags_raw:
   - Operations
   properties:
   - type: OpenAPI
