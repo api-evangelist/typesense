@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Typesense Analytics Analytics Events Multi-Search API
+  title: Typesense Analytics Analytics Events Multi Search API
   description: The Typesense Analytics API allows developers to track and analyze search behavior by recording click, conversion, and visit events. It provides endpoints for creating analytics rules, logging events with metadata tags, and retrieving popular queries and queries with no results. This data can be used to improve search relevance through query suggestions, curations, and understanding user search patterns.
   version: '30.1'
   contact:
@@ -69,6 +69,95 @@ paths:
           description: Unauthorized
 components:
   schemas:
+    SearchResultHit:
+      type: object
+      properties:
+        document:
+          type: object
+          description: The matched document.
+        highlights:
+          type: array
+          description: Array of field highlights with matched tokens.
+          items:
+            $ref: '#/components/schemas/SearchHighlight'
+        highlight:
+          type: object
+          description: Structured highlight object with nested field support.
+        text_match:
+          type: integer
+          format: int64
+          description: Text match score for the hit.
+        text_match_info:
+          type: object
+          description: Detailed text match scoring breakdown.
+        geo_distance_meters:
+          type: object
+          description: Distance in meters from the search geo point.
+        vector_distance:
+          type: number
+          format: float
+          description: Distance from the query vector for vector searches.
+        hybrid_search_info:
+          type: object
+          description: Information about hybrid keyword and vector search scoring.
+    MultiSearchResult:
+      type: object
+      properties:
+        results:
+          type: array
+          description: Array of search results, one per search request.
+          items:
+            $ref: '#/components/schemas/SearchResult'
+        conversation:
+          type: object
+          description: Conversation context when conversational multi-search is used.
+    MultiSearchParameters:
+      type: object
+      required:
+      - collection
+      properties:
+        collection:
+          type: string
+          description: Name of the collection to search.
+        q:
+          type: string
+          description: Search query string.
+        query_by:
+          type: string
+          description: Comma-separated list of fields to search.
+        filter_by:
+          type: string
+          description: Filter conditions.
+        sort_by:
+          type: string
+          description: Sort conditions.
+        facet_by:
+          type: string
+          description: Fields to facet on.
+        page:
+          type: integer
+          description: Page number.
+        per_page:
+          type: integer
+          description: Results per page.
+        preset:
+          type: string
+          description: Name of a preset to apply.
+    SearchGroupedHit:
+      type: object
+      properties:
+        found:
+          type: integer
+          description: Number of hits in this group.
+        group_key:
+          type: array
+          description: Values of the group_by field.
+          items: {}
+        hits:
+          type: array
+          description: Search hits within this group.
+          items:
+            $ref: '#/components/schemas/SearchResultHit'
     SearchResult:
       type: object
       properties:
@@ -123,21 +212,37 @@ components:
             conversation_id:
               type: string
               description: ID of the conversation for follow-up queries.
-    SearchGroupedHit:
+    SearchHighlight:
       type: object
       properties:
-        found:
-          type: integer
-          description: Number of hits in this group.
-        group_key:
+        field:
+          type: string
+          description: Name of the highlighted field.
+        snippet:
+          type: string
+          description: Highlighted snippet of the field value.
+        snippets:
           type: array
-          description: Values of the group_by field.
-          items: {}
-        hits:
-          type: array
-          description: Search hits within this group.
+          description: Array of highlighted snippets for array fields.
           items:
-            $ref: '#/components/schemas/SearchResultHit'
+            type: string
+        value:
+          type: string
+          description: Full highlighted field value.
+        values:
+          type: array
+          description: Full highlighted values for array fields.
+          items:
+            type: string
+        matched_tokens:
+          type: array
+          description: Tokens in the field that matched the query.
+          items: {}
+        indices:
+          type: array
+          description: Indices of matched values in array fields.
+          items:
+            type: integer
     FacetCounts:
       type: object
       properties:
@@ -173,111 +278,6 @@ components:
               type: number
             total_values:
               type: integer
-    SearchHighlight:
-      type: object
-      properties:
-        field:
-          type: string
-          description: Name of the highlighted field.
-        snippet:
-          type: string
-          description: Highlighted snippet of the field value.
-        snippets:
-          type: array
-          description: Array of highlighted snippets for array fields.
-          items:
-            type: string
-        value:
-          type: string
-          description: Full highlighted field value.
-        values:
-          type: array
-          description: Full highlighted values for array fields.
-          items:
-            type: string
-        matched_tokens:
-          type: array
-          description: Tokens in the field that matched the query.
-          items: {}
-        indices:
-          type: array
-          description: Indices of matched values in array fields.
-          items:
-            type: integer
-    MultiSearchResult:
-      type: object
-      properties:
-        results:
-          type: array
-          description: Array of search results, one per search request.
-          items:
-            $ref: '#/components/schemas/SearchResult'
-        conversation:
-          type: object
-          description: Conversation context when conversational multi-search is used.
-    MultiSearchParameters:
-      type: object
-      required:
-      - collection
-      properties:
-        collection:
-          type: string
-          description: Name of the collection to search.
-        q:
-          type: string
-          description: Search query string.
-        query_by:
-          type: string
-          description: Comma-separated list of fields to search.
-        filter_by:
-          type: string
-          description: Filter conditions.
-        sort_by:
-          type: string
-          description: Sort conditions.
-        facet_by:
-          type: string
-          description: Fields to facet on.
-        page:
-          type: integer
-          description: Page number.
-        per_page:
-          type: integer
-          description: Results per page.
-        preset:
-          type: string
-          description: Name of a preset to apply.
-    SearchResultHit:
-      type: object
-      properties:
-        document:
-          type: object
-          description: The matched document.
-        highlights:
-          type: array
-          description: Array of field highlights with matched tokens.
-          items:
-            $ref: '#/components/schemas/SearchHighlight'
-        highlight:
-          type: object
-          description: Structured highlight object with nested field support.
-        text_match:
-          type: integer
-          format: int64
-          description: Text match score for the hit.
-        text_match_info:
-          type: object
-          description: Detailed text match scoring breakdown.
-        geo_distance_meters:
-          type: object
-          description: Distance in meters from the search geo point.
-        vector_distance:
-          type: number
-          format: float
-          description: Distance from the query vector for vector searches.
-        hybrid_search_info:
-          type: object
-          description: Information about hybrid keyword and vector search scoring.
   securitySchemes:
     api_key_header:
       type: apiKey

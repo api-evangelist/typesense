@@ -1,4 +1,4 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
   title: Typesense Analytics Analytics Events Collections API
   description: The Typesense Analytics API allows developers to track and analyze search behavior by recording click, conversion, and visit events. It provides endpoints for creating analytics rules, logging events with metadata tags, and retrieving popular queries and queries with no results. This data can be used to improve search relevance through query suggestions, curations, and understanding user search patterns.
@@ -135,15 +135,55 @@ paths:
         '404':
           description: Collection not found
 components:
-  parameters:
-    collectionName:
-      name: collectionName
-      in: path
-      required: true
-      description: Name of the collection.
-      schema:
-        type: string
   schemas:
+    CollectionUpdateSchema:
+      type: object
+      properties:
+        fields:
+          type: array
+          description: Array of field definitions to add, modify, or drop.
+          items:
+            $ref: '#/components/schemas/Field'
+        synonym_sets:
+          type: array
+          description: Updated list of synonym set names for this collection.
+          items:
+            type: string
+        metadata:
+          type: object
+          description: Updated metadata for the collection.
+    CollectionResponse:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Name of the collection.
+        fields:
+          type: array
+          items:
+            $ref: '#/components/schemas/Field'
+        default_sorting_field:
+          type: string
+          description: Default sorting field for this collection.
+        num_documents:
+          type: integer
+          format: int64
+          description: Number of documents in the collection.
+        created_at:
+          type: integer
+          format: int64
+          description: Unix timestamp when the collection was created.
+        token_separators:
+          type: array
+          items:
+            type: string
+        symbols_to_index:
+          type: array
+          items:
+            type: string
+        enable_nested_fields:
+          type: boolean
+          description: Whether nested field indexing is enabled.
     Field:
       type: object
       required:
@@ -240,12 +280,6 @@ components:
                 url:
                   type: string
                   description: URL of the embedding service.
-    VoiceQueryModelConfig:
-      type: object
-      properties:
-        model_name:
-          type: string
-          description: Name of the voice query model.
     CollectionSchema:
       type: object
       required:
@@ -286,54 +320,20 @@ components:
         metadata:
           type: object
           description: Arbitrary metadata to store with the collection.
-    CollectionResponse:
+    VoiceQueryModelConfig:
       type: object
       properties:
-        name:
+        model_name:
           type: string
-          description: Name of the collection.
-        fields:
-          type: array
-          items:
-            $ref: '#/components/schemas/Field'
-        default_sorting_field:
-          type: string
-          description: Default sorting field for this collection.
-        num_documents:
-          type: integer
-          format: int64
-          description: Number of documents in the collection.
-        created_at:
-          type: integer
-          format: int64
-          description: Unix timestamp when the collection was created.
-        token_separators:
-          type: array
-          items:
-            type: string
-        symbols_to_index:
-          type: array
-          items:
-            type: string
-        enable_nested_fields:
-          type: boolean
-          description: Whether nested field indexing is enabled.
-    CollectionUpdateSchema:
-      type: object
-      properties:
-        fields:
-          type: array
-          description: Array of field definitions to add, modify, or drop.
-          items:
-            $ref: '#/components/schemas/Field'
-        synonym_sets:
-          type: array
-          description: Updated list of synonym set names for this collection.
-          items:
-            type: string
-        metadata:
-          type: object
-          description: Updated metadata for the collection.
+          description: Name of the voice query model.
+  parameters:
+    collectionName:
+      name: collectionName
+      in: path
+      required: true
+      description: Name of the collection.
+      schema:
+        type: string
   securitySchemes:
     api_key_header:
       type: apiKey

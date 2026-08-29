@@ -1,4 +1,4 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
   title: Typesense Analytics Analytics Events Vector Search API
   description: The Typesense Analytics API allows developers to track and analyze search behavior by recording click, conversion, and visit events. It provides endpoints for creating analytics rules, logging events with metadata tags, and retrieving popular queries and queries with no results. This data can be used to improve search relevance through query suggestions, curations, and understanding user search patterns.
@@ -170,6 +170,35 @@ components:
           description: Array of search result hits with vector distance scores.
           items:
             $ref: '#/components/schemas/VectorSearchHit'
+    VectorMultiSearchParameters:
+      type: object
+      required:
+      - collection
+      properties:
+        collection:
+          type: string
+          description: Name of the collection to search.
+        q:
+          type: string
+          description: Text search query. Use * for pure vector search.
+        query_by:
+          type: string
+          description: Fields to search for keyword matching.
+        vector_query:
+          type: string
+          description: Vector query for nearest-neighbor search.
+        filter_by:
+          type: string
+          description: Filter conditions.
+        sort_by:
+          type: string
+          description: Sort conditions.
+        page:
+          type: integer
+          description: Page number.
+        per_page:
+          type: integer
+          description: Results per page.
     VectorSearchHit:
       type: object
       properties:
@@ -202,35 +231,6 @@ components:
             rank_fusion_score:
               type: number
               description: Combined score from rank fusion of text and vector scores.
-    VectorMultiSearchParameters:
-      type: object
-      required:
-      - collection
-      properties:
-        collection:
-          type: string
-          description: Name of the collection to search.
-        q:
-          type: string
-          description: Text search query. Use * for pure vector search.
-        query_by:
-          type: string
-          description: Fields to search for keyword matching.
-        vector_query:
-          type: string
-          description: Vector query for nearest-neighbor search.
-        filter_by:
-          type: string
-          description: Filter conditions.
-        sort_by:
-          type: string
-          description: Sort conditions.
-        page:
-          type: integer
-          description: Page number.
-        per_page:
-          type: integer
-          description: Results per page.
   parameters:
     collectionName:
       name: collectionName

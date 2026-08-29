@@ -1,4 +1,4 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
   title: Typesense Analytics Analytics Events Synonym Sets API
   description: The Typesense Analytics API allows developers to track and analyze search behavior by recording click, conversion, and visit events. It provides endpoints for creating analytics rules, logging events with metadata tags, and retrieving popular queries and queries with no results. This data can be used to improve search relevance through query suggestions, curations, and understanding user search patterns.
@@ -197,6 +197,49 @@ paths:
         '404':
           description: Synonym item or set not found
 components:
+  schemas:
+    SuccessStatus:
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Whether the operation was successful.
+    SynonymSet:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Name of the synonym set.
+    SynonymItem:
+      type: object
+      properties:
+        id:
+          type: string
+          description: ID of the synonym item.
+        synonyms:
+          type: array
+          items:
+            type: string
+        root:
+          type: string
+          description: Root term for one-way synonyms.
+    SynonymItemSchema:
+      type: object
+      properties:
+        synonyms:
+          type: array
+          description: List of synonym terms that are interchangeable.
+          items:
+            type: string
+        root:
+          type: string
+          description: Root term for one-way synonyms. When set, the synonyms list maps to this root term.
+    SynonymSetSchema:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Name of the synonym set.
   parameters:
     itemId:
       name: itemId
@@ -212,49 +255,6 @@ components:
       description: Name of the synonym set.
       schema:
         type: string
-  schemas:
-    SynonymSetSchema:
-      type: object
-      properties:
-        name:
-          type: string
-          description: Name of the synonym set.
-    SynonymItemSchema:
-      type: object
-      properties:
-        synonyms:
-          type: array
-          description: List of synonym terms that are interchangeable.
-          items:
-            type: string
-        root:
-          type: string
-          description: Root term for one-way synonyms. When set, the synonyms list maps to this root term.
-    SynonymSet:
-      type: object
-      properties:
-        name:
-          type: string
-          description: Name of the synonym set.
-    SuccessStatus:
-      type: object
-      properties:
-        success:
-          type: boolean
-          description: Whether the operation was successful.
-    SynonymItem:
-      type: object
-      properties:
-        id:
-          type: string
-          description: ID of the synonym item.
-        synonyms:
-          type: array
-          items:
-            type: string
-        root:
-          type: string
-          description: Root term for one-way synonyms.
   securitySchemes:
     api_key_header:
       type: apiKey

@@ -1,4 +1,4 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
   title: Typesense Analytics Analytics Events API Keys API
   description: The Typesense Analytics API allows developers to track and analyze search behavior by recording click, conversion, and visit events. It provides endpoints for creating analytics rules, logging events with metadata tags, and retrieving popular queries and queries with no results. This data can be used to improve search relevance through query suggestions, curations, and understanding user search patterns.
@@ -112,33 +112,14 @@ paths:
           description: API key not found
 components:
   schemas:
-    ApiKey:
+    ApiKeysResponse:
       type: object
       properties:
-        id:
-          type: integer
-          format: int64
-          description: Numeric ID of the API key.
-        value:
-          type: string
-          description: Full API key value. Only returned on creation.
-        value_prefix:
-          type: string
-          description: First few characters of the key for identification.
-        description:
-          type: string
-          description: Human-readable description.
-        actions:
+        keys:
           type: array
+          description: Array of API key metadata.
           items:
-            type: string
-        collections:
-          type: array
-          items:
-            type: string
-        expires_at:
-          type: integer
-          format: int64
+            $ref: '#/components/schemas/ApiKey'
     ApiKeySchema:
       type: object
       required:
@@ -166,14 +147,33 @@ components:
           type: integer
           format: int64
           description: Unix timestamp when this key expires. Set to 0 for no expiration.
-    ApiKeysResponse:
+    ApiKey:
       type: object
       properties:
-        keys:
+        id:
+          type: integer
+          format: int64
+          description: Numeric ID of the API key.
+        value:
+          type: string
+          description: Full API key value. Only returned on creation.
+        value_prefix:
+          type: string
+          description: First few characters of the key for identification.
+        description:
+          type: string
+          description: Human-readable description.
+        actions:
           type: array
-          description: Array of API key metadata.
           items:
-            $ref: '#/components/schemas/ApiKey'
+            type: string
+        collections:
+          type: array
+          items:
+            type: string
+        expires_at:
+          type: integer
+          format: int64
   parameters:
     keyId:
       name: keyId
