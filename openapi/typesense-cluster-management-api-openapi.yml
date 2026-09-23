@@ -146,15 +146,72 @@ paths:
         '404':
           description: Cluster not found
 components:
-  parameters:
-    clusterId:
-      name: clusterId
-      in: path
-      required: true
-      description: Unique identifier of the cluster.
-      schema:
-        type: string
   schemas:
+    Cluster:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the cluster.
+        cluster_name:
+          type: string
+          description: Friendly name of the cluster.
+        memory:
+          type: string
+          description: Memory allocation.
+        vcpu:
+          type: string
+          description: vCPU configuration.
+        gpu:
+          type: boolean
+          description: Whether the cluster is GPU-enabled.
+        high_performance_disk:
+          type: string
+          description: High-performance disk configuration.
+        typesense_server_version:
+          type: string
+          description: Typesense Server version running on the cluster.
+        high_availability:
+          type: string
+          description: Whether high availability is enabled.
+        search_delivery_network:
+          type: string
+          description: Whether search delivery network is enabled.
+        load_balancing:
+          type: string
+          description: Whether load balancing is enabled.
+        regions:
+          type: array
+          description: Regions the cluster is deployed in.
+          items:
+            type: string
+        status:
+          type: string
+          description: Current status of the cluster.
+          enum:
+          - provisioning
+          - in_service
+          - terminating
+          - terminated
+        hostnames:
+          type: object
+          description: Hostnames for connecting to the cluster nodes.
+        auto_upgrade_capacity:
+          type: boolean
+          description: Whether auto-upgrade is enabled.
+        created_at:
+          type: string
+          format: date-time
+          description: When the cluster was created.
+    ClusterApiKeys:
+      type: object
+      properties:
+        admin_key:
+          type: string
+          description: Admin API key with full access to the Typesense Server.
+        search_only_key:
+          type: string
+          description: Search-only API key for client-side use.
     ClusterCreateSchema:
       type: object
       required:
@@ -215,71 +272,14 @@ components:
         auto_upgrade_capacity:
           type: boolean
           description: Updated auto-upgrade setting.
-    ClusterApiKeys:
-      type: object
-      properties:
-        admin_key:
-          type: string
-          description: Admin API key with full access to the Typesense Server.
-        search_only_key:
-          type: string
-          description: Search-only API key for client-side use.
-    Cluster:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Unique identifier of the cluster.
-        cluster_name:
-          type: string
-          description: Friendly name of the cluster.
-        memory:
-          type: string
-          description: Memory allocation.
-        vcpu:
-          type: string
-          description: vCPU configuration.
-        gpu:
-          type: boolean
-          description: Whether the cluster is GPU-enabled.
-        high_performance_disk:
-          type: string
-          description: High-performance disk configuration.
-        typesense_server_version:
-          type: string
-          description: Typesense Server version running on the cluster.
-        high_availability:
-          type: string
-          description: Whether high availability is enabled.
-        search_delivery_network:
-          type: string
-          description: Whether search delivery network is enabled.
-        load_balancing:
-          type: string
-          description: Whether load balancing is enabled.
-        regions:
-          type: array
-          description: Regions the cluster is deployed in.
-          items:
-            type: string
-        status:
-          type: string
-          description: Current status of the cluster.
-          enum:
-          - provisioning
-          - in_service
-          - terminating
-          - terminated
-        hostnames:
-          type: object
-          description: Hostnames for connecting to the cluster nodes.
-        auto_upgrade_capacity:
-          type: boolean
-          description: Whether auto-upgrade is enabled.
-        created_at:
-          type: string
-          format: date-time
-          description: When the cluster was created.
+  parameters:
+    clusterId:
+      name: clusterId
+      in: path
+      required: true
+      description: Unique identifier of the cluster.
+      schema:
+        type: string
   securitySchemes:
     cloudApiKey:
       type: apiKey

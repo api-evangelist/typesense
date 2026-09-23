@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: Typesense Cloud Management Server Configuration Parameters API
+  title: Typesense Cloud Management Server Configuration Parameters…
   description: The Typesense Cloud Management API provides endpoints for provisioning and managing Typesense Cloud clusters programmatically. It supports creating, updating, and deleting clusters, managing cluster configuration parameters, generating API keys, and applying configuration changes. This API enables infrastructure automation for teams running Typesense on the managed cloud platform, with authentication handled through cloud management API keys.
   version: '1'
   contact:

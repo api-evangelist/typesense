@@ -85,28 +85,6 @@ paths:
           description: Unauthorized
 components:
   schemas:
-    AnalyticsEventCreateResponse:
-      type: object
-      properties:
-        ok:
-          type: boolean
-          description: Whether the event was logged successfully.
-    AnalyticsEvent:
-      type: object
-      properties:
-        type:
-          type: string
-          description: Event type.
-        name:
-          type: string
-          description: Event name.
-        data:
-          type: object
-          description: Event data payload.
-        timestamp:
-          type: integer
-          format: int64
-          description: Unix timestamp of the event.
     AnalyticsEventCreateSchema:
       type: object
       required:
@@ -141,6 +119,28 @@ components:
             position:
               type: integer
               description: Position of the document in search results.
+    AnalyticsEventCreateResponse:
+      type: object
+      properties:
+        ok:
+          type: boolean
+          description: Whether the event was logged successfully.
+    AnalyticsEvent:
+      type: object
+      properties:
+        type:
+          type: string
+          description: Event type.
+        name:
+          type: string
+          description: Event name.
+        data:
+          type: object
+          description: Event data payload.
+        timestamp:
+          type: integer
+          format: int64
+          description: Unix timestamp of the event.
   securitySchemes:
     api_key_header:
       type: apiKey
