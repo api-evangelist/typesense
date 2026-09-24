@@ -38,16 +38,19 @@ modified: '2026-05-19'
 specificationVersion: '0.23'
 tags:
 - Full-Text Search
-- Open-Source
+- Open Source
 - Search Engines
 - Typo Tolerance
 - Vector Search
+- Search
 tags_raw:
 - Full-Text Search
 - Open Source
 - Search Engine
 - Typo Tolerance
 - Vector Search
+- Open-Source
+- Search
 apis:
 - aid: typesense:typesense-analytics-events-api
   name: Typesense Analytics Events API
