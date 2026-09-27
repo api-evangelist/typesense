@@ -122,22 +122,38 @@ paths:
         '404':
           description: Configuration change or cluster not found
 components:
-  parameters:
-    clusterId:
-      name: clusterId
-      in: path
-      required: true
-      description: Unique identifier of the cluster.
-      schema:
-        type: string
-    changeId:
-      name: changeId
-      in: path
-      required: true
-      description: Unique identifier of the configuration change.
-      schema:
-        type: string
   schemas:
+    ConfigurationChange:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the configuration change.
+        status:
+          type: string
+          description: Current status of the change.
+          enum:
+          - pending
+          - in_progress
+          - completed
+          - canceled
+          - failed
+        new_memory:
+          type: string
+        new_vcpu:
+          type: string
+        new_typesense_server_version:
+          type: string
+        new_high_availability:
+          type: string
+        perform_change_at:
+          type: integer
+          format: int64
+          description: Scheduled time for the change.
+        created_at:
+          type: string
+          format: date-time
+          description: When the change was created.
     ConfigurationChangeCreateSchema:
       type: object
       properties:
@@ -171,37 +187,21 @@ components:
           description: Email addresses to notify about the configuration change.
           items:
             type: string
-    ConfigurationChange:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Unique identifier of the configuration change.
-        status:
-          type: string
-          description: Current status of the change.
-          enum:
-          - pending
-          - in_progress
-          - completed
-          - canceled
-          - failed
-        new_memory:
-          type: string
-        new_vcpu:
-          type: string
-        new_typesense_server_version:
-          type: string
-        new_high_availability:
-          type: string
-        perform_change_at:
-          type: integer
-          format: int64
-          description: Scheduled time for the change.
-        created_at:
-          type: string
-          format: date-time
-          description: When the change was created.
+  parameters:
+    changeId:
+      name: changeId
+      in: path
+      required: true
+      description: Unique identifier of the configuration change.
+      schema:
+        type: string
+    clusterId:
+      name: clusterId
+      in: path
+      required: true
+      description: Unique identifier of the cluster.
+      schema:
+        type: string
   securitySchemes:
     cloudApiKey:
       type: apiKey
