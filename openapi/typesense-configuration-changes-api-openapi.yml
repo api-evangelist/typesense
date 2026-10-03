@@ -188,18 +188,18 @@ components:
           items:
             type: string
   parameters:
-    changeId:
-      name: changeId
-      in: path
-      required: true
-      description: Unique identifier of the configuration change.
-      schema:
-        type: string
     clusterId:
       name: clusterId
       in: path
       required: true
       description: Unique identifier of the cluster.
+      schema:
+        type: string
+    changeId:
+      name: changeId
+      in: path
+      required: true
+      description: Unique identifier of the configuration change.
       schema:
         type: string
   securitySchemes:
