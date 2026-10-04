@@ -138,14 +138,6 @@ paths:
         '404':
           description: Analytics rule not found
 components:
-  parameters:
-    ruleName:
-      name: ruleName
-      in: path
-      required: true
-      description: Name of the analytics rule.
-      schema:
-        type: string
   schemas:
     AnalyticsRuleCreateSchema:
       type: object
@@ -225,6 +217,14 @@ components:
           type: integer
           format: int64
           description: Unix timestamp when the rule was created.
+  parameters:
+    ruleName:
+      name: ruleName
+      in: path
+      required: true
+      description: Name of the analytics rule.
+      schema:
+        type: string
   securitySchemes:
     api_key_header:
       type: apiKey

@@ -122,6 +122,21 @@ paths:
         '404':
           description: Configuration change or cluster not found
 components:
+  parameters:
+    changeId:
+      name: changeId
+      in: path
+      required: true
+      description: Unique identifier of the configuration change.
+      schema:
+        type: string
+    clusterId:
+      name: clusterId
+      in: path
+      required: true
+      description: Unique identifier of the cluster.
+      schema:
+        type: string
   schemas:
     ConfigurationChange:
       type: object
@@ -187,21 +202,6 @@ components:
           description: Email addresses to notify about the configuration change.
           items:
             type: string
-  parameters:
-    clusterId:
-      name: clusterId
-      in: path
-      required: true
-      description: Unique identifier of the cluster.
-      schema:
-        type: string
-    changeId:
-      name: changeId
-      in: path
-      required: true
-      description: Unique identifier of the configuration change.
-      schema:
-        type: string
   securitySchemes:
     cloudApiKey:
       type: apiKey
