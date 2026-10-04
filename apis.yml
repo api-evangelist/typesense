@@ -148,6 +148,9 @@ maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 common:
+- type: CapabilityMap
+  url: capabilities/typesense-capability-edges.yml
+  name: Typesense Business Capability Map
 - type: AgenticAccess
   url: agentic-access/typesense-agentic-access.yml
 - type: DomainSecurity
