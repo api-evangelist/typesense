@@ -112,3 +112,53 @@ plans:
       - name: Dedicated support
       - name: Custom SLA
       - name: Self-hosted Enterprise license available
+x-canonical:
+  generated: '2026-10-08'
+  vocabulary: all/0-working/economics/plans-canonical.yml
+  models:
+  - metered
+  - subscription
+  units:
+  - compute
+  - period
+  plans:
+  - name: Open Source (Self-hosted)
+    access: freemium
+    model: subscription
+    model_how: derived
+    units:
+    - period
+    periods:
+    - month
+  - name: Cloud — Small (0.5 GB RAM)
+    access: other
+    model: metered
+    model_how: stated
+    units:
+    - compute
+    periods:
+    - per-use
+  - name: Cloud — Medium (2 GB RAM)
+    access: other
+    model: metered
+    model_how: stated
+    units:
+    - compute
+    periods:
+    - per-use
+  - name: Cloud — HA Multi-node
+    access: paid
+    model: metered
+    model_how: derived
+    units:
+    - compute
+    periods:
+    - per-use
+  - name: Enterprise
+    access: enterprise
+    model: subscription
+    model_how: derived
+    units:
+    - period
+    periods:
+    - year
