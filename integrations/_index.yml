@@ -19,7 +19,7 @@
     registered_name: org.typesense/typesense-cloud
     register_id: org.typesense/typesense-cloud
     detected_by: sweep-agent-tools.py
-    detected: '2026-10-14'
+    detected: '2026-10-15'
   status: not-a-workflow
   arazzo: null
 - slug: typesense-llamaindex
