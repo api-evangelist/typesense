@@ -62,14 +62,6 @@ paths:
         '404':
           description: Cluster not found
 components:
-  parameters:
-    clusterId:
-      name: clusterId
-      in: path
-      required: true
-      description: Unique identifier of the cluster.
-      schema:
-        type: string
   schemas:
     ServerConfigurationParameters:
       type: object
@@ -85,6 +77,14 @@ components:
         log-slow-requests-time-ms:
           type: integer
           description: Threshold in milliseconds for logging slow requests.
+  parameters:
+    clusterId:
+      name: clusterId
+      in: path
+      required: true
+      description: Unique identifier of the cluster.
+      schema:
+        type: string
   securitySchemes:
     cloudApiKey:
       type: apiKey
