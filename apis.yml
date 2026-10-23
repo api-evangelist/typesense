@@ -148,6 +148,8 @@ maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 common:
+- type: PostmanWorkspace
+  url: https://www.postman.com/kinlaneapi/typesense/overview
 - type: Plans
   url: plans/typesense-plans-pricing.yml
 - type: RateLimits
