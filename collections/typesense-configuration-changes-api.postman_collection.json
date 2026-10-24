@@ -1,1548 +1,1020 @@
 {
+  "info": {
+    "_postman_id": "aee64dc9-9023-40a7-a349-ce284d4f2776",
+    "name": "Typesense Cloud Management Configuration Changes API",
+    "description": "The Typesense Cloud Management API provides endpoints for provisioning and managing Typesense Cloud clusters programmatically. It supports creating, updating, and deleting clusters, managing cluster configuration parameters, generating API keys, and applying configuration changes. This API enables infrastructure automation for teams running Typesense on the managed cloud platform, with authentication handled through cloud management API keys.\n\nContact Support:\n Name: Typesense Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-21T20:24:53.000Z",
+    "updatedAt": "2026-10-21T20:24:53.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-aee64dc9-9023-40a7-a349-ce284d4f2776"
+  },
   "item": [
     {
-      "id": "40349cfc-6b8d-4278-a5d8-100edd62efbe",
-      "name": "Configuration Changes",
-      "description": {
-        "content": "Schedule, retrieve, list, and cancel configuration changes to running clusters such as memory upgrades, version changes, and HA toggles.",
-        "type": "text/plain"
-      },
+      "name": "clusters",
       "item": [
         {
-          "id": "15093a2d-228a-41c1-916d-34912d997bf4",
-          "name": "Schedule A Configuration Change",
-          "request": {
-            "name": "Schedule A Configuration Change",
-            "description": {
-              "content": "Schedules a configuration change for a cluster such as upgrading memory, changing vCPU allocation, upgrading Typesense server version, or enabling/disabling high availability. Changes are applied at the specified time.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "clusters",
-                ":clusterId",
-                "configuration-changes"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
+          "name": "{clusterId}",
+          "item": [
+            {
+              "name": "configuration-changes",
+              "item": [
                 {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "clusterId",
-                  "description": "(Required) Unique identifier of the cluster."
+                  "name": "{changeId}",
+                  "item": [
+                    {
+                      "name": "Retrieve A Configuration Change",
+                      "id": "dff2b43e-ff4e-41e6-b229-a103e43c0b9e",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/clusters/:clusterId/configuration-changes/:changeId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "clusters",
+                            ":clusterId",
+                            "configuration-changes",
+                            ":changeId"
+                          ],
+                          "variable": [
+                            {
+                              "id": "a8d0fd11-7516-425b-bc9e-52f49eae9edd",
+                              "key": "clusterId",
+                              "value": "<string>",
+                              "description": "(Required) Unique identifier of the cluster."
+                            },
+                            {
+                              "id": "100d57e9-ec4c-422d-a0b4-de724574376c",
+                              "key": "changeId",
+                              "value": "<string>",
+                              "description": "(Required) Unique identifier of the configuration change."
+                            }
+                          ]
+                        },
+                        "description": "Retrieves details of a specific configuration change by ID."
+                      },
+                      "response": [
+                        {
+                          "id": "9076f113-1cd2-4c5f-81d8-fcbf5d6b9217",
+                          "name": "Configuration change details",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "X-TYPESENSE-CLOUD-MANAGEMENT-API-KEY",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/clusters/:clusterId/configuration-changes/:changeId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "clusters",
+                                ":clusterId",
+                                "configuration-changes",
+                                ":changeId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "clusterId"
+                                },
+                                {
+                                  "key": "changeId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"id\": \"<string>\",\n  \"status\": \"pending\",\n  \"new_memory\": \"<string>\",\n  \"new_vcpu\": \"<string>\",\n  \"new_typesense_server_version\": \"<string>\",\n  \"new_high_availability\": \"<string>\",\n  \"perform_change_at\": \"<long>\",\n  \"created_at\": \"<dateTime>\"\n}",
+                          "createdAt": "2026-10-21T20:24:53.000Z",
+                          "updatedAt": "2026-10-21T20:24:53.000Z",
+                          "uid": "35240-9076f113-1cd2-4c5f-81d8-fcbf5d6b9217"
+                        },
+                        {
+                          "id": "2918d92a-7627-46be-a940-a06ac6e4874b",
+                          "name": "Unauthorized",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "X-TYPESENSE-CLOUD-MANAGEMENT-API-KEY",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/clusters/:clusterId/configuration-changes/:changeId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "clusters",
+                                ":clusterId",
+                                "configuration-changes",
+                                ":changeId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "clusterId"
+                                },
+                                {
+                                  "key": "changeId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-21T20:24:53.000Z",
+                          "updatedAt": "2026-10-21T20:24:53.000Z",
+                          "uid": "35240-2918d92a-7627-46be-a940-a06ac6e4874b"
+                        },
+                        {
+                          "id": "9bcc734a-c847-486c-9b45-d04d019255ac",
+                          "name": "Configuration change or cluster not found",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "X-TYPESENSE-CLOUD-MANAGEMENT-API-KEY",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/clusters/:clusterId/configuration-changes/:changeId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "clusters",
+                                ":clusterId",
+                                "configuration-changes",
+                                ":changeId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "clusterId"
+                                },
+                                {
+                                  "key": "changeId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-21T20:24:53.000Z",
+                          "updatedAt": "2026-10-21T20:24:53.000Z",
+                          "uid": "35240-9bcc734a-c847-486c-9b45-d04d019255ac"
+                        }
+                      ],
+                      "createdAt": "2026-10-21T20:24:53.000Z",
+                      "updatedAt": "2026-10-21T20:24:53.000Z",
+                      "uid": "35240-dff2b43e-ff4e-41e6-b229-a103e43c0b9e"
+                    },
+                    {
+                      "name": "Cancel A Configuration Change",
+                      "id": "d7343721-090d-41fe-89ef-4ead6a302689",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "PATCH",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"status\": \"canceled\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/clusters/:clusterId/configuration-changes/:changeId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "clusters",
+                            ":clusterId",
+                            "configuration-changes",
+                            ":changeId"
+                          ],
+                          "variable": [
+                            {
+                              "id": "84a47f48-2cea-4123-b6fa-48e7da789a12",
+                              "key": "clusterId",
+                              "value": "<string>",
+                              "description": "(Required) Unique identifier of the cluster."
+                            },
+                            {
+                              "id": "a202ec85-999b-4b0c-ac70-9025fea63be5",
+                              "key": "changeId",
+                              "value": "<string>",
+                              "description": "(Required) Unique identifier of the configuration change."
+                            }
+                          ]
+                        },
+                        "description": "Updates a configuration change, typically to cancel a pending change by setting its status to canceled."
+                      },
+                      "response": [
+                        {
+                          "id": "2edce872-d1e0-4cf2-8b88-42a4ee421502",
+                          "name": "Configuration change updated",
+                          "originalRequest": {
+                            "method": "PATCH",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "X-TYPESENSE-CLOUD-MANAGEMENT-API-KEY",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"status\": \"canceled\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/clusters/:clusterId/configuration-changes/:changeId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "clusters",
+                                ":clusterId",
+                                "configuration-changes",
+                                ":changeId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "clusterId"
+                                },
+                                {
+                                  "key": "changeId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"id\": \"<string>\",\n  \"status\": \"pending\",\n  \"new_memory\": \"<string>\",\n  \"new_vcpu\": \"<string>\",\n  \"new_typesense_server_version\": \"<string>\",\n  \"new_high_availability\": \"<string>\",\n  \"perform_change_at\": \"<long>\",\n  \"created_at\": \"<dateTime>\"\n}",
+                          "createdAt": "2026-10-21T20:24:53.000Z",
+                          "updatedAt": "2026-10-21T20:24:53.000Z",
+                          "uid": "35240-2edce872-d1e0-4cf2-8b88-42a4ee421502"
+                        },
+                        {
+                          "id": "f74b7c71-512d-4c1b-bc01-ccb5451b5093",
+                          "name": "Bad request - change cannot be canceled",
+                          "originalRequest": {
+                            "method": "PATCH",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "X-TYPESENSE-CLOUD-MANAGEMENT-API-KEY",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"status\": \"canceled\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/clusters/:clusterId/configuration-changes/:changeId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "clusters",
+                                ":clusterId",
+                                "configuration-changes",
+                                ":changeId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "clusterId"
+                                },
+                                {
+                                  "key": "changeId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-21T20:24:53.000Z",
+                          "updatedAt": "2026-10-21T20:24:53.000Z",
+                          "uid": "35240-f74b7c71-512d-4c1b-bc01-ccb5451b5093"
+                        },
+                        {
+                          "id": "6f9501ff-73c8-4ba3-acfb-5e09784bc738",
+                          "name": "Unauthorized",
+                          "originalRequest": {
+                            "method": "PATCH",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "X-TYPESENSE-CLOUD-MANAGEMENT-API-KEY",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"status\": \"canceled\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/clusters/:clusterId/configuration-changes/:changeId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "clusters",
+                                ":clusterId",
+                                "configuration-changes",
+                                ":changeId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "clusterId"
+                                },
+                                {
+                                  "key": "changeId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-21T20:24:53.000Z",
+                          "updatedAt": "2026-10-21T20:24:53.000Z",
+                          "uid": "35240-6f9501ff-73c8-4ba3-acfb-5e09784bc738"
+                        },
+                        {
+                          "id": "eccadccc-0d0f-4dd9-89ae-75eeee71b4d1",
+                          "name": "Configuration change or cluster not found",
+                          "originalRequest": {
+                            "method": "PATCH",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "X-TYPESENSE-CLOUD-MANAGEMENT-API-KEY",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"status\": \"canceled\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/clusters/:clusterId/configuration-changes/:changeId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "clusters",
+                                ":clusterId",
+                                "configuration-changes",
+                                ":changeId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "clusterId"
+                                },
+                                {
+                                  "key": "changeId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-21T20:24:53.000Z",
+                          "updatedAt": "2026-10-21T20:24:53.000Z",
+                          "uid": "35240-eccadccc-0d0f-4dd9-89ae-75eeee71b4d1"
+                        }
+                      ],
+                      "createdAt": "2026-10-21T20:24:53.000Z",
+                      "updatedAt": "2026-10-21T20:24:53.000Z",
+                      "uid": "35240-d7343721-090d-41fe-89ef-4ead6a302689"
+                    }
+                  ],
+                  "id": "284a2773-55eb-48ba-878f-c23a1dedc036",
+                  "createdAt": "2026-10-21T20:24:53.000Z",
+                  "updatedAt": "2026-10-21T20:24:53.000Z",
+                  "uid": "35240-284a2773-55eb-48ba-878f-c23a1dedc036"
                 },
                 {
-                  "description": " (This can only be one of http,https)",
-                  "type": "any",
-                  "value": "{{protocol}}",
-                  "key": "protocol"
-                },
-                {
-                  "description": {
-                    "content": "",
-                    "type": "text/plain"
+                  "name": "Schedule A Configuration Change",
+                  "id": "75a6539b-e1c3-4fb2-84bd-f9cbfad35fc7",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
                   },
-                  "type": "any",
-                  "value": "{{hostname}}",
-                  "key": "hostname"
-                },
-                {
-                  "description": {
-                    "content": "",
-                    "type": "text/plain"
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"new_memory\": \"<string>\",\n  \"new_vcpu\": \"<string>\",\n  \"new_gpu\": \"<boolean>\",\n  \"new_high_performance_disk\": \"<string>\",\n  \"new_typesense_server_version\": \"<string>\",\n  \"new_high_availability\": \"no\",\n  \"perform_change_at\": \"<long>\",\n  \"notification_email_addresses\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/clusters/:clusterId/configuration-changes",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "clusters",
+                        ":clusterId",
+                        "configuration-changes"
+                      ],
+                      "variable": [
+                        {
+                          "id": "fcc262ea-0a90-435d-b97c-9bc189395588",
+                          "key": "clusterId",
+                          "value": "<string>",
+                          "description": "(Required) Unique identifier of the cluster."
+                        }
+                      ]
+                    },
+                    "description": "Schedules a configuration change for a cluster such as upgrading memory, changing vCPU allocation, upgrading Typesense server version, or enabling/disabling high availability. Changes are applied at the specified time."
                   },
-                  "type": "any",
-                  "value": "{{port}}",
-                  "key": "port"
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "POST",
-            "auth": null,
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"new_memory\": \"<string>\",\n  \"new_vcpu\": \"<string>\",\n  \"new_gpu\": \"<boolean>\",\n  \"new_high_performance_disk\": \"<string>\",\n  \"new_typesense_server_version\": \"<string>\",\n  \"new_high_availability\": \"<string>\",\n  \"perform_change_at\": \"<long>\",\n  \"notification_email_addresses\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
-          },
-          "response": [
-            {
-              "id": "d6251574-e081-47f0-b543-78ba0efbd9b6",
-              "name": "Configuration change scheduled",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "clusters",
-                    ":clusterId",
-                    "configuration-changes"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
+                  "response": [
                     {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "clusterId",
-                      "description": "(Required) Unique identifier of the cluster."
-                    },
-                    {
-                      "description": " (This can only be one of http,https)",
-                      "type": "any",
-                      "value": "{{protocol}}",
-                      "key": "protocol"
-                    },
-                    {
-                      "description": {
-                        "content": "",
-                        "type": "text/plain"
+                      "id": "9292fa2b-4c06-479b-93a9-318c9e576f8e",
+                      "name": "Configuration change scheduled",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "X-TYPESENSE-CLOUD-MANAGEMENT-API-KEY",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"new_memory\": \"<string>\",\n  \"new_vcpu\": \"<string>\",\n  \"new_gpu\": \"<boolean>\",\n  \"new_high_performance_disk\": \"<string>\",\n  \"new_typesense_server_version\": \"<string>\",\n  \"new_high_availability\": \"no\",\n  \"perform_change_at\": \"<long>\",\n  \"notification_email_addresses\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/clusters/:clusterId/configuration-changes",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "clusters",
+                            ":clusterId",
+                            "configuration-changes"
+                          ],
+                          "variable": [
+                            {
+                              "key": "clusterId"
+                            }
+                          ]
+                        }
                       },
-                      "type": "any",
-                      "value": "{{hostname}}",
-                      "key": "hostname"
+                      "status": "Created",
+                      "code": 201,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"<string>\",\n  \"status\": \"pending\",\n  \"new_memory\": \"<string>\",\n  \"new_vcpu\": \"<string>\",\n  \"new_typesense_server_version\": \"<string>\",\n  \"new_high_availability\": \"<string>\",\n  \"perform_change_at\": \"<long>\",\n  \"created_at\": \"<dateTime>\"\n}",
+                      "createdAt": "2026-10-21T20:24:53.000Z",
+                      "updatedAt": "2026-10-21T20:24:53.000Z",
+                      "uid": "35240-9292fa2b-4c06-479b-93a9-318c9e576f8e"
                     },
                     {
-                      "description": {
-                        "content": "",
-                        "type": "text/plain"
+                      "id": "e075e8e0-b88e-45bc-b13f-b90331e011fb",
+                      "name": "Bad request - invalid configuration",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "X-TYPESENSE-CLOUD-MANAGEMENT-API-KEY",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"new_memory\": \"<string>\",\n  \"new_vcpu\": \"<string>\",\n  \"new_gpu\": \"<boolean>\",\n  \"new_high_performance_disk\": \"<string>\",\n  \"new_typesense_server_version\": \"<string>\",\n  \"new_high_availability\": \"no\",\n  \"perform_change_at\": \"<long>\",\n  \"notification_email_addresses\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/clusters/:clusterId/configuration-changes",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "clusters",
+                            ":clusterId",
+                            "configuration-changes"
+                          ],
+                          "variable": [
+                            {
+                              "key": "clusterId"
+                            }
+                          ]
+                        }
                       },
-                      "type": "any",
-                      "value": "{{port}}",
-                      "key": "port"
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-21T20:24:53.000Z",
+                      "updatedAt": "2026-10-21T20:24:53.000Z",
+                      "uid": "35240-e075e8e0-b88e-45bc-b13f-b90331e011fb"
+                    },
+                    {
+                      "id": "3c3d09e7-6e79-4c1a-bd07-dc841becc657",
+                      "name": "Unauthorized",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "X-TYPESENSE-CLOUD-MANAGEMENT-API-KEY",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"new_memory\": \"<string>\",\n  \"new_vcpu\": \"<string>\",\n  \"new_gpu\": \"<boolean>\",\n  \"new_high_performance_disk\": \"<string>\",\n  \"new_typesense_server_version\": \"<string>\",\n  \"new_high_availability\": \"no\",\n  \"perform_change_at\": \"<long>\",\n  \"notification_email_addresses\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/clusters/:clusterId/configuration-changes",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "clusters",
+                            ":clusterId",
+                            "configuration-changes"
+                          ],
+                          "variable": [
+                            {
+                              "key": "clusterId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-21T20:24:53.000Z",
+                      "updatedAt": "2026-10-21T20:24:53.000Z",
+                      "uid": "35240-3c3d09e7-6e79-4c1a-bd07-dc841becc657"
+                    },
+                    {
+                      "id": "5cda0f45-7a4d-4dff-91b2-1fb4c7562b2f",
+                      "name": "Cluster not found",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "X-TYPESENSE-CLOUD-MANAGEMENT-API-KEY",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"new_memory\": \"<string>\",\n  \"new_vcpu\": \"<string>\",\n  \"new_gpu\": \"<boolean>\",\n  \"new_high_performance_disk\": \"<string>\",\n  \"new_typesense_server_version\": \"<string>\",\n  \"new_high_availability\": \"no\",\n  \"perform_change_at\": \"<long>\",\n  \"notification_email_addresses\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/clusters/:clusterId/configuration-changes",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "clusters",
+                            ":clusterId",
+                            "configuration-changes"
+                          ],
+                          "variable": [
+                            {
+                              "key": "clusterId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-21T20:24:53.000Z",
+                      "updatedAt": "2026-10-21T20:24:53.000Z",
+                      "uid": "35240-5cda0f45-7a4d-4dff-91b2-1fb4c7562b2f"
                     }
-                  ]
+                  ],
+                  "createdAt": "2026-10-21T20:24:53.000Z",
+                  "updatedAt": "2026-10-21T20:24:53.000Z",
+                  "uid": "35240-75a6539b-e1c3-4fb2-84bd-f9cbfad35fc7"
                 },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "X-TYPESENSE-API-KEY",
-                    "value": "<API Key>"
+                {
+                  "name": "List Configuration Changes",
+                  "id": "a84af745-8e71-40f4-b843-c58c4f8d4f46",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
                   },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"new_memory\": \"<string>\",\n  \"new_vcpu\": \"<string>\",\n  \"new_gpu\": \"<boolean>\",\n  \"new_high_performance_disk\": \"<string>\",\n  \"new_typesense_server_version\": \"<string>\",\n  \"new_high_availability\": \"<string>\",\n  \"perform_change_at\": \"<long>\",\n  \"notification_email_addresses\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Created",
-              "code": 201,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"id\": \"string\",\n  \"status\": \"in_progress\",\n  \"new_memory\": \"string\",\n  \"new_vcpu\": \"string\",\n  \"new_typesense_server_version\": \"string\",\n  \"new_high_availability\": \"string\",\n  \"perform_change_at\": 7756,\n  \"created_at\": \"1983-10-04T07:08:48.642Z\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "677fac1f-16dd-4f77-80b3-3a967e31da51",
-              "name": "Bad request - invalid configuration",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "clusters",
-                    ":clusterId",
-                    "configuration-changes"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "clusterId",
-                      "description": "(Required) Unique identifier of the cluster."
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/clusters/:clusterId/configuration-changes?per_page=<integer>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "clusters",
+                        ":clusterId",
+                        "configuration-changes"
+                      ],
+                      "query": [
+                        {
+                          "description": "Number of results per page.",
+                          "key": "per_page",
+                          "value": "<integer>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "id": "f682f54f-6879-4b10-8c72-c494de356493",
+                          "key": "clusterId",
+                          "value": "<string>",
+                          "description": "(Required) Unique identifier of the cluster."
+                        }
+                      ]
                     },
-                    {
-                      "description": " (This can only be one of http,https)",
-                      "type": "any",
-                      "value": "{{protocol}}",
-                      "key": "protocol"
-                    },
-                    {
-                      "description": {
-                        "content": "",
-                        "type": "text/plain"
-                      },
-                      "type": "any",
-                      "value": "{{hostname}}",
-                      "key": "hostname"
-                    },
-                    {
-                      "description": {
-                        "content": "",
-                        "type": "text/plain"
-                      },
-                      "type": "any",
-                      "value": "{{port}}",
-                      "key": "port"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "X-TYPESENSE-API-KEY",
-                    "value": "<API Key>"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"new_memory\": \"<string>\",\n  \"new_vcpu\": \"<string>\",\n  \"new_gpu\": \"<boolean>\",\n  \"new_high_performance_disk\": \"<string>\",\n  \"new_typesense_server_version\": \"<string>\",\n  \"new_high_availability\": \"<string>\",\n  \"perform_change_at\": \"<long>\",\n  \"notification_email_addresses\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "b404b758-fc04-4ed7-be14-32f86ffa580d",
-              "name": "Unauthorized",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "clusters",
-                    ":clusterId",
-                    "configuration-changes"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "clusterId",
-                      "description": "(Required) Unique identifier of the cluster."
-                    },
-                    {
-                      "description": " (This can only be one of http,https)",
-                      "type": "any",
-                      "value": "{{protocol}}",
-                      "key": "protocol"
-                    },
-                    {
-                      "description": {
-                        "content": "",
-                        "type": "text/plain"
-                      },
-                      "type": "any",
-                      "value": "{{hostname}}",
-                      "key": "hostname"
-                    },
-                    {
-                      "description": {
-                        "content": "",
-                        "type": "text/plain"
-                      },
-                      "type": "any",
-                      "value": "{{port}}",
-                      "key": "port"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "X-TYPESENSE-API-KEY",
-                    "value": "<API Key>"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"new_memory\": \"<string>\",\n  \"new_vcpu\": \"<string>\",\n  \"new_gpu\": \"<boolean>\",\n  \"new_high_performance_disk\": \"<string>\",\n  \"new_typesense_server_version\": \"<string>\",\n  \"new_high_availability\": \"<string>\",\n  \"perform_change_at\": \"<long>\",\n  \"notification_email_addresses\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "2b3be93e-2368-4737-aec4-0d8e07e25884",
-              "name": "Cluster not found",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "clusters",
-                    ":clusterId",
-                    "configuration-changes"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "clusterId",
-                      "description": "(Required) Unique identifier of the cluster."
-                    },
-                    {
-                      "description": " (This can only be one of http,https)",
-                      "type": "any",
-                      "value": "{{protocol}}",
-                      "key": "protocol"
-                    },
-                    {
-                      "description": {
-                        "content": "",
-                        "type": "text/plain"
-                      },
-                      "type": "any",
-                      "value": "{{hostname}}",
-                      "key": "hostname"
-                    },
-                    {
-                      "description": {
-                        "content": "",
-                        "type": "text/plain"
-                      },
-                      "type": "any",
-                      "value": "{{port}}",
-                      "key": "port"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "X-TYPESENSE-API-KEY",
-                    "value": "<API Key>"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"new_memory\": \"<string>\",\n  \"new_vcpu\": \"<string>\",\n  \"new_gpu\": \"<boolean>\",\n  \"new_high_performance_disk\": \"<string>\",\n  \"new_typesense_server_version\": \"<string>\",\n  \"new_high_availability\": \"<string>\",\n  \"perform_change_at\": \"<long>\",\n  \"notification_email_addresses\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "4037bbd1-1ce3-43a2-b104-15a8c084c7a8",
-          "name": "List Configuration Changes",
-          "request": {
-            "name": "List Configuration Changes",
-            "description": {
-              "content": "Retrieves all configuration changes for a cluster, including pending, applied, and canceled changes.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "clusters",
-                ":clusterId",
-                "configuration-changes"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [
-                {
-                  "disabled": false,
-                  "key": "per_page",
-                  "value": "<integer>",
-                  "description": "Number of results per page."
-                }
-              ],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "clusterId",
-                  "description": "(Required) Unique identifier of the cluster."
-                },
-                {
-                  "description": " (This can only be one of http,https)",
-                  "type": "any",
-                  "value": "{{protocol}}",
-                  "key": "protocol"
-                },
-                {
-                  "description": {
-                    "content": "",
-                    "type": "text/plain"
+                    "description": "Retrieves all configuration changes for a cluster, including pending, applied, and canceled changes."
                   },
-                  "type": "any",
-                  "value": "{{hostname}}",
-                  "key": "hostname"
-                },
-                {
-                  "description": {
-                    "content": "",
-                    "type": "text/plain"
-                  },
-                  "type": "any",
-                  "value": "{{port}}",
-                  "key": "port"
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "0182df46-c880-4011-916f-f5e9a0981a5a",
-              "name": "List of configuration changes",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "clusters",
-                    ":clusterId",
-                    "configuration-changes"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
+                  "response": [
                     {
-                      "key": "per_page",
-                      "value": "<integer>"
+                      "id": "59b9b4c8-5ae0-4976-894d-a2b1ae956dac",
+                      "name": "List of configuration changes",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "X-TYPESENSE-CLOUD-MANAGEMENT-API-KEY",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/clusters/:clusterId/configuration-changes?per_page=<integer>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "clusters",
+                            ":clusterId",
+                            "configuration-changes"
+                          ],
+                          "query": [
+                            {
+                              "description": "Number of results per page.",
+                              "key": "per_page",
+                              "value": "<integer>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "clusterId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "[\n  {\n    \"id\": \"<string>\",\n    \"status\": \"pending\",\n    \"new_memory\": \"<string>\",\n    \"new_vcpu\": \"<string>\",\n    \"new_typesense_server_version\": \"<string>\",\n    \"new_high_availability\": \"<string>\",\n    \"perform_change_at\": \"<long>\",\n    \"created_at\": \"<dateTime>\"\n  },\n  {\n    \"id\": \"<string>\",\n    \"status\": \"completed\",\n    \"new_memory\": \"<string>\",\n    \"new_vcpu\": \"<string>\",\n    \"new_typesense_server_version\": \"<string>\",\n    \"new_high_availability\": \"<string>\",\n    \"perform_change_at\": \"<long>\",\n    \"created_at\": \"<dateTime>\"\n  }\n]",
+                      "createdAt": "2026-10-21T20:24:53.000Z",
+                      "updatedAt": "2026-10-21T20:24:53.000Z",
+                      "uid": "35240-59b9b4c8-5ae0-4976-894d-a2b1ae956dac"
+                    },
+                    {
+                      "id": "f5a30b4e-ebc4-438c-8768-983f9abf4036",
+                      "name": "Unauthorized",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "X-TYPESENSE-CLOUD-MANAGEMENT-API-KEY",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/clusters/:clusterId/configuration-changes?per_page=<integer>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "clusters",
+                            ":clusterId",
+                            "configuration-changes"
+                          ],
+                          "query": [
+                            {
+                              "description": "Number of results per page.",
+                              "key": "per_page",
+                              "value": "<integer>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "clusterId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-21T20:24:53.000Z",
+                      "updatedAt": "2026-10-21T20:24:53.000Z",
+                      "uid": "35240-f5a30b4e-ebc4-438c-8768-983f9abf4036"
+                    },
+                    {
+                      "id": "21b39158-0321-48db-9d7a-d2bbc46f6f73",
+                      "name": "Cluster not found",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "X-TYPESENSE-CLOUD-MANAGEMENT-API-KEY",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/clusters/:clusterId/configuration-changes?per_page=<integer>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "clusters",
+                            ":clusterId",
+                            "configuration-changes"
+                          ],
+                          "query": [
+                            {
+                              "description": "Number of results per page.",
+                              "key": "per_page",
+                              "value": "<integer>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "clusterId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-21T20:24:53.000Z",
+                      "updatedAt": "2026-10-21T20:24:53.000Z",
+                      "uid": "35240-21b39158-0321-48db-9d7a-d2bbc46f6f73"
                     }
                   ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "clusterId",
-                      "description": "(Required) Unique identifier of the cluster."
-                    },
-                    {
-                      "description": " (This can only be one of http,https)",
-                      "type": "any",
-                      "value": "{{protocol}}",
-                      "key": "protocol"
-                    },
-                    {
-                      "description": {
-                        "content": "",
-                        "type": "text/plain"
-                      },
-                      "type": "any",
-                      "value": "{{hostname}}",
-                      "key": "hostname"
-                    },
-                    {
-                      "description": {
-                        "content": "",
-                        "type": "text/plain"
-                      },
-                      "type": "any",
-                      "value": "{{port}}",
-                      "key": "port"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "X-TYPESENSE-API-KEY",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "[\n  {\n    \"id\": \"string\",\n    \"status\": \"canceled\",\n    \"new_memory\": \"string\",\n    \"new_vcpu\": \"string\",\n    \"new_typesense_server_version\": \"string\",\n    \"new_high_availability\": \"string\",\n    \"perform_change_at\": 1448,\n    \"created_at\": \"2007-09-23T13:16:00.052Z\"\n  },\n  {\n    \"id\": \"string\",\n    \"status\": \"pending\",\n    \"new_memory\": \"string\",\n    \"new_vcpu\": \"string\",\n    \"new_typesense_server_version\": \"string\",\n    \"new_high_availability\": \"string\",\n    \"perform_change_at\": 7905,\n    \"created_at\": \"1982-02-04T14:55:29.008Z\"\n  }\n]",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "ca9db486-d941-4334-9842-523817f9ba26",
-              "name": "Unauthorized",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "clusters",
-                    ":clusterId",
-                    "configuration-changes"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "per_page",
-                      "value": "<integer>"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "clusterId",
-                      "description": "(Required) Unique identifier of the cluster."
-                    },
-                    {
-                      "description": " (This can only be one of http,https)",
-                      "type": "any",
-                      "value": "{{protocol}}",
-                      "key": "protocol"
-                    },
-                    {
-                      "description": {
-                        "content": "",
-                        "type": "text/plain"
-                      },
-                      "type": "any",
-                      "value": "{{hostname}}",
-                      "key": "hostname"
-                    },
-                    {
-                      "description": {
-                        "content": "",
-                        "type": "text/plain"
-                      },
-                      "type": "any",
-                      "value": "{{port}}",
-                      "key": "port"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "X-TYPESENSE-API-KEY",
-                    "value": "<API Key>"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
+                  "createdAt": "2026-10-21T20:24:53.000Z",
+                  "updatedAt": "2026-10-21T20:24:53.000Z",
+                  "uid": "35240-a84af745-8e71-40f4-b843-c58c4f8d4f46"
                 }
               ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "1b32a503-f21a-4f91-ba2e-a1575e717509",
-              "name": "Cluster not found",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "clusters",
-                    ":clusterId",
-                    "configuration-changes"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "per_page",
-                      "value": "<integer>"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "clusterId",
-                      "description": "(Required) Unique identifier of the cluster."
-                    },
-                    {
-                      "description": " (This can only be one of http,https)",
-                      "type": "any",
-                      "value": "{{protocol}}",
-                      "key": "protocol"
-                    },
-                    {
-                      "description": {
-                        "content": "",
-                        "type": "text/plain"
-                      },
-                      "type": "any",
-                      "value": "{{hostname}}",
-                      "key": "hostname"
-                    },
-                    {
-                      "description": {
-                        "content": "",
-                        "type": "text/plain"
-                      },
-                      "type": "any",
-                      "value": "{{port}}",
-                      "key": "port"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "X-TYPESENSE-API-KEY",
-                    "value": "<API Key>"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "d7b5524a-e5fa-4c43-b0c1-505c280ddf52",
-          "name": "Retrieve A Configuration Change",
-          "request": {
-            "name": "Retrieve A Configuration Change",
-            "description": {
-              "content": "Retrieves details of a specific configuration change by ID.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "clusters",
-                ":clusterId",
-                "configuration-changes",
-                ":changeId"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "clusterId",
-                  "description": "(Required) Unique identifier of the cluster."
-                },
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "changeId",
-                  "description": "(Required) Unique identifier of the configuration change."
-                },
-                {
-                  "description": " (This can only be one of http,https)",
-                  "type": "any",
-                  "value": "{{protocol}}",
-                  "key": "protocol"
-                },
-                {
-                  "description": {
-                    "content": "",
-                    "type": "text/plain"
-                  },
-                  "type": "any",
-                  "value": "{{hostname}}",
-                  "key": "hostname"
-                },
-                {
-                  "description": {
-                    "content": "",
-                    "type": "text/plain"
-                  },
-                  "type": "any",
-                  "value": "{{port}}",
-                  "key": "port"
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "d1c87db7-2d8e-4fee-bf60-afeb96f0b320",
-              "name": "Configuration change details",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "clusters",
-                    ":clusterId",
-                    "configuration-changes",
-                    ":changeId"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "clusterId",
-                      "description": "(Required) Unique identifier of the cluster."
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "changeId",
-                      "description": "(Required) Unique identifier of the configuration change."
-                    },
-                    {
-                      "description": " (This can only be one of http,https)",
-                      "type": "any",
-                      "value": "{{protocol}}",
-                      "key": "protocol"
-                    },
-                    {
-                      "description": {
-                        "content": "",
-                        "type": "text/plain"
-                      },
-                      "type": "any",
-                      "value": "{{hostname}}",
-                      "key": "hostname"
-                    },
-                    {
-                      "description": {
-                        "content": "",
-                        "type": "text/plain"
-                      },
-                      "type": "any",
-                      "value": "{{port}}",
-                      "key": "port"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "X-TYPESENSE-API-KEY",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"id\": \"string\",\n  \"status\": \"in_progress\",\n  \"new_memory\": \"string\",\n  \"new_vcpu\": \"string\",\n  \"new_typesense_server_version\": \"string\",\n  \"new_high_availability\": \"string\",\n  \"perform_change_at\": 7756,\n  \"created_at\": \"1983-10-04T07:08:48.642Z\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "fb7220e1-3aea-4d04-b33b-bcefb8c4dd7b",
-              "name": "Unauthorized",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "clusters",
-                    ":clusterId",
-                    "configuration-changes",
-                    ":changeId"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "clusterId",
-                      "description": "(Required) Unique identifier of the cluster."
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "changeId",
-                      "description": "(Required) Unique identifier of the configuration change."
-                    },
-                    {
-                      "description": " (This can only be one of http,https)",
-                      "type": "any",
-                      "value": "{{protocol}}",
-                      "key": "protocol"
-                    },
-                    {
-                      "description": {
-                        "content": "",
-                        "type": "text/plain"
-                      },
-                      "type": "any",
-                      "value": "{{hostname}}",
-                      "key": "hostname"
-                    },
-                    {
-                      "description": {
-                        "content": "",
-                        "type": "text/plain"
-                      },
-                      "type": "any",
-                      "value": "{{port}}",
-                      "key": "port"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "X-TYPESENSE-API-KEY",
-                    "value": "<API Key>"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "34194524-5e6f-4eea-bce1-589acd3f3a8f",
-              "name": "Configuration change or cluster not found",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "clusters",
-                    ":clusterId",
-                    "configuration-changes",
-                    ":changeId"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "clusterId",
-                      "description": "(Required) Unique identifier of the cluster."
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "changeId",
-                      "description": "(Required) Unique identifier of the configuration change."
-                    },
-                    {
-                      "description": " (This can only be one of http,https)",
-                      "type": "any",
-                      "value": "{{protocol}}",
-                      "key": "protocol"
-                    },
-                    {
-                      "description": {
-                        "content": "",
-                        "type": "text/plain"
-                      },
-                      "type": "any",
-                      "value": "{{hostname}}",
-                      "key": "hostname"
-                    },
-                    {
-                      "description": {
-                        "content": "",
-                        "type": "text/plain"
-                      },
-                      "type": "any",
-                      "value": "{{port}}",
-                      "key": "port"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "X-TYPESENSE-API-KEY",
-                    "value": "<API Key>"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
+              "id": "ffd622bf-eac3-4b47-afa1-0cf453ce3d7f",
+              "createdAt": "2026-10-21T20:24:53.000Z",
+              "updatedAt": "2026-10-21T20:24:53.000Z",
+              "uid": "35240-ffd622bf-eac3-4b47-afa1-0cf453ce3d7f"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "8d56a7ed-a9aa-44c2-ba3c-7726000a4ac6",
-          "name": "Cancel A Configuration Change",
-          "request": {
-            "name": "Cancel A Configuration Change",
-            "description": {
-              "content": "Updates a configuration change, typically to cancel a pending change by setting its status to canceled.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "clusters",
-                ":clusterId",
-                "configuration-changes",
-                ":changeId"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "clusterId",
-                  "description": "(Required) Unique identifier of the cluster."
-                },
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "changeId",
-                  "description": "(Required) Unique identifier of the configuration change."
-                },
-                {
-                  "description": " (This can only be one of http,https)",
-                  "type": "any",
-                  "value": "{{protocol}}",
-                  "key": "protocol"
-                },
-                {
-                  "description": {
-                    "content": "",
-                    "type": "text/plain"
-                  },
-                  "type": "any",
-                  "value": "{{hostname}}",
-                  "key": "hostname"
-                },
-                {
-                  "description": {
-                    "content": "",
-                    "type": "text/plain"
-                  },
-                  "type": "any",
-                  "value": "{{port}}",
-                  "key": "port"
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "PATCH",
-            "auth": null,
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"status\": \"<string>\"\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
-          },
-          "response": [
-            {
-              "id": "449c38dc-ade6-4754-bcd2-1c9d09fc34f8",
-              "name": "Configuration change updated",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "clusters",
-                    ":clusterId",
-                    "configuration-changes",
-                    ":changeId"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "clusterId",
-                      "description": "(Required) Unique identifier of the cluster."
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "changeId",
-                      "description": "(Required) Unique identifier of the configuration change."
-                    },
-                    {
-                      "description": " (This can only be one of http,https)",
-                      "type": "any",
-                      "value": "{{protocol}}",
-                      "key": "protocol"
-                    },
-                    {
-                      "description": {
-                        "content": "",
-                        "type": "text/plain"
-                      },
-                      "type": "any",
-                      "value": "{{hostname}}",
-                      "key": "hostname"
-                    },
-                    {
-                      "description": {
-                        "content": "",
-                        "type": "text/plain"
-                      },
-                      "type": "any",
-                      "value": "{{port}}",
-                      "key": "port"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "X-TYPESENSE-API-KEY",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "PATCH",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"status\": \"<string>\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"id\": \"string\",\n  \"status\": \"in_progress\",\n  \"new_memory\": \"string\",\n  \"new_vcpu\": \"string\",\n  \"new_typesense_server_version\": \"string\",\n  \"new_high_availability\": \"string\",\n  \"perform_change_at\": 7756,\n  \"created_at\": \"1983-10-04T07:08:48.642Z\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "96e88383-28d8-4486-a644-3e48f204d1de",
-              "name": "Bad request - change cannot be canceled",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "clusters",
-                    ":clusterId",
-                    "configuration-changes",
-                    ":changeId"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "clusterId",
-                      "description": "(Required) Unique identifier of the cluster."
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "changeId",
-                      "description": "(Required) Unique identifier of the configuration change."
-                    },
-                    {
-                      "description": " (This can only be one of http,https)",
-                      "type": "any",
-                      "value": "{{protocol}}",
-                      "key": "protocol"
-                    },
-                    {
-                      "description": {
-                        "content": "",
-                        "type": "text/plain"
-                      },
-                      "type": "any",
-                      "value": "{{hostname}}",
-                      "key": "hostname"
-                    },
-                    {
-                      "description": {
-                        "content": "",
-                        "type": "text/plain"
-                      },
-                      "type": "any",
-                      "value": "{{port}}",
-                      "key": "port"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "X-TYPESENSE-API-KEY",
-                    "value": "<API Key>"
-                  }
-                ],
-                "method": "PATCH",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"status\": \"<string>\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "d32e916f-724d-4e83-9aa1-dff2d751c14d",
-              "name": "Unauthorized",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "clusters",
-                    ":clusterId",
-                    "configuration-changes",
-                    ":changeId"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "clusterId",
-                      "description": "(Required) Unique identifier of the cluster."
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "changeId",
-                      "description": "(Required) Unique identifier of the configuration change."
-                    },
-                    {
-                      "description": " (This can only be one of http,https)",
-                      "type": "any",
-                      "value": "{{protocol}}",
-                      "key": "protocol"
-                    },
-                    {
-                      "description": {
-                        "content": "",
-                        "type": "text/plain"
-                      },
-                      "type": "any",
-                      "value": "{{hostname}}",
-                      "key": "hostname"
-                    },
-                    {
-                      "description": {
-                        "content": "",
-                        "type": "text/plain"
-                      },
-                      "type": "any",
-                      "value": "{{port}}",
-                      "key": "port"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "X-TYPESENSE-API-KEY",
-                    "value": "<API Key>"
-                  }
-                ],
-                "method": "PATCH",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"status\": \"<string>\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "dbc3b1ff-7ba1-4ac6-a203-2b23a0423862",
-              "name": "Configuration change or cluster not found",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "clusters",
-                    ":clusterId",
-                    "configuration-changes",
-                    ":changeId"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "clusterId",
-                      "description": "(Required) Unique identifier of the cluster."
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "changeId",
-                      "description": "(Required) Unique identifier of the configuration change."
-                    },
-                    {
-                      "description": " (This can only be one of http,https)",
-                      "type": "any",
-                      "value": "{{protocol}}",
-                      "key": "protocol"
-                    },
-                    {
-                      "description": {
-                        "content": "",
-                        "type": "text/plain"
-                      },
-                      "type": "any",
-                      "value": "{{hostname}}",
-                      "key": "hostname"
-                    },
-                    {
-                      "description": {
-                        "content": "",
-                        "type": "text/plain"
-                      },
-                      "type": "any",
-                      "value": "{{port}}",
-                      "key": "port"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "X-TYPESENSE-API-KEY",
-                    "value": "<API Key>"
-                  }
-                ],
-                "method": "PATCH",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"status\": \"<string>\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "0599ea77-8c3a-4acf-b86c-8268bb13a2a8",
+          "createdAt": "2026-10-21T20:24:53.000Z",
+          "updatedAt": "2026-10-21T20:24:53.000Z",
+          "uid": "35240-0599ea77-8c3a-4acf-b86c-8268bb13a2a8"
         }
       ],
-      "event": []
-    }
-  ],
-  "event": [],
-  "variable": [
-    {
-      "description": {
-        "content": " (This can only be one of http,https)",
-        "type": "text/plain"
-      },
-      "type": "any",
-      "value": "http",
-      "key": "protocol"
-    },
-    {
-      "description": {
-        "content": "",
-        "type": "text/plain"
-      },
-      "type": "any",
-      "value": "localhost",
-      "key": "hostname"
-    },
-    {
-      "description": {
-        "content": "",
-        "type": "text/plain"
-      },
-      "type": "any",
-      "value": "8108",
-      "key": "port"
-    },
-    {
-      "type": "string",
-      "value": "{{protocol}}://{{hostname}}:{{port}}",
-      "key": "baseUrl"
+      "id": "8edd7fd6-c2c7-4cd9-93bc-337770e8f28a",
+      "createdAt": "2026-10-21T20:24:53.000Z",
+      "updatedAt": "2026-10-21T20:24:53.000Z",
+      "uid": "35240-8edd7fd6-c2c7-4cd9-93bc-337770e8f28a"
     }
   ],
   "auth": {
@@ -1550,25 +1022,25 @@
     "apikey": [
       {
         "key": "key",
-        "value": "X-TYPESENSE-API-KEY"
+        "value": "X-TYPESENSE-CLOUD-MANAGEMENT-API-KEY",
+        "type": "string"
       },
       {
         "key": "value",
-        "value": "{{apiKey}}"
+        "value": "{{apiKey}}",
+        "type": "string"
       },
       {
         "key": "in",
-        "value": "header"
+        "value": "header",
+        "type": "string"
       }
     ]
   },
-  "info": {
-    "_postman_id": "8c731b14-2d15-489e-8435-7cd9ed4227a8",
-    "name": "Typesense Analytics Analytics Events Configuration Changes API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "The Typesense Analytics API allows developers to track and analyze search behavior by recording click, conversion, and visit events. It provides endpoints for creating analytics rules, logging events with metadata tags, and retrieving popular queries and queries with no results. This data can be used to improve search relevance through query suggestions, curations, and understanding user search patterns.\n\nContact Support:\n Name: Typesense Support",
-      "type": "text/plain"
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://cloud.typesense.org/api/v1"
     }
-  }
+  ]
 }

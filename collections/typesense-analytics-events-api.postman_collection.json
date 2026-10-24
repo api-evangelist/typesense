@@ -1,559 +1,361 @@
 {
+  "info": {
+    "_postman_id": "f0ea5626-b8d5-4eaa-8cd4-f40054059860",
+    "name": "Typesense Analytics Analytics Events API",
+    "description": "The Typesense Analytics API allows developers to track and analyze search behavior by recording click, conversion, and visit events. It provides endpoints for creating analytics rules, logging events with metadata tags, and retrieving popular queries and queries with no results. This data can be used to improve search relevance through query suggestions, curations, and understanding user search patterns.\n\nContact Support:\n Name: Typesense Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-21T20:24:31.000Z",
+    "updatedAt": "2026-10-21T20:24:32.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-f0ea5626-b8d5-4eaa-8cd4-f40054059860"
+  },
   "item": [
     {
-      "id": "784ed9b6-06a0-4bc2-88e8-6d306746e9c6",
-      "name": "Analytics Events",
-      "description": {
-        "content": "Log and retrieve user interaction events such as clicks, conversions, and visits for tracking search behavior and personalization.",
-        "type": "text/plain"
-      },
+      "name": "analytics",
       "item": [
         {
-          "id": "d14a74ab-9d72-4574-bf81-928a75ca8583",
-          "name": "Log An Analytics Event",
-          "request": {
-            "name": "Log An Analytics Event",
-            "description": {
-              "content": "Logs a user interaction event such as a click, conversion, or visit. Events are associated with search queries and documents to track user behavior and improve relevance.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "analytics",
-                "events"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "description": " (This can only be one of http,https)",
-                  "type": "any",
-                  "value": "{{protocol}}",
-                  "key": "protocol"
-                },
-                {
-                  "description": {
-                    "content": "",
-                    "type": "text/plain"
-                  },
-                  "type": "any",
-                  "value": "{{hostname}}",
-                  "key": "hostname"
-                },
-                {
-                  "description": {
-                    "content": "",
-                    "type": "text/plain"
-                  },
-                  "type": "any",
-                  "value": "{{port}}",
-                  "key": "port"
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "POST",
-            "auth": null,
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"type\": \"<string>\",\n  \"name\": \"<string>\",\n  \"data\": {\n    \"q\": \"<string>\",\n    \"doc_id\": \"<string>\",\n    \"user_id\": \"<string>\",\n    \"position\": \"<integer>\"\n  }\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
-          },
-          "response": [
+          "name": "events",
+          "item": [
             {
-              "id": "350632e8-7ef4-4dd9-a01e-2af6621f28da",
-              "name": "Event logged successfully",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "analytics",
-                    "events"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "description": " (This can only be one of http,https)",
-                      "type": "any",
-                      "value": "{{protocol}}",
-                      "key": "protocol"
-                    },
-                    {
-                      "description": {
-                        "content": "",
-                        "type": "text/plain"
-                      },
-                      "type": "any",
-                      "value": "{{hostname}}",
-                      "key": "hostname"
-                    },
-                    {
-                      "description": {
-                        "content": "",
-                        "type": "text/plain"
-                      },
-                      "type": "any",
-                      "value": "{{port}}",
-                      "key": "port"
-                    }
-                  ]
-                },
+              "name": "Log An Analytics Event",
+              "id": "9e4713d5-e081-43f1-b8dd-a7400a5a3cc5",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "X-TYPESENSE-API-KEY",
-                    "value": "<API Key>"
+                    "key": "Content-Type",
+                    "value": "application/json"
                   },
                   {
                     "key": "Accept",
                     "value": "application/json"
                   }
                 ],
-                "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"type\": \"<string>\",\n  \"name\": \"<string>\",\n  \"data\": {\n    \"q\": \"<string>\",\n    \"doc_id\": \"<string>\",\n    \"user_id\": \"<string>\",\n    \"position\": \"<integer>\"\n  }\n}",
+                  "raw": "{\n  \"type\": \"conversion\",\n  \"name\": \"<string>\",\n  \"data\": {\n    \"q\": \"<string>\",\n    \"doc_id\": \"<string>\",\n    \"user_id\": \"<string>\",\n    \"position\": \"<integer>\"\n  }\n}",
                   "options": {
                     "raw": {
+                      "headerFamily": "json",
                       "language": "json"
                     }
                   }
-                }
-              },
-              "status": "Created",
-              "code": 201,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"ok\": false\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "772dfd7d-dae2-4143-93b1-c288f37f8ca8",
-              "name": "Bad request - invalid event data",
-              "originalRequest": {
+                },
                 "url": {
-                  "path": [
-                    "analytics",
-                    "events"
-                  ],
+                  "raw": "{{baseUrl}}/analytics/events",
                   "host": [
                     "{{baseUrl}}"
                   ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "description": " (This can only be one of http,https)",
-                      "type": "any",
-                      "value": "{{protocol}}",
-                      "key": "protocol"
-                    },
-                    {
-                      "description": {
-                        "content": "",
-                        "type": "text/plain"
-                      },
-                      "type": "any",
-                      "value": "{{hostname}}",
-                      "key": "hostname"
-                    },
-                    {
-                      "description": {
-                        "content": "",
-                        "type": "text/plain"
-                      },
-                      "type": "any",
-                      "value": "{{port}}",
-                      "key": "port"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "X-TYPESENSE-API-KEY",
-                    "value": "<API Key>"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"type\": \"<string>\",\n  \"name\": \"<string>\",\n  \"data\": {\n    \"q\": \"<string>\",\n    \"doc_id\": \"<string>\",\n    \"user_id\": \"<string>\",\n    \"position\": \"<integer>\"\n  }\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "11881865-dfa6-4b75-8686-ae1e79ed788b",
-              "name": "Unauthorized",
-              "originalRequest": {
-                "url": {
                   "path": [
                     "analytics",
                     "events"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "description": " (This can only be one of http,https)",
-                      "type": "any",
-                      "value": "{{protocol}}",
-                      "key": "protocol"
-                    },
-                    {
-                      "description": {
-                        "content": "",
-                        "type": "text/plain"
-                      },
-                      "type": "any",
-                      "value": "{{hostname}}",
-                      "key": "hostname"
-                    },
-                    {
-                      "description": {
-                        "content": "",
-                        "type": "text/plain"
-                      },
-                      "type": "any",
-                      "value": "{{port}}",
-                      "key": "port"
-                    }
                   ]
                 },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "X-TYPESENSE-API-KEY",
-                    "value": "<API Key>"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"type\": \"<string>\",\n  \"name\": \"<string>\",\n  \"data\": {\n    \"q\": \"<string>\",\n    \"doc_id\": \"<string>\",\n    \"user_id\": \"<string>\",\n    \"position\": \"<integer>\"\n  }\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
+                "description": "Logs a user interaction event such as a click, conversion, or visit. Events are associated with search queries and documents to track user behavior and improve relevance."
               },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
+              "response": [
                 {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "dcef9c1d-9b78-4e97-9ccd-ba037cb73a32",
-          "name": "Retrieve Analytics Events",
-          "request": {
-            "name": "Retrieve Analytics Events",
-            "description": {
-              "content": "Retrieves logged analytics events. Supports filtering by event type and other criteria.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "analytics",
-                "events"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [
-                {
-                  "disabled": false,
-                  "key": "type",
-                  "value": "<string>",
-                  "description": "Filter events by type (click, conversion, visit)."
-                }
-              ],
-              "variable": [
-                {
-                  "description": " (This can only be one of http,https)",
-                  "type": "any",
-                  "value": "{{protocol}}",
-                  "key": "protocol"
+                  "id": "a8dbd91f-d139-49fa-ac20-799e4ea20fcc",
+                  "name": "Event logged successfully",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "X-TYPESENSE-API-KEY",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"type\": \"conversion\",\n  \"name\": \"<string>\",\n  \"data\": {\n    \"q\": \"<string>\",\n    \"doc_id\": \"<string>\",\n    \"user_id\": \"<string>\",\n    \"position\": \"<integer>\"\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/analytics/events",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "analytics",
+                        "events"
+                      ]
+                    }
+                  },
+                  "status": "Created",
+                  "code": 201,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"ok\": \"<boolean>\"\n}",
+                  "createdAt": "2026-10-21T20:24:32.000Z",
+                  "updatedAt": "2026-10-21T20:24:32.000Z",
+                  "uid": "35240-a8dbd91f-d139-49fa-ac20-799e4ea20fcc"
                 },
                 {
-                  "description": {
-                    "content": "",
-                    "type": "text/plain"
+                  "id": "01e60131-5573-4cbf-b3a1-838637a0a060",
+                  "name": "Bad request - invalid event data",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "X-TYPESENSE-API-KEY",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"type\": \"conversion\",\n  \"name\": \"<string>\",\n  \"data\": {\n    \"q\": \"<string>\",\n    \"doc_id\": \"<string>\",\n    \"user_id\": \"<string>\",\n    \"position\": \"<integer>\"\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/analytics/events",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "analytics",
+                        "events"
+                      ]
+                    }
                   },
-                  "type": "any",
-                  "value": "{{hostname}}",
-                  "key": "hostname"
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-10-21T20:24:32.000Z",
+                  "updatedAt": "2026-10-21T20:24:32.000Z",
+                  "uid": "35240-01e60131-5573-4cbf-b3a1-838637a0a060"
                 },
                 {
-                  "description": {
-                    "content": "",
-                    "type": "text/plain"
+                  "id": "54fa34c1-f08e-4475-8937-30a20c7f43d6",
+                  "name": "Unauthorized",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "X-TYPESENSE-API-KEY",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"type\": \"conversion\",\n  \"name\": \"<string>\",\n  \"data\": {\n    \"q\": \"<string>\",\n    \"doc_id\": \"<string>\",\n    \"user_id\": \"<string>\",\n    \"position\": \"<integer>\"\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/analytics/events",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "analytics",
+                        "events"
+                      ]
+                    }
                   },
-                  "type": "any",
-                  "value": "{{port}}",
-                  "key": "port"
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-10-21T20:24:32.000Z",
+                  "updatedAt": "2026-10-21T20:24:32.000Z",
+                  "uid": "35240-54fa34c1-f08e-4475-8937-30a20c7f43d6"
                 }
-              ]
+              ],
+              "createdAt": "2026-10-21T20:24:32.000Z",
+              "updatedAt": "2026-10-21T20:24:32.000Z",
+              "uid": "35240-9e4713d5-e081-43f1-b8dd-a7400a5a3cc5"
             },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
             {
-              "id": "0483ce71-6c14-427e-a0ee-1264a7e43526",
-              "name": "List of analytics events",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "analytics",
-                    "events"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "type",
-                      "value": "<string>"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "description": " (This can only be one of http,https)",
-                      "type": "any",
-                      "value": "{{protocol}}",
-                      "key": "protocol"
-                    },
-                    {
-                      "description": {
-                        "content": "",
-                        "type": "text/plain"
-                      },
-                      "type": "any",
-                      "value": "{{hostname}}",
-                      "key": "hostname"
-                    },
-                    {
-                      "description": {
-                        "content": "",
-                        "type": "text/plain"
-                      },
-                      "type": "any",
-                      "value": "{{port}}",
-                      "key": "port"
-                    }
-                  ]
-                },
+              "name": "Retrieve Analytics Events",
+              "id": "6254adda-59b8-4b5a-8102-ed7265a1680b",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
                 "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "X-TYPESENSE-API-KEY",
-                    "value": "<API Key>"
-                  },
                   {
                     "key": "Accept",
                     "value": "application/json"
                   }
                 ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"events\": [\n    {\n      \"type\": \"string\",\n      \"name\": \"string\",\n      \"data\": {},\n      \"timestamp\": 6795\n    },\n    {\n      \"type\": \"string\",\n      \"name\": \"string\",\n      \"data\": {},\n      \"timestamp\": 2475\n    }\n  ]\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "244d8dbb-8117-4770-b9e6-5331a67c72bf",
-              "name": "Unauthorized",
-              "originalRequest": {
                 "url": {
+                  "raw": "{{baseUrl}}/analytics/events?type=visit",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
                   "path": [
                     "analytics",
                     "events"
                   ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
                   "query": [
                     {
+                      "description": "Filter events by type (click, conversion, visit).",
                       "key": "type",
-                      "value": "<string>"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "description": " (This can only be one of http,https)",
-                      "type": "any",
-                      "value": "{{protocol}}",
-                      "key": "protocol"
-                    },
-                    {
-                      "description": {
-                        "content": "",
-                        "type": "text/plain"
-                      },
-                      "type": "any",
-                      "value": "{{hostname}}",
-                      "key": "hostname"
-                    },
-                    {
-                      "description": {
-                        "content": "",
-                        "type": "text/plain"
-                      },
-                      "type": "any",
-                      "value": "{{port}}",
-                      "key": "port"
+                      "value": "visit"
                     }
                   ]
                 },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "X-TYPESENSE-API-KEY",
-                    "value": "<API Key>"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
+                "description": "Retrieves logged analytics events. Supports filtering by event type and other criteria."
               },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
+              "response": [
                 {
-                  "key": "Content-Type",
-                  "value": "text/plain"
+                  "id": "7ac1d759-390e-4795-ae6f-9347867727b7",
+                  "name": "List of analytics events",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "X-TYPESENSE-API-KEY",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/analytics/events?type=visit",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "analytics",
+                        "events"
+                      ],
+                      "query": [
+                        {
+                          "description": "Filter events by type (click, conversion, visit).",
+                          "key": "type",
+                          "value": "visit"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"events\": [\n    {\n      \"type\": \"<string>\",\n      \"name\": \"<string>\",\n      \"data\": {},\n      \"timestamp\": \"<long>\"\n    },\n    {\n      \"type\": \"<string>\",\n      \"name\": \"<string>\",\n      \"data\": {},\n      \"timestamp\": \"<long>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-10-21T20:24:32.000Z",
+                  "updatedAt": "2026-10-21T20:24:32.000Z",
+                  "uid": "35240-7ac1d759-390e-4795-ae6f-9347867727b7"
+                },
+                {
+                  "id": "8be4abd8-19ab-46b0-a8c4-0c97f2112716",
+                  "name": "Unauthorized",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "X-TYPESENSE-API-KEY",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/analytics/events?type=visit",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "analytics",
+                        "events"
+                      ],
+                      "query": [
+                        {
+                          "description": "Filter events by type (click, conversion, visit).",
+                          "key": "type",
+                          "value": "visit"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-10-21T20:24:32.000Z",
+                  "updatedAt": "2026-10-21T20:24:32.000Z",
+                  "uid": "35240-8be4abd8-19ab-46b0-a8c4-0c97f2112716"
                 }
               ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
+              "createdAt": "2026-10-21T20:24:32.000Z",
+              "updatedAt": "2026-10-21T20:24:32.000Z",
+              "uid": "35240-6254adda-59b8-4b5a-8102-ed7265a1680b"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "6327ff87-efe6-4cb9-83c9-353e289c400c",
+          "createdAt": "2026-10-21T20:24:32.000Z",
+          "updatedAt": "2026-10-21T20:24:32.000Z",
+          "uid": "35240-6327ff87-efe6-4cb9-83c9-353e289c400c"
         }
       ],
-      "event": []
-    }
-  ],
-  "event": [],
-  "variable": [
-    {
-      "description": {
-        "content": " (This can only be one of http,https)",
-        "type": "text/plain"
-      },
-      "type": "any",
-      "value": "http",
-      "key": "protocol"
-    },
-    {
-      "description": {
-        "content": "",
-        "type": "text/plain"
-      },
-      "type": "any",
-      "value": "localhost",
-      "key": "hostname"
-    },
-    {
-      "description": {
-        "content": "",
-        "type": "text/plain"
-      },
-      "type": "any",
-      "value": "8108",
-      "key": "port"
-    },
-    {
-      "type": "string",
-      "value": "{{protocol}}://{{hostname}}:{{port}}",
-      "key": "baseUrl"
+      "id": "494faae4-6699-4ee1-936c-36d0077857cf",
+      "createdAt": "2026-10-21T20:24:32.000Z",
+      "updatedAt": "2026-10-21T20:24:32.000Z",
+      "uid": "35240-494faae4-6699-4ee1-936c-36d0077857cf"
     }
   ],
   "auth": {
@@ -561,25 +363,37 @@
     "apikey": [
       {
         "key": "key",
-        "value": "X-TYPESENSE-API-KEY"
+        "value": "X-TYPESENSE-API-KEY",
+        "type": "string"
       },
       {
         "key": "value",
-        "value": "{{apiKey}}"
+        "value": "{{apiKey}}",
+        "type": "string"
       },
       {
         "key": "in",
-        "value": "header"
+        "value": "header",
+        "type": "string"
       }
     ]
   },
-  "info": {
-    "_postman_id": "378fb3d3-334d-4fd1-9adb-69d3f15c17a3",
-    "name": "Typesense Analytics Analytics Events API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "The Typesense Analytics API allows developers to track and analyze search behavior by recording click, conversion, and visit events. It provides endpoints for creating analytics rules, logging events with metadata tags, and retrieving popular queries and queries with no results. This data can be used to improve search relevance through query suggestions, curations, and understanding user search patterns.\n\nContact Support:\n Name: Typesense Support",
-      "type": "text/plain"
+  "variable": [
+    {
+      "key": "protocol",
+      "value": "http"
+    },
+    {
+      "key": "hostname",
+      "value": "localhost"
+    },
+    {
+      "key": "port",
+      "value": "8108"
+    },
+    {
+      "key": "baseUrl",
+      "value": "{{protocol}}://{{hostname}}:{{port}}"
     }
-  }
+  ]
 }
